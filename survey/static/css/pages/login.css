@@ -1,0 +1,63 @@
+.col-md-12.logo{
+    text-align:center;
+}
+
+.widget .widget-head{
+    height:5px;
+    background:#e14644;
+    border-radius:0;
+    border:0;
+    padding:0;
+}
+
+.widget{
+    border-top-width:0px;
+    border-radius:0;
+}
+
+.widget h2{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.widget input{
+    border-radius:0;
+    border-left:2px solid #fb5b43;
+    padding-left:30px;
+}
+
+.widget input#inputEmail{
+    background:url('../../img/user-icon.png') 10px center no-repeat;
+}
+
+.widget input#inputPassword{
+    background:url('../../img/lock-icon.png') 10px center no-repeat;
+}
+
+button[type="submit"], button[type="submit"]:hover{
+    background:#3c434b;
+    border:none;
+    display:block;
+    margin:0 auto;
+}
+
+.widget-foot{
+    background:#f9f9f9;
+    text-align:center;
+}
+
+.widget-foot a{
+    color:#465848;
+}
+
+.admin-form form {
+    padding: 0 0 10px;
+}
+.centered{
+	width:150px;
+}
+.loginalert{
+	width:400px;
+	padding:4px 8px 4px 8px!important;
+	margin:auto auto;
+}

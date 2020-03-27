@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% block links %}
+
+    <link href="{% static 'css/jquery-ui-1.9.2.custom.min.css' %}" rel="stylesheet" > 
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/widgets.css' %}" rel="stylesheet">
+    <link href="{% static 'css/custom.css' %}" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel="stylesheet" type="text/css">
+
+{% endblock %}
+
+
+{% block content %}
+
+    <div id="wrap">
+        <header>
+        <div class="navbar navbar-fixed-top bs-docs-nav" role="banner">
+            
+            <div class="container">
+            <!-- Menu button for smallar screens -->
+            <div class="navbar-header">
+                <a href="/" class="navbar-brand">
+                <img src="{% static 'img/logo-133-l.png' %}">
+                </a>
+            </div>
+
+            <!-- Navigation starts -->
+            <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">         
+                
+                <!-- Links -->
+                <ul class="nav navbar-nav pull-right">
+                <li class="dropdown pull-right user-data">            
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                    <img src="{% static 'img/default-avatar.png' %}"> {{ request.user }} <b class="caret"></b>              
+                    </a>
+                    
+                    <!-- Dropdown menu -->
+                    <ul class="dropdown-menu">
+                    {% comment %} <li><a href="{% url 'change_password' %}"><i class="fa fa-cogs"></i>{% trans "Change Password" %}</a></li> {% endcomment %}
+                    <li><a href="{% url 'survey:user_logout' %}"><i class="fa fa-key"></i>{% trans "Logout" %}</a></li>
+                    </ul>
+                </li>
+                </ul>
+            </nav>
+
+            </div>
+        </div>
+        </header>
+        <!-- Main content starts -->
+
+        <div class="content">
+        <!-- Main bar -->
+        <div class="mainbar">
+            <!-- Page heading -->
+            <div class="page-head"></div>
+            <!-- Page heading ends -->
+
+            <div class="matter">
+            {% block question %}{% endblock %}
+            </div>
+
+        </div>
+
+        <!-- Mainbar ends -->    
+        <div class="clearfix"></div>
+
+        </div>
+        <!-- Content ends -->
+        <div id="push"></div>
+    </div><!-- END WRAP-->
+    
+    
+    <!-- Footer starts -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <!-- Copyright info -->
+            <p class="copy">Copyright &copy; {% now "Y" %} | <a href="/">ReadyForAgile.com</a> </p>
+          </div>
+        </div>
+      </div>
+    </footer> 
+
+    <!-- Footer ends -->
+
+
+
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'js/jquery-ui-1.9.2.custom.min.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+{% endblock %}
