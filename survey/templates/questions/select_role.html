@@ -1,0 +1,62 @@
+{% extends "questions/base_question.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{% trans "Select Role" %}{% endblock %}
+
+{% block question %}
+  <form action="" method="post">
+    {% csrf_token %}
+    <div class="page-title">
+      <h1>
+        <button id="next" class="pull-right btn btn-success">{% trans "Next" %}</button><div class="nfo" data-toggle="tooltip" data-placement="left" title="All answers are automatically saved. You can continue working on the survey as needed. The submit button will be active once you finish all the questions in the survey."><i class="fa fa-info-circle"></i></div>
+        <div>{% trans "Please select the role that best describes what you do" %}</div>
+      </h1>
+      <div class="clearfix"></div>
+    </div>
+
+    <div class="roles">
+      {% for role in roles %}
+        <div class="role {% if forloop.last %}last{% endif %}">
+          <label class="heading" for="role-{{ role.pk }}">
+            <input type="radio" id="role-{{ role.pk }}" name="role" value="{{ role.pk }}">{{ role.title }}
+          </label>
+          <div class="description">
+            {{ role.description|safe }}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </form>
+{% endblock %}
+
+
+{% block page_extra %}
+  <link href="{% static 'js/ezMark/css/ezmark.css' %}" rel="stylesheet">
+  <link href="{% static 'css/pages/selectrole.css' %}" rel="stylesheet">
+  <script src="{% static 'js/ezMark/js/jquery.ezmark.min.js' %}"></script>
+
+  <script>
+    $(document).ready(function(){
+		$('[data-toggle="tooltip"]').tooltip({'placement': 'bottom'});
+        $('input').ezMark();
+		function NextStep(){
+				if ($('.roles input:checked').length >= 1) {
+					$('#next').prop('disabled', false);
+				}else{
+					$('#next').prop('disabled', true);
+				};	
+		}
+		NextStep();
+        $('input[name="role"]').change(function(){
+            //console.debug($(this).attr('checked'))
+			NextStep();
+            if($(this).is(':checked')){
+                $('.description').hide();
+                $(this).parents('.role').find('.description').show();
+            }
+        })
+
+    })
+  </script>
+{% endblock %}

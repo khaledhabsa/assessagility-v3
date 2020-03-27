@@ -1,0 +1,228 @@
+{% extends 'questions/base_question.html' %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="en-us" />
+    <title>{% block page_title %} Survey {% endblock %} | Dr Agile</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
+    <link href="/styles/reset.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="/styles/grid.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="/styles/styles.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="/styles/buttons.css" rel="stylesheet" type="text/css" />
+    <link href="/styles/messages.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="/styles/ezmark.css" media="all" />
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.2.js"></script>
+    <script type="text/javascript" src="/scripts/jquery.ezmark.min.js"></script>
+    <script type="text/javascript">
+      $(function() {
+      $('.radioGroup input').ezMark();
+	  /* $('.customP input[type="checkbox"]').ezMark({checkboxCls: 'ez-checkbox-green', checkedCls: 'ez-checked-green'}) */
+	});
+    </script>
+    <!-- styles needed by jScrollPane - include in your own sites -->
+    <link type="text/css" href="/styles/jquery.jscrollpane.css" rel="stylesheet" media="all" />
+    <!-- the mousewheel plugin -->
+    <script type="text/javascript" src="/scripts/jquery.mousewheel.js"></script>
+    <!-- the jScrollPane script -->
+    <script type="text/javascript" src="/scripts/jquery.jscrollpane.min.js"></script>
+    <!--
+	<script type="text/javascript" id="sourcecode">
+	  $(function()
+	  {
+          
+	  });
+	</script>
+	-->
+    <script src="/scripts/jquery.corners.min.js"></script>
+    <link media="screen" rel="stylesheet" href="/styles/colorbox.css" />
+    <script src="/scripts/jquery.colorbox.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+          $('.rounded').corners();
+          
+	  $('.hideBlock').click(function(event) {
+	      event.preventDefault();
+	      $('.headerMessageBlock').slideUp('slow', function() {
+	      });
+	  });
+	  $('.closeBtnHeaderMessage').click(function(event) {
+	      event.preventDefault();
+	      $('.headerMessageBlock').slideUp('slow', function() {
+	      });
+	      $.getJSON('/hideWelcomeMessage/', null);
+	  });
+      });
+
+    </script>
+    <script type="text/javascript">
+      /*
+      $(document).ready(function() {
+      $(".trigger").click(function() {
+      $(".panel").toggle("fast");
+      $(this).toggleClass("active");
+      return false;
+      });
+      
+      $(".SubmitCommnet").click(function() {
+      $(".trigger").toggleClass("active");
+      });
+      var $form = $(".submit_form_message");
+      //$(".popupMessage").colorbox({inline:true, href:$form});
+      });
+      */
+    </script>
+  </head>
+  
+  <body>
+    <div style='display:none'>
+      <div class="submit_form_message">
+	<div class="confirmationacceptWrapper">
+	  <div class="confirmationaccept">
+	    Congratulations! Your survey has been completed and submitted.
+	  </div>
+	</div>
+	<br/>
+	<!--<div class="icoLogout" style="float: right;margin-right: 15px;">
+	    <a href="/logout/"><span>Logout</span></a>
+	</div>-->
+        <div class="Close" style="float: right;margin-right: 15px;">
+	  <a href="/"><span>Close</span></a>
+	</div>
+      </div>
+    </div>
+    <div class="bubble">
+      <label class="bubble_close"></label><div class="bubble_text"></div>
+    </div>
+    <div class="container_12">
+      <div class="grid_4">
+	<div class="logoBlock">
+	  <a href="/"></a>
+	</div>
+      </div>
+      <div class="grid_8 toFront">
+	<div class="welcomeIcons">
+	  {% if user.is_authenticated %}
+	    <div class="icoWelcomeUser">
+	      Welcome <strong>{{ user.get_profile.first_name }}</strong> (<a href="/user/changepassword/">Change Password</a>)
+	    </div>
+	    <div class="icoAnsweringRole">
+	      You are answering this survey as a <strong>{{ user.get_profile.roles.all.0.title}}</strong>
+	    </div>
+	    <div class="icoLogout">
+	      <a href="/logout/"><span>Logout</span></a>
+	    </div>
+	  {% else %}
+	    <div>
+	      Welcome, Please log in.
+              <strong>
+                {% filter force_escape %}{% firstof user.first_name user.username %}{% endfilter %}
+              </strong>
+	    </div>
+	  {% endif %}
+	  
+          
+          <!--
+              <div class="panel">
+		<h3 style="	margin-bottom:10px; width:350px;">Write in your comment, and click "Submit Your Comment" when you are done. You may submit as many comments as desired.</h3>
+		<p>
+		  <textarea rows="5" class="commenttext" style="width:390px;"></textarea>
+		  <input type="button" class="rounded {transparent} button SubmitCommnet"  value="Submit Your Comment" />
+		</p>
+		<div style="clear:both;"></div>
+	      </div>
+              -->
+          
+	</div>
+	{% block header_graphics %}
+	{% endblock %}
+      </div>
+      <div class="clear"></div>
+      <div class="grid_12">
+	<div class="roundedBlock">
+	  <div class="top">
+	    <span></span>
+	  </div>
+	  <div class="center-content">
+	    <div class="headerGridTitle">
+	      {% block header_left %}
+                <div class="floatLeft progressBarBlock">
+                <div class="progressBar pb5"></div>
+                </div>
+	      {% endblock %}
+              
+	      {% block header_right %}
+	      {% endblock %}
+	    </div>
+	    <div class="headerShadPages">
+	      <div class="clear">
+		&nbsp;
+	      </div>
+	      <!-- CONTENT BEGIN -->
+	      {% if message %}
+		<div class="submit_form_message">
+		  <div class="confirmationacceptWrapper">
+		    <div class="confirmationaccept">
+		      {{ message }}
+		    </div>
+		  </div>
+		</div>
+	      {% endif %}
+	      {% if error %}
+		<div class="submit_form_message">
+		  <div class="confirmationerrorContainer">
+		    <div class="confirmationerror">
+		      {{ error }}
+		    </div>
+		  </div>
+		</div>
+	      {% endif %}
+              
+	      {% block content %}
+	      {% endblock %}
+              <!-- CONTENT END -->
+	      <div class="clear"></div>
+	    </div>
+	    <div class="gridFooter">
+	      {% block footer_buttons %}
+	      {% endblock %}
+              <div class="clear"></div>
+	    </div>
+	    <div class="clear"></div>
+	  </div>
+	  <div class="bottom">
+	    <span></span>
+	  </div>
+	</div>
+      </div>
+      <div class="clear"></div>
+      <div class="grid_6">
+	<div class="copyright">
+	  &copy; 2012 - All Rights Reserved.
+	</div>
+      </div>
+      <div class="grid_6">
+	<div class="">
+	  <div class="poweredbyBlock" title="Powered by"></div>
+	  <div class="logoSep">
+	    &nbsp;
+	  </div>
+	  <div class="providedbyBlock" title="Service provided by santeon group"></div>
+	  <div class="logoSep">
+	    &nbsp;
+	  </div>
+	</div>
+      </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_submission_confirmation" style="z-index: 100000 ;display:none;position: absolute;top: 100px; left:200px;padding: 20px; background-color: #000;">
+    <div class="confirmationaccept" style="width:340px; ">
+      Your comment has been submitted! Feel free to submit another comment.
+    </div>
+  </div>
+</body>
+</html>
+  

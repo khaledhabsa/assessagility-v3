@@ -1,0 +1,86 @@
+{% extends 'questions/base_question.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{% trans "Select Demographics" %}{% endblock %}
+
+{% block question %}
+    
+    <form action="" class="form-horizontal" method="POST">
+    {% csrf_token %}
+    <div class="page-title">
+      <h1>
+        <button id="next" class="pull-right btn btn-success">{% trans "Next" %}</button><div class="nfo" data-toggle="tooltip" data-placement="left" title="All answers are automatically saved. You can continue working on the survey as needed. The submit button will be active once you finish all the questions in the survey."><i class="fa fa-info-circle"></i></div>
+        <div>{% trans "Please select the role that best describes what you do" %}</div>
+        <div>{% trans "Please fill your demographic data" %}</div>
+      </h1>
+      <div class="clearfix"></div>
+    </div>
+    <br />
+
+    <div class="page-title">
+    
+    
+      {% for d in demographics %}
+        <div class="form-group">
+          <label class="col-lg-2 control-label" for="dmgr-{{ d.pk }}">{{ d.title }}</label>
+          	<div class="col-lg-4">
+            <select id="dmgr-{{ d.pk }}" name="{{ d.pk }}" class="form-control">
+              <option>{% trans "Select" %}</option>
+              {% for v in d.demographicvalue_set.all %}
+                <option value="{{ v.pk }}"
+                        {% for cd in currentDemographics%}
+                          {% if cd.demographic_value_id == v.id %}
+                            selected='selected'
+                          {% endif %}
+                        {% endfor %}
+                        >
+                  {{ v.value }}
+                </option>
+              {% endfor %}
+            </select>
+          	</div>
+        </div>
+      {% endfor %}
+    </div>
+  </form>
+{% endblock %}
+
+{% block extra_js %}
+
+    
+    <!-- Modal -->
+    <div class="modal fade" id="survey-modal" tabindex="-1" role="dialog" aria-labelledby="survey-modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Confirm</h4>
+        </div>
+        <div class="modal-body">
+        <p>Are you ready to submit your survey?</br> Once submitted you can not change any of your answers</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel, don't submit the survey yet</button>
+            <button type="button" class="btn btn-primary" id="accept-survey">Submit Survey Now</button>
+        </div>
+        </div>
+    </div>
+    </div>
+
+{% endblock %}
+{% block js %}
+    <link href="{% static 'js/ezMark/css/ezmark.css' %}" rel="stylesheet">
+    <script src="{% static 'js/ezMark/js/jquery.ezmark.min.js' %}"></script>
+
+    <link href="{% static 'js/customscroll/jquery.custom-scrollbar.css' %}" rel="stylesheet" type="text/css" />
+    <script src="{% static 'js/customscroll/jquery.custom-scrollbar.min.js' %}"></script>
+
+    <script src="{% static 'js/pages/question.js' %}"></script>
+    <link href="{% static 'css/pages/questions.css' %}" rel="stylesheet" />
+        <script type="text/javascript">	
+            $(document).ready(function() {
+                $('[data-toggle="tooltip"]').tooltip({'placement': 'bottom'});
+            });
+        </script>
+{% endblock %}

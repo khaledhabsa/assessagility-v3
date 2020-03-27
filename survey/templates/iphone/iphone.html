@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+	<head>
+        <title>Dr Agile</title>
+
+        <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
+        <link rel="apple-touch-icon" href="{% static 'images/iphone/iphone-icon.png' %}"/>
+
+
+        <script type="text/javascript" src="{% static 'scripts/jquery-1.6.2.js' %}"></script>
+        <script type="text/javascript" src="{% static 'scripts/iphone.js' %}"></script>
+        <script type="text/javascript" src="{% static 'scripts/iscroll.js' %}"></script>
+        
+        <script>	
+            if (navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/iPad/i)) {
+                $(document).ready(function () {
+                    
+                });
+            }
+        </script>
+
+        <link rel="stylesheet" type="text/css" href="{% static 'styles/iphone/styles.css' %}" media="screen" />
+        <link rel="stylesheet" type="text/css" href="{% static 'styles/iphone/messages.css' %}" media="screen" />
+        <link rel="stylesheet" type="text/css" href="{% static 'styles/iphone/iphone.css' %}" media="screen" />	
+
+        <script src="{% static 'scripts/jquery.corners.min.js' %}"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('.rounded').corners();
+            });
+        </script>
+
+
+
+
+        <link rel="stylesheet" href="{% static 'styles/iphone/ezmark.css' %}" media="all" />
+        <script type="text/javascript" src="{% static 'scripts/jquery.ezmark.min.js' %}"></script>
+
+
+
+        <link rel="stylesheet" type="text/css" href="{% static 'styles/iphone/slider.css' %}" media="screen" />
+        
+    </head>
+<body onorientationchange="updateOrientation();">
+
+    <header style="z-index: 100;" data-role="header" data-position="fixed"><img src="{% static 'images/iphone/customers/logo_small.png' %}" /></header>
+    <div id="wrapper">
+        <div id="scroller" class="questions">
+        </div>
+    </div>               
+
+</body>

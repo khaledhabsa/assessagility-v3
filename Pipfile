@@ -9,6 +9,7 @@ autopep8 = "*"
 [packages]
 django = "*"
 mysqlclient = "*"
+gchartwrapper = "*"
 
 [requires]
 python_version = "3.8"

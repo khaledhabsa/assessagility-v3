@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}Ready For Agile | Survey closed {% endblock %}
+{% block links %}
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <!-- Form area -->
+    <div class="error-page">
+        <div class="container">
+
+            <div class="row">
+            <div class="col-md-10">
+                <!-- Widget starts -->
+                <div class="widget headless footless white">
+                <!-- Widget head -->
+                <div class="widget-head" style="text-align:center">
+                    <img src="{% static 'img/logo.png' %}" width="231" />
+                </div>
+            <hr/>
+                <div class="widget-content">
+                    <div class="padd error" style="text-align:center">
+                    
+                    <h1>Survey closed</h1>
+                    <p>Survey is closed by Administrator.</p>              
+                    <br />
+                    <a href="{% url 'survey:user_logout' %}">Log Out</a>
+                {% if message%}
+                <div class="confirmationaccept">
+                {{message}}&nbsp;
+                </div>
+                {% endif %} <!-- -->
+                    </div>
+                </div>
+                </div>  
+            </div>
+            </div>
+        </div> 
+    </div>
+
+{% endblock  %}
+{% block js %}
+    <script src="{% static 'js/jquery.js' %}"></script>
+<script src="{% static 'js/bootstrap.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,119 @@
+/*-----------------------------
+ RESET STYLES
+ -----------------------------*/
+
+html, body, form, fieldset, p, div, h1, h2, h3, h4, h5, h6 {
+	margin: 0;
+	padding: 0;
+	-webkit-text-size-adjust: none;
+}
+body {
+	font-size: 10px;
+}
+ul, li, ol, dl, dd, dt {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+a {
+	text-decoration: none;
+}
+.choice_answer { cursor: pointer; 
+background-color: #ccc;
+height: 50px;
+width: 300px;
+}
+.questions {
+	widows:100%;
+	
+}
+.question {
+
+
+}
+.question_body {
+	font-size: 18px;
+	margin: 5px;
+	height: 240px;
+}
+.answer_title{
+	font-size: 18px;
+}
+.answer{
+	height:30px;
+	
+	margin:5px;
+	clear: both;
+	cursor: pointer;
+	
+	
+}
+.radio_button{
+	float:left;
+	background-image: url('/images/iphone/checkbox.png');
+	width:29px;
+	height:29px;	
+}
+
+.checked{
+	
+	background-position: 0 27px;	
+}
+.unchecked{
+	background-position: 0 0;
+}
+
+#wrapper {
+	position:absolute; z-index:1;
+	top:65px;
+	left:0;
+
+	width:100%;
+	overflow:auto;
+	height:500px; 
+}
+
+#scroller {
+	position:absolute; z-index:1;
+/*	-webkit-touch-callout:none;*/
+	-webkit-tap-highlight-color:rgba(0,0,0,0);
+	width:100%;
+	padding:0;
+}
+li{
+	cursor: pointer;
+}
+
+
+.progress_bar {
+	margin-left: 10px;
+	margin-top:8px;
+	text-align: center;
+	display: inline-block;
+	font-size:10px;
+}
+.progress_range {
+	width: 200px;
+	height: 10px;
+	background-color: #eeeeee;
+	border:1px solid #CCC;
+	overflow:hidden;
+	float:left;
+}
+.progress {
+	height: 10px;
+	background-color: #333333;
+	float: left;
+	background-image:url(../images/img_progressbg_green.png);
+	background-repeat:repeat-x;
+}
+
+.progress_text{
+	float:left;
+	width:40px;
+}
+.logo{
+	float: left;
+	width: 100px;
+}
+

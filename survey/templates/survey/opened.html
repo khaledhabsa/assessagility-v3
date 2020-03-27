@@ -1,0 +1,41 @@
+{% extends "survey/base_survey.html" %}
+
+{% block page_title %}Report not available{% endblock %}
+{% block header_left %}Report not available{% endblock %}
+
+{% block breadcrumb %}
+   <a href="/client/admin/"><i class="fa fa-home"></i> Home</a> 
+   <span class="divider">/</span> 
+   <a href="#" class="bread-current">Reports</a>
+{% endblock %}
+
+
+
+{% block content %}
+<div class="container">
+<div class="row">
+			<div class="widget">
+              <div class="widget-content">
+              	<div class="padd">
+                        <div class="col-md-12"><p>&nbsp;</p>
+                        <div class="clearfix"></div>
+                            <div class="alert alert-warning">
+                              In order to view the reports you have to close the survey first. <button style="margin-left:25px;" type="button" id="btncs" class="btn btn-danger">Close The Survey</button>
+                            </div>
+
+                            <div class="clearfix"></div>
+                            <br />
+                            {%if message%}
+                            <div class="confirmationaccept">
+                                {{message}}&nbsp;
+                            </div>
+                            {%endif%} <!-- -->                        
+                        </div>
+
+                        <div class="clearfix"></div>
+				</div>
+              </div>
+            </div>
+</div>
+</div> 
+{% endblock%}

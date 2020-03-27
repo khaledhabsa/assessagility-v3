@@ -12,9 +12,8 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="{% static 'img/favicon/favicon.png' %}">
 
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
     
+    <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet" > 
     {% block links %}{% endblock %}
     <!-- HTML5 Support for IE -->
     <!--[if lt IE 9]>
@@ -25,12 +24,14 @@
     
   </head>
 
-  <body>
+  <body {% block bodyClass %}{% endblock %}>
   
     {% block content %}
     {% endblock %}
 
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/jquery-ui-1.9.2.custom.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
     {% block js %}
     
     {% endblock %}

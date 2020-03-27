@@ -2,7 +2,7 @@
 {% load static %}
 {% load i18n %}
 {% block links %}
-
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/jquery-ui-1.9.2.custom.min.css' %}" rel="stylesheet" > 
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
     <link href="{% static 'css/widgets.css' %}" rel="stylesheet">
@@ -28,7 +28,6 @@
 
             <!-- Navigation starts -->
             <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">         
-                
                 <!-- Links -->
                 <ul class="nav navbar-nav pull-right">
                 <li class="dropdown pull-right user-data">            
@@ -38,7 +37,7 @@
                     
                     <!-- Dropdown menu -->
                     <ul class="dropdown-menu">
-                    {% comment %} <li><a href="{% url 'change_password' %}"><i class="fa fa-cogs"></i>{% trans "Change Password" %}</a></li> {% endcomment %}
+                    <li><a href="{% url 'survey:change_password' %}"><i class="fa fa-cogs"></i>{% trans "Change Password" %}</a></li>
                     <li><a href="{% url 'survey:user_logout' %}"><i class="fa fa-key"></i>{% trans "Logout" %}</a></li>
                     </ul>
                 </li>
@@ -87,10 +86,9 @@
     <!-- Footer ends -->
 
 
-
+    
 {% endblock %}
 
 {% block js %}
-    <script src="{% static 'js/jquery-ui-1.9.2.custom.min.js' %}"></script>
     {% block extra_js %}{% endblock %}
 {% endblock %}

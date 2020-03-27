@@ -1,0 +1,253 @@
+{% extends 'survey/base_survey.html' %}
+{% load static %}
+
+{% block page_title %}Demographic Values{% endblock %}
+{% block header_left %}Demographic Values{% endblock %}
+
+{% block breadcrumb %}
+   <a href="/client/admin/"><i class="fa fa-home"></i> Home</a> 
+   <span class="divider">/</span> 
+   <a href="/survey/demographic/">Demographic</a>
+   <span class="divider">/</span>
+   <a href="#" class="bread-current">Demographic Values</a> 
+{% endblock %}
+
+{% block javascript %}
+{{ block.super }}
+   	<script type="text/javascript" src="{% static "js/" %}jquery.validate.js"></script>
+    <script type="text/javascript" src="{% static "js/" %}jquery-jtemplates.js"></script>
+    <script type="text/javascript" src="{% static "js/" %}fileuploader.js" ></script>
+    <script type="text/javascript" src="{% static "js/" %}jquery.tablesorter.min.js"></script>
+    <script type="text/javascript" src="{% static "js/" %}demographic_values.js"></script>
+    <script>
+    activeMenuItem = 11;
+    </script>
+    
+{% endblock %}
+
+
+
+{% block content %}
+<!-- Modal -->
+                    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            					<div class="modal-dialog">
+            					  <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    <h4 class="modal-title">Add Demographic Value</h4>
+                                  </div>
+                                  <div class="modal-body">
+                                  
+                                      <form class="form-horizontal cmxform" id="addnewcadidateform" method="get" action="">
+    									<fieldset>
+    									<div id="display"></div>
+                                        <div class="form-group">
+                                          <label class="col-lg-4 control-label" for="slctdemographicssname">Demographic</label>
+                                          <div class="col-lg-8">
+                                            <select name="slctdemographicssname" id="slctdemographicssname" class="form-control">
+                                            {%for t in demographics%} 
+                                                <option value="{{t.id}}"> {{t.title}}</option>
+                                            {%endfor%}
+                                        	</select>
+                                          </div>
+                                    	</div>
+                                        <div class="form-group">
+                                        	<label class="col-lg-4 control-label" for="value">Value</label>
+                                        	<div class="col-lg-8">
+ 											<input id="value" name="value" size="25" class="form-control required" minlength="2" />
+                                            </div>
+                                        </div>      
+                                    	</fieldset>
+                                    </form>   
+                                    
+                                  
+                                  </div>
+                                  <div class="modal-footer popupAdd">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Close</button>
+                                    <input type="button" id="submitbtnId" value="Save and Add New" class="addcandidatebutton btn btn-primary" />
+                                    
+                                  </div>
+                                </div>
+            					</div>
+            					</div>
+					<!-- END Modal -->
+
+
+<div class="col-md-12 portlets ui-sortable">
+              <!-- Widget -->
+              <div class="widget">
+                <div class="widget-head">
+                <div class="topActionsBlock pull-left margin-right-10">
+                	<a href="#myModal" class="btn btn-primary pull-left margin-right-10" id="addone2" data-toggle="modal">Add value</a>
+            		<div class="deletediv pull-left"><input type="button" class="delete btn btn-default" value="Delete" /></div>
+            	</div>
+
+                  <div class="pull-right"><span style="line-height:30px;">Search: &nbsp;</span> <div class="searchdiv form-elements pull-right"><input type="text" class="searchbox" /></div></div>
+
+                  <div class="clearfix"></div>
+                </div>
+                <div class="widget-content">
+                  <!-- Widget content -->
+                  
+                  <div class="widget-content referrer">
+                  <!-- Widget content -->
+
+
+<!-- TABLE -->
+
+<div class="pageWrapper">
+<input id="demographic" type="hidden" value="{{demographic}}"/>
+<div id="temp" style="display: none"></div>
+
+    <!-- Template content -->
+    <textarea id="table_template" style="display: none">
+		<table id="users_table" class="table table-striped table-bordered table-hover">
+        <thead>
+		<tr class="header">
+		<th class='H_Check_Box' ><div  class="selectall" id='-1' style="z-index:10000;"></div></th>
+		<th class='H_Title'>Demographic</th>
+		<th class='H_Title'>Value</th>	
+        <th class='H_Actions'>Actions</th>	
+		</tr>
+		</thead>
+        <tbody>
+        </tbody>
+		</table>
+	</textarea>
+	
+    <textarea id="rows_template" style="display: none">
+
+		{#foreach $T as record}
+			<tr id='tr_{$T.record.id}'>
+				<td><div class="usercheckbox" id='{$T.record.id}'></div></td>
+				<td class="title"><div class="editabletext">{$T.record.title}</div></td>
+				<td class="value"><div class="editabletext">{$T.record.value}</div></td>
+				
+				<td>
+					<a class="edit"></a>
+					<a class="update" title="Update"></a>
+					<a class="cancel" title="Cancel"></a>
+				</td>
+			</tr>
+			
+		{#/for}	
+	
+	</textarea>
+
+
+{% comment %}
+<div class="clear"></div>
+<div class="toppart">
+
+
+
+<div class="addform">
+    <div class="popupHeader">
+        <span class="title">Add Demographic Value</span>
+        <div class="closeaddform"></div>
+    </div>
+  
+    <form class="cmxform" id="addnewcadidateform" method="get" action="">
+    <fieldset>
+    <div id="display"></div>
+        <p>
+            <label for="slctdemographicssname">Demographic</label>
+             <select name="slctdemographicssname" id="slctdemographicssname">
+                                            
+                                            {%for t in demographics%} 
+                                                    <option value="{{t.id}}"> {{t.title}}</option>
+                                            {%endfor%}
+                                        </select>
+        </p>
+        <p>
+            <label for="value">Value<em>*</em></label>            
+            <input id="value" name="value" size="25" class="required" minlength="2" />
+        </p>
+       
+        <p><div class="popupAdd" style="float:right">
+         
+            <input type="button" id="submitbtnId" value="Save and Add New" class="addcandidatebutton" style=""  />
+            
+            <span class="closeLink">
+            <span class="closeaddform" >Cancel</span>
+            </span></div>
+        </p>
+       
+    </fieldset>
+    </form>
+    
+</div>
+    
+<div class="clear"></div>
+        
+    
+  
+</div>
+{% endcomment %}
+
+
+        
+        
+<!-- Output elements -->
+
+
+
+    <div class="addCandidatesContainer">
+
+
+
+        <form class="cmxform" id="editform" method="get" action="">
+            <div class="result" style="clear: both"></div>
+        </form>
+
+
+
+
+        
+
+
+    </div>
+</div>
+
+<!-- END TABLE -->
+
+<div class="clearfix"></div>
+                    	  <div class="footerpagination padd">
+                          <div class="col-md-5">
+                			<a href="#" id="previous" class="btn btn-default pull-right prevbtn">Previous</a>
+                          </div>
+                          <div class="col-md-2" style="text-align:center;">
+                            <span id="current" class="current" style="display: none">1</span>
+                            <span id="num_pages" class="num_pages" style="display: none"></span>
+                            <div class="pagesIndex"></div>
+                          </div>
+                          <div class="col-md-5">
+							<a href="#" id="next" class="btn btn-default pull-left">Next</a>
+                          </div>
+                          </div>
+
+<div class="clearfix"></div>
+<br/>
+</div>
+                  
+
+                  <!--END Widget content -->
+                </div>  
+              </div> 
+			<!-- END Widget -->
+   </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock%}

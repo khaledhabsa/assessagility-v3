@@ -1,39 +1,40 @@
 {% extends 'questions/base_question.html' %}
 {% load i18n %}
 {% load static %}
-
+{% block bodyClass %} class="userspace" {% endblock %}
 {% block title %}{% trans "Survey" %}{% endblock %}
 
 {% block header_left %} <h1>Survey  {{welcomemessage}}&nbsp; Completed</h1>
 {% endblock %}
 
 {% block question %}
-    <div class="container">
-        <div class="row">
-            <div class="widget">
-                <div class="widget-content">
-                    <div class="padd">
-                            <div class="col-md-12"><p>&nbsp;</p>
-                            <div class="clearfix"></div>
-                                <div class="alert alert-success">
-                                Well done! Your survey has been completed and submitted.
-                                </div>
-
-                                <div class="clearfix"></div>
-                                <br />
-                                {%if message%}
-                                <div class="confirmationaccept">
-                                    {{message}}&nbsp;
-                                </div>
-                                {%endif%} <!-- -->                        
+<div class="container">
+<div class="row">
+			<div class="widget">
+              <div class="widget-content">
+              	<div class="padd">
+                        <div class="col-md-12"><p>&nbsp;</p>
+                        <div class="clearfix"></div>
+                            <div class="alert alert-success">
+                              Well done! Your survey has been completed and submitted.
                             </div>
 
                             <div class="clearfix"></div>
-                    </div>
-                </div>
+                            <br />
+                            {%if message%}
+                            <div class="confirmationaccept">
+                                {{message}}&nbsp;
+                            </div>
+                            {%endif%} <!-- -->                        
+                        </div>
+
+                        <div class="clearfix"></div>
+				</div>
+              </div>
             </div>
-        </div>
-    </div> 
+</div>
+</div> 
+
 {% endblock %}
 
 {% block extra_js %}

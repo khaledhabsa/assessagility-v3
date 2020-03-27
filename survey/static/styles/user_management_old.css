@@ -1,0 +1,561 @@
+.H_Check_Box, .H_First_Name, .H_Last_Name, .H_Email, .H_Status, .H_Actions 
+{
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.H_Status, .H_Actions {
+    width: 100px;
+}
+
+.H_Check_Box {
+    width: 30px;
+}
+
+.H_First_Name, .H_Last_Name {
+    width: 150px;
+}
+
+.H_Email {
+    width: 200px;
+}
+
+.email {
+ white-space:nowrap;   
+}
+
+.usercheckbox {
+    width: 18px;
+    height: 18px;
+    background-image: url('../images/Checkbox-Full.png');
+    background-position-y: -18px;
+}
+.selectall {
+    width: 18px;
+    height: 18px;
+    background-image: url('../images/Checkbox-Full.png');
+    background-position-y: -18px;
+}
+
+.checked {
+    background-position-y: 0px;
+}
+
+* {
+    font-size: 96%;
+}
+
+label {
+    width: 10em;
+    float: left;
+}
+
+label.error {
+    float: none;
+    color: red;
+    vertical-align: top;
+	font-weight:normal;
+}
+
+p {
+    clear: both;
+}
+
+.submit {
+    margin-left: 12em;
+}
+
+em {
+    font-weight: bold;
+    padding-right: 1em;
+    vertical-align: top;
+}
+
+.required {
+    color: #000;
+}
+
+.edit {
+    display: inline-block;
+}
+
+.update {
+    display: none;
+}
+
+.cancel {
+    display: none;
+}
+
+.edit {
+    color: #111;
+}
+
+.editdisable {
+    color: #eee;
+}
+
+.evenRow {
+    background-color: #fff;
+}
+
+.oddRow {
+    background-color: #eee;
+}
+
+.Statistics {
+    display: none;
+    float: right;
+}
+
+.addform {
+    display: none;
+    background-color: #FFF;
+	width: 60%;
+	position: absolute;
+	z-index: 1000;
+	left: 20%;
+	top: 48px;
+	border-color: #999;
+	border-width: 1px;
+	border-style: solid;
+	-moz-box-shadow: 3px 3px 4px #444;
+	-webkit-box-shadow: 3px 3px 4px #444;
+	box-shadow: 0px 0px 6px #444;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#444444')";
+	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#444444');
+
+}
+
+.closeaddform {
+    float:right;
+	margin: 2px;
+	background-image:url(../images/btn_close_popup.png);
+	background-repeat:no-repeat;
+	width:15px;
+	height:15px;
+	cursor:pointer;
+}
+
+.closeLink .closeaddform {
+    float:none;
+	margin: 2px;
+	background-image:none;
+	width:auto;
+	height:auto;
+	cursor:pointer;
+	color:#007ec2;
+}
+
+.mainactions {
+    width: 100%;
+    text-align: center;
+    margin:10px;
+}
+
+.or {
+    display: inline-block;
+}
+
+.uploadfile {
+    display: inline-block;
+	height:20px;
+}
+
+.middleactionsbuttons {
+    display:none;
+}
+
+.searchdiv {
+    float:right;
+   margin-right:10px;
+}
+
+.deletediv {
+    float:left;
+}
+
+.tableheader { 
+    width:100%;
+    background-color: #fff;
+    clear:both;
+    height:20px;
+    border-top: #CCC 1px solid;
+	background-image:url(../images/bg_gridhead.png);
+	background-position:bottom;
+	background-repeat:repeat-x;
+	padding-top:5px;
+	padding-bottom:5px;
+	color: #0079be;
+	font-weight:bold;
+}
+
+.CandidateCount{
+
+}
+
+.quotastatistic{
+	background-color: #fffedb;
+	border-color: #ffc600;
+	border-width: 1px;
+	border-style: solid;
+	margin: 15px auto 10px;
+	padding: 10px 3px 0px 3px;
+	text-align: center;
+	color: #3aa1da;
+	font-weight: bold;
+	height:25px;
+	font-size: 14px;   
+}
+
+.topsearch{
+	background: url("../images/bg_grid_header.png") repeat-x;
+	width: 97%;
+	border-color: #CCC;
+	border-width: 1px;
+	border-style: solid;
+	margin: 2px auto;
+	padding: 3px;
+	text-align: left;
+	font-weight: bold;
+	height: 30px;
+}
+
+.topsearchdiv{
+    float: right;
+    margin: 2px 10px 0;
+}
+
+.candidatelabel{
+    float:left;
+    margin: 2px;
+	color:#005482;
+	padding-left:10px;
+}
+
+.tableactions{
+	font-weight: bold;
+    margin: 0px;
+    padding: 5px 3px;
+}
+
+.tableadd{
+    float:right;
+}
+
+.tableaddone{
+	display:inline-block;
+}
+
+.hide
+{
+    display:none;
+}
+
+.rightpanel
+{
+    float:right;
+	width: 45%;
+    border-color: #CCC;
+	border-width: 1px;
+	border-style: solid;
+	margin: 0px;
+	padding: 0px;
+	overflow-x:hidden;
+	height: 550px;
+
+}
+
+.leftpanel{
+	float:left;
+	width: 45%;
+	border-color: #CCC;
+	border-width: 1px;
+	border-style: solid;
+	margin: 0px;
+	padding: 0px;
+	overflow-x:hidden;
+	height: 550px;
+}
+
+.leftpanelexpand, .rightpanelexpand {
+	background: url("../images/grid_footer.png") repeat-x;
+	width: 100%;
+	border-width: 1px solid #CCC;
+	margin: 0px;
+	padding: 3px 3px 0px;
+	text-align: right;
+	font-weight: bold;
+	height: 20px;
+}
+
+.invite {
+	background:url("../images/btn_invite.png") 0 0 no-repeat;
+	color: #fff;
+	float:left;
+	font-size:12px;
+	font-weight:bold;
+	height:29px;
+	margin-top: 246px;
+	padding:7px 0px 0px 10px;
+	float: left;
+	width: 60px;
+	cursor:pointer;
+	margin-left:10px;
+	
+}
+
+.notstartedpage {
+    height:300px;
+}
+
+.ui-accordion .ui-accordion-content-active {
+	padding: 1px;
+	margin: 0px;
+}
+
+.ui-accordion .ui-accordion-header a {
+    display:inline-block;
+}
+
+.count {  
+    color: #FFFFFF;
+	display: inline;
+	/*
+	background: url("../images/bg_candidate_count.png") no-repeat scroll 0 0 transparent;
+    
+    
+    float: right;
+    width: 36px;
+	*/
+}
+
+.usedinvitations, .totalinvitations {
+    display:inline;
+	color: #005482;
+}
+
+.users_table {
+    width:100%;
+}
+.users_table .header{
+	color:#007ec2;
+	font-size:11px;
+	font-weight:bold;
+	cursor:pointer;
+
+}
+
+
+#users_table .header{
+	color:#007ec2;
+	font-size:11px;
+	font-weight:bold;
+	cursor:pointer;
+}
+
+#users_table {
+	border:1px solid #cbcbcb;
+}
+#container {
+	margin: 0 auto;
+	width:97%;
+}
+
+/* new styles by mariam Sep.2012*/
+
+a.expand { 
+	background-image: url("../images/btn_expand.png");
+	background-repeat:no-repeat;
+	width: 85px;
+	height:17px;
+	display:block;
+	padding-right:5px;
+	float: right;
+}
+
+a.expand:hover { 
+	background-image:url("../images/btn_expand_hover.png");
+}
+
+/* Expandable/Sliding Doors Buttons */
+
+a.graybutton { 
+	background:url("../images/button_left_smallgray.png") left top no-repeat;
+	color:#6d6d6d;
+	display:block;
+	float:left;
+    font-size:12px;
+    font-weight:bold;
+	height:22px;
+	margin:0px 2px;
+	text-align:center;
+	text-decoration:none;
+}
+
+a.graybutton span {
+	background:url("../images/button_right_smallgray.png") right top no-repeat;
+	display:block;
+	float:left;
+    height:22px;
+	padding:2px 5px;
+}
+
+a.graybutton:hover {
+	color:#005482;
+	text-decoration:none;	
+}
+
+.graybutton>img, .bluebutton>img {
+	float:left;
+	padding-top:2px;
+}
+
+a.bluebutton { 
+	background:url("../images/button_left_blue.png") left top no-repeat;
+	color:#fff;
+	display:inline-block;
+	float:left;
+    font-size:12px;
+    font-weight:bold;
+	height:30px;
+	margin:0px 2px;
+	padding:4px;
+	text-decoration:none;
+}
+
+a.bluebutton span {
+	background:url("../images/button_right_blue.png") right 0 no-repeat;
+	float:left;
+    height:30px;
+	padding:4px 2px;
+}
+
+/* Expandable/Sliding Doors Buttons ENDS */
+
+/* new styles ends*/
+
+
+.userManagementContainer{
+	margin:10px;
+}
+
+.userManagementContainer h3 a:link{
+	font-size:11px;
+	color:#005482;
+	font-weight:bold;
+	margin-left:5px;
+}
+
+
+.ui-corner-all, .ui-corner-top, .ui-corner-right, .ui-corner-tr{
+	-moz-border-radius: 0px/*{cornerRadius}*/;
+	-webkit-border-radius: 0px/*{cornerRadius}*/;
+	-khtml-border-radius: 0px/*{cornerRadius}*/;
+	border-radius: 0px/*{cornerRadius}*/;
+}
+
+.ui-accordion .ui-accordion-header{
+	background-image:url(../images/bg_gridhead.png);
+	background-position:bottom;
+	background-repeat:repeat-x;
+	border-left:0px;
+	border-right:0px;
+	border-bottom:0px;
+	margin:0px;
+	
+}
+
+.ui-state-default .ui-icon{
+	background-image:url(../images/ico_tab_plus.png);
+	background-repeat:no-repeat;
+	background-position:top left;
+}
+
+.ui-state-active .ui-icon{
+	background-image:url(../images/ico_tab_minus.png);
+	background-repeat:no-repeat;
+	background-position:top left;
+}
+
+
+.ui-state-hover .ui-icon, .ui-state-focus .ui-icon{
+
+}
+
+.ui-widget-content{
+	border:none;
+}
+
+
+
+/**/
+div.slidingButton span {
+	background:url(../images/btn_left_candidatecount.png) transparent no-repeat 0 0;
+	display: block;
+	line-height: 8px;
+	padding: 7px 0 5px 7px;
+	color: #fff;
+}
+
+div.slidingButton {
+	background:url(../images/btn_right_candidatecount.png) transparent no-repeat top right;
+	display: block;
+	float: right;
+	height: 20px;
+	margin-right: 6px;
+	padding-right: 7px;
+	text-decoration: none;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size:9px;
+	font-weight:bold;
+}
+/**/
+
+.result{
+	width:100%;
+}
+
+
+.inprogresspage{
+	width:100%
+}
+
+.popupHeader{
+	background-image:url(../images/bg_gridhead.png);
+	background-position:bottom;
+	background-repeat:repeat-x;
+	padding:10px;
+	line-height:20px;
+}
+.popupHeader .title{
+	font-size:12px;
+	color:#005482;
+	font-weight:bold;
+	margin-left:3px;
+
+}
+
+.addform .cmxform{
+	padding:10px;
+}
+
+.addCandidatesMainTitleWrapper{
+	text-align:center;
+	margin:25px auto;
+	width:300px;
+	
+}
+.addCandidatesMainTitle{
+	background-image:url(../images/ico_add_candidates.png);
+	background-repeat:no-repeat;
+	background-position:left;
+	text-align:left;
+	padding-left:40px;
+	font-size:14px;
+	font-weight:bold;
+	color:#818181;
+	padding-bottom:10px;
+	padding-top:10px;
+
+}

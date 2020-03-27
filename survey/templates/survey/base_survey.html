@@ -1,0 +1,329 @@
+{% load static %}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="utf-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="ReadyForAgile" />
+    <title>Ready For Agile | {% block page_title %}{% endblock %} </title>
+    <link rel="shortcut icon" type="image/x-icon" href="{% static "img/" %}favicon.ico" />
+    <link href="{% static "css/" %}bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static "css/" %}font-awesome.css" /> 
+    <link rel="stylesheet" href="{% static "css/" %}jquery-ui-1.9.2.custom.min.css" /> 
+    <link rel="stylesheet" href="{% static "css/" %}fullcalendar.css" />
+    <link rel="stylesheet" href="{% static "css/" %}prettyPhoto.css" />  
+    <link rel="stylesheet" href="{% static "css/" %}rateit.css" />
+    <link rel="stylesheet" href="{% static "css/" %}bootstrap-datetimepicker.min.css"/>
+    <link rel="stylesheet" href="{% static "css/" %}jquery.cleditor.css" /> 
+    <link rel="stylesheet" href="{% static "css/" %}uniform._base.min.css" /> 
+    <link rel="stylesheet" href="{% static "css/" %}daterangepicker-bs3.css" />
+    <link rel="stylesheet" href="{% static "css/" %}bootstrap-switch.css" />
+    <link href="{% static "css/" %}style.css" rel="stylesheet" />
+    <link href="{% static "css/" %}widgets.css" rel="stylesheet" />
+    <link href="{% static "css/" %}jquery.gritter.css" rel="stylesheet" />    
+    
+    <!-- HTML5 Support for IE -->
+    <!--[if lt IE 9]>
+        <script src="js/html5shim.js"></script>
+        <![endif]-->
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="img/favicon/favicon.png" />
+  </head>
+  
+  <body>
+    <div id="wrap">
+      <header>
+        <div class="navbar navbar-fixed-top bs-docs-nav" role="banner">
+          <div class="container">
+            <!-- Menu button for smallar screens -->
+            <div class="navbar-header">
+	      <button class="navbar-toggle btn-navbar" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+                <span>Menu</span>
+              </button>
+              <a href="#" class="pull-left menubutton hidden-xs"><i class="fa fa-bars"></i></a>
+	      <!-- Site name for smallar screens -->
+	    </div>
+            
+            <!-- Navigation starts -->
+            <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">         
+              
+              <ul class="nav navbar-nav pull-right">
+                
+                {% if user.is_authenticated %}
+                  <li class="dropdown pull-right user-data">            
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                      <img src="{% static "img/" %}default-avatar.png" /> {{ request.user }}
+                      <b class="caret"></b> 
+                    </a>
+                    <!-- Dropdown menu -->
+                    <ul class="dropdown-menu">
+                      <li><a href="{% url 'survey:change_password' %}"><i class="fa fa-user"></i>Change Password</a></li>
+                      <li><a href="{% url 'survey:user_logout' %}"><i class="fa fa-key"></i> Logout</a></li>
+                    </ul>
+                  </li>
+                {% else %}
+          	  <li>
+	      	    Welcome, Please log in. <strong>{% filter force_escape %}{% firstof user.first_name user.username %}{% endfilter %}</strong>
+	    	  </li>
+                {% endif %}
+                
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </header>
+      <!-- Main content starts -->
+      
+      <div class="content">
+        <!-- Sidebar -->
+        <div class="sidebar">
+          <div class="sidebar-dropdown"><a href="#">Navigation</a></div>
+          
+          <div class="logo-big"><a href="/client/admin/" class="logo-white-big">RFA</a></div>
+          <ul id="nav">
+            <!-- Main menu with font awesome icon -->
+            <li id="menu-item-1"><a href="/client/admin/"><i class="fa fa-home"></i> <span>Dashboard</span></a></li>
+            {% if request.user.is_superuser %}
+              <li class="has_sub" id="setup-link">
+                <a href="#"><i class="fa fa-list-alt"></i>
+                  <span>Setup</span>
+                  <span class="pull-right">
+                    <i class="fa fa-chevron-left"></i>
+                  </span>
+                </a>
+                <ul>
+                  <!--<li><a href="/client/admin/upload/logo/">Upload Company Logo</a></li>-->
+                  <li id="menu-item-2">
+                    <a href="/usermanagement/">Manage Survey Participants</a>
+                  </li>
+                  <li id="menu-item-3">
+                    <a href="/client/admin/edit/emailtemplate/ReminderNotStarted">Customize NotStarted email</a>
+                  </li>
+                  <li id="menu-item-4">
+                    <a href="/client/admin/edit/emailtemplate/ReminderInProgress">Customize InProgress email</a>
+                  </li>
+                  <li id="menu-item-11"><a href="/survey/demographic">Manage  Demographic Values</a></li>
+                </ul>
+              </li>  
+            <li class="has_sub" id="monitor-link">
+              <a href="#"><i class="fa fa-tasks"></i>
+                <span>Monitor</span>
+                <span class="pull-right"><i class="fa fa-chevron-left"></i></span>
+              </a>
+              <ul>
+                <li id="menu-item-5"><a href="#modal-notstarted" data-toggle="modal">Send Reminder (Not Started)</a></li>
+                <li id="menu-item-7"><a href="#modal-progress" data-toggle="modal">Send Reminder (In Progress)</a></li>
+              </ul>
+            </li>
+          {% endif %}
+          {% ifequal  show_report "show" %}
+            <li class="has_sub">
+              <a href="#">
+                <i class="fa fa-bar-chart-o"></i>
+                <span>Reports</span>
+                <span class="pull-right">
+                  <i class="fa fa-chevron-left"></i>
+                </span>
+              </a>
+              <ul>
+                {% comment %}
+                  <li id="menu-item-12"><a href="#" id="menu-closesurvey">Close Survey</a></li>
+                <li id="menu-item-13"><a href="#" id="menu-opensurvey">Open Survey</a></li>
+              {% endcomment %}
+              <li id="menu-item-8"><a href="/report/category/radar/">Organizational Characteristic Assessment</a></li>
+                <li id="menu-item-9"><a href="/report/optimized/practice/">Detailed Practice Readings</a></li>
+                <li id="menu-item-10"><a href="/report/practice/spectrum/">Agile Maturity by Practice</a></li>
+                {% if request.user.is_superuser %}
+                  <li id="menu-item-11">
+                    <a href="/report/practice/pdf/" target="_blank">PDF Practice Report</a>
+                  </li>
+                {% endif %}
+              </ul>
+            </li>
+          {% endifequal %}
+          </ul>
+        </div>
+        <!-- Sidebar ends -->
+        
+        <!-- Main bar -->
+        <div class="mainbar">
+          <!-- Page heading -->
+          <div class="page-head">
+            <h2 class="pull-left">{% block header_left %}{% endblock %}</h2>
+            <div class="clearfix"></div>
+            <!-- Breadcrumb -->
+            <div class="bread-crumb">
+              {% block breadcrumb %}
+                <a href="/client/admin/"><i class="fa fa-home"></i> Home</a> 
+                <span class="divider">/</span> 
+                <a href="#" class="bread-current">Dashboard</a>
+              {% endblock %}
+            </div>
+            
+            <div class="clearfix"></div>  
+          </div>
+          <!-- Page heading ends -->
+          <!-- Matter -->
+          <div class="matter">
+            <div class="container">
+              
+              <!-- messages block started here -->
+              {% if message%}
+                <div class="padd">
+                  <div class="alert alert-success">
+                    {{ message }}
+                  </div>
+                </div>  
+	      {% endif %}
+              <!-- messages block ended here -->
+              
+              {% if error %}
+                <div class="padd">
+                  <div class="alert alert-danger">
+                    {{ error }}
+                  </div>
+                </div>
+              {% endif %}
+	      <!-- CONTENT BEGIN -->
+	      {% block content %}{% endblock %} <!-- CONTENT END -->
+              
+            </div>
+          </div>
+          <!-- Matter ends -->
+          
+        </div>
+        
+        <!-- Mainbar ends -->
+        <div class="clearfix"></div>
+        
+        <!-- Modal -->
+        <div id="modal-progress" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Send Reminder (In Progress)</h4>
+              </div>
+              <div class="modal-body">
+                <p>You are about to re-invite these individuals to take the ReadyForAgile. They will receive this email . If you are OK with this communication proceed.</p>
+              </div>
+              <div class="modal-footer popupAdd">
+                <button aria-hidden="true" data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                <input type="button" value="Send Reminder" id="progress-accept" class="btn btn-primary" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- END Modal -->
+        
+        
+        <!-- Modal -->
+        <div id="modal-notstarted" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Send Reminder (Not Started)</h4>
+              </div>
+              <div class="modal-body">
+                <p>You are about to re-invite these individuals to take the ReadyForAgile. They will receive this email . If you are OK with this communication proceed.</p>
+              </div>
+              <div class="modal-footer popupAdd">
+                <button aria-hidden="true" data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                <input type="button" value="Send Reminder" id="notstarted-accept" class="btn btn-primary" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- END Modal -->
+        
+      </div>
+      <!-- Content ends -->
+      <div id="push"></div>
+    </div>
+    <!-- Footer starts -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <!-- Copyright info -->
+            <p class="copy">Copyright &copy; {% now "Y" %} | <a href="#">ReadyForAgile.com</a> </p>
+          </div>
+        </div>
+      </div>
+    </footer> 	
+    
+    <!-- Footer ends -->
+    
+    <!-- JS -->
+    <script src="{% static "js/" %}jquery.js"></script> <!-- jQuery -->
+    <script src="{% static "js/" %}bootstrap.js"></script> <!-- Bootstrap -->
+    <script src="{% static "js/" %}jquery-ui-1.9.2.custom.min.js"></script> <!-- jQuery UI -->
+    <script src="{% static "js/" %}fullcalendar.min.js"></script> <!-- Full Google Calendar - Calendar -->
+    <script src="{% static "js/" %}jquery.rateit.min.js"></script> <!-- RateIt - Star rating -->
+    <script src="{% static "js/" %}jquery.prettyPhoto.js"></script> <!-- prettyPhoto -->
+    
+    <!-- Morris JS -->
+    <script src="{% static "js/" %}raphael-min.js"></script>
+    <script src="{% static "js/" %}morris.min.js"></script>
+    
+    <!-- jQuery Flot -->
+    <script src="{% static "js/" %}excanvas.min.js"></script>
+    <script src="{% static "js/" %}jquery.flot.js"></script>
+    <script src="{% static "js/" %}jquery.flot.resize.js"></script>
+    <script src="{% static "js/" %}jquery.flot.pie.js"></script>
+    <script src="{% static "js/" %}jquery.flot.stack.js"></script>
+    
+    <!-- jQuery Notification - Noty -->
+    <script src="{% static "js/" %}jquery.noty.js"></script> <!-- jQuery Notify -->
+    <script src="{% static "js/" %}themes/default.js"></script> <!-- jQuery Notify -->
+    <script src="{% static "js/" %}layouts/bottom.js"></script> <!-- jQuery Notify -->
+    <script src="{% static "js/" %}layouts/topRight.js"></script> <!-- jQuery Notify -->
+    <script src="{% static "js/" %}layouts/top.js"></script> <!-- jQuery Notify -->
+    <!-- jQuery Notification ends -->
+    
+    <!-- Daterangepicker -->
+    <script src="{% static "js/" %}moment.min.js"></script>
+    <script src="{% static "js/" %}daterangepicker.js"></script>
+    
+    <script src="{% static "js/" %}sparklines.js"></script> <!-- Sparklines -->
+    <script src="{% static "js/" %}jquery.gritter.min.js"></script> <!-- jQuery Gritter -->
+    <script src="{% static "js/" %}jquery.cleditor.min.js"></script> <!-- CLEditor -->
+    <script src="{% static "js/" %}bootstrap-datetimepicker.min.js"></script> <!-- Date picker -->
+    <script src="{% static "js/" %}jquery.uniform.min.js"></script> <!-- jQuery Uniform -->
+    <script src="{% static "js/" %}jquery.slimscroll.min.js"></script> <!-- jQuery SlimScroll -->
+    <script src="{% static "js/" %}bootstrap-switch.min.js"></script> <!-- Bootstrap Toggle -->
+    <script src="{% static "js/" %}jquery.maskedinput.min.js"></script> <!-- jQuery Masked Input -->
+    <script src="{% static "js/" %}dropzone.js"></script> <!-- jQuery Dropzone -->
+    <script src="{% static "js/" %}filter.js"></script> <!-- Filter for support page -->
+    <script src="{% static "js/" %}custom.js"></script> <!-- Custom codes -->
+    <script src="{% static "js/" %}charts.js"></script> <!-- Charts & Graphs -->
+    <script>
+      _surveyClosed = "v{{ survey_closed|lower }}";
+      activeMenuItem = 0;
+    </script>
+    <script src="{% static "js/" %}admin_dashboard.js"></script>
+    {% block javascript %}{% endblock %}
+    <script>
+      $( document ).ready(function() {
+          if(activeMenuItem){
+              var activeElement = $('#menu-item-'+activeMenuItem);	
+              if (activeElement.parents('.has_sub').length) {
+		  $('#nav').find(activeElement).addClass('open');
+		  activeElement.closest('.has_sub').children('a').addClass('open subdrop');
+		  activeElement.find("a").addClass("active");
+		  activeElement.closest('ul').css("display","block");
+	      }else{
+		  activeElement.find("a").addClass("open");
+	      }	      
+	  }
+      });
+    </script>
+    
+  </body>
+</html>

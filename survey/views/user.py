@@ -10,6 +10,7 @@ from ..models.users import ticket
 from django.contrib.sites.models import Site
 from django.template import Context, Template
 from email_sender.models.emailTemplate import EmailTemplate
+from django.contrib.auth.decorators import login_required
 
 
 def user_login(request):
@@ -19,7 +20,7 @@ def user_login(request):
         - otherwise use request get to load the login page
     '''
     if request.user.is_authenticated:
-        if request.POST.get('next') is None:
+        if request.POST.get('next'):
             return redirect(request.POST.get('next'))
         else:
             return redirect("survey:answerpage", mode=0)
@@ -31,7 +32,7 @@ def user_login(request):
                 user = form_user.cleaned_data.get('user')
                 login(request, user)
                 nextUrl = request.POST.get('next')
-                if nextUrl:
+                if not nextUrl:
                     if user.is_superuser:
                         return redirect("/client/admin/admin_landing")
                     else:
@@ -101,6 +102,19 @@ def forget_password(request):
             })
 
     return render(request, 'user/forget_password.html')
+
+
+@login_required(login_url="/accounts/login?next=survey:change_password")
+def change_password(request):
+    if request.method == 'POST':
+        if request.user.check_password(request.POST['oldpassword']):
+            request.user.set_password(request.POST['newpassword'])
+            request.user.save()
+            return redirect('survey:answerpage', mode=0)
+        else:
+            return render(request, 'user/change_password.html', {'error': 'the password you entered does not match what we have in the system.'}, RequestContext(request))
+
+    return render(request, 'user/change_password.html', {})
 
 
 {
