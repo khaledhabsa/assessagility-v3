@@ -1,10 +1,10 @@
-{% extends "questions/base_question.html" %}
+{% extends "base.html" %}
 {% load i18n %}
 {% load static %}
 
 {% block title %}{% trans "Select Role" %}{% endblock %}
 
-{% block question %}
+{% block content %}
   <form action="" method="post">
     {% csrf_token %}
     <div class="page-title">

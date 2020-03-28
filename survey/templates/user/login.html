@@ -1,19 +1,39 @@
-{% extends 'base.html' %}
 {% load static %}
 {% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
 
-{% block title %} Login - ReadyForAgile.com {% endblock %}
-{% block links %}
+    <title>Login - ReadyForAgile.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+
+
     <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet">
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
     <link href="{% static 'css/custom.css' %}" rel="stylesheet">
     <link href="{% static 'css/pages/login.css' %}" rel="stylesheet">
-{% endblock %}
+    <!-- <link href="{{ static }}css/pages/login.css" rel="stylesheet"> -->
+<!-- <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}"> -->
+    <!-- HTML5 Support for IE -->
+    <!--[if lt IE 9]>
+        <script src="{% static 'js/html5shim.js' %}"></script>
+        <![endif]-->
 
-{% block content %}
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{% static 'img/favicon/favicon.png' %}">
+  </head>
+
+  <body>
     <!-- Form area -->
     <div class="admin-form">
       <div class="container">
+
         <div class="row">
           <div class="col-md-12">
             <!-- Widget starts -->
@@ -36,24 +56,22 @@
                       <div class="form-group">
                         <div class="col-lg-1"></div>
                         <div class="loginalert alert alert-danger">
-                        {% for err in errors %}
-                            {{ err }}
-                        {% endfor %}
+                          {% trans "Your email and password didn't match. Please try again." %}
                         </div>
                       </div>
                     {% endif %}
-
                     <div class="form-group">
                       <div class="col-lg-1"></div>
-                      <div class="col-lg-12">
-                      {{form.username}}
+                      <div class="col-md-10">
+                        <input type="text" class="form-control" id="inputEmail" placeholder="Email" name="username">
                       </div>
                       <div class="col-lg-1"></div>
                     </div>
+                    <!-- Password -->
                     <div class="form-group">
                       <div class="col-lg-1"></div>
-                      <div class="col-lg-12">
-                        {{form.password}}
+                      <div class="col-lg-10">
+                        <input type="password" class="form-control" id="inputPassword" placeholder="Password" name="password">
                       </div>
                       <div class="col-lg-1"></div>
                     </div>
@@ -73,5 +91,8 @@
       </div>
     </div>
 
-{% endblock %}
-   
+    <!-- JS -->
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+  </body>
+</html>

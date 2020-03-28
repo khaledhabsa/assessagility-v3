@@ -141,13 +141,14 @@ function renderPagesIndex(currentPageNumber) {
 function GetAll(page) {
 
 	$.ajax({
-		url: '{% url "survey:getalldemgraphic" %}',
+		url: '/survey/getalldemgraphic/',
 		cache: false,
 		data: {
 			'page': page,
 		},
 		dataType: "json",
 		success: function (data) {
+
 			render(data['users']);
 			renderpager(data['paginatordata']);
 		},
@@ -244,7 +245,7 @@ $(document).ready(function () {
 			if ($('#viewable').is(':checked')) { viewable = true; }
 
 			$.ajax({
-				url: '{% url "survey:adddemographic" %}',
+				url: '/survey/adddemographic/',
 				type: 'POST',
 				data: {
 					'title': $('#title').val(),
@@ -279,7 +280,7 @@ $(document).ready(function () {
 		}
 		if (ids.length > 0) {
 			$.ajax({
-				url: '{% url "survey:deletedemographic" %}',
+				url: '/survey/deletedemographic/',
 				cache: false,
 				type: 'POST',
 				data: { 'ids': ids.toString() },
@@ -368,7 +369,7 @@ $(document).ready(function () {
 			if (row.find('#viewable').is(':checked')) { viewable = true; }
 
 			$.ajax({
-				url: '{% url "survey:updatedemographic" %}',
+				url: '/survey/updatedemographic/',
 				type: 'POST',
 				data: {
 					'id': id,

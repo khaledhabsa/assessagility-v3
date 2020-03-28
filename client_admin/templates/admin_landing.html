@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block page_title %}Please choose one of the following:{% endblock %}
+
+
+{% block content %}
+<div class="container">
+<div class="row">
+			<div class="widget">
+              <div class="widget-head">
+                <i class="icon-lock"></i> Please choose one of the following: 
+              </div>
+              <div class="widget-content">
+              	<div class="padd">
+                        <div class="col-md-6">
+        <!-- GROUP -->
+                            <div class="list-group">
+                              <a href="{% url 'client_admin:home' %}" class="list-group-item active">
+                                <h4 class="list-group-item-heading">Administer your assessment</h4>
+                                <p class="list-group-item-text">ENTER HERE</p>
+                              </a>
+                              <a href="#" class="list-group-item">
+                                <p class="list-group-item-text">
+                                    <ul>
+                                      <li>Setup your assessment</li>
+                                      <li>Monitor survey participants</li>
+                                      <li>Generate powerful reports</li>
+                                      <li>Spark next steps</li>
+                                    </ul>
+                                </p>
+                              </a>
+                              
+                            </div>
+        <!-- END GROUP -->
+                        </div>
+                        <div class="col-md-6">
+        <!-- GROUP -->
+                            <div class="list-group">
+                              <a href="/" class="list-group-item active">
+                                <h4 class="list-group-item-heading">Take your own assessment</h4>
+                                <p class="list-group-item-text">BEGIN HERE</p>
+                              </a>
+                              <a href="#" class="list-group-item">
+                                <p class="list-group-item-text">
+                                    <ul>
+                                      <li>Select your role</li>
+                                      <li>Complete your assessment </li>
+                                      <li>Determine your organization's future</li>
+                                    </ul>
+                                </p>
+                              </a>
+                              
+                            </div>
+        <!-- END GROUP -->
+                        </div>
+                        <div class="clearfix"></div>
+				</div>
+              </div>
+            </div>
+</div>
+</div>     
+{% endblock%} 

@@ -1,0 +1,571 @@
+{% extends "base_admin_another.html" %} 
+{% load static %}
+
+{% block page_title %}Users Management{% endblock %}
+{% block header_left %}Users Management{% endblock %}
+
+{% block breadcrumb %}
+  <a href="{% url 'client_admin:home' %}"><i class="fa fa-home"></i> Home</a> 
+  <span class="divider">/</span> 
+  <a href="{% url 'user_management:home' %}" class="bread-current">Participant list</a>
+  <span class="divider">/</span> 
+  <a href="#" class="bread-current">Users Management</a>
+{% endblock %}
+
+{% block javascript %}
+  {{ block.super }}
+  
+  <script type="text/javascript" src="{% static "js/" %}jquery.validate.js"></script>
+  <script type="text/javascript" src="{% static "js/" %}jquery-jtemplates.js"></script>
+  <script type="text/javascript" src="{% static "js/" %}fileuploader.js" ></script>
+  <script type='text/javascript' src="{% static "js/" %}jquery.simplemodal.js"></script>
+  <script type="text/javascript" src="{% static "js/" %}jquery.tablesorter.min.js" ></script>
+  <script type="text/javascript" src="{% static "js/" %}user_management_manage.js" ></script>
+  <script type='text/javascript' src="{% static "js/" %}confirm.js"></script>
+  <script>
+    activeMenuItem = 2;
+    var uploader = new qq.FileUploader({
+    action: "/usermanagement/ajax_upload/",
+    element: $('#file-uploader')[0],
+    multiple: true,
+    onComplete: function (id, fileName, responseJSON) {
+        alert("All complete!");
+        if (responseJSON['error'] == undefined) {
+            renderUsers(responseJSON);
+        } else {
+            alert(responseJSON['error']);
+        }
+
+    },
+    onAllComplete: function (uploads) {
+        // uploads is an array of maps
+        // the maps look like this: { file: FileObject, response: JSONServerResponse }
+
+        alert("All complete!");
+    },
+    params: {
+        'csrf_token': '{{ csrf_token }}',
+        'csrf_name': 'csrfmiddlewaretoken',
+        'csrf_xname': 'X-CSRFToken',
+    },
+});
+
+  </script>
+{% endblock %}
+
+
+{% block content %}
+  
+  <!-- Modal -->
+  <div  class="modal addform" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close closeaddform">×</button>
+          <h4 class="modal-title">Add Participant</h4>
+        </div>
+        <div class="modal-body">
+          <form role="form" class="form-horizontal cmxform" id="addnewcadidateform" method="get" action="">
+            <fieldset>
+              <div id="display"></div>
+              <div class="form-group">
+                <label class="col-lg-4 control-label" for="firstname">First Name<em>*</em></label>
+                <div class="col-lg-8">
+                  <input id="firstname" name="firstname" size="25" class="form-control required" minlength="2" />
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label class="col-lg-4 control-label" for="lastname">Last Name<em>*</em></label>
+                <div class="col-lg-8">
+                  <input id="lastname" name="lastname" size="25" class="required form-control" minlength="2" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-lg-4 control-label" for="email">E-Mail<em>*</em></label>
+                <div class="col-lg-8">
+                  <input id="email" name="email" size="25" class="required email form-control" />
+                </div>
+              </div>
+            </fieldset>
+          </form>
+          
+
+        </div>
+        <div class="modal-footer popupAdd">
+          <button type="button" class="btn btn-default closeaddform">Close</button>
+          <input type="button" value="Save and Add New" 	class="addnewcandidatebutton btn btn-primary" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END Modal -->
+  <div class="pageWrapper">
+    <div id="temp" style="display: none"></div>
+    
+    <div class="row">  
+      
+      <div class="col-md-12 portlets ui-sortable">
+        <!-- Widget -->
+        <div class="widget">
+          <div class="widget-head">
+            <div class="pull-left">Users list</div>
+            <div class="clearfix"></div>
+          </div>
+          <div class="widget-content">
+            <!-- Widget content -->
+            
+            <div class="widget-content referrer">
+              <!-- Widget content -->
+              <div class="padd">
+                
+                <div class="col-md-12">
+                  <div class="well">
+                    <div class="quotastatistic" style="color:#005482">
+    		      <h3>
+                        <div id='quota' style="display:none">{{ quota }}</div>
+                        <div style="color:#3AA1DA!important">
+                        Invite Participants to Survey 
+                        </div>
+                      </h3>
+                      <p>Now it is time to decide which of the individuals you have uploaded will actually participate in the Ready For Agile. Use the check boxes on the left to select them now. Click the (Invite) button to add them to the invited on the right.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+
+              </div>
+            </div>
+            
+
+            <!--END Widget content -->
+          </div>  
+        </div> 
+	<!-- END Widget -->
+      </div>
+    </div>
+    <div class="row userManagementContainer">
+
+
+      <textarea id="table_template" style="display: none">
+        <table class="users_table table table-striped table-bordered table-hover" id="pplist">
+          <thead>
+            <tr class="header">
+              <th class='H_Check_Box' ><div  class="selectall"  style="z-index:10000;"></div></th>
+              <th class='H_First_Name'>First Name</th>
+              <th class='H_Last_Name'>Last Name</th>
+              <th class='H_Email'>E-mail</th>
+              <th class='H_Status hide'>Status</th>
+              <th class='H_Actions hide'>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </textarea>
+      <textarea id="rows_template" style="display: none">
+
+	{#foreach $T as record}
+        {#if $T.record.status==$P.filter }
+	<tr id='tr_{$T.record.id}'>
+	  <td><div class="usercheckbox" id='{$T.record.id}'></div></td>
+	  <td class="firstname"><div class="editabletext">{$T.record.first_name}</div></td>
+	  <td class="lastname"><div class="editabletext">{$T.record.last_name}</div></td>
+	  <td class="email"><div class="editabletext">{$T.record.email}</div></td>
+	  <td class="status hide">{$T.record.status}</td> 
+	  <td class="actions hide">
+            <a class="edit btn btn-xs btn-primary"><i class="fa fa-pencil"></i>&nbsp; Edit</a>
+	    <a class="update btn btn-xs btn-success" title="Update"><i class="fa fa-check"></i>&nbsp; Update</a>
+	    <a class="cancel btn btn-xs btn-danger" title="Cancel"><i class="fa fa-times"></i>&nbsp; Cancel</a>
+	  </td>
+	</tr>
+	{#/if}
+	{#/for}	
+	
+      </textarea>
+
+      <div class="Statistics" style="display:none;">
+        <h1>Statistics</h1>
+        <div>
+          Quota : {{quota}}
+        </div>
+        <div>
+          Used :<div class="UsedQuota">
+          </div>
+        </div>
+        <div>
+          <div>
+            Candidates :
+          </div>
+          <div class="CandidateCount">
+          </div>
+        </div>
+        <div>
+          <div>
+            Invited :
+          </div>
+          <div class="InvitedCount">
+          </div>
+        </div>
+        <div>
+          <div>
+            Started :
+          </div>
+          <div class="StartedCount">
+          </div>
+        </div>
+        <div>
+          <div>
+            Finished :
+          </div>
+          <div class="FinishedCount">
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-md-12 portlets" style="display:none">
+        <!-- Output elements -->
+        <div class="middleactions">
+          <div class="middleactionsbuttons">
+            <input type="button" class="findduplicate" value="find duplicate" />
+            <input type="button" class="findallduplicate" value="find all duplicate" />
+          </div>
+        </div>
+
+      </div>
+
+
+
+
+
+      <form class="cmxform" id="editform" method="get" action="">
+        <div class="col-md-6 portlets">
+
+          <div class="widget">
+	    <div class="widget-head">
+              <div class="pull-left">
+                <div class="candidatelabel">Participant &nbsp;<span class="CandidateCount count badge"></span></div>
+              </div>
+              <div class="pull-right"> 
+                
+                <div id="file-uploader" class="btn btn-primary pull-right ">
+                  <noscript>
+                    <p>
+                      Please enable JavaScript to use file uploader.
+                    </p>
+                  </noscript>
+                </div>
+                <a href="#" class="btn btn-primary addone pull-right margin-right-10" id="addone2">Add user</a> 
+                
+                
+              </div>
+	      <div class="clearfix"></div>
+              
+              <div class="widget-content">
+                
+
+                
+		<div class="clearfix"></div>
+                
+              </div>
+    	    </div>
+          </div>
+
+
+
+
+          <!-- Widget -->
+          <div class="widget">
+            <div class="widget-head">
+	      <div class="pull-left">
+                <input type="button" value="Delete" class="btn btn-default pull-left delete">
+				<input type="button" value="Edit" 	class="btn btn-default pull-left edit disabled margin-left-5">
+                <div id='confirm-dialog' class="pull-left margin-right-10 margin-left-5">
+                  <div class="invite">
+                    <input type="button" class="btn btn-success confirm" name="confirm" value="Invite" />
+                  </div>
+		</div>
+                
+              </div>
+              <div class="pull-right tps">
+                <span style="line-height:30px; float:left;">Search: &nbsp;</span>
+                <div class="topsearch form-elements pull-right"><div class="topsearchdiv"><input type="text" class="searchbox" placeholder="Search" /></div></div>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+            <div class="widget-content">
+              <!-- Widget content -->
+              
+              <div class="leftpanel section" id="puserlist">
+                <div class="leftpanelexpand expand"><span class="expandText"></span></div>
+                <div class="tableactions">
+                  <div class="topActionsBlock">
+                    
+
+                    <div class="tableadd">
+
+
+                    </div>
+                    <div class="clear"></div>
+                  </div>
+
+                  <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="candidateresult">
+                  
+                  
+                  <div class="widget-foot">
+
+                    
+                    
+                    
+                    <div class="clearfix"></div> 
+                  </div>
+                  
+                </div>
+              </div>
+              
+              
+              
+              
+              
+              <!-- modal content -->
+              <div id='content'>
+                
+                
+                <!-- modal content -->
+                <div id='confirm' class="confirmwindow">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button class="close simplemodal-close" type="button">×</button>
+                      <h4 class="modal-title">Confirm</h4></div>
+                    <div class='message modal-body'></div>
+                    <div class='buttons modal-footer Submit'>
+                      <input type="button" class="yes btn btn-success" id="devinvite" value="Confirm" />
+                      <a href="#" class="no btn btn-primary simplemodal-close">Cancel</a>
+                    </div>
+                    <div class="clearfix"></div>
+                  </div>
+                </div>
+                <!-- END modal content -->
+                
+
+
+
+              </div>
+              <!-- END modal content -->
+              
+              
+              <!-- END Widget content -->
+              <div class="clearfix"></div>
+            </div>
+          </div>
+          <!-- END Widget -->
+        </div>
+        <div class="col-md-6 portlets">
+          <!-- Widget -->
+          <div class="widget">
+
+            <div class="widget-content">
+              <!-- Widget content -->
+              
+              <!-- RIGHT PANEL-->
+              <div class="rightpanel">
+                <div class="rightpanelexpand expand"><span class="expandText"></span></div>
+                <div class="pages">
+                  <ul id="myTab" class="nav nav-tabs margin-top-10">
+                    <li class="active" style="margin-left:10px;"><a href="#notstarted" data-toggle="tab">Not Started <span id="ccount-1" class="badge">0</span></a></li>
+                    <li><a href="#inprogress" data-toggle="tab">In progress <span id="ccount-2" class="badge">0</span></a></li>
+                    <li><a href="#completed" data-toggle="tab">Completed <span id="ccount-3" class="badge">0</span></a></li>
+                    <li><a href="#excluded" data-toggle="tab">Excluded <span id="ccount-4" class="badge">0</span></a></li>
+                  </ul>
+                  
+                  <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane fade in active" id="notstarted">
+
+                      <div class='pageHeader page1 widget-head'>
+
+                        <div class="pull-left hide">
+                          <a href="#" title="Individuals who have been invited but have not begun the assessment.">Not started</a>
+                        </div>
+                        <div class="pull-left" style="visibility:hidden;">
+                          <button class="btn btn-default">Edit</button>
+                        </div>
+                        <div class="clearfix"></div>
+                      </div>
+
+
+                      <div class="notstartedpage section">
+                        <div class="topActionsBlock  btn-relative">
+                          <div class="reinvitediv pull-left margin-left-10">
+                            <div id='confirm1-dialog'>
+                              <input type="button" id="reinvite" class="reinvite confirm1 btn btn-default" value="ReInvite" />
+                              <!-- modal content -->
+                              <div id='confirm1' class="confirmwindow">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button class="close simplemodal-close" type="button">×</button>
+                                    <h4 class="modal-title">Confirm</h4>
+                                  </div>
+                                  <div class='message modal-body'></div>
+                                  <div class='buttons modal-footer'>
+                                    <input type="button" class="yes btn btn-success" id="divreinvite" value="Confirm" />
+                                    <a href="#" class="no btn btn-primary simplemodal-close">Cancel</a>
+                                  </div>
+                                  <div class="clearfix"></div>
+                                </div>
+                              </div>
+                              <!-- END modal content -->
+                            </div>
+                          </div>
+                          <div class="excludediv pull-left margin-left-10">
+                            <input type="button" id="notstartedpageexclude" class="exclude btn btn-default" value="Exclude" />
+                          </div>
+                          <div class="clear"></div>
+                        </div>
+                        <div class="result"></div>
+                      </div>
+                    </div>
+                    <div class="tab-pane fade" id="inprogress">    
+                      <div class='pageHeader page2 widget-head'>
+                        <div class="pull-left hide">
+                          <a href="#">In progress <span id="SomeID2" class="class_tips" style="line-height: normal!important" contents="Individuals who have been invited, have logged in and begun their assessment but have not yet submitted all of their final answers. ">[i]</span></a>
+			</div>
+                        <div class="pull-left" style="visibility:hidden;">
+                          <button class="btn btn-default">Edit</button>
+                          
+                        </div>
+                        <div class="clearfix"></div>
+                      </div>
+                                            
+                      <div class="inprogresspage section">
+                        <div class="topActionsBlock btn-relative">
+                          <div class="reinvitediv pull-left">
+                            
+                            <div id='confirm2-dialog'>
+                              <div class="">
+                                <input type="button" id="inprogresspagereinvite" class="reinvite confirm2 btn btn-default margin-left-10" value="ReInvite" />          
+                              </div>   
+                            </div>
+                            
+                            <!-- modal content -->
+                            <div id='confirm2' class="confirmwindow">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <button class="close simplemodal-close" type="button">×</button>
+                                  <h4 class="modal-title">Confirm</h4>
+                                </div>
+                                <div class='message modal-body'></div>
+                                <div class='buttons modal-footer'>
+                                  <input type="button" class="yes btn btn-success" id="divinprogresspagereinvite" value="Confirm" />
+                                  <a href="#" class="no btn btn-primary simplemodal-close">Cancel</a>
+                                </div>
+                                <div class="clearfix"></div>
+                              </div>
+                            </div>
+                            <!-- END modal content -->
+                            
+                          </div>
+                          <!-- <div class="editdiv">
+                               <input type="button" class="edit" value="" /></div>-->
+                          <div class="excludediv pull-left">
+                            <input type="button" id="inprogresspageexclude" class="exclude btn btn-default  margin-left-10" value="Exclude" /></div>
+                          <div class="clear"></div>
+                        </div>
+                        <div class="result">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="tab-pane fade" id="completed">    
+                      <div class='pageHeader page3 widget-head'>
+                        <div class="pull-left hide">
+                          <a href="#">Completed <span id="SomeID3" class="class_tips" style="line-height: normal!important" contents="Individuals who have answered all of the questions within their ReadyForAgile Assessment and have submitted them. ">[i]</span></a>
+                        </div>
+                        <div class="pull-left" style="visibility:hidden;">
+                          <button class="btn btn-default">Edit</button>
+                        </div>  
+                        <div class="clearfix"></div>  
+                      </div>
+                      <div class="finishedpage section">
+                        <div class="topActionsBlock btn-relative">
+                          <div class="reinvitediv pull-left">
+                            
+                            <div id='confirm3-dialog' class="pull-left">
+                              <input type="button" id="finishedpagereinvite" class="reinvite confirm3  btn btn-default margin-left-10" value="ReInvite" />
+                            </div>
+                            
+                            <!-- modal content -->
+                            <div id='confirm3' class="confirmwindow">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <button class="close simplemodal-close" type="button">×</button>
+                                  <h4 class="modal-title">Confirm</h4>
+                                </div>
+                                <div class='message modal-body'></div>
+                                <div class='buttons modal-footer'>
+                                  <input type="button" class="yes btn btn-success" id="divfinishedpagereinvite" value="Confirm" />
+                                  <a href="#" class="no btn btn-primary simplemodal-close">Cancel</a>
+                                </div>
+                                <div class="clearfix"></div>
+                              </div>
+                            </div>
+                            <!-- END modal content -->
+                            
+                          </div>
+                          <!-- <div class="editdiv">
+                               <input type="button" class="edit" value="" /></div>-->
+                          <div class="excludediv pull-left">
+                            <input type="button" id="finishedpageexclude" class="exclude btn btn-default margin-left-10" value="Exclude" /></div>
+                          <div class="clear"></div>
+                        </div>
+                        <div class="result">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="tab-pane fade" id="excluded">
+                      <div class='pageHeader page4 widget-head'>
+                        <div class="pull-left hide">
+                          <a href="#" title="Individuals who have been excluded, or have lost the ability to take the Ready For Agile by at an admin is discretion after initially being invited to take the assessment. <br> Once an individual has been excluded, your account will be re-credited with an invitee. Therefore, if you you invite 20/20 individuals and three do not complete the exam you may choose to exclude them and invite three other individuals instead. ">Excluded</a>
+			</div>
+                        <div class="pull-left" style="visibility:hidden;">
+                          <button class="btn btn-default">Edit</button>
+                        </div>
+                        <div class="clearfix"></div>
+                      </div>
+                      <div class="excludedpage section">
+                        <div class="topActionsBlock btn-relative">
+                          <!-- <div class="editdiv">
+                               <input type="button" class="edit" value="" /></div>-->
+                          <div class="pull-left margin-left-10">
+                            <div class="includediv"><input type="button" class="include btn btn-default" value="Include" /></div>
+                          </div>
+                          <div class="clear"></div>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="result"></div>
+                      </div>
+                    </div>
+                  </div>       
+                  
+                </div>
+              </div>
+              <!-- END RIGHT PANEL-->
+              
+              
+              <!-- END Widget content -->
+              <div class="clearfix"></div>
+            </div>
+          </div>
+          <!-- END Widget -->
+        </div>
+      </form>
+
+
+    </div><!-- END ROW -->
+  </div><!-- END pageWrapper -->
+
+
+{% endblock%}

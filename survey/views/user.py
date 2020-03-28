@@ -20,8 +20,9 @@ def user_login(request):
         - otherwise use request get to load the login page
     '''
     if request.user.is_authenticated:
-        if request.POST.get('next'):
-            return redirect(request.POST.get('next'))
+        if (request.GET.get('next') != "None") and (request.GET.get('next') is not None):
+            print(request.GET.get('next'))
+            return redirect(request.GET.get('next'))
         else:
             return redirect("survey:answerpage", mode=0)
     else:
@@ -32,7 +33,7 @@ def user_login(request):
                 user = form_user.cleaned_data.get('user')
                 login(request, user)
                 nextUrl = request.POST.get('next')
-                if not nextUrl:
+                if nextUrl == "None":
                     if user.is_superuser:
                         return redirect("/client/admin/admin_landing")
                     else:

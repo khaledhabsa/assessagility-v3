@@ -1,13 +1,13 @@
-{% extends 'survey/base_survey.html' %}
+{% extends "base_admin_another.html" %} 
 {% load static %}
 
 {% block page_title %}Demographic Values{% endblock %}
 {% block header_left %}Demographic Values{% endblock %}
 
 {% block breadcrumb %}
-   <a href="/client/admin/"><i class="fa fa-home"></i> Home</a> 
+   <a href="{% url 'client_admin:home' %}"><i class="fa fa-home"></i> Home</a> 
    <span class="divider">/</span> 
-   <a href="/survey/demographic/">Demographic</a>
+   <a href="{% url 'survey:demographic' %}">Demographic</a>
    <span class="divider">/</span>
    <a href="#" class="bread-current">Demographic Values</a> 
 {% endblock %}

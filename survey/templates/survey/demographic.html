@@ -1,11 +1,11 @@
-{% extends "survey/base_survey.html" %} 
+{% extends "base_admin_another.html" %} 
 {% load static %}
 
 {% block page_title %}Demographic{% endblock %}
 {% block header_left %}Demographic{% endblock %}
 
 {% block breadcrumb %}
-   {% comment %} <a href="{% url '/client/admin/' %}"><i class="fa fa-home"></i> Home</a>  {% endcomment %}
+   <a href="{% url 'client_admin:home' %}"><i class="fa fa-home"></i> Home</a> 
    <span class="divider">/</span> 
    <a href="#" class="bread-current">Demographic</a>
 {% endblock %}
@@ -172,7 +172,7 @@
           </div>
           
           <div class="widget-foot">
-            <a class="btn btn-success Submit pull-right" href="{% url 'survey:demographic_values' %}" type="button">Next to Manage Demographic values</a>
+            <a class="btn btn-success Submit pull-right" type="button">Next to Manage Demographic values</a>
             <div class="clearfix"></div>                      
           </div>
           <!--END Widget content -->

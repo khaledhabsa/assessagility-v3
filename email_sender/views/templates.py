@@ -1,18 +1,17 @@
 from ..models.email import Email
+from ..models.emailTemplate import EmailTemplate
 from django.http import HttpResponse
 from django.core.mail import EmailMultiAlternatives
 from django.template import Context, loader
-from survey.models.instanceSetting import InstanceSetting
+from survey.models import InstanceSetting
 from django.contrib.sites.models import Site
 
 
 def send_complete_reminder(to_user):
     text_content = loader.get_template(InstanceSetting.objects.get(
         code='email_template_complete_reminder_text').value)
-
     html_content = loader.get_template(InstanceSetting.objects.get(
         code='email_template_complete_reminder_html').value)
-
     c = Context({'domain': Site.objects.get_current().domain,
                  'first_name': to_user.get_profile().first_name,
                  'email': to_user.email,

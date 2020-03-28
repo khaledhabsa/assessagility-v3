@@ -1,39 +1,116 @@
 {% load static %}
+
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
+    <!-- Title and other stuffs -->
+    <title>{% block title %}{% endblock %} - ReadyForAgile.com</title>
 
-    <title>{% block title %} {% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="keywords" content="">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="{% static 'img/favicon/favicon.png' %}">
 
-    
+
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet" > 
-    {% block links %}{% endblock %}
+    <link href="{% static 'css/jquery-ui-1.9.2.custom.min.css' %}" rel="stylesheet" > 
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/widgets.css' %}" rel="stylesheet">
+    <link href="{% static 'css/custom.css' %}" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel="stylesheet" type="text/css">
+
     <!-- HTML5 Support for IE -->
     <!--[if lt IE 9]>
-        <script src="{% static 'js/html5shim.js' %}"></script>
+        <script src="{% static }}js/html5shim.js"></script>
         <![endif]-->
 
     <!-- Favicon -->
-    
+    <link rel="shortcut icon" type="image/x-icon" href="{% static "images/favico.png" %}" />
   </head>
 
-  <body {% block bodyClass %}{% endblock %}>
+  <body class="userspace">
   
-    {% block content %}
-    {% endblock %}
+  <div id="wrap">
+    <header>
+      <div class="navbar navbar-fixed-top bs-docs-nav" role="banner">
+        
+        <div class="container">
+          <!-- Menu button for smallar screens -->
+          <div class="navbar-header">
+            <a href="/" class="navbar-brand">
+              <img src="{% static 'img/logo-133-l.png' %}">
+            </a>
+          </div>
+
+          <!-- Navigation starts -->
+          <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">         
+            
+            <!-- Links -->
+            <ul class="nav navbar-nav pull-right">
+              <li class="dropdown pull-right user-data">            
+                <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                  <img src="{% static 'img/default-avatar.png' %}"> {{ request.user }} <b class="caret"></b>              
+                </a>
+                
+                <!-- Dropdown menu -->
+                <ul class="dropdown-menu">
+                  <li><a href="{% url 'survey:change_password' %}"><i class="fa fa-cogs"></i>{% trans "Change Password" %}</a></li>
+                  <li><a href="{% url 'survey:user_logout' %}"><i class="fa fa-key"></i>{% trans "Logout" %}</a></li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+
+        </div>
+      </div>
+    </header>
+    <!-- Main content starts -->
+
+    <div class="content">
+      <!-- Main bar -->
+      <div class="mainbar">
+        <!-- Page heading -->
+        <div class="page-head"></div>
+        <!-- Page heading ends -->
+
+        <div class="matter">
+          {% block content %}{% endblock %}
+        </div>
+
+      </div>
+
+      <!-- Mainbar ends -->    
+      <div class="clearfix"></div>
+
+    </div>
+    <!-- Content ends -->
+    <div id="push"></div>
+  </div><!-- END WRAP-->
+    
+    
+    <!-- Footer starts -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <!-- Copyright info -->
+            <p class="copy">Copyright &copy; {% now "Y" %} | <a href="/">ReadyForAgile.com</a> </p>
+          </div>
+        </div>
+      </div>
+    </footer> 
+
+    <!-- Footer ends -->
+
+
 
     <script src="{% static 'js/jquery.js' %}"></script>
     <script src="{% static 'js/jquery-ui-1.9.2.custom.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    {% block js %}
-    
-    {% endblock %}
+    {% block page_extra %}{% endblock %}
   </body>
 </html>

@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'survey',
     'email_sender',
-    'user_management'
+    'user_management',
+    'client_admin',
+    'fake_it',
 ]
 
 MIDDLEWARE = [

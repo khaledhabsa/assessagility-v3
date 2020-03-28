@@ -1,94 +1,27 @@
+{% extends "base_static.html" %}
 
-{% load static %}
+{% block page_title %} Survey {% endblock %}
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta http-equiv="Content-Language" content="en-us" />
-		<title>{% block page_title %} Survey {% endblock %} | Dr Agile</title>
-		<link rel="shortcut icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
-		<link href="{% static 'styles/reset.css' %}" media="screen" rel="stylesheet" type="text/css" />
-		<link href="{% static 'styles/grid.css' %}" media="screen" rel="stylesheet" type="text/css" />
-		<link href="{% static 'styles/styles.css' %}" media="screen" rel="stylesheet" type="text/css" />
+{% block header_left %} <h1>Thank you</h1>
+{% endblock %}
 
-		<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.2.js"></script>
+{% block content %} <div class="clear"></div>
 
-		<script src="{% static 'scripts/jquery.corners.min.js' %}"></script>
-
-	</head>
-	<body>
-
-		<div class="container_12">
-			<div class="grid_12">
-				<div class="logoBlock">
-					<img src="{% static 'images/customers/logo_dragile.png'%}" width="105" height="40" />
-				</div>
-			</div>
-			<div class="clear"></div>
-			<div class="grid_12">
-				<div class="roundedBlock">
-					<div class="top">
-						<span></span>
-					</div>
-					<div class="center-content">
-						<div class="headerGridTitle">
-							{% block header_left %}
-                                <h1>Thank you</h1>
-							{% endblock %}
-						</div>
-						<div class="headerShadPages">
-							<div class="clear">
-								&nbsp;
-							</div>
-							<!-- CONTENT BEGIN -->
-							{% block content %}
-                                <div class="clear"></div>
-
-                                    <script type="text/javascript" src="{% static 'scripts/select_role.js'%}"></script>
+<script type="text/javascript" src="{% static 'scripts/select_role.js' %}"></script>
 
 
 
 
 
-                                    <div class="pageWrapper">    
-                                    <div class="closedMessage"><br><br><br><br>
-                                        <div style="width: 500px;">
-                                        Thanks for attempting to access the Cat Electronics Agile Readiness Survey.  The survey is now closed.  We are currently reviewing the input we received.  If you have any questions, feel free to contact <a href="mailto:kott_alex_w@cat.com?Subject=Regarding Agile Readiness Assessment!">Alex Kott</a>.  Thanks!
-                                        </div>
-                                    </div>
-                                    </div>
-							{% endblock %} <!-- CONTENT END -->
-							<div class="clear"></div>
-						</div>
-						<div class="clear"></div>
-					</div>
-					<div class="bottom">
-						<span></span>
-					</div>
-				</div>
-			</div>
-			<div class="clear"></div>
-			<div class="grid_6">
-				<div class="copyright">
-					&copy; 2012 - ReadyForAgile. All Rights Reserved.
-				</div>
-			</div>
-			<div class="grid_6">
-				<div class="">
-					<div class="poweredbyBlock" title="Powered by ReadyForAgile"></div>
-					<div class="logoSep">
-						&nbsp;
-					</div>
-					<div class="providedbyBlock" title="Service provided by ReadyForAgile"></div>
-					<div class="logoSep">
-						&nbsp;
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="clear"></div>
-		</div> <div class="clear"></div>
-	</body>
-</html>
+<div class="pageWrapper">    
+<div class="closedMessage"><br><br><br><br>
+	<div style="width: 500px;">
+    Thanks for attempting to access the Cat Electronics Agile Readiness Survey.  The survey is now closed.  We are currently reviewing the input we received.  If you have any questions, feel free to contact <a href="mailto:kott_alex_w@cat.com?Subject=Regarding Agile Readiness Assessment!">Alex Kott</a>.  Thanks!
+    </div>
+</div>
+</div>
+{% endblock %}
+
+{% block footer_buttons %}
+
+{% endblock %}

@@ -20,8 +20,8 @@ def send_email(request, patch_size):
         # EMAIL_HOST_USER,
         # to = [m.to_email], #'ali.osama@inet.works'],
         # headers={'Reply-To': m.reply_to_email})
-        print("From Email: ", EMAIL_HOST_USER)
-        print("To Email: ", m.to_email)
+        # print("From Email: ", EMAIL_HOST_USER)
+        # print("To Email: ", m.to_email)
         email_msg.send()
         m.status = 'sent'
         m.save()

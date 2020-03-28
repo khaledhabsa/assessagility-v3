@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from .graphics import Demographic, DemographicValue
 from .role import Role
 from django.utils.timezone import now
+from django.db.models.signals import post_save
 
 
 class UserProfile(models.Model):

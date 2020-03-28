@@ -1,4 +1,5 @@
-{% extends 'questions/base_question.html' %}
+{% extends "base.html" %}
+{% load static %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
           "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -6,15 +7,15 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="Content-Language" content="en-us" />
     <title>{% block page_title %} Survey {% endblock %} | Dr Agile</title>
-    <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
-    <link href="/styles/reset.css" media="screen" rel="stylesheet" type="text/css" />
-    <link href="/styles/grid.css" media="screen" rel="stylesheet" type="text/css" />
-    <link href="/styles/styles.css" media="screen" rel="stylesheet" type="text/css" />
-    <link href="/styles/buttons.css" rel="stylesheet" type="text/css" />
-    <link href="/styles/messages.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="/styles/ezmark.css" media="all" />
+    <link rel="shortcut icon" type="image/x-icon" href="{% static "images/favico.png" %}" />
+    <link href="{% static 'styles/reset.css' %}" media="screen" rel="stylesheet" type="text/css" />
+    <link href="{% static 'styles/grid.css' %}" media="screen" rel="stylesheet" type="text/css" />
+    <link href="{% static 'styles/styles.css' %}" media="screen" rel="stylesheet" type="text/css" />
+    <link href="{% static 'styles/buttons.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'styles/messages.css' %}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="{% static 'styles/ezmark.css' %}" media="all" />
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.2.js"></script>
-    <script type="text/javascript" src="/scripts/jquery.ezmark.min.js"></script>
+    <script type="text/javascript" src="{% static 'scripts/jquery.ezmark.min.js' %}"></script>
     <script type="text/javascript">
       $(function() {
       $('.radioGroup input').ezMark();
@@ -22,11 +23,11 @@
 	});
     </script>
     <!-- styles needed by jScrollPane - include in your own sites -->
-    <link type="text/css" href="/styles/jquery.jscrollpane.css" rel="stylesheet" media="all" />
+    <link type="text/css" href="{% static 'styles/jquery.jscrollpane.css' %}" rel="stylesheet" media="all" />
     <!-- the mousewheel plugin -->
-    <script type="text/javascript" src="/scripts/jquery.mousewheel.js"></script>
+    <script type="text/javascript" src="{% static 'scripts/jquery.mousewheel.js' %}"></script>
     <!-- the jScrollPane script -->
-    <script type="text/javascript" src="/scripts/jquery.jscrollpane.min.js"></script>
+    <script type="text/javascript" src="{% static 'scripts/jquery.jscrollpane.min.js' %}"></script>
     <!--
 	<script type="text/javascript" id="sourcecode">
 	  $(function()
@@ -35,9 +36,9 @@
 	  });
 	</script>
 	-->
-    <script src="/scripts/jquery.corners.min.js"></script>
-    <link media="screen" rel="stylesheet" href="/styles/colorbox.css" />
-    <script src="/scripts/jquery.colorbox.js"></script>
+    <script src="{% static 'scripts/jquery.corners.min.js' %}"></script>
+    <link media="screen" rel="stylesheet" href="{% static 'styles/colorbox.css' %}" />
+    <script src="{% static 'scripts/jquery.colorbox.js' %}"></script>
     <script type="text/javascript">
       $(document).ready(function() {
           $('.rounded').corners();
@@ -51,7 +52,7 @@
 	      event.preventDefault();
 	      $('.headerMessageBlock').slideUp('slow', function() {
 	      });
-	      $.getJSON('/hideWelcomeMessage/', null);
+	      $.getJSON('/hide/welcome_message/', null);
 	  });
       });
 
@@ -105,13 +106,13 @@
 	<div class="welcomeIcons">
 	  {% if user.is_authenticated %}
 	    <div class="icoWelcomeUser">
-	      Welcome <strong>{{ user.get_profile.first_name }}</strong> (<a href="/user/changepassword/">Change Password</a>)
+	      Welcome <strong>{{ user.get_profile.first_name }}</strong> (<a href="{% url 'survey:change_password' %}">Change Password</a>)
 	    </div>
 	    <div class="icoAnsweringRole">
 	      You are answering this survey as a <strong>{{ user.get_profile.roles.all.0.title}}</strong>
 	    </div>
 	    <div class="icoLogout">
-	      <a href="/logout/"><span>Logout</span></a>
+	      <a href="{% url 'survey:user_logout' %}"><span>Logout</span></a>
 	    </div>
 	  {% else %}
 	    <div>
@@ -147,9 +148,9 @@
 	  <div class="center-content">
 	    <div class="headerGridTitle">
 	      {% block header_left %}
-                <div class="floatLeft progressBarBlock">
-                <div class="progressBar pb5"></div>
-                </div>
+		<div class="floatLeft progressBarBlock">
+		  <div class="progressBar pb5"></div>
+		</div>
 	      {% endblock %}
               
 	      {% block header_right %}

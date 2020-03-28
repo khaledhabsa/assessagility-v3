@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="Content-Language" content="en-us" />
+		<title>{% block page_title %} Survey {% endblock %} | Dr Agile</title>
+		<link rel="shortcut icon" type="image/x-icon" href="{% static "images/favico.png" %}" />
+		<link href="{% static 'styles/reset.css' %}" media="screen" rel="stylesheet" type="text/css" />
+		<link href="{% static 'styles/grid.css' %}" media="screen" rel="stylesheet" type="text/css" />
+		<link href="{% static 'styles/styles.css' %}" media="screen" rel="stylesheet" type="text/css" />
+
+		<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.2.js"></script>
+
+		<script src="{% static 'scripts/jquery.corners.min.js' %}"></script>
+
+
+	</head>
+	<body>
+
+		<div class="container_12">
+			<div class="grid_12">
+				<div class="logoBlock">
+					<img src="{% static 'images/customers/{{logo_file_name}}' %}" width="105" height="40" />
+				</div>
+			</div>
+			<div class="clear"></div>
+			<div class="grid_12">
+				<div class="roundedBlock">
+					<div class="top">
+						<span></span>
+					</div>
+					<div class="center-content">
+						<div class="headerGridTitle">
+							{% block header_left %}
+							<div class="floatLeft progressBarBlock">
+								<div class="progressBar pb5"></div>
+							</div>
+							{% endblock %}
+						</div>
+						<div class="headerShadPages">
+							<div class="clear">
+								&nbsp;
+							</div>
+							<!-- CONTENT BEGIN -->
+							{% block content %}
+							{% endblock %} <!-- CONTENT END -->
+							<div class="clear"></div>
+						</div>
+						<div class="clear"></div>
+					</div>
+					<div class="bottom">
+						<span></span>
+					</div>
+				</div>
+			</div>
+			<div class="clear"></div>
+			<div class="grid_6">
+				<div class="copyright">
+					<p class="copy">Copyright &copy; {% now "Y" %} | <a href="/">ReadyForAgile.com</a> </p>
+				</div>
+			</div>
+			<div class="grid_6">
+				<div class="">
+					<div class="poweredbyBlock" title="Powered by ReadyForAgile"></div>
+					<div class="logoSep">
+						&nbsp;
+					</div>
+					<div class="providedbyBlock" title="Service provided by ReadyForAgile"></div>
+					<div class="logoSep">
+						&nbsp;
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="clear"></div>
+		</div> <div class="clear"></div>
+	</body>
+</html>

@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="author" content="ReadyForAgile" />
     <title>Ready For Agile | {% block page_title %}{% endblock %} </title>
-    <link rel="shortcut icon" type="image/x-icon" href="{% static "img/" %}favicon.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="{% static "images/favico.png" %}" />
     <link href="{% static "css/" %}bootstrap.css" rel="stylesheet" />
     <link rel="stylesheet" href="{% static "css/" %}font-awesome.css" /> 
     <link rel="stylesheet" href="{% static "css/" %}jquery-ui-1.9.2.custom.min.css" /> 
@@ -32,7 +32,7 @@
         <![endif]-->
     
     <!-- Favicon -->
-    <link rel="shortcut icon" href="img/favicon/favicon.png" />
+    <link rel="shortcut icon" href="{% static 'images/favicon/favico.png' %}" />
   </head>
   
   <body>
@@ -57,7 +57,7 @@
                 {% if user.is_authenticated %}
                   <li class="dropdown pull-right user-data">            
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                      <img src="{% static "img/" %}default-avatar.png" /> {{ request.user }}
+                      <img src="{% static "img/" %}default-avatar.png" /> {{ user.get_profile.first_name }}
                       <b class="caret"></b> 
                     </a>
                     <!-- Dropdown menu -->
@@ -84,10 +84,10 @@
         <div class="sidebar">
           <div class="sidebar-dropdown"><a href="#">Navigation</a></div>
           
-          <div class="logo-big"><a href="/client/admin/" class="logo-white-big">RFA</a></div>
+          <div class="logo-big"><a href="{% url 'client_admin:home' %}" class="logo-white-big">RFA</a></div>
           <ul id="nav">
             <!-- Main menu with font awesome icon -->
-            <li id="menu-item-1"><a href="/client/admin/"><i class="fa fa-home"></i> <span>Dashboard</span></a></li>
+            <li id="menu-item-1"><a href="{% url 'client_admin:home' %}"><i class="fa fa-home"></i> <span>Dashboard</span></a></li>
             {% if request.user.is_superuser %}
               <li class="has_sub" id="setup-link">
                 <a href="#"><i class="fa fa-list-alt"></i>
@@ -99,7 +99,7 @@
                 <ul>
                   <!--<li><a href="/client/admin/upload/logo/">Upload Company Logo</a></li>-->
                   <li id="menu-item-2">
-                    <a href="/usermanagement/">Manage Survey Participants</a>
+                    <a href="{% url 'user_management:home' %}">Manage Survey Participants</a>
                   </li>
                   <li id="menu-item-3">
                     <a href="/client/admin/edit/emailtemplate/ReminderNotStarted">Customize NotStarted email</a>
@@ -107,7 +107,7 @@
                   <li id="menu-item-4">
                     <a href="/client/admin/edit/emailtemplate/ReminderInProgress">Customize InProgress email</a>
                   </li>
-                  <li id="menu-item-11"><a href="/survey/demographic">Manage  Demographic Values</a></li>
+                  <li id="menu-item-11"><a href="{% url 'survey:demographic_values' %}">Manage  Demographic Values</a></li>
                 </ul>
               </li>  
             <li class="has_sub" id="monitor-link">
@@ -159,7 +159,7 @@
             <!-- Breadcrumb -->
             <div class="bread-crumb">
               {% block breadcrumb %}
-                <a href="/client/admin/"><i class="fa fa-home"></i> Home</a> 
+                <a href="{% url 'client_admin:home' %}"><i class="fa fa-home"></i> Home</a> 
                 <span class="divider">/</span> 
                 <a href="#" class="bread-current">Dashboard</a>
               {% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base_admin.html" %}
+
+{% block page_title %} Edit Demographics {% endblock %}
+{% block header_left %} <h1>Edit Demographics </h1>
+{% endblock %}
+
+{% block content %}
+<div class="pageWrapper">
+	<ul>
+        {%for d in demographics%}
+            <li><a href="{{d.id}}">{{d.title}} </a></li>
+        {%endfor%}
+	</ul>
+    <div class="backBlock"><a href="{% url 'client_admin:home' %}" class="linkBtnBack"><< Back</a></div>
+	</div>
+{% endblock%} 

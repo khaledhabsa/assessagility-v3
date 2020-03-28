@@ -452,19 +452,16 @@ def addSurveyOptionIfNotExist(key, value):
 
 
 def isValidSurveyOption(key, value):
-    print(">>>>>>>>key,value:", key, value)
+
     try:
         option = Option.objects.get(key=key)
-        # print(">>>>>>>>option:", option)
 
     except Exception:
         option = None
 
     if option is not None:
-        print(">>>>>>>>option.value, value:", option.value, value)
         # value = value.replace("survey_", "")
         if(option.value == value):
-            # print(">>>>>>>>option.value, value:", option.value, value)
             return True
 
     return False

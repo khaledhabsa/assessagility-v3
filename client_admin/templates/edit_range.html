@@ -1,0 +1,44 @@
+{% extends "base_admin.html" %}
+
+{% block page_title %} Edit Answer Range {% endblock %}
+{% block header_left %} <h1>Edit {{answer_range.title}} Answer Range </h1>
+{% endblock %}
+
+{% block content %}
+<div class="pageWrapper">
+	<form action="." method="post" enctype="multipart/form-data">
+		{% csrf_token %}
+		{{ formset.management_form }}
+{{ formset.non_form_errors.as_ul }}
+<table id="formset" class="form">
+{% for form in formset.forms %}
+  {% if forloop.first %}
+  <thead><tr>
+    {% for field in form.visible_fields %}
+    <th style="padding:2px;">{{ field.label|capfirst }}</th>
+    {% endfor %}
+  </tr></thead>
+  {% endif %}
+  <tr class="{% cycle row1,row2 %}">
+  {% for field in form.visible_fields %}
+    <td style="padding:2px;">
+    {# Include the hidden fields in the form #}
+    {% if forloop.first %}
+      {% for hidden in form.hidden_fields %}
+      {{ hidden }}
+      {% endfor %}
+    {% endif %}
+      {{ field.errors.as_ul }}
+      {{ field }}
+    </td>
+  {% endfor %}
+  </tr>
+{% endfor %}
+</table>
+	
+    <div><input type="submit" value="Submit" /> | <a href="{% url 'client_admin:view_ranges' %}">Cancel</a></div>
+	
+	</form>
+	
+</div>
+{% endblock%} 

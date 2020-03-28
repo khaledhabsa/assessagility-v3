@@ -1,0 +1,41 @@
+{% extends "base_admin_another.html" %}
+
+{% block page_title %} {{template_name}} Email{% endblock %}
+{% block header_left %}
+<h1>{{template_name}}</h1>
+{% endblock %}
+
+{% block content %}
+
+
+<div class="pageWrapper">
+    <p><strong class="label_preview">Subject:</strong><br />
+        {{template.subject}}</p>
+    <p><strong class="label_preview">From email:</strong><br />
+        {{template.from_email}}</p>
+    <p><strong>To email:</strong><br />
+        {{template.to_email}}</p>
+    <p><strong>Reply to email:</strong><br />
+        {{template.reply_to_email}}</p>
+    <p><strong>Body Text:</strong><br />
+        {{template.body_text}}</p>
+
+    <p><strong>Body HTML:</strong><br />
+        {{ template.body_html|safe }} </p>
+    <div style="float: right; height: 50px">
+        <!--<div class="rounded {transparent} button"><a href="#">SEND NOW</a></div>-->
+       
+            <div class="rounded {transparent} button"><a href="/client/admin/edit/emailtemplate/Invitee Welcome Email/">EDIT</a></div>
+            
+        
+    </div>
+</div>
+{% endblock%} 
+
+
+{% block javascript %}
+{{ block.super }}
+<script>
+	activeMenuItem = 5;
+</script>
+{% endblock%}

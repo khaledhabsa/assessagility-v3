@@ -1,0 +1,47 @@
+{% extends "base_admin_another.html" %}
+
+{% block header_left %} <h1>Contact Us</h1>{% endblock %}
+{% block content %}
+<div class="pageWrapper">
+
+<div id="wufoo-z7x3p9">
+Fill out my <a href="http://santeon.wufoo.com/forms/z7x3p9">online form</a>.
+</div>
+<script type="text/javascript">
+/*$(document).ready(function() {
+						    alert('hi');
+    $('iframe#wufooFormz7x3p9').load(function() {
+	     alert('hi2');
+		 var $c = $('iframe#wufooFormz7x3p9').contents();
+		 alert('hi3');
+		var $head = $('iframe#wufooFormz7x3p9').contents().find("head");
+		  $head.append($("<link/>",
+                { rel: "stylesheet", href: "/styles/new.css", type: "text/css" }
+              ));
+     	//$c.find('#container').css("display", "none !important");
+		alert('hi4');
+		//$("#wufoo-z7x3p9 iframe").css("background-color","red");
+        
+    });
+});*/
+var z7x3p9;(function(d, t) {
+var s = d.createElement(t), options = {
+'userName':'santeon', 
+'formHash':'z7x3p9', 
+'autoResize':true,
+'height':'458',
+'async':true,
+'header':'show', 
+'ssl':true};
+s.src = ('https:' == d.location.protocol ? 'https://' : 'http://') + 'wufoo.com/scripts/embed/form.js';
+s.onload = s.onreadystatechange = function() {
+var rs = this.readyState; if (rs) if (rs != 'complete') if (rs != 'loaded') return;
+try { z7x3p9 = new WufooForm();z7x3p9.initialize(options);z7x3p9.display(); } catch (e) {}};
+var scr = d.getElementsByTagName(t)[0], par = scr.parentNode; par.insertBefore(s, scr);
+})(document, 'script');
+
+
+</script>
+    
+</div>
+{% endblock%} 

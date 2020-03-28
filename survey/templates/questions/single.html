@@ -1,10 +1,10 @@
-{% extends 'questions/base_question.html' %}
+{% extends "base.html" %}
 {% load i18n %}
 {% load static %}
 
 {% block title %}{% trans "Survey" %}{% endblock %}
 
-{% block question %}
+{% block content %}
   <div class="page-title">
     <div class="col-md-5 pull-right">
       <div class="btn-group questions-sort">
@@ -74,39 +74,40 @@
   </div><!--questions-->
   
   
+
+
 {% endblock %}
 
-{% block extra_js %}
-    <link href="{% static 'js/ezMark/css/ezmark.css' %}" rel="stylesheet">
-    <script src="{% static 'js/ezMark/js/jquery.ezmark.min.js' %}"></script>
+{% block page_extra %}
+  <link href="{% static 'js/ezMark/css/ezmark.css' %}" rel="stylesheet">
+  <script src="{% static 'js/ezMark/js/jquery.ezmark.min.js' %}"></script>
 
-    <link href="{% static 'js/customscroll/jquery.custom-scrollbar.css' %}" rel="stylesheet" type="text/css" />
-    <script src="{% static 'js/customscroll/jquery.custom-scrollbar.min.js' %}"></script>
+  <link href="{% static 'js/customscroll/jquery.custom-scrollbar.css' %}" rel="stylesheet" type="text/css" />
+  <script src="{% static 'js/customscroll/jquery.custom-scrollbar.min.js' %}"></script>
 
-    <script src="{% static 'js/pages/question.js' %}"></script>
-    <link href="{% static 'css/pages/questions.css' %}" rel="stylesheet" />
-            <script type="text/javascript">	
-            $(document).ready(function() {
-                $('[data-toggle="tooltip"]').tooltip({'placement': 'bottom'});
-            });
-        </script>
-    <!-- Modal -->
-    <div class="modal fade" id="survey-modal" tabindex="-1" role="dialog" aria-labelledby="survey-modalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="myModalLabel">Confirm</h4>
-        </div>
-        <div class="modal-body">
-        <p>Are you ready to submit your survey?</br> Once submitted you can not change any of your answers</p>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel, don't submit the survey yet</button>
-            <button type="button" class="btn btn-primary" id="accept-survey">Submit Survey Now</button>
-        </div>
-        </div>
+  <script src="{% static 'js/pages/question.js' %}"></script>
+  <link href="{% static 'css/pages/questions.css' %}" rel="stylesheet" />
+    	<script type="text/javascript">	
+		$(document).ready(function() {
+			$('[data-toggle="tooltip"]').tooltip({'placement': 'bottom'});
+		});
+	</script>
+<!-- Modal -->
+<div class="modal fade" id="survey-modal" tabindex="-1" role="dialog" aria-labelledby="survey-modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Confirm</h4>
+      </div>
+      <div class="modal-body">
+      <p>Are you ready to submit your survey?</br> Once submitted you can not change any of your answers</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel, don't submit the survey yet</button>
+        <button type="button" class="btn btn-primary" id="accept-survey">Submit Survey Now</button>
+      </div>
     </div>
-    </div>
-
+  </div>
+</div>
 {% endblock %}

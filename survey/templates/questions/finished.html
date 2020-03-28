@@ -1,13 +1,13 @@
-{% extends 'questions/base_question.html' %}
+{% extends "base.html" %}
 {% load i18n %}
 {% load static %}
-{% block bodyClass %} class="userspace" {% endblock %}
+
 {% block title %}{% trans "Survey" %}{% endblock %}
 
 {% block header_left %} <h1>Survey  {{welcomemessage}}&nbsp; Completed</h1>
 {% endblock %}
 
-{% block question %}
+{% block content %}
 <div class="container">
 <div class="row">
 			<div class="widget">
@@ -34,16 +34,14 @@
             </div>
 </div>
 </div> 
+{% endblock%}
 
-{% endblock %}
-
-{% block extra_js %}
-   <script>
-        $(document).ready(function() {
-            $('.Submit').click(function() {
-                    document.forms[0].submit();
-            });
-        });
-    </script>
-
+{% block page_extra %}
+<script>
+$(document).ready(function() {
+	$('.Submit').click(function() {
+			document.forms[0].submit();
+	});
+});
+</script>
 {% endblock %}

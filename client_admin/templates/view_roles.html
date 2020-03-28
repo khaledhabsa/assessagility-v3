@@ -1,0 +1,19 @@
+{% extends "base_admin.html" %}
+
+{% block page_title %} Edit Roles {% endblock %}
+{% block header_left %} <h1>Edit Roles </h1>
+{% endblock %}
+
+{% block content %}
+<div class="pageWrapper">
+	<ul>
+        {%for r in roles%}
+            <li><a href="{{r.id}}">{{r.title}} </a></li>
+        {%endfor%}
+	</ul>
+
+
+	
+	<div class="backBlock"><a href="{% url 'client_admin:home' %}" class="linkBtnBack"><< Back</a></div>
+</div>
+{% endblock%} 

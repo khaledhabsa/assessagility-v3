@@ -1,0 +1,386 @@
+{% extends "base_admin_another.html" %}
+{% load static %}
+
+{% block page_title %}Dashboard{% endblock %}
+{% block header_left %}Dashboard{% endblock %}
+
+{% block breadcrumb %}
+  <a href="{% url 'client_admin:home' %}"><i class="fa fa-home"></i> Home</a> 
+  <span class="divider">/</span> 
+<a href="#" class="bread-current">Dashboard</a>
+{% endblock %}
+
+{% block content %}
+  
+  <div class="row">
+    <div class="col-md-4 portlets ui-sortable">
+      <!-- Widget -->
+      <div class="widget">
+        <div class="widget-head">
+          <div class="pull-left stat-1">Not Started</div>
+          <div class="pull-right"><span class="counters">{{ users_not_started }}</span></div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="widget-content">
+          <!-- Widget content -->
+          <div class="widget-content referrer">
+            <!-- Widget content -->
+            
+            <table class="table table-striped table-bordered table-hover">
+              {% for t,v in roles_not_started %}                 
+                <tr>
+                  <td>{{ t }}</td>
+                  <td>{{ v }}</td>
+                </tr> 
+              {% endfor %}  
+            </table>
+          </div>
+          {% if request.user.is_superuser %}
+            <div class="widget-foot">
+              <div >
+                <a href="/client/admin/edit/emailtemplate/ReminderNotStarted/" class="btn btn-default btn-sm" id="cusomize-reminder">
+                  <i class="fa fa-pencil"></i>&nbsp;Customize Reminder
+                </a>
+                <a href="#modal-notstarted" data-toggle="modal" class="btn btn-primary btn-sm">
+                  <i class="fa fa-envelope-o"></i>&nbsp;Send Reminder
+                </a>  
+              </div>
+              <div class="clearfix"></div>                      
+            </div>{% endif %}
+            <!--END Widget content -->
+        </div>  
+      </div> 
+      <!-- END Widget -->
+    </div>
+    
+    
+    <div class="col-md-4 portlets ui-sortable">
+      <!-- Widget -->
+      <div class="widget">
+        <div class="widget-head">
+          <div class="pull-left stat-2">In Progress</div>
+          <div class="pull-right"><span class="counters">{{users_started}}</span></div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="widget-content">
+          <!-- Widget content -->
+          
+          <div class="widget-content referrer">
+            <!-- Widget content -->
+            
+            <table class="table table-striped table-bordered table-hover">
+              {% for t,v in roles_in_progress%}                 
+                <tr>
+                  <td>{{t}}</td>
+                  <td>{{v}}</td>
+                </tr> 
+              {% endfor %}  
+            </table>
+          </div>
+          
+          {% if request.user.is_superuser %}
+            <div class="widget-foot">
+              <div>
+                <a href="/client/admin/edit/emailtemplate/ReminderInProgress/" class="btn btn-default btn-sm" id="cusomize-reminder">
+                  <i class="fa fa-pencil"></i>&nbsp;Customize Reminder
+                </a>
+                <a href="#modal-progress" data-toggle="modal" class="btn btn-primary btn-sm">
+                  <i class="fa fa-envelope-o"></i>&nbsp;Send Reminder
+                </a>
+              </div>
+              <div class="clearfix"></div>                      
+            </div>
+          {% endif %}
+          <!--END Widget content -->
+        </div>  
+      </div> 
+      <!-- END Widget -->
+    </div>
+    
+    
+    <div class="col-md-4 portlets ui-sortable">
+      <!-- Widget -->
+      <div class="widget">
+        <div class="widget-head">
+          <div class="pull-left stat-3">Completed</span>
+
+</div>
+<div class="pull-right"><span class="counters">{{users_finished}}</span></div>
+<div class="clearfix"></div>
+</div>
+<div class="widget-content">
+  <!-- Widget content -->
+  
+  <div class="widget-content referrer">
+    <!-- Widget content -->
+    
+    <table class="table table-striped table-bordered table-hover">
+      {%for t,v in roles_completed%}                 
+      <tr>
+        <td>{{t}}</td>
+        <td>{{v}}</td>
+      </tr> 
+      {% endfor %}  
+    </table>
+  </div>
+  
+  <div class="widget-foot">
+    <div class="pull-right">                      
+      <a class="btn btn-primary" href="#" style="visibility:hidden">Send Reminder</a> 
+    </div>
+    <div class="clearfix"></div>                      
+  </div>
+  <!--END Widget content -->
+</div>  
+</div> 
+<!-- END Widget -->
+</div>
+</div>
+
+{% ifequal  show_report "show" %} 
+<div class="row">
+  <div class="col-md-12 portlets">
+    <!-- Widget -->
+    <div class="widget">
+      <div class="widget-head">
+        <div class="pull-left">Reports</div>
+        <div class="clearfix"></div>
+      </div>
+      <div class="widget-content">
+        <!-- Widget content -->
+        <div class="padd" style="padding-top:25px; padding-bottom:0px;">
+          
+          {% if request.user.is_superuser %}
+          <div class="smallBoxCloseSurvey" id="divopensurvey">
+            <div style="padding-bottom:25px;">In order to allow participants to answer survey quesions, you have to open the survey first <button class="btn btn-success" id="btnopensurvey" type="button" style="margin-left:25px;">Open The Survey</button></div> 
+          </div>
+          
+          <div class="smallBoxCloseSurvey" id="divclosesurvey">
+            <div style="padding-bottom:25px;">In order to view the reports you have to close the survey first <button class="btn btn-danger" id="btnclosesurvey" type="button" style="margin-left:25px;">Close The Survey</button></div>
+          </div>
+          {% endif %}
+
+          <div id="testdiv" class="testdiv">
+            <div class="row" style="border-top:solid 1px #ebebeb; margin-top:25px;">
+              <div class="col-md-4 reportSectionBlock border-right padd">
+                <div class="reportSectionTitle"><a  href="/report/category/radar/">Organizational Characteristic Assessment</a></div>
+                <p>Our practice radar quickly displays your teams characteristic rating.</p>
+                <p><a href="/report/category/radar/" class="btn btn-primary">View Report</a></p>
+              </div>
+
+              <div class="col-md-4 reportSectionBlock border-right padd">
+                <div class="reportSectionTitle"><a href="/report/optimized/practice/">Detailed Practice Readings</a></div>
+                <p>Break down the low, high and average of your staff agile demographics.</p>
+                <p><a href="/report/optimized/practice/" class="btn btn-primary">View Report</a></p>
+              </div>
+              
+              <div class="col-md-4 reportSectionBlock padd">
+                <div class="reportSectionTitle"><a href="/report/practice/spectrum">Agile Maturity by Practice</a></div>
+                <p>View all of your practice agility percentage ratings in one location.</p>
+                <p><a href="/report/practice/spectrum" class="btn btn-primary">View Report</a></p>
+              </div>              
+              
+            </div>
+            {% endifequal %}
+          </div>
+	</div>
+        <!--END Widget content -->
+      </div>  
+    </div> 
+    <!-- END Widget -->
+  </div>
+  
+</div>
+
+{% endblock %} 
+
+
+{% block javascript %}
+{{ block.super }}
+<script type="text/javascript">
+  $( document ).ready(function() {
+  //_surveyClosed = {{ survey_closed|lower }};
+
+  {% comment %}
+  {% ifequal show_report "show" %}
+  {% if not survey_closed %}
+  survey_closed();   
+  {% endif %}
+  {% endifequal %}
+  {% endcomment %}
+  survey_closed()
+  
+  });
+</script>
+
+
+{% endblock %}  
+
+<div class="pageWrapper">
+  <div class="floatLeft">
+    <div class="dashboardBoxLeft">
+      <h2 class="setup">Setup</h2>
+      <div class="setupContentsBlock">
+        <ul>
+          {% comment %}
+          <!--<li>
+              <a href="/client/admin/upload/logo/" class="icoUploadCompanyLogo">
+                Upload Company Logo
+              </a>
+              <span id="SomeID1" class="class_tips" contents="By uploading your company or team logo it will appear on certain pages of your survey, verifying for your team members that they are in the right place. ">[i]</span>
+          </li> -->
+          <!--<li><a href="" class="icoSetCloseDate">Set Survey Close Date</a></li>-->
+          {% endcomment %}
+          <li><a href="/client/admin/edit/emailtemplate/Invitee Welcome Email/" class="icoCustomizeEmailSentOut">Customize Email to be Sent Out</a><span id="SomeID2" class="class_tips" contents="Every person who will participate in your ReadyForAgile Assessment will get a this invite in their inbox. It is important to put all the information they need in it up front. With this option you can customize exactly what is said in both plain text and HTML. ">[i]</span></li>
+          <li><a href="{% url 'user_management:home' %}" class="icoManageSurveyParticipants">Manage Survey Participants</a><span class="class_tips" contents="Decide who will take the survey, when by managing your  participants. Here you can upload everyone you might potentially want to invite. Then, send your custom invite to individuals whom you would like to participate in the survey itself.">[i]</span></li>
+          {%ifequal  show_demographic "show" %}                      
+          <li><a href="{% url 'survey:demographic'%}" class="icoManageDemo">Manage  Demographic Values</a><span id="Span1" class="class_tips" contents="Demographic values allow you to sort your assessment results later by the custom fields provided. ">[i]</span></li>
+          {%endifequal%} 
+        </ul>
+        <div class="clear"></div>
+        {% comment %}
+        <!--
+            <ul>
+              <li><a href="/client/admin/edit/emailtemplate/enrollment/">Enrollment</a></li>
+              <li><a href="/client/admin/edit/emailtemplate/start_reminder/">Start Survey Reminder</a></li>
+              <li><a href="">Complete Survey Reminder</a></li>
+            </ul>
+            -->
+        {% endcomment %}
+      </div>
+    </div>
+    
+    <div class="dashboardBoxLeft">
+      <h2 class="monitor">Monitor <span id="SomeID4" class="class_tips" contents="Keep track of who has taken your  Assessment and who has not by following the statistics below.<br>Not Started - Individuals who have been invited but have not begun the assessment.<br>In Progress - Individuals who have been invited, have logged in and begun their assessment but have not yet submitted all of their final answers.<br>Completed - Individuals who have answered all of the questions within their  Assessment and have submitted them. ">[i]</span></h2>
+      <div class="monitorContentsBlock">
+        <div class="statusSummeryBlock">
+          <div class="statusNotStarted">
+            <div class="statusTitle">
+              Not Started <span class="statusNumber">({{users_not_started}})</span>
+            </div>
+            
+            <div class="Send_Start_Reminders" style="width:170px">
+	      <a href="/client/admin/edit/emailtemplate/Reminder/" class="icoCustomizeEmailSentOut">Customize Reminder</a><span id="SomeID5" class="class_tips" contents="For those individuals who you have invited but have not yet elected to begin their  Assessment, customize the text contained within a Reminder Email to help get them going!">[i]</span>
+              <a href="/client/admin/preview/emailtemplate/Preview Reminder/" class="icoSendReminder" style="display:inline-block">Send Reminder</a>
+            </div>
+            <div class="Start_Reminders_Sent">
+              Reminders Sent
+            </div>
+            <div style="display: none">
+              {%for t,v in roles_not_started%}
+              <div>
+                {{t}} : {{v}}
+              </div>
+              {%endfor%}
+            </div>
+          </div>
+        </div>
+        
+        <div class="statusSummeryBlock">
+          <div class="statusInProgress">
+            <div class="statusTitle">
+              In Progress <span class="statusNumber" title="Total number of users started in this survey">({{users_started}})</span>
+            </div>
+            <div class="paddingSpace"></div>
+            
+            <div class="Complete_Reminders_Sent">
+              Reminders Sent
+            </div>
+            
+            <div class="resultSummeryBlock">
+              <ul>
+                {%for t,v in roles_in_progress%}
+                <li>
+                  {{t}}: <span>{{v}}</span>
+                </li>
+                {%endfor%}
+              </ul>
+            </div>
+            <br />
+            <div class="Send_Complete_Reminders" style="width:170px">
+              <a href="/client/admin/edit/emailtemplate/Reminder/" class="icoCustomizeEmailSentOut">Customize Reminder</a><span id="SomeID6" class="class_tips" contents="For those individuals who have begun their Dr. Assessments but have yet to complete all their questions or have yet to submit their answers for reporting. ">[i]</span>
+              <a href="/client/admin/preview/emailtemplate/Preview Reminder/" class="icoSendReminder" style="display:inline-block">Send Reminder</a>
+            </div>              
+          </div>
+        </div>
+        
+        <div class="statusSummeryBlock">
+          <div class="statusSummeryBlock statusCompleted">
+            <div class="statusTitle">
+              Completed <span class="statusNumber" title="Total number of users finished in this survey">({{users_finished}})</span>
+            </div>
+
+            <div class="paddingSpace"></div>
+            <div class="resultSummeryBlock">
+              <ul>
+                {%for t,v in roles_completed%}
+                <li>
+                  {{t}}: <span>{{v}}</span>
+                </li>
+                {%endfor%}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clear"></div> 
+      <br /><br />   
+    </div>
+  </div>
+
+  <div class="floatRight">
+    {% ifequal  show_report "show" %} 
+    <div class="dashboardBoxRight">
+      <h2 class="reports">Reports</h2>
+      
+      <div class="reportsContentsBlock">	        	
+        
+        <div class="smallBoxCloseSurvey" id="divopensurvey" >
+          <div>In order to allow participants to answer survey quesions, you have to open the survey first</div>
+          <button class="btn btn-primary" id="btnopensurvey" type="button">Open The Survey</button>
+        </div>
+        
+        <div class="smallBoxCloseSurvey" id="divclosesurvey" style="display:none;">
+          <div>In order to view the reports you have to close the survey first</div>                  
+          <button class="btn btn-warning" id="btnclosesurvey" type="button">Close The Survey</button>
+        </div>
+        
+        <div id="testdiv" class="testdiv">
+          
+          <div class="reportSectionBlock">
+            <div class="reportSectionTitle">
+              <a  href="/report/category/radar/">Organizational Characteristic Assessment</a></div>
+            <a href="/report/category/radar/"><img src="/images/img_practice_readiness_assessment.png" align="left" /></a>
+            Our practice radar quickly displays your teams characteristic rating.
+            <div class="readmore">
+              <a  href="/report/category/radar/">View Report</a></div>
+          </div>
+
+          <div class="reportSectionBlock">
+            <div class="reportSectionTitle"><a href="/report/optimized/practice/">Detailed Practice Readings</a></div>
+            <a href="/report/optimized/practice/"><img src="/images/img_demographic_assessment_report.png" align="left" /></a>
+            Break down the low, high and average of your staff agile demographics.
+            <div class="readmore"><a href="/report/optimized/practice/">View Report</a></div>
+          </div>
+          
+          <div class="reportSectionBlock">
+            <div class="reportSectionTitle"><a href="/report/practice/spectrum">Agile Maturity by Practice</a></div>
+            <a href="/report/practice/spectrum"><img src="/images/img_practice_spectrum.png" align="left" /></a>
+            View all of your practice agility percentage ratings in one location.
+            <div class="readmore"><a href="/report/practice/spectrum">View Report</a></div>
+          </div>
+          
+        </div>
+        
+        
+
+        
+        
+      </div>
+    </div>
+    {% endifequal %}
+    
+  </div>
+  <div class="clear"></div>
+</div>
+

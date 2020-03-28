@@ -1,117 +1,117 @@
 var panal_expand_emode = 0;
 var usedinvitations = 0;
-function test(){
- $('.pageHeader').each(function(){
-    $(this).text($(this).next().find('tbody > tr').size());
+function test() {
+    $('.pageHeader').each(function () {
+        $(this).text($(this).next().find('tbody > tr').size());
     });
 }
 
-jQuery(document).ajaxSend(function(event, xhr, settings) {
-	function getCookie(name) {
-		var cookieValue = null;
-		if(document.cookie && document.cookie != '') {
-			var cookies = document.cookie.split(';');
-			for(var i = 0; i < cookies.length; i++) {
-				var cookie = jQuery.trim(cookies[i]);
-				// Does this cookie string begin with the name we want?
-				if(cookie.substring(0, name.length + 1) == (name + '=')) {
-					cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-					break;
-				}
-			}
-		}
-		return cookieValue;
-	}
+jQuery(document).ajaxSend(function (event, xhr, settings) {
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
 
-	function sameOrigin(url) {
-		// url could be relative or scheme relative or absolute
-		var host = document.location.host;
-		// host + port
-		var protocol = document.location.protocol;
-		var sr_origin = '//' + host;
-		var origin = protocol + sr_origin;
-		// Allow absolute or scheme relative URLs to same origin
-		return (url == origin || url.slice(0, origin.length + 1) == origin + '/') || (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
-		// or any other URL that isn't scheme relative or absolute i.e relative.
-		!(/^(\/\/|http:|https:).*/.test(url));
-	}
+    function sameOrigin(url) {
+        // url could be relative or scheme relative or absolute
+        var host = document.location.host;
+        // host + port
+        var protocol = document.location.protocol;
+        var sr_origin = '//' + host;
+        var origin = protocol + sr_origin;
+        // Allow absolute or scheme relative URLs to same origin
+        return (url == origin || url.slice(0, origin.length + 1) == origin + '/') || (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+            // or any other URL that isn't scheme relative or absolute i.e relative.
+            !(/^(\/\/|http:|https:).*/.test(url));
+    }
 
-	function safeMethod(method) {
-		return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-	}
+    function safeMethod(method) {
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
 
-	if(!safeMethod(settings.type) && sameOrigin(settings.url)) {
-		xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-	}
+    if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
+        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+    }
 });
 
-function pageInit(ps){
-    for(i in ps){
-        $(ps[i]+" > .result").setTemplateElement("table_template");        
-		$(ps[i]+" > .result").processTemplate();
+function pageInit(ps) {
+    for (i in ps) {
+        $(ps[i] + " > .result").setTemplateElement("table_template");
+        $(ps[i] + " > .result").processTemplate();
     }
 }
 
-function pageSet(items,ps){
-    for(i in ps){
+function pageSet(items, ps) {
+    for (i in ps) {
         $("#temp").setParam("filter", ps[i].filter);
-	    $("#temp").processTemplate(items);
-	    $(ps[i].page+' > .result > .users_table tbody').append($("#temp").html());
-	    $("#temp").html('');
-       // $(ps[i].page+' > .result > .users_table').tablesorter();
+        $("#temp").processTemplate(items);
+        $(ps[i].page + ' > .result > .users_table tbody').append($("#temp").html());
+        $("#temp").html('');
+        // $(ps[i].page+' > .result > .users_table').tablesorter();
         //$(ps[i].page+' > .result > .users_table').bind("sortEnd",function() { 
-         //   refreshDisplay(); 
+        //   refreshDisplay(); 
         //}); 
     }
 }
 
 function renderUsers(items) {
-	$("#temp").setTemplateElement('rows_template');
-	$("#temp").setParam("filter", 'Participant');
-	$("#temp").processTemplate(items);
-	$('.candidateresult > .users_table tbody').append($("#temp").html());
-	$("#temp").html('');
-//    $(".candidateresult > .users_table").tablesorter();
-//    $(".candidateresult > .users_table").bind("sortEnd",function() { 
-//        refreshDisplay();
-//    }); 
+    $("#temp").setTemplateElement('rows_template');
+    $("#temp").setParam("filter", 'Participant');
+    $("#temp").processTemplate(items);
+    $('.candidateresult > .users_table tbody').append($("#temp").html());
+    $("#temp").html('');
+    //    $(".candidateresult > .users_table").tablesorter();
+    //    $(".candidateresult > .users_table").bind("sortEnd",function() { 
+    //        refreshDisplay();
+    //    }); 
 
- 
-	pageSet(items,[
-    {'page':'.notstartedpage','filter':'Invited'},
-    {'page':'.inprogresspage','filter':'Started'},
-    {'page':'.finishedpage','filter':'Finished'},
-    {'page':'.excludedpage','filter':'Deleted'},
+
+    pageSet(items, [
+        { 'page': '.notstartedpage', 'filter': 'Invited' },
+        { 'page': '.inprogresspage', 'filter': 'Started' },
+        { 'page': '.finishedpage', 'filter': 'Finished' },
+        { 'page': '.excludedpage', 'filter': 'Deleted' },
     ]);
     refreshDisplay();
 }
 
 
 function refreshDisplay() {
-	//$('.result').html($('.result').html());
-	$("tr:visible:even").css("background-color", "#fff");
-	$("tr:visible:odd").css("background-color", "#eee");
-	CandidateCount = $(".status:contains('Participant')").size();
-	$(".CandidateCount").text(CandidateCount);
-	InvitedCount = $(".status:contains('Invited')").size();
-	$(".InvitedCount").text(InvitedCount);
-	StartedCount = $(".status:contains('Started')").size();
-	$(".StartedCount").text(StartedCount);
-	FinishedCount = $(".status:contains('Finished')").size();
-	$(".FinishedCount").text(FinishedCount);
-	UsedQuota = InvitedCount + StartedCount + FinishedCount;
-	$(".UsedQuota").text(UsedQuota);
+    //$('.result').html($('.result').html());
+    $("tr:visible:even").css("background-color", "#fff");
+    $("tr:visible:odd").css("background-color", "#eee");
+    CandidateCount = $(".status:contains('Participant')").size();
+    $(".CandidateCount").text(CandidateCount);
+    InvitedCount = $(".status:contains('Invited')").size();
+    $(".InvitedCount").text(InvitedCount);
+    StartedCount = $(".status:contains('Started')").size();
+    $(".StartedCount").text(StartedCount);
+    FinishedCount = $(".status:contains('Finished')").size();
+    $(".FinishedCount").text(FinishedCount);
+    UsedQuota = InvitedCount + StartedCount + FinishedCount;
+    $(".UsedQuota").text(UsedQuota);
 
-    $('.pageHeader').each(function(){
-		var ccount = $(this).next().find('tbody > tr').size();
-    	$(this).find('.count').text(ccount);
-		if($(this).hasClass('page1')){$("#ccount-1").text(ccount)};
-		if($(this).hasClass('page2')){$("#ccount-2").text(ccount)};
-		if($(this).hasClass('page3')){$("#ccount-3").text(ccount)};
-		if($(this).hasClass('page4')){$("#ccount-4").text(ccount)}
+    $('.pageHeader').each(function () {
+        var ccount = $(this).next().find('tbody > tr').size();
+        $(this).find('.count').text(ccount);
+        if ($(this).hasClass('page1')) { $("#ccount-1").text(ccount) };
+        if ($(this).hasClass('page2')) { $("#ccount-2").text(ccount) };
+        if ($(this).hasClass('page3')) { $("#ccount-3").text(ccount) };
+        if ($(this).hasClass('page4')) { $("#ccount-4").text(ccount) }
 
-	});
-	
+    });
+
 
 
     usedinvitations = 0;
@@ -123,7 +123,6 @@ function refreshDisplay() {
 
 
 function render(items) {
-
     // attach the template
     jQuery.jTemplatesDebugMode(true);
 
@@ -139,15 +138,15 @@ function render(items) {
 }
 
 
-function GetAll()
-{
-     $.ajax(
+function GetAll() {
+    $.ajax(
         {
             url: '/usermanagement/getallcandidate/',
             cache: false,
             dataType: "json",
             success: function (data) {
                 //alert('hello from ajax render');
+                // console.log("DOne");
                 render(data);
                 //alert('hello after ajax render');
             },
@@ -157,10 +156,9 @@ function GetAll()
 }
 
 
-function Checkusedinvitations() 
-{    
+function Checkusedinvitations() {
     quota = parseInt($('#quota').text());
- 
+
     var ids = [];
     $('.leftpanel .checked').each(function () {
         id = $(this).attr('id');
@@ -171,7 +169,7 @@ function Checkusedinvitations()
 
     });
 
-	//limit disabled #56
+    //limit disabled #56
     /*if (ids.length +usedinvitations > quota)
     {
         return false;
@@ -181,24 +179,20 @@ function Checkusedinvitations()
 
 function UpdateSelectall() {
     if ($('.selectall').hasClass('checked')) {
-       
+
         $('.selectall').removeClass('checked');
         $('.selectall').parents('table').find('.usercheckbox').removeClass('checked');
 
     }
 }
 
-function PrepareSelectall()
-{
-	$(document).on('click', '.selectall', function()
-    {
-        if ($(this).hasClass('checked'))
-        {           
+function PrepareSelectall() {
+    $(document).on('click', '.selectall', function () {
+        if ($(this).hasClass('checked')) {
             $(this).removeClass('checked');
             $(this).parents('table').find('.usercheckbox').removeClass('checked');
 
-        } else
-        {           
+        } else {
             $(this).addClass('checked');
             $(this).parents('table').find('.usercheckbox').addClass('checked');
 
@@ -206,26 +200,26 @@ function PrepareSelectall()
     });
 }
 
-function update_expand_mode(newmode){
-   panal_expand_emode=newmode
-        switch(panal_expand_emode){
-            case 0:
-				$('.rightpanel').animate({width:'45%'},1000);
-				$('.leftpanel').animate({width:'45%'},1000);
-				$(".expandText").removeClass("collapseText"); // added by Joe - switch between collapse and expand
-				break;
-            case 1:
-				$(".expandText").addClass("collapseText");// added by Joe - switch between collapse and expand
-				$('.rightpanel').animate({width:'0%'},1000);
-				$('.leftpanel').animate({width:'90%'},1000);
-				break;
-            case 2:
-				$(".expandText").addClass("collapseText"); // added by Joe - switch between collapse and expand
-				$('.rightpanel').animate({width:'90%'},1000);
-				$('.leftpanel').animate({width:'0%'},1000);
+function update_expand_mode(newmode) {
+    panal_expand_emode = newmode
+    switch (panal_expand_emode) {
+        case 0:
+            $('.rightpanel').animate({ width: '45%' }, 1000);
+            $('.leftpanel').animate({ width: '45%' }, 1000);
+            $(".expandText").removeClass("collapseText"); // added by Joe - switch between collapse and expand
+            break;
+        case 1:
+            $(".expandText").addClass("collapseText");// added by Joe - switch between collapse and expand
+            $('.rightpanel').animate({ width: '0%' }, 1000);
+            $('.leftpanel').animate({ width: '90%' }, 1000);
+            break;
+        case 2:
+            $(".expandText").addClass("collapseText"); // added by Joe - switch between collapse and expand
+            $('.rightpanel').animate({ width: '90%' }, 1000);
+            $('.leftpanel').animate({ width: '0%' }, 1000);
 
-	            break;
-        }
+            break;
+    }
 
 };
 $(document).ready(function () {
@@ -236,46 +230,46 @@ $(document).ready(function () {
         return (elem.innerText || elem.textContent || "").toLowerCase().indexOf(m[3].toLowerCase()) > -1;
     }
 
-   
+
 
 
     $('#devinvite.yes').click(function () {
-       
-            var ids = [];
-            $('.leftpanel .checked').each(function () {
-                id = $(this).attr('id');
-                if (id != undefined) {
 
-                    ids.push(id);
-                }
+        var ids = [];
+        $('.leftpanel .checked').each(function () {
+            id = $(this).attr('id');
+            if (id != undefined) {
 
-            });
-
-            if (ids.length > 0) {
-				noty({text: '<div class="preloader-wait">Sending invitations. Please wait...</div>',layout:'topRight',type:'information'});
-                $.ajax({
-                    url: 'invite/',
-                    cache: false,
-                    type: 'POST',
-                    data: {
-                        'ids': ids.toString(),
-
-                    },
-                    dataType: 'json',
-                    success: function (data) {
-                        GetAll();
-						$.noty.closeAll();
-						noty({text: 'All invitations has been sent.',layout:'topRight',type:'success',timeout:2000});
-                        //document.location.reload(true);
-                    },
-                    error: function () {
-                        //alert('failure');
-						$.noty.closeAll();
-						noty({text: 'Error sending invitations. Please try again.',layout:'topRight',type:'error',timeout:2000});
-                    }
-                });
+                ids.push(id);
             }
-        
+
+        });
+
+        if (ids.length > 0) {
+            noty({ text: '<div class="preloader-wait">Sending invitations. Please wait...</div>', layout: 'topRight', type: 'information' });
+            $.ajax({
+                url: '/usermanagement/invite/',
+                cache: false,
+                type: 'POST',
+                data: {
+                    'ids': ids.toString(),
+
+                },
+                dataType: 'json',
+                success: function (data) {
+                    GetAll();
+                    $.noty.closeAll();
+                    noty({ text: 'All invitations has been sent.', layout: 'topRight', type: 'success', timeout: 2000 });
+                    //document.location.reload(true);
+                },
+                error: function () {
+                    //alert('failure');
+                    $.noty.closeAll();
+                    noty({ text: 'Error sending invitations. Please try again.', layout: 'topRight', type: 'error', timeout: 2000 });
+                }
+            });
+        }
+
 
     });
 
@@ -312,20 +306,20 @@ $(document).ready(function () {
     //$.getJSON('/usermanagement/getallcandidate/', function(data) {
     //    alert('hello from render'); render(data); alert('hello after render');
     //});
-      
+
 
     GetAll();
-      
+
     $('.closeaddform').click(function () {
         $('.addform').hide();
-		$('.addform fieldset input').val('');
+        $('.addform fieldset input').val('');
     });
     $('.addone').click(function () {
         $('.addform').show();
     });
 
     //$('.usercheckbox').live('click', function () {
-		$(document).on('click', '.usercheckbox', function(){
+    $(document).on('click', '.usercheckbox', function () {
         if ($(this).hasClass('checked')) {
             $(this).removeClass('checked');
         } else {
@@ -337,7 +331,7 @@ $(document).ready(function () {
         if ($('#addnewcadidateform').valid()) {
 
             $.ajax({
-                url: 'addcandidate/',
+                url: '/usermanagement/addcandidate/',
                 type: 'POST',
                 data: {
                     'firstname': $('#firstname').val(),
@@ -347,14 +341,14 @@ $(document).ready(function () {
                 dataType: 'json',
                 success: function (data) {
                     if (data['error'] != undefined) {
-                       // alert(data['error']);
-					    $('.pageWrapper .displayerror').append('<div class="submit_form_message"><div class="confirmationerror2">Data is duplicated. Please check</div></div>');
+                        // alert(data['error']);
+                        $('.pageWrapper .displayerror').append('<div class="submit_form_message"><div class="confirmationerror2">Data is duplicated. Please check</div></div>');
                     } else {
                         renderUsers(data);
                         $('#firstname').val('');
                         $('#lastname').val('');
                         $('#email').val('');
-					  $('.pageWrapper .displayerror').html('');
+                        $('.pageWrapper .displayerror').html('');
                     }
                 },
                 error: function () {
@@ -369,7 +363,7 @@ $(document).ready(function () {
         if ($('#addnewcadidateform').valid()) {
 
             $.ajax({
-                url: 'addcandidate/',
+                url: '/usermanagement/addcandidate/',
                 type: 'POST',
                 data: {
                     'firstname': $('#firstname').val(),
@@ -379,15 +373,15 @@ $(document).ready(function () {
                 dataType: 'json',
                 success: function (data) {
                     if (data['error'] != undefined) {
-                      //  alert(data['error']);
-					    $('.pageWrapper .displayerror').append('<div class="submit_form_message"><div class="confirmationerror2">Data is duplicated. Please check</div></div>');
+                        //  alert(data['error']);
+                        $('.pageWrapper .displayerror').append('<div class="submit_form_message"><div class="confirmationerror2">Data is duplicated. Please check</div></div>');
                     } else {
                         renderUsers(data);
                         $('#firstname').val('');
                         $('#lastname').val('');
                         $('#email').val('');
                         $('.addform').hide();
-						$('.pageWrapper .displayerror').html('');
+                        $('.pageWrapper .displayerror').html('');
                     }
                 },
                 error: function () {
@@ -400,30 +394,29 @@ $(document).ready(function () {
     $('.delete').click(function () {
         ids = [];
         var todelete = $(this).parents('.section').find('.usercheckbox.checked');
-		var todelete = $('#puserlist').find('.usercheckbox.checked');
-                       
+        var todelete = $('#puserlist').find('.usercheckbox.checked');
+
         //$('.checked').parent().parent().remove();
-      
+
         for (i = 0; i < todelete.length; i++) {
             id = $(todelete[i]).attr('id');
             ids.push(id);
 
-        }       
-        
+        }
+
         if (ids.length > 0) {
 
             $.ajax({
-                url: 'deletecandidate/',
+                url: '/usermanagement/deletecandidate/',
                 type: 'POST',
                 data: {
                     'ids': ids.toString()
                 },
                 dataType: 'json',
-                success: function (data)
-                {                    
+                success: function (data) {
                     UpdateSelectall();
                     todelete.parent().parent().remove();
-                   
+
                     //alert(data);
                 },
                 error: function () {
@@ -451,7 +444,7 @@ $(document).ready(function () {
         if (ids.length > 0) {
 
             $.ajax({
-                url: 'notifycandidate/',
+                url: '/usermanagement/notifycandidate/',
                 type: 'POST',
                 data: {
                     'ids': ids.toString()
@@ -471,14 +464,13 @@ $(document).ready(function () {
     });
 
     //$('#reinvite.reinvite').click(function ()
-    $('#divreinvite.yes').click(function ()
-    {
+    $('#divreinvite.yes').click(function () {
         //alert('tonotify');
         ids = [];
         var tonotify = $('#reinvite.reinvite').parents('.notstartedpage.section').find('.usercheckbox.checked');
-       
+
         //alert(tonotify.length);
-        
+
         //alert(tore.length);
         //$('.checked').parent().parent().remove();
         for (i = 0; i < tonotify.length; i++) {
@@ -487,27 +479,27 @@ $(document).ready(function () {
 
         }
 
-       
+
         if (ids.length > 0) {
-           noty({text: '<div class="preloader-wait">Sending invitations. Please wait...</div>',layout:'topRight',type:'information'});
+            noty({ text: '<div class="preloader-wait">Sending invitations. Please wait...</div>', layout: 'topRight', type: 'information' });
             $.ajax({
-                url: 'invite/',
+                url: '/usermanagement/invite/',
                 type: 'POST',
                 data: {
                     'ids': ids.toString()
                 },
                 dataType: 'json',
                 success: function (data) {
-                  
+
                     GetAll();
-					$.noty.closeAll();
-					noty({text: 'All invitations has been sent.',layout:'topRight',type:'success',timeout:2000});
+                    $.noty.closeAll();
+                    noty({ text: 'All invitations has been sent.', layout: 'topRight', type: 'success', timeout: 2000 });
                     //document.location.reload(true);
                     //alert(data);
                 },
                 error: function () {
                     $.noty.closeAll();
-					noty({text: 'Error sending invitations. Please try again.',layout:'topRight',type:'error',timeout:2000});
+                    noty({ text: 'Error sending invitations. Please try again.', layout: 'topRight', type: 'error', timeout: 2000 });
                 }
             });
 
@@ -515,11 +507,11 @@ $(document).ready(function () {
         }
     });
 
-   // $('#inprogresspagereinvite.reinvite').click(function () {
+    // $('#inprogresspagereinvite.reinvite').click(function () {
     $('#divinprogresspagereinvite.yes').click(function () {
-       
+
         ids = [];
-        var tonotify =  $('#inprogresspagereinvite.reinvite').parents('.inprogresspage.section').find('.usercheckbox.checked');
+        var tonotify = $('#inprogresspagereinvite.reinvite').parents('.inprogresspage.section').find('.usercheckbox.checked');
         //alert(tonotify.length);
         //return;
         //$('.checked').parent().parent().remove();
@@ -529,9 +521,9 @@ $(document).ready(function () {
 
         }
         if (ids.length > 0) {
-			noty({text: '<div class="preloader-wait">Sending invitations (In Progress). Please wait...</div>',layout:'topRight',type:'information'});
+            noty({ text: '<div class="preloader-wait">Sending invitations (In Progress). Please wait...</div>', layout: 'topRight', type: 'information' });
             $.ajax({
-                url: 'invite/',
+                url: '/usermanagement/invite/',
                 cache: false,
                 type: 'POST',
                 data: {
@@ -541,12 +533,12 @@ $(document).ready(function () {
                 success: function (data) {
 
                     GetAll();
-					$.noty.closeAll();
-					noty({text: 'All invitations has been sent.',layout:'topRight',type:'success',timeout:2000});
+                    $.noty.closeAll();
+                    noty({ text: 'All invitations has been sent.', layout: 'topRight', type: 'success', timeout: 2000 });
                 },
                 error: function () {
                     $.noty.closeAll();
-					noty({text: 'Error sending invitations. Please try again.',layout:'topRight',type:'error',timeout:2000});
+                    noty({ text: 'Error sending invitations. Please try again.', layout: 'topRight', type: 'error', timeout: 2000 });
                 }
             });
 
@@ -554,12 +546,12 @@ $(document).ready(function () {
         }
     });
 
-     //$('#finishedpagereinvite.reinvite').click(function () {
-     $('#divfinishedpagereinvite.yes').click(function () {
-        
-        
+    //$('#finishedpagereinvite.reinvite').click(function () {
+    $('#divfinishedpagereinvite.yes').click(function () {
+
+
         ids = [];
-        var tonotify =$('#finishedpagereinvite.reinvite').parents('.finishedpage.section').find('.usercheckbox.checked');
+        var tonotify = $('#finishedpagereinvite.reinvite').parents('.finishedpage.section').find('.usercheckbox.checked');
         //alert(tonotify.length);
         //return;
         //$('.checked').parent().parent().remove();
@@ -569,9 +561,9 @@ $(document).ready(function () {
 
         }
         if (ids.length > 0) {
-			noty({text: '<div class="preloader-wait">Sending invitations (Completed). Please wait...</div>',layout:'topRight',type:'information'});
+            noty({ text: '<div class="preloader-wait">Sending invitations (Completed). Please wait...</div>', layout: 'topRight', type: 'information' });
             $.ajax({
-                url: 'invite/',
+                url: '/usermanagement/invite/',
                 type: 'POST',
                 data: {
                     'ids': ids.toString()
@@ -580,12 +572,12 @@ $(document).ready(function () {
                 success: function (data) {
 
                     GetAll();
-					$.noty.closeAll();
-					noty({text: 'All invitations has been sent.',layout:'topRight',type:'success',timeout:2000});
+                    $.noty.closeAll();
+                    noty({ text: 'All invitations has been sent.', layout: 'topRight', type: 'success', timeout: 2000 });
                 },
                 error: function () {
                     $.noty.closeAll();
-					noty({text: 'Error sending invitations. Please try again.',layout:'topRight',type:'error',timeout:2000});
+                    noty({ text: 'Error sending invitations. Please try again.', layout: 'topRight', type: 'error', timeout: 2000 });
                 }
             });
 
@@ -598,46 +590,43 @@ $(document).ready(function () {
         ids = [];
         var tonotify = $(this).parents('.notstartedpage.section').find('.usercheckbox.checked');
         //alert(tonotify.length);
-        
+
         for (i = 0; i < tonotify.length; i++) {
             id = $(tonotify[i]).attr('id');
             ids.push(id);
 
         }
-       
-        if (ids.length > 0)
-        {
-		noty({text: '<div class="preloader-wait">Excluding Participants. Please wait...</div>',layout:'topRight',type:'information'});
+
+        if (ids.length > 0) {
+            noty({ text: '<div class="preloader-wait">Excluding Participants. Please wait...</div>', layout: 'topRight', type: 'information' });
             $.ajax(
                 {
-                url: 'exclude/',
-                type: 'POST',
-                data: {
-                    'ids': ids.toString()
-                },
-                dataType: 'json',
-                success: function (data)
-                {
-                    GetAll();
-					$.noty.closeAll();
-					noty({text: 'The operation completed successfully.',layout:'topRight',type:'success',timeout:2000});
-                },
-                error: function () {
-                    $.noty.closeAll();
-					noty({text: 'Error. Please try again.',layout:'topRight',type:'error',timeout:2000});
-                }
-            });
+                    url: '/usermanagement/exclude/',
+                    type: 'POST',
+                    data: {
+                        'ids': ids.toString()
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        GetAll();
+                        $.noty.closeAll();
+                        noty({ text: 'The operation completed successfully.', layout: 'topRight', type: 'success', timeout: 2000 });
+                    },
+                    error: function () {
+                        $.noty.closeAll();
+                        noty({ text: 'Error. Please try again.', layout: 'topRight', type: 'error', timeout: 2000 });
+                    }
+                });
 
             refreshDisplay();
         }
     });
 
-    
-    $('#inprogresspageexclude.exclude').click(function ()
-    {
+
+    $('#inprogresspageexclude.exclude').click(function () {
         ids = [];
         var tonotify = $(this).parents('.inprogresspage.section').find('.usercheckbox.checked');
-        
+
         //alert(tonotify.length);
 
         for (i = 0; i < tonotify.length; i++) {
@@ -647,10 +636,10 @@ $(document).ready(function () {
         }
 
         if (ids.length > 0) {
-			noty({text: '<div class="preloader-wait">Excluding Participants. Please wait...</div>',layout:'topRight',type:'information'});
+            noty({ text: '<div class="preloader-wait">Excluding Participants. Please wait...</div>', layout: 'topRight', type: 'information' });
             $.ajax(
                 {
-                    url: 'exclude/',
+                    url: '/usermanagement/exclude/',
                     type: 'POST',
                     data: {
                         'ids': ids.toString()
@@ -658,12 +647,12 @@ $(document).ready(function () {
                     dataType: 'json',
                     success: function (data) {
                         GetAll();
-						$.noty.closeAll();
-						noty({text: 'The operation completed successfully.',layout:'topRight',type:'success',timeout:2000});
+                        $.noty.closeAll();
+                        noty({ text: 'The operation completed successfully.', layout: 'topRight', type: 'success', timeout: 2000 });
                     },
                     error: function () {
-                    	$.noty.closeAll();
-						noty({text: 'Error. Please try again.',layout:'topRight',type:'error',timeout:2000});
+                        $.noty.closeAll();
+                        noty({ text: 'Error. Please try again.', layout: 'topRight', type: 'error', timeout: 2000 });
                     }
                 });
 
@@ -684,10 +673,10 @@ $(document).ready(function () {
         }
 
         if (ids.length > 0) {
-			noty({text: '<div class="preloader-wait">Excluding Participants. Please wait...</div>',layout:'topRight',type:'information'});
+            noty({ text: '<div class="preloader-wait">Excluding Participants. Please wait...</div>', layout: 'topRight', type: 'information' });
             $.ajax(
                 {
-                    url: 'exclude/',
+                    url: '/usermanagement/exclude/',
                     type: 'POST',
                     data: {
                         'ids': ids.toString()
@@ -695,12 +684,12 @@ $(document).ready(function () {
                     dataType: 'json',
                     success: function (data) {
                         GetAll();
-						$.noty.closeAll();
-						noty({text: 'The operation completed successfully.',layout:'topRight',type:'success',timeout:2000});
+                        $.noty.closeAll();
+                        noty({ text: 'The operation completed successfully.', layout: 'topRight', type: 'success', timeout: 2000 });
                     },
                     error: function () {
-                    	$.noty.closeAll();
-						noty({text: 'Error. Please try again.',layout:'topRight',type:'error',timeout:2000});
+                        $.noty.closeAll();
+                        noty({ text: 'Error. Please try again.', layout: 'topRight', type: 'error', timeout: 2000 });
                     }
                 });
 
@@ -721,10 +710,10 @@ $(document).ready(function () {
         }
 
         if (ids.length > 0) {
-			noty({text: '<div class="preloader-wait">Including Participants. Please wait...</div>',layout:'topRight',type:'information'});
+            noty({ text: '<div class="preloader-wait">Including Participants. Please wait...</div>', layout: 'topRight', type: 'information' });
             $.ajax(
                 {
-                    url: 'include/',
+                    url: '/usermanagement/include/',
                     type: 'POST',
                     data: {
                         'ids': ids.toString()
@@ -732,12 +721,12 @@ $(document).ready(function () {
                     dataType: 'json',
                     success: function (data) {
                         GetAll();
-						$.noty.closeAll();
-						noty({text: 'The operation completed successfully.',layout:'topRight',type:'success',timeout:2000});
+                        $.noty.closeAll();
+                        noty({ text: 'The operation completed successfully.', layout: 'topRight', type: 'success', timeout: 2000 });
                     },
                     error: function () {
-                    	$.noty.closeAll();
-						noty({text: 'Error. Please try again.',layout:'topRight',type:'error',timeout:2000});
+                        $.noty.closeAll();
+                        noty({ text: 'Error. Please try again.', layout: 'topRight', type: 'error', timeout: 2000 });
                     }
                 });
 
@@ -755,9 +744,8 @@ $(document).ready(function () {
 
     });
     //$('.edit').live('click', function ()
-	$(document).on('click', '.edit', function()
-    {
-        
+    $(document).on('click', '.edit', function () {
+
         var row = $(this).closest('tr');
 
         var tdText = row.find('.firstname .editabletext').text();
@@ -780,8 +768,8 @@ $(document).ready(function () {
             $(this).addClass('editdisable');
         });
     });
-	$(document).on('click', '.cancel', function(){
-    //$('.cancel').live('click', function () {
+    $(document).on('click', '.cancel', function () {
+        //$('.cancel').live('click', function () {
         $(this).closest('tr').find('.editabletext').show();
 
         $(this).closest('tr').find('.editfiled').remove();
@@ -794,7 +782,7 @@ $(document).ready(function () {
         $(this).siblings('.edit').show();
     });
     //$('.update').live('click', function () {
-		$(document).on('click', '.update', function(){
+    $(document).on('click', '.update', function () {
         if ($('#editform').valid()) {
             var row = $(this).closest('tr');
             id = row.find('.usercheckbox').attr('id');
@@ -803,7 +791,7 @@ $(document).ready(function () {
             email = row.find('#email').val();
 
             $.ajax({
-                url: 'updateuser/',
+                url: '/usermanagement/updateuser/',
                 type: 'POST',
                 data: {
                     'id': id,
@@ -874,8 +862,8 @@ $(document).ready(function () {
 
     }
 
-	$(document).on('click', '.test', function(){
-    //$('.test').live('click', function () {
+    $(document).on('click', '.test', function () {
+        //$('.test').live('click', function () {
         $('#editform').valid();
     });
 
@@ -892,7 +880,7 @@ $(document).ready(function () {
             lastname: "Please provide the last name of your invitee",
             email: {
                 required: "Please provide Email of your invitee",
-                email: "Please be sure that your invitee’s email is correct",
+                email: "Please be sure that your inviteeï¿½s email is correct",
 
             }
 
