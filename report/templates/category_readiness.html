@@ -1,0 +1,14 @@
+{% extends "base_static.html" %}
+
+{% block page_title %} Report {% endblock %}
+
+{% block header_left %} <h1>Category Readiness Assessment Report</h1>
+{% endblock %}
+
+{% block content %}
+
+
+<div style="margin: 20px;"> 
+<img src="http://chart.apis.google.com/chart?chxl=0:{{labels}}&chxt=x,y&chs=600x500&cht=r&chco=FF0000&chd=t:{{values}}&chls=2,4,0&chm=B,FF000080,0,0,0" width="600" height="500" alt="" />
+</div>
+{% endblock %}

@@ -1986,9 +1986,9 @@ header .nav.nav-pills > li > a:hover, header .nav.nav-pills > li > a:focus{
     margin: 10px auto;
 }
 /* DASHBOARD */
-#setup-link, #monitor-link, #menu-item-11, #cusomize-reminder{
+/* #setup-link, #monitor-link, #menu-item-11, #cusomize-reminder{
     display:none;
-}
+} */
 
 .preloader-wait {
     background: url("../img/preloader-noty.GIF") no-repeat scroll left center rgba(0, 0, 0, 0);

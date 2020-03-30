@@ -1,0 +1,79 @@
+{% load static user_grouping %}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link rel="stylesheet" href="{% static "css/" %}characteristic_pdf.css">
+<link rel="stylesheet" href="{% static "css/" %}colorbox.css">
+<script src="{% static "js/" %}jquery-1.6.2.min.js"></script>
+<script src="{% static "js/" %}characteristic_answers.js"></script>
+<script src="{% static "js/" %}jquery.colorbox.js"></script>
+</head>
+<body>
+<div class="widget padd">
+<h1 style="float:left;">Practice Report</h1>
+<img src="{% static "img/" %}logo_big.png" width="240" class="rfa-logo" />
+<div class="clear"></div>
+{% for p in practices%}
+  {% for c in p.characteristics.all%}
+    {% for i in c.indicators.all %}
+      <div class="">
+	<div class="header">Practice :</div>
+	<div class="practice_title">{{p.title}}</div>
+	<br>
+	<div class="header">Characteristic :</div>
+	<div class="characteristic_title">
+          {{c.title}} : [{{c.indicators.all.count}} Question{{ c.indicators.all.count|pluralize }}]
+        </div>
+	<br/>
+	<div class="divider"></div>
+	<br/>
+            
+	<div class="header">Question {{forloop.counter}} :</div>
+	<div class="report_question">{{i.text}}</div>
+        <br/>
+        <div class="divider"></div>
+        <br/>
+
+      <div class="header">
+        Answer
+      </div>
+      <div class="presentation_type">presented per role:</div>
+      <br>
+      <div class='demographic_role'>
+        {% autoescape off %}
+          <div class="Ranges">
+            {{i|demographic_ranges:'role'}}
+          </div>
+        {% endautoescape %}
+      </div>
+
+      <br>
+      <div class="divider ver"></div>
+      <br>
+
+      <div class="header">
+        Answer
+      </div>
+      <div class="presentation_type">presented per line of business:</div>
+
+      <br>
+      {% for demographic in demographics %}
+        <div  class='demographic_{{forloop.counter}}'>
+          {% autoescape off %}
+            <div class="Ranges">
+	      {{i|demographic_ranges:demographic.id}}
+            </div>
+          {% endautoescape %}
+        </div>
+      {% endfor %}
+</div>
+{% endfor %}
+
+{% endfor %}
+{% endfor %}
+
+
+</div>
+</body>
+</html>

@@ -1,0 +1,92 @@
+{% load user_grouping %}
+<link type="text/css" rel="stylesheet" href="{% static 'styles/report.css' %}" />
+<script type="text/javascript" src="{% static 'scripts/jquery-1.6.2.js' %}"></script>
+<link media="screen" rel="stylesheet" href="{% static 'styles/colorbox.css' %}" />
+<script src="{% static 'scripts/jquery.colorbox.js' %}"></script>
+<script type="text/javascript" src="{% static 'scripts/demographic_assessment.js' %}"></script>
+<link type="text/css" rel="stylesheet"  href="{% static 'styles/characteristic_pdf.css' %}" />
+<link type="text/css" rel="stylesheet"  href="{% static 'styles/groupe_assessment.css' %}" />
+
+<style>
+	.Not_Suitable {
+	width: {{report_red_interval|multi:2}}px;
+	background-color: #CC0033;
+	}
+	.Partially_Suitable {
+	width: {{report_yellow_interval|multi:2}}px;
+	background-color: #FFFF66;
+	}
+	.Largely_Suitable {
+	width: {{report_lightgreen_interval|multi:2}}px;
+	background-color: #99FF33;
+	}
+	.Fully_Suitable {
+	width: {{report_green_interval|multi:2}}px;
+	background-color: #33FF00;
+	}
+	.Not_Suitable_back {
+	height: 20px;
+	width: {{report_red_interval|multi:2}}px;
+	background-color: #FF9999;
+	float: left;
+	}
+	.Partially_Suitable_back {
+	height: 20px;
+	width: {{report_yellow_interval|multi:2}}px;
+	background-color: #FFFF99;
+	float: left;
+	}
+	.Largely_Suitable_back {
+	height: 20px;
+	width: {{report_lightgreen_interval|multi:2}}px;
+	background-color: #99FF66;
+	float: left;
+	}
+	.Fully_Suitable_back {
+	height: 20px;
+	width: {{report_green_interval|multi:2}}px;
+	background-color: #00FF66;
+	float: left;
+	}
+</style>
+{%for sv , ps in supervisors%}
+<div class="page">
+	<div class="supervisor">
+		{{sv}}
+	</div>
+	<div class="divider"></div>
+	<table>
+		<tr>
+			<td class="practice_title"><strong>Practice</strong></td>
+			<td>
+			
+			
+					<div class="range_header Not_Suitable">
+						<!--	Not Suitable
+						0% - 30%-->
+					</div>
+					<div class="range_header Partially_Suitable">
+						<!--	Partially Suitable
+						30% - 60%-->
+					</div>
+					<div class="range_header Largely_Suitable">
+						<!--	Largely Suitable
+						60% - 85%-->
+					</div>
+					<div class="range_header Fully_Suitable">
+						<!--Fully Suitable
+						85% - 100%-->
+					</div>
+			
+			</td>
+		</tr>
+		{%for p in ps%}
+		<tr>
+			<td>
+				{{p.title}}</td>
+			<td class="range"><div class="Not_Suitable_back"></div><div class="Partially_Suitable_back"></div><div class="Largely_Suitable_back"></div><div class="Fully_Suitable_back"></div><div  class="practice_readiness_range" style="width:{{p.bar_width}}px; margin-left:{{p.bar_displacement}}px;"></div></td>
+			</tr>
+		{%endfor%}
+	</table>
+</div>
+{%endfor%} 

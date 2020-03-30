@@ -1,0 +1,159 @@
+{% extends "base_admin.html" %}
+
+{% block header_left %} <h1>Demographic Assessment Report</h1>
+{% endblock %}
+
+{% block header_right %}
+
+{% endblock %}
+{% load user_grouping %}
+{% block content %}
+<link type="text/css" rel="stylesheet" href="{% static 'styles/report.css' %}" />
+<script type="text/javascript" src="{% static 'scripts/jquery-1.6.2.js' %}"></script>
+
+<link media="screen" rel="stylesheet" href="{% static 'styles/colorbox.css' %}" />
+<script src="{% static 'scripts/jquery.colorbox.js' %}"></script>
+<script type="text/javascript" src="{% static 'scripts/demographic_assessment.js' %}"></script>
+<style>
+	.Not_Suitable {
+	width: {{report_red_interval|multi:2}}px;
+	background-color: #CC0033;
+	}
+	.Partially_Suitable {
+	width: {{report_yellow_interval|multi:2}}px;
+	background-color: #FFFF66;
+	}
+	.Largely_Suitable {
+	width: {{report_lightgreen_interval|multi:2}}px;
+	background-color: #99FF33;
+	}
+	.Fully_Suitable {
+	width: {{report_green_interval|multi:2}}px;
+	background-color: #33FF00;
+	}
+	.Not_Suitable_back {
+	height: 20px;
+	width: {{report_red_interval|multi:2}}px;
+	background-color: #FF9999;
+	float: left;
+	}
+	.Partially_Suitable_back {
+	height: 20px;
+	width: {{report_yellow_interval|multi:2}}px;
+	background-color: #FFFF99;
+	float: left;
+	}
+	.Largely_Suitable_back {
+	height: 20px;
+	width: {{report_lightgreen_interval|multi:2}}px;
+	background-color: #99FF66;
+	float: left;
+	}
+	.Fully_Suitable_back {
+	height: 20px;
+	width: {{report_green_interval|multi:2}}px;
+	background-color: #00FF66;
+	float: left;
+	}
+</style>
+<div class="reportTblAllContents">
+	<table>
+		<tr>
+			<td>Demographic : </td>
+			<td>
+			<select name="demographic" id="demographic" >
+				{%for d in demographics %} <option value="{{d.id}}"
+				{%if d.id == current_demographic.id%}
+				selected='selected'
+				{%endif%}
+				> {{d.title}} </option>
+				{%endfor%}
+			</select></td>
+		</tr>
+		<tr>
+			<td> Value :</td>
+			<td>
+			<select name="demographic_value" id="demographic_value" >
+				{%for v in value_list %} <option value="{{v.id}}"
+				{%if v == current_demographic_value%}
+				selected='selected'
+				{%endif%}
+				> {{v.value}}{{v.title}} </option>
+				{%endfor%}
+			</select></td>
+		</tr>
+
+	</table>
+	<br>
+	
+<table width="100%" class="reportTblAllMain">
+		<tr class="practice">
+			<td class="practice_title"><strong>Practice</strong></td>
+			<td class="characteristic"><strong>Characteristic</strong> ( <a class="show_all_characteristics" href="#">Show</a> | <a class="hide_all_characteristics" href="#">Hide</a> )
+			<table>
+				<tr>
+					<td class="characteristic_title"></td>
+					<td class="range">
+					<div class="range_header Not_Suitable">
+						<!--	Not Suitable
+						0% - 30%-->
+					</div>
+					<div class="range_header Partially_Suitable">
+						<!--	Partially Suitable
+						30% - 60%-->
+					</div>
+					<div class="range_header Largely_Suitable">
+						<!--	Largely Suitable
+						60% - 85%-->
+					</div>
+					<div class="range_header Fully_Suitable">
+						<!--Fully Suitable
+						85% - 100%-->
+					</div></td>
+				</tr>
+			</table></td>
+		</tr>
+		{% for p in practices %}
+		<tr class="practice">
+			<td >
+			<div class="practice_title">
+				{{p.title }}
+				<div class="practice_description">
+					{{p.description }}
+				</div>
+			</div></td>
+			<td>
+			<table>
+				<tr class="characteristic">
+					<td class="characteristic_title"><a class="show_practice_details" href="#"> + </a><a class="hide_practice_details" href="#"> - </a></td>
+					<td class="range"><div class="Not_Suitable_back"></div><div class="Partially_Suitable_back"></div><div class="Largely_Suitable_back"></div><div class="Fully_Suitable_back"></div><div id="{{p.id}}" class="practice_readiness_range" style="width:{{p.bar_width}}px; margin-left:{{p.bar_displacement}}px;"></div></td>
+				</tr>
+			</table>
+			<div class="characteristics">
+				<table>
+					{% for c in p.characteristics %}
+					<tr class="characteristic">
+						<td class="characteristic_title">{{c.title}}</td>
+						<td class="range"><div class="Not_Suitable_back"></div><div class="Partially_Suitable_back"></div><div class="Largely_Suitable_back"></div><div class="Fully_Suitable_back"></div><div id="{{c.id}}" class="characteristic_readiness_range" style="width:{{c.bar_width}}px; margin-left:{{c.bar_displacement}}px;"></div></td>
+					</tr>
+					{%endfor%}
+				</table>
+			</div></td>
+		</tr>
+		{% endfor %}
+	</table>
+</div>
+<div class="popup">
+	<div class="mask"></div>
+	<!-- #customize your modal window here -->
+	<div class="window" >
+		<a href="#" class="close">x</a>
+		<div class="content"></div>
+	</div>
+</div>
+<div class="clear"></div>
+{% endblock %}
+
+{% block footer_buttons %}
+&nbsp;
+{% endblock %}

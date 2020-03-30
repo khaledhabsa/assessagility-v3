@@ -1,0 +1,20 @@
+{% extends "base_static.html" %}
+{% load static %}
+{% block page_title %} Report {% endblock %}
+
+{% block header_left %} <h1>Characteristic Readiness Assessment Report</h1>
+{% endblock %}
+
+{% block content %}
+<div style="margin: 20px;"> 
+{% load django_tables2 %}
+<link rel="stylesheet" type="text/css" href="{% static 'styles/django_tables2/themes/paleblue/css/screen.css' %}" />
+<h1> Top 5</h1>
+{% render_table table_top_5 %}
+<br>
+<h1> Bottom 5</h1>
+{% render_table table_bottom_5 %}
+<br>
+<div style="float: right;"><a href="{% url 'report:characteristic' %}">Details >></a> </div>
+</div>
+{% endblock %}

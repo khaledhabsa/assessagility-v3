@@ -1,0 +1,45 @@
+{% load user_grouping %}
+{% load static %}
+<link type="text/css" rel="stylesheet"  href="{% static 'styles/characteristic_pdf.css' %}" />
+<script type="text/javascript" src="{% static 'scripts/jquery-1.6.2.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'scripts/characteristic_answers.js' %}"></script>
+<link media="screen" rel="stylesheet" href="{% static 'styles/colorbox.css' %}" />
+<script src="{% static 'scripts/jquery.colorbox.js' %}"></script>
+
+{% for c in characteristic%}
+  <div class="characteristic_title">
+    Characteristic : {{c.title}}
+  </div>
+  <br>
+  <table>
+    {% for i in c.indicators.all %}
+      <tr>
+        <td>
+          <div class="report_question">
+            Question: {{i.text}}
+        </div></td>
+      </tr>
+    <tr>
+      <td>
+        <div class='demographic_role'>
+          {% autoescape off %}
+            <div class="Ranges">
+              {{ i|demographic_ranges:'role' }}
+            </div>
+          {% endautoescape %}
+        </div>
+        {% for demographic in demographics %}
+          <div  class="demographic_{{ forloop.counter }}">
+            {% autoescape off %}
+              <div class="Ranges">
+                {{ i|demographic_ranges:demographic.id }}
+              </div>
+            {% endautoescape %}
+        </div>
+      {% endfor %}        
+      </td>
+    </tr>
+  {% endfor %}
+  
+  </table>
+{% endfor %}

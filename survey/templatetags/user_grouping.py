@@ -229,17 +229,21 @@ def demographic_ranges(indicator, by):
     min = {}
     max = {}
     n = {}
-
+    print(indicator)
     for answer in Answer.objects.filter(indicator=indicator):
         if by == 'role':
-            t = answer.user.get_profile().roles.all()[0].title
+            try:
+                if answer.user:
+                    t = answer.user.get_profile().roles.all()[0].title
+            except User.DoesNotExist:
+                continue
         elif by == 'supervisor':
             t = answer.user.get_profile().supervisor.strip()
         elif by == 'department_manager':
             t = answer.user.get_profile().department_manager.strip()
         else:
-            t = UserDemographics.objects.get(userProfile=answer.user.get_profile(),
-                                             demographic=by).demographic_value.value
+            t = UserDemographics.objects.filter(userProfile=answer.user.get_profile(),
+                                                demographic=by).demographic_value.value
         if not t in min.keys():
             min[t] = 0
             max[t] = 0
@@ -280,7 +284,10 @@ register.filter('demographic_ranges', demographic_ranges)
 
 
 def multi(a, b):
-    return int(a) * int(b)
+    if a:
+        return int(a) * int(b)
+    else:
+        return int(b) * int(b)
 
 
 register.filter('multi', multi)

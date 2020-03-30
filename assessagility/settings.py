@@ -38,11 +38,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'app',
     'survey',
     'email_sender',
     'user_management',
     'client_admin',
     'fake_it',
+    'report',
+    'django_tables2',
+    'excel_integration',
 ]
 
 MIDDLEWARE = [
@@ -136,12 +140,10 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 SITE_ID = 1
-EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.mailtrap.io'
-EMAIL_HOST_USER = '12c67f59681ab9'
-# for google developer_123
-EMAIL_HOST_PASSWORD = '444f2904bfb170'
-DEFAULT_FROM_EMAIL = 'djangoapp123@gmail.com'
-EMAIL_PORT = '2525'
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'cache',
+    }
+}

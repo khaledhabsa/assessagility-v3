@@ -1,0 +1,15 @@
+{% extends "base_another.html" %}
+{% load static %}
+{% block title %}DataBase excel file {% endblock %}
+
+{% block content %}
+  <h1>Upload base DataBase structure</h1>
+  <h3>Download example xls file <a href="{% static 'styles/DataStructure_example.xls' %}">here</a></h3>
+  <form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <br/>
+    <input type="submit" value="Submit" class="btn btn-default"/>
+  </form>
+
+{% endblock%}

@@ -82,7 +82,7 @@ class Indicator(models.Model):
     def text(self):  # fix this-----------------------
         # return html2text(self.question)
         # print("=====================self.question: ", self.question)
-        return html_safe(self.question)
+        return self.question
 
     def __unicode__(self):
         return '[ %s ] %s ' % (self.code, self.question)

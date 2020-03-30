@@ -3,7 +3,7 @@ from ..models.emailTemplate import EmailTemplate
 from django.http import HttpResponse
 from django.core.mail import EmailMultiAlternatives
 from django.template import Context, loader
-from survey.models import InstanceSetting
+from survey.models.instanceSetting import InstanceSetting
 from django.contrib.sites.models import Site
 
 

@@ -1,0 +1,31 @@
+{% extends "base_another.html" %}
+
+{% block page_title %} new users list {% endblock %}
+
+{% block header_left %}
+
+{% endblock %}
+
+{% block content %}
+<div class="pageWrapper">
+<table class="newUsersList">
+	<tr>
+		<th> first name </th>
+		<th> last name</th>
+		<th> email </th>
+	</tr>
+
+{%for u in users%}
+<tr>
+	<td>{{u.first_name}}</td>
+	<td>{{u.last_name}}</td>
+	<td>{{u.email}}</td>
+</tr>
+{%endfor%}
+</table>
+</div>
+{% endblock %}
+
+{% block footer_buttons %}
+
+{% endblock %}

@@ -12,6 +12,9 @@ mysqlclient = "*"
 gchartwrapper = "*"
 xlwt = "*"
 xlrd = "*"
+django-tables2 = "*"
+pillow = "*"
+reportlab = "*"
 
 [requires]
 python_version = "3.8"

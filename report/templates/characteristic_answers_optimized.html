@@ -1,0 +1,64 @@
+{% load static user_grouping %}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <link rel="stylesheet" href="{% static "css/" %}characteristic_pdf.css" />
+    <link rel="stylesheet" href="{% static "css/" %}colorbox.css" />
+    <script src="{% static "js/" %}jquery-1.6.2.min.js"></script>
+    <script src="{% static "js/" %}characteristic_answers.js"></script>
+    <script src="{% static "js/" %}jquery.colorbox.js"></script>
+    <style>
+      .graph_label.full, .graph_content{
+      float:left; display:block; clear:both;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="widget padd">
+      <h1 style="float:left;">{{characteristic.title}}</h1>
+      <img src="{% static "img/" %}logo_big.png" width="240" class="rfa-logo" />
+      <div class="clear"></div>
+      
+      <table>
+        {% for g in graphs %}
+        <tr>
+          <td>
+	    <div class="report_question header">
+	      {{ g.title }}
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td> {% for k,v in g.views.iteritems%}
+            <div 
+	       {% if not k = 'role'%} style="display: none;" {% endif%}
+	       class='demographic_{{ k }}'>
+	      {% autoescape off %}
+	      <div class="Ranges">{{ v }}</div>
+	      {% endautoescape %}
+            </div> 
+            {% endfor %}
+          </td>
+        </tr>
+        {% endfor %}
+        <tr>
+          <td>
+            <div class="group padd">
+              <div class="group_title full">
+	        Demographic :
+              </div>
+              <div class="selector" id="demographic_role">
+	        Role
+              </div>
+              {% for demographic in demographics%}
+	      <div class="selector" id='demographic_{{demographic.id}}'>
+	        {{ demographic.title }}
+	      </div>
+              {% endfor %}
+              <div style="clear:both;"></div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>

@@ -32,7 +32,7 @@
         <![endif]-->
     
     <!-- Favicon -->
-    <link rel="shortcut icon" href="{% static 'images/favicon/favico.png' %}" />
+    <link rel="shortcut icon" type="image/x-icon" href="{% static "images/favico.png" %}" />
   </head>
   
   <body>
@@ -57,7 +57,7 @@
                 {% if user.is_authenticated %}
                   <li class="dropdown pull-right user-data">            
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                      <img src="{% static "img/" %}default-avatar.png" /> {{ user.get_profile.first_name }}
+                      <img src="{% static "img/" %}default-avatar.png" /> {{ request.user.username }}
                       <b class="caret"></b> 
                     </a>
                     <!-- Dropdown menu -->
@@ -120,8 +120,6 @@
                 <li id="menu-item-7"><a href="#modal-progress" data-toggle="modal">Send Reminder (In Progress)</a></li>
               </ul>
             </li>
-          {% endif %}
-          {% ifequal  show_report "show" %}
             <li class="has_sub">
               <a href="#">
                 <i class="fa fa-bar-chart-o"></i>
@@ -131,10 +129,10 @@
                 </span>
               </a>
               <ul>
-                {% comment %}
-                  <li id="menu-item-12"><a href="#" id="menu-closesurvey">Close Survey</a></li>
-                <li id="menu-item-13"><a href="#" id="menu-opensurvey">Open Survey</a></li>
-              {% endcomment %}
+              
+              {% comment %} <li id="menu-item-12"><a href="#" id="menu-closesurvey">Close Survey</a></li>
+              <li id="menu-item-13"><a href="#" id="menu-opensurvey">Open Survey</a></li>
+               {% endcomment %}
               <li id="menu-item-8"><a href="/report/category/radar/">Organizational Characteristic Assessment</a></li>
                 <li id="menu-item-9"><a href="/report/optimized/practice/">Detailed Practice Readings</a></li>
                 <li id="menu-item-10"><a href="/report/practice/spectrum/">Agile Maturity by Practice</a></li>
@@ -145,7 +143,7 @@
                 {% endif %}
               </ul>
             </li>
-          {% endifequal %}
+          {% endif %}
           </ul>
         </div>
         <!-- Sidebar ends -->

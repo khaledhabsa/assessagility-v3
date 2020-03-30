@@ -1,0 +1,150 @@
+{% extends "base_admin_another.html" %}
+{% load static %}
+{% block javascript %}
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="{% static 'js/reports/ColorBox.js' %}"></script>
+<script src="{% static 'js/reports/reports.js' %}"></script>
+<script src="{% static 'js/reports/charts.js' %}"></script>
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/reports.css' %}"/>
+
+{% block report %}{% endblock %}
+{% csrf_token %}
+{% endblock %}
+
+{% block content %}
+<div class="col-md-3">
+  <div class="widget">
+    <div class="widget-head">
+      <div class="pull-left">Filters</div>
+      <div class="widget-icons pull-right">
+        <a class="wminimize" href="#"><i class="fa fa-chevron-up"></i></a>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <div class="widget-content">
+      <div class="padd">
+        {% if roles %}
+        <div class="chartfiltertext">Roles</div>
+        <select class="chartfilterdropdown" name="chartfilterdropdown" id="slctRolesid" >
+          <option value="-1">All Roles</option>
+          {% for r in roles %}
+          {% if role == r.id%}
+          <option value="{{r.id}}" selected='selected'>{{r.title}}</option>
+          {% else %}
+          <option value="{{r.id}}"  >{{r.title}}</option>
+          {% endif %}
+          {% endfor %}
+        </select>
+        <div class="chartseparator"></div>
+        {% endif %}
+        
+        {% ifequal  show_demographic "show" %}
+        {% for d in demographics %}
+        <div class="chartfiltertext">{{d.title}} </div>
+        <select name="demo{{d.id}}" id="demo{{d.id}}" class="chartfilterdropdown" >
+          
+          <option value="-1">All</option>
+          {% for v in d.demographicvalue_set.all %}
+          <option value="{{v.id}}"
+                  {% for value_id in values %}
+                  {% ifequal value_id  v.id %}
+                  selected='selected'
+                  {% endifequal %}
+                  
+                  {% endfor %}
+                  >{{v.value}}</option>
+          {% endfor %}
+        </select>
+        {% endfor %}
+        {% endifequal %}
+        
+      </div>
+      <div class="btn btn-default reportpdfbtn">Generate PDF</div>
+      <div class="btn btn-primary reportupdatebtn">Update</div>
+    </div>
+  </div>   
+</div>
+
+
+
+{% block chart %}{% endblock %}
+
+{% endblock %}
+
+
+{% comment %}
+<div class="chartpanel chartfilters pull-left">
+  <div class="charttopbar">Generate report</div>
+  <div class="chartcontent">
+    {% if roles %}
+    <div class="chartfiltertext">Roles</div>
+    <select class="chartfilterdropdown" name="chartfilterdropdown" id="slctRolesid" >
+      <option value="-1">All Roles</option>
+      {% for r in roles %}
+      {% if role == r.id%}
+      <option value="{{r.id}}" selected='selected'>{{r.title}}</option>
+      {% else %}
+      <option value="{{r.id}}"  >{{r.title}}</option>
+      {% endif %}
+      {% endfor %}
+    </select>
+    <div class="chartseparator"></div>
+    {% endif %}
+    
+    {% ifequal  show_demographic "show" %}
+    {% for d in demographics %}
+    <div class="chartfiltertext">{{d.title}} </div>
+    <select name="demo{{d.id}}" id="demo{{d.id}}" class="chartfilterdropdown" >
+      
+      <option value="-1">All</option>
+      {% for v in d.demographicvalue_set.all %}
+      <option value="{{v.id}}"
+              {% for value_id in values %}
+              {% if value_id = v.id %}
+              selected='selected'
+              {% endif %}
+              
+              {% endfor %}
+              >{{v.value}}</option>
+      {% endfor %}
+    </select>
+    {% endfor %}
+    {% endifequal %}
+    <!--
+        {% ifequal  show_demographic "show" %}
+        {% for d in demographics %}
+        
+        <div class="generateReportTxtbox" >
+          <div class="loginInput">
+            <select name="demo{{d.id}}" id="demo{{d.id}}" >
+              <option value="-1">All {{d.title}} </option>
+              {% for v in d.demographicvalue_set.all %}
+              <option value="{{v.id}}"
+                      {% for value_id in values %}
+                      {% if value_id = v.id %}
+                      selected='selected'
+                      {% endif %}
+                      
+                      {% endfor %}
+                      >{{v.value}}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        
+        {% endfor %}
+        {% endifequal %}
+        -->
+    <!--
+        <div class="chartfilterslide" min="0" max="6" step="1" value="3">
+          <div></div><div></div><div></div></div>
+        <table>
+          <td>t1</td>
+          <td>t2</td>
+        </table>
+        -->
+  </div>
+</div>
+{% endcomment %}

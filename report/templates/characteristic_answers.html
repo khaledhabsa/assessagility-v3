@@ -1,0 +1,134 @@
+{% load user_grouping %}
+<link type="text/css" rel="stylesheet"  href="{% static 'styles/characteristic_answers.css' %}" />
+<script type="text/javascript" src="{% static 'scripts/jquery-1.6.2.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'scripts/characteristic_answers.js' %}"></script>
+<link media="screen" rel="stylesheet" href="{% static 'styles/colorbox.css' %}" />
+<script src="{% static 'scripts/jquery.colorbox.js' %}"></script>
+<div class="characteristic_title">
+	{{characteristic.title}}
+</div>
+<table>
+	{% for i in characteristic.indicators.all %}
+	<tr>
+		<td>
+		<div class="report_question">
+			{{i.text}}
+		</div></td>
+	</tr>
+	<tr>
+		<td>
+		{% comment %}
+		 --------------------------------
+
+		{% autoescape off %}
+
+		{{i|demographic_ranges:'department_manager'}}
+
+		{% endautoescape %}
+
+		--------------------------------
+{% endcomment %}
+		
+		<div class='demographic_role'>
+			{% autoescape off %}
+			{% comment %}
+			<div class="Answers">
+				{{i|bars:'role'}}
+			</div>
+			<div class="Bars">
+				{{i|demographic_bars:'role'}}
+			</div>
+			{% endcomment %}
+			<div class="Ranges">
+				{{i|demographic_ranges:'role'}}
+			</div>
+			{% endautoescape %}
+		</div> {%for demographic in demographics%}
+		<div style="display: none;" class='demographic_{{forloop.counter}}'>
+			{% autoescape off %}
+			{% comment %}
+			<div class="Answers">
+				{{i|bars:demographic.id}}
+			</div>
+			<div class="Bars">
+				{{i|demographic_bars:demographic.id}}
+			</div>
+			{% endcomment %}
+			<div class="Ranges">
+				{{i|demographic_ranges:demographic.id}}
+			</div>
+			{% endautoescape %}
+		</div> {%endfor%}
+		<div class='demographic_supervisor' style="display: none;">
+			{% autoescape off %}
+			{% comment %}
+			<div class="Answers">
+				{{i|bars:'supervisor'}}
+			</div>
+			<div class="Bars">
+				{{i|demographic_bars:'supervisor'}}
+			</div>
+			{% endcomment %}
+			<div class="Ranges">
+				{{i|demographic_ranges:'supervisor'}}
+			</div>
+			{% endautoescape %}
+		</div>
+		<div class='demographic_department_manager' style="display: none;">
+			{% autoescape off %}
+			{% comment %}
+			<div class="Answers">
+				{{i|bars:'department_manager'}}
+			</div>
+			<div class="Bars">
+				{{i|demographic_bars:'department_manager'}}
+			</div>
+			{% endcomment %}
+			<div class="Ranges">
+				{{i|demographic_ranges:'department_manager'}}
+			</div>
+			{% endautoescape %}
+		</div>  
+		
+		</td>
+	</tr>
+	{% endfor %}
+	<tr>
+		<td>
+			{% comment %}
+		<div class="views group">
+			<div class="group_title">
+				Graph Type :
+			</div>
+			<div class="view">
+				Ranges
+			</div>
+			<div class="view">
+				Bars
+			</div>
+			<div class="view">
+				Answers
+			</div>
+		</div>
+		{% endcomment %}
+		<div class="group">
+			<div class="group_title">
+				Demographic :
+			</div>
+			<div class="selector" id="demographic_role">
+				Role
+			</div>
+			{%for demographic in demographics%}
+			<div class="selector" id='demographic_{{forloop.counter}}'>
+				{{demographic.title}}
+			</div>
+			{%endfor%}
+			<div class="selector" id="demographic_supervisor">
+				Supervisor
+			</div>
+			<div class="selector" id="demographic_department_manager">
+				Department Manager
+			</div>
+		</div></td>
+	</tr>
+</table>
