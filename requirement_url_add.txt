@@ -1,0 +1,18 @@
+* schedule call - any user
+* contact - any user
+* register / add user - superuser
+* edit demographic - superuser
+* admin_landing - superuser
+* client_admin dashboard - superuser
+* get_not_started download xls - superuser
+* edit answerrange - superuser
+* upload db - superuser
+* upload users - superuser
+* export role question - superuser
+* export charactersitic - superuser
+* export user not started - superuser
+* export user in progress - superuser
+* report characteristic - superuser
+* report characteristic detail - superuser
+* survey demographic - superuser
+

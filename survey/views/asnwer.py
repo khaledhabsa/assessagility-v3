@@ -6,7 +6,7 @@ from ..models.option import Option
 from ..models.role import Role
 import json
 from ..models.questionAnswer import Indicator, Answer, Comment, AnswerRange, McqAnswer, Test
-from helper.decorator.superuser_required import superuser_required
+
 from ..models.macro import Macro
 from user_management.models.candidate import Candidate
 from ..models.graphics import Demographic, DemographicValue
@@ -270,7 +270,6 @@ def thank_you(request):
 
 
 @login_required(login_url='/accounts/login?next=survey:demographic')
-@superuser_required
 def demographic(request):
     return render(request, 'survey/demographic.html', {})
 
@@ -357,10 +356,9 @@ def deletedemographic(request):
 
 
 @login_required(login_url='/accounts/login?next=survey:demographic_values')
-@superuser_required
 def demographic_values(request):
     demographic_list = Demographic.objects.all()
-    print(demographic_list)
+
     demographic = int(request.GET.get('demographic', 0))
     # ctx = RequestContext(request, {'csrf_token': get_token(request)})
     return render(request, 'survey/demographic_values.html',

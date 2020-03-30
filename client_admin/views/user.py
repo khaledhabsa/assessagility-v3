@@ -13,7 +13,6 @@ from ..forms.uploadFile import UploadFileForm
 from ..forms.roleForm import RoleForm
 from django.conf.urls.static import settings
 from django.forms.models import inlineformset_factory
-from helper.decorator.superuser_required import superuser_required
 import random
 import os
 import xlwt
@@ -97,7 +96,7 @@ def upload_logo(request):
 
 
 @login_required(login_url="/accounts/login/?next=client_admin:view_roles")
-@superuser_required
+@user_passes_test(lambda u: u.is_superuser)
 def view_roles(request):
     roles = Role.objects.all().order_by('rank')
     return render(request, 'view_roles.html',
@@ -105,13 +104,11 @@ def view_roles(request):
 
 
 @login_required
-@superuser_required
 def client_admin_preview_email_template(request, template_name):
     return preview_email_template(request, template_name)
 
 
 @login_required
-@superuser_required
 def client_admin_edit_email_template(request, template_name):
     return edit_email_template(request, template_name)
 
@@ -133,7 +130,6 @@ def edit_role(request, id):
 
 
 @login_required(login_url="/accounts/login/?next=client_admin:view_ranges")
-@superuser_required
 def view_ranges(request):
     ranges = AnswerRange.objects.all()
     return render(request, 'view_answer_ranges.html', {'ranges': ranges})
@@ -159,7 +155,6 @@ def edit_range(request, id):
 
 
 @login_required(login_url="/accounts/login/?next=client_admin:view_demographics")
-@superuser_required
 def view_demographics(request):
     demographics = Demographic.objects.all()
     return render(request, 'view_demographics.html', {'demographics': demographics, })
@@ -185,19 +180,16 @@ def edit_demographic(request, id):
 
 
 @login_required(login_url="/accounts/login/?next=client_admin:contact")
-@superuser_required
 def contact(request):
     return render(request, 'contact.html', {})
 
 
 @login_required(login_url="/accounts/login/?next=client_admin:schedule_call")
-@superuser_required
 def schedule_call(request):
     return render(request, 'schedule_call.html', {})
 
 
 @login_required(login_url="/accounts/login/?next=client_admin:admin_landing")
-@superuser_required
 def admin_landing(request):
 
     if request.user.is_superuser:
@@ -206,7 +198,6 @@ def admin_landing(request):
         return redirect("survey:answerpage", mode=0)
 
 
-@superuser_required
 def get_not_started(request):
     not_started_users = UserProfile.objects.filter(survey_finished=False,
                                                    user__answer=None).exclude(user__is_superuser=True)

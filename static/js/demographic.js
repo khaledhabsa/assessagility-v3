@@ -389,7 +389,7 @@ $(document).ready(function () {
 			});
 
 			row.find('.title>.editabletext').text("");
-			row.find('.title>.editabletext').append("<a class='values'  href='{% url \"survey:demographic_values\" %}?demographic=" + id + "'>" + title + "</a>");
+			row.find('.title>.editabletext').append("<a class='values'  href='/survey/demographic/values/?demographic=" + id + "'>" + title + "</a>");
 			row.find('.editabletext').show();
 
 			row.find('.chbxviewable').text("");
@@ -422,7 +422,7 @@ $(document).ready(function () {
 
 
 	$(".Submit").click(function () {
-		document.location.href = "{% url 'survey:demographic_values' %}";
+		document.location.href = "/survey/demographic/values/";
 	})
 
 	var validator = $("#addnewcadidateform").validate({
