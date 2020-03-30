@@ -8,6 +8,14 @@ from survey.models.questionAnswer import *
 from survey.models.role import *
 from survey.models.test import *
 from survey.models.users import *
+from django.template.defaulttags import register as reg_dic
+
+
+@reg_dic.filter
+def get_item(dic, key):
+    print(dic)
+    print(key)
+    return dic[key]
 
 
 register = template.Library()
@@ -18,7 +26,7 @@ def group(answerrange, by):
 
     if by == 'role':
         for answer in answerrange:
-            for role in answer.user.get_profile().roles.all():
+            for role in answer.user.profile.roles.all():
                 if role.title in g.keys():
                     g[role.title] = g[role.title] + 1
                 else:
@@ -28,7 +36,7 @@ def group(answerrange, by):
         for answer in answerrange:
             try:
                 ud = UserDemographics.objects.get(
-                    userProfile=answer.user.get_profile(), demographic__id=by)
+                    userProfile=answer.user.profile, demographic__id=by)
             except:
                 continue
             if ud.demographic_value in g.keys():
@@ -51,7 +59,7 @@ def chart(answerrange, by):
 
     if by == 'role':
         for answer in answerrange:
-            for role in answer.user.get_profile().roles.all():
+            for role in answer.user.profile.roles.all():
                 if role.title in g.keys():
                     g[role.title] = g[role.title] + 1
                 else:
@@ -61,7 +69,7 @@ def chart(answerrange, by):
         for answer in answerrange:
             try:
                 ud = UserDemographics.objects.get(
-                    userProfile=answer.user.get_profile(), demographic__id=by)
+                    userProfile=answer.user.profile, demographic__id=by)
             except:
                 continue
             if ud.demographic_value in g.keys():
@@ -106,7 +114,7 @@ def bars(indicator, by):
                 rs[r.title] = 0
             g.append(rs)
             for answer in mcqanswer_users:
-                for role in answer.user.get_profile().roles.all():
+                for role in answer.user.profile.roles.all():
 
                     g[i][role.title] = g[i][role.title] + 1
 
@@ -115,7 +123,7 @@ def bars(indicator, by):
             mcqanswer_users = ur[i]
             sup = {}
             for answer in mcqanswer_users:
-                aups = answer.user.get_profile().supervisor.strip()
+                aups = answer.user.profile.supervisor.strip()
                 if not aups in sup.keys():
                     sup[aups] = 0
                 sup[aups] = sup[aups] + 1
@@ -125,7 +133,7 @@ def bars(indicator, by):
             mcqanswer_users = ur[i]
             sup = {}
             for answer in mcqanswer_users:
-                aups = answer.user.get_profile().department_manager.strip()
+                aups = answer.user.profile.department_manager.strip()
                 if not aups in sup.keys():
                     sup[aups] = 0
                 sup[aups] = sup[aups] + 1
@@ -142,7 +150,7 @@ def bars(indicator, by):
             for answer in mcqanswer_users:
                 try:
                     ud = UserDemographics.objects.get(
-                        userProfile=answer.user.get_profile(), demographic__id=by)
+                        userProfile=answer.user.profile, demographic__id=by)
                 except:
                     continue
 
@@ -190,14 +198,14 @@ def demographic_bars(indicator, by):
     n = {}
     for answer in Answer.objects.filter(indicator=indicator):
         if by == 'role':
-            t = answer.user.get_profile().roles.all()[0].title
+            t = answer.user.profile.roles.all()[0].title
         elif by == 'supervisor':
-            t = answer.user.get_profile().supervisor.strip()
+            t = answer.user.profile.supervisor.strip()
         elif by == 'department_manager':
-            t = answer.user.get_profile().department_manager.strip()
+            t = answer.user.profile.department_manager.strip()
         else:
             t = UserDemographics.objects.get(
-                userProfile=answer.user.get_profile(), demographic=by).demographic_value.value
+                userProfile=answer.user.profile, demographic=by).demographic_value.value
         if not t in g.keys():
             g[t] = 0
             n[t] = 0
@@ -229,21 +237,18 @@ def demographic_ranges(indicator, by):
     min = {}
     max = {}
     n = {}
-    print(indicator)
-    for answer in Answer.objects.filter(indicator=indicator):
+
+    for answer in Answer.objects.filter(indicator=indicator).exclude(user__isnull=False):
         if by == 'role':
-            try:
-                if answer.user:
-                    t = answer.user.get_profile().roles.all()[0].title
-            except User.DoesNotExist:
-                continue
+            t = answer.user.profile.roles.all()[0].title
         elif by == 'supervisor':
-            t = answer.user.get_profile().supervisor.strip()
+            t = answer.user.profile.supervisor.strip()
         elif by == 'department_manager':
-            t = answer.user.get_profile().department_manager.strip()
+            t = answer.user.profile.department_manager.strip()
         else:
-            t = UserDemographics.objects.filter(userProfile=answer.user.get_profile(),
-                                                demographic=by).demographic_value.value
+            t = UserDemographics.objects.get(userProfile=answer.user.profile,
+                                             demographic=by).demographic_value.value
+
         if not t in min.keys():
             min[t] = 0
             max[t] = 0

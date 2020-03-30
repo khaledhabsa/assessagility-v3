@@ -1,0 +1,56 @@
+{% extends "base_iphone.html" %}
+{% comment %} {% load url from future %} {% endcomment %}
+
+{% block content %}
+
+{% if form.errors %}
+	<div class="confirmationerror">Your username and password didn't match. Please try again.</div>
+{% endif %}
+
+
+
+
+<form method="post" action="{% url 'survey:login_iphone' %}" id="login_form" class="loginForm" >
+
+
+{% csrf_token %}
+
+                <div class="inputRow">
+                    <div class="labelBlock">
+                        <label>{{ form.username.label_tag }}</label>
+                    </div>
+                    <div class="inputBlock">
+                    	<div class="loginInput">
+                        	{{ form.username }}
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>	
+
+              	<div class="inputRow">
+                    <div class="labelBlock">
+                        <label>{{ form.password.label_tag }}</label>
+                    </div>
+                    <div class="inputBlock">
+                    	<div class="loginInput">
+                        	{{ form.password }}
+                        </div>
+                        <div></div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                
+                <div class="inputRow">
+                	<div class="labelBlock">&nbsp;</div>
+                    <div class="inputBlock">
+                        <input type="submit" value="LOGIN" class="rounded {transparent} button" onclick="document.forms[0].submit()" id="submit" />
+                        <input type="hidden" name="next" value="{{ next }}" />
+                        
+                        
+                    </div>
+                    <div class="clear"></div>
+              </div>				
+
+</form>
+
+{% endblock %}

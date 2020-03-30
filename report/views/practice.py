@@ -455,10 +455,10 @@ def optimized_category_readiness_report(request):
         'email', flat=True).filter(status='Deleted')
     if deletedCandidate.count() < 1:
         answers = Answer.objects.select_related('user').filter(
-            user__userprofile__survey_finished=True)
+            user__profile__survey_finished=True)
     else:
         answers = Answer.objects.select_related('user').filter(reduce(operator.and_, (~Q(
-            user__email__contains=x) for x in set(deletedCandidate)))).filter(user__userprofile__survey_finished=True)
+            user__email__contains=x) for x in set(deletedCandidate)))).filter(user__profile__survey_finished=True)
 
     mcqanswers = McqAnswer.objects.all()
     characteristics = Characteristic.objects.all()
@@ -547,8 +547,8 @@ def supervisor_characteristic_readiness(supervisor, characteristic):
         imax = 0
         imin = 0
         na = Answer.objects.filter(
-            indicator=i, user__userprofile__supervisor=supervisor).count()
-        for a in Answer.objects.filter(indicator=i, user__userprofile__supervisor=supervisor):
+            indicator=i, user__profile__supervisor=supervisor).count()
+        for a in Answer.objects.filter(indicator=i, user__profile__supervisor=supervisor):
             imax += a.mcqanswer.maxValue
             imin += a.mcqanswer.minValue
         if(na > 0):
@@ -591,8 +591,8 @@ def department_manager_characteristic_readiness(department_manager, characterist
         imax = 0
         imin = 0
         na = Answer.objects.filter(
-            indicator=i, user__userprofile__department_manager=department_manager).count()
-        for a in Answer.objects.filter(indicator=i, user__userprofile__department_manager=department_manager):
+            indicator=i, user__profile__department_manager=department_manager).count()
+        for a in Answer.objects.filter(indicator=i, user__profile__department_manager=department_manager):
             imax += a.mcqanswer.maxValue
             imin += a.mcqanswer.minValue
         if(na > 0):
@@ -643,7 +643,8 @@ def groupe_assessment(request, aggregator):
 
         supervisors_practices[sv[aggregator]] = ps
 
-    ctx = {'supervisors': sorted(supervisors_practices.iteritems())}
+    ctx = {'supervisors': supervisors_practices['']}
+
     return render(request, 'groupe_assessment.html', ctx)
 
 
@@ -814,7 +815,7 @@ def practice_spectrum(request):
 
 
 def optimized_category_readiness_report_json(request):
-    return HttpResponse(json.dumps(getcategory_radar(request)[0]), mimetype='application/json')
+    return HttpResponse(json.dumps(getcategory_radar(request)[0]), content_type='application/json')
 
 
 def getcategory_radar(request):
@@ -926,9 +927,9 @@ def category_radar(request):
 
 
 def GetAnswers(request, role, demographics_values):
-    # print(Answer.objects.filter(user__userprofile__survey_finished=True))
+    # print(Answer.objects.filter(user__profile__survey_finished=True))
     # Get only Answers for users who finished thier survies.
-    answers = Answer.objects.filter(user__userprofile__survey_finished=True)
+    answers = Answer.objects.filter(user__profile__survey_finished=True)
     # Exclude Not Applicable Answers
     answers = answers.exclude(mcqanswer__minValue__lt=0.0)
     # to exclude deleted cadidates answers.
@@ -941,7 +942,7 @@ def GetAnswers(request, role, demographics_values):
         roles = Userprofile_Roles.objects.filter(
             role__id=role).values_list('userprofile__id', flat=True)
         if roles.count() > 0:
-            answers = answers.filter(user__userprofile__id__in=roles)
+            answers = answers.filter(user__profile__id__in=roles)
         else:
             answers = answers.filter(id=-1)
 
@@ -957,7 +958,7 @@ def GetAnswers(request, role, demographics_values):
             demographic_value__id__contains=x) for x in current_demographic_values))).values_list('userProfile__id', flat=True)
         if usersprofile.count() > 0:
             answers = answers.filter(reduce(operator.or_, (Q(
-                user__userprofile__id__contains=x) for x in set(usersprofile))))
+                user__profile__id__contains=x) for x in set(usersprofile))))
         else:
             answers = answers.filter(id=-1)
 
@@ -970,7 +971,7 @@ def GetAnswersforRole(answers, role):
             role__id=role).values_list('userprofile__id', flat=True)
         if usersprofile.count() > 0:
             answers = answers.filter(reduce(operator.or_, (Q(
-                user__userprofile__id__contains=x) for x in set(usersprofile))))
+                user__profile__id__contains=x) for x in set(usersprofile))))
         else:
             answers = answers.filter(id=-1)
 
@@ -1018,7 +1019,7 @@ def detailed_practice_readings(request):
                 if request.method == 'POST':
                     if request.POST['role'] != '-1':
                         answers = answers.filter(
-                            user__userprofile__roles__pk=request.POST['role'])
+                            user__profile__roles__pk=request.POST['role'])
                         indicators_len = characteristic.indicators.filter(
                             roles__pk=request.POST['role']).distinct().count()
                         if not indicators_len:
@@ -1029,7 +1030,7 @@ def detailed_practice_readings(request):
                             if item != '-1':
                                 item = int(item)
                                 answers = answers.filter(
-                                    user__userprofile__userdemographics__demographic_value__pk=item)
+                                    user__profile__userdemographics__demographic_value__pk=item)
 
                 values = answers.values_list(
                     'mcqanswer__minValue', 'mcqanswer__maxValue')

@@ -137,7 +137,7 @@
 </div>
 </div>
 
-{% ifequal  show_report "show" %} 
+{% comment %} {% ifequal  show_report "show" %}  {% endcomment %}
 <div class="row">
   <div class="col-md-12 portlets">
     <!-- Widget -->
@@ -181,7 +181,7 @@
               </div>              
               
             </div>
-            {% endifequal %}
+            {% comment %} {% endifequal %} {% endcomment %}
           </div>
 	</div>
         <!--END Widget content -->
@@ -232,9 +232,9 @@
           <!--<li><a href="" class="icoSetCloseDate">Set Survey Close Date</a></li>-->
           {% endcomment %}
           <li><a href="/client/admin/edit/emailtemplate/Invitee Welcome Email/" class="icoCustomizeEmailSentOut">Customize Email to be Sent Out</a><span id="SomeID2" class="class_tips" contents="Every person who will participate in your ReadyForAgile Assessment will get a this invite in their inbox. It is important to put all the information they need in it up front. With this option you can customize exactly what is said in both plain text and HTML. ">[i]</span></li>
-          <li><a href="{% url 'user_management:home' %}" class="icoManageSurveyParticipants">Manage Survey Participants</a><span class="class_tips" contents="Decide who will take the survey, when by managing your  participants. Here you can upload everyone you might potentially want to invite. Then, send your custom invite to individuals whom you would like to participate in the survey itself.">[i]</span></li>
+          <li><a href="/usermanagement/" class="icoManageSurveyParticipants">Manage Survey Participants</a><span class="class_tips" contents="Decide who will take the survey, when by managing your  participants. Here you can upload everyone you might potentially want to invite. Then, send your custom invite to individuals whom you would like to participate in the survey itself.">[i]</span></li>
           {%ifequal  show_demographic "show" %}                      
-          <li><a href="{% url 'survey:demographic'%}" class="icoManageDemo">Manage  Demographic Values</a><span id="Span1" class="class_tips" contents="Demographic values allow you to sort your assessment results later by the custom fields provided. ">[i]</span></li>
+          <li><a href="/survey/demographic" class="icoManageDemo">Manage  Demographic Values</a><span id="Span1" class="class_tips" contents="Demographic values allow you to sort your assessment results later by the custom fields provided. ">[i]</span></li>
           {%endifequal%} 
         </ul>
         <div class="clear"></div>

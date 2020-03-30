@@ -32,7 +32,7 @@
         <tr>
           <td> {% for k,v in g.views.iteritems%}
             <div 
-	       {% if not k = 'role'%} style="display: none;" {% endif%}
+	       {% ifnotequal k  'role'%} style="display: none;" {% endifnotequal%}
 	       class='demographic_{{ k }}'>
 	      {% autoescape off %}
 	      <div class="Ranges">{{ v }}</div>

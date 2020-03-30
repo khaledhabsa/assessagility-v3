@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{% block page_title %} Sign in {% endblock %} | Dr Agile</title>
+    <link rel="shortcut icon" href="{% static 'img/favicon/favicon.png' %}">
+    <link href="{% static 'styles/reset.css' %}" media="screen" rel="stylesheet" type="text/css" />
+    <link href="{% static 'styles/grid.css' %}" media="screen" rel="stylesheet" type="text/css" />
+    <link href="{% static 'styles/login.css' %}" media="screen" rel="stylesheet" type="text/css" />
+    <link href="{% static 'styles/buttons.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'styles/messages.css' %}" rel="stylesheet" type="text/css" />
+    <script type="text/JavaScript" src="{% static 'scripts/jquery-1.4.2.min.js' %}"></script>
+    <script type="text/JavaScript" src="{% static 'scripts/jquery.curvycorners.source.js' %}"></script>
+    <script type="text/JavaScript" src="{% static 'scripts/jquery.cookie.js' %}"></script>
+    
+    <script type="text/JavaScript">
+      
+      $(function(){ 
+      
+      settings = {
+      tl: { radius: 8 },
+      tr: { radius: 8 },
+      bl: { radius: 0 },
+      br: { radius: 0 },
+      antiAlias: true,
+      autoPad: true,
+      validTags: ["div"]
+      }
+      
+      $('.curvyTabLogin').corner(settings);
+      
+      });;
+      
+    </script>
+    <script src="{% static 'scripts/jquery.corners.min.js' %}"></script>
+
+
+
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+      $('.rounded').corners();
+      
+      
+      /* cookie checker for add logo once*/ 
+      var showOnce = $.cookie('showOnce')
+      
+
+      if(showOnce == null){
+      $(".showOnce").show();
+      }else{
+      $(".showOnce").hide();
+      }
+      $.cookie('showOnce', 'showOnceValue');
+      
+      });
+    </script>
+  </head>
+  <body>
+    <div class="container container_12">
+      <div class="grid_12">
+        <div class="loginBlock">
+          <div class="bgLoginHeader">
+	    <!--<div class="showOnce"></div> -->
+            <div class="logoBlock">
+              <a href="#">
+                
+              </a>
+            </div>
+            <div class="curvyTabLogin">SIGN IN</div>
+            <div class="clear"></div>
+            <div class="loginBoxShadTop"></div>
+          </div>
+          <div class="bgLoginContents">
+            {% if user.is_authenticated %}
+              <div>Welcome, {{ user.username }}. Thanks for logging in. <a href="{% url 'survey:user_logout' %}">logout</a> </div>
+            {% else %}
+              <div> <strong>{% filter force_escape %}{% firstof user.first_name user.username %}{% endfilter %}</strong></div>
+            {% endif %}
+            {% block content %}
+            {% endblock %}
+            <div class="clear"></div>
+	  </div>
+          <div class="bgLoginFooter">
+            <div class="footerBlock">
+              <div class="copyright"> &copy; 2012 -  All Rights Reserved. </div>
+              <div class="poweredbyBlock" ></div>
+              <div class="logoSep">&nbsp;</div>
+              <div class="providedbyBlock" title="Service provided by santeon group"></div>
+              <div class="logoSep">&nbsp;</div>
+              <div class="clear"></div>
+            </div>
+          </div>
+        </div>
+        <div class="clear"></div>
+      </div>
+    </div>
+  </body>
+</html>

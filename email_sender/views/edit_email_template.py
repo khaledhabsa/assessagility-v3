@@ -3,10 +3,11 @@ from ..models.emailTemplate import EmailTemplate
 from django.shortcuts import render
 from ..forms.emailTemplate import EmailTemplateForm
 from user_management.models.candidate import Candidate
+from helper.decorator.superuser_required import superuser_required
 
 
 @login_required
-# @superuser_required
+@superuser_required
 def edit_email_template(request, template_name):
     try:
         template = EmailTemplate.objects.get(template_name=template_name)

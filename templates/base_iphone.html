@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
+        <link rel="apple-touch-icon" href="{% static 'images/iphone/iphone-icon.png' %}" />
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+        <meta name="robots" content="all" />
+		<link rel="stylesheet" type="text/css" href="{% static 'styles/iphone/styles.css' %}" media="screen' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'styles/iphone/messages.css' %}" media="screen' %}" />
+		<title>{% block page_title %} Sign in {% endblock %} | Dr Agile</title>
+
+	</head>
+	<body >
+
+<header><img src="{% static 'images/iphone/customers/logo.png' %}" /></header>
+<div class="loginContents">
+
+	<div class="loginForm">
+        {% if user.is_authenticated %}
+        <div>
+            <!--Welcome, {{ user.username }}. Thanks for logging in. <a href="/logout">logout</a>-->
+        </div>
+        {% else %}
+        <div>
+            <strong>{% filter force_escape %}{% firstof user.first_name user.username %}{% endfilter %}</strong>
+        </div>
+        {% endif %}
+
+	</div>
+    {% block content %}
+    {% endblock %}
+
+</div>
+
+
+
+<footer>
+	<hr />
+	<a href="http://www.dragile.com/" target="_blank"><img src="{% static 'images/iphone/logo_dragile_small.png' %}" /></a>
+    <a href="http://www.santeon.com" target="_blank"><img src="{% static 'images/iphone/logo_santeon_small.png' %}" /></a>
+</footer>
+
+
+	</body>
+</html>

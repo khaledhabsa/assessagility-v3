@@ -130,11 +130,13 @@ class ticket(models.Model):
     date_modified = models.DateTimeField(auto_now=True)
 
 
-def create_user_profile(sender, **kwargs):
+def create_profile(sender, **kwargs):
     """When creating a new user, make a profile for him or her."""
-    u = kwargs["instance"]
-    if not UserProfile.objects.filter(user=u):
-        UserProfile(user=u).save()
+    if kwargs['created']:
+        user_profile = UserProfile.objects.create(user=kwargs['instance'])
+    # u = kwargs["instance"]
+    # if not UserProfile.objects.filter(user=u):
+    #     UserProfile(user=u).save()
 
 
-post_save.connect(create_user_profile, sender=User)
+post_save.connect(create_profile, sender=User)

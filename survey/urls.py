@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from .views.user import user_login, user_logout, forget_password, change_password
+from .views.user import user_login, user_logout, forget_password, change_password, login_iphone, reset_password
 from .views.asnwer import (
     answerPage, finished, select_role,
     edit_user_demographics, closed, survey_opened,
@@ -14,9 +14,12 @@ app_name = 'survey'
 
 urlpatterns = [
     url(r'^accounts/login/$', user_login, name='user_login'),
+    url(r'^accounts/login/iphone/$', login_iphone, name='login_iphone'),
     url(r'^accounts/logout/$', user_logout, name='user_logout'),
     url(r'^accounts/forget_password/$', forget_password,
-        name='forget_password'),  # fix this ------
+        name='forget_password'),
+    url(r'^accounts/resetpassword/(?P<code>.*)/$', reset_password,
+        name='reset_password'),
     url(r'^accounts/change/password/$', change_password, name='change_password'),
     url(r'^answerpage/(?P<mode>.*)/$', answerPage, name='answerpage'),
     url(r'^select/role/$', select_role, name="select_role"),

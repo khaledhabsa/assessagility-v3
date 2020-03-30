@@ -11,6 +11,7 @@ from django.forms.models import inlineformset_factory
 from ..models.candidate import Candidate
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from ..forms.fileUploadForm import UploadFileForm
+from helper.decorator.superuser_required import superuser_required
 import random
 import os
 import json
@@ -27,14 +28,14 @@ from django.core.mail import EmailMultiAlternatives
 
 
 @login_required(login_url="/accounts/login?next=user_management:home")
-# @superuser_required
+@superuser_required
 def home(request):
     # ctx = RequestContext(request, {'csrf_token': get_token(request), })
     return render(request, 'user_management_home.html')
 
 
 @login_required(login_url="/accounts/login?next=user_management:manage")
-# @superuser_required
+@superuser_required
 def manage(request):
     # ctx = RequestContext(request, {'csrf_token': get_token(request), })
     return render(request, 'user_management_manage.html')

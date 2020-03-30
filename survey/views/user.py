@@ -12,6 +12,7 @@ from django.contrib.sites.models import Site
 from django.template import Context, Template
 from email_sender.models.emailTemplate import EmailTemplate
 from django.contrib.auth.decorators import login_required
+from ..models.message import Message
 
 
 def user_login(request):
@@ -100,7 +101,7 @@ def forget_password(request):
         except User.DoesNotExist:
             message = "This email %s is not listed in our system" % email
 
-    return render(request, 'forget_password.html', {'message': message})
+    return render(request, 'user/forget_password.html', {'message': message})
 
 
 def reset_password(request, code):
@@ -138,7 +139,7 @@ def reset_password(request, code):
     ctx = {'message': message,
            'showform': showform,
            'showLoginLink': showLoginLink}
-    return render(request, 'reset_password.html', ctx)
+    return render(request, 'user/reset_password.html', ctx)
 
 
 @login_required(login_url="/accounts/login?next=survey:change_password")
@@ -154,80 +155,37 @@ def change_password(request):
     return render(request, 'user/change_password.html', {})
 
 
-{
-    # def forgot_password(request):
+def login_iphone(request):
+    '''
+        This function is called by two ways:
+        - if request post then you submit the form login,
+        - otherwise use request get to load the login page
+    '''
+    if request.user.is_authenticated:
+        if (request.GET.get('next') != "None") and (request.GET.get('next') is not None):
+            print(request.GET.get('next'))
+            return redirect(request.GET.get('next'))
+        else:
+            return redirect("survey:answerpage", mode=0)
+    else:
 
-    #     message = ""
-    #     if request.POST:
-    #         email = request.POST['email']
-    #         try:
-    #             user = User.objects.get(email=email)
-    #             message = "An email has been sent to the email provided. Thank you!"
-    #             timestamp = str(int(time.time()))
-    #             m = hashlib.sha1()
-    #             m.update(timestamp)
+        if request.method == 'POST':
+            form_user = UserLoginForm(request.POST)
+            if form_user.is_valid():
+                user = form_user.cleaned_data.get('user')
+                login(request, user)
+                nextUrl = request.POST.get('next')
+                if nextUrl == "None":
+                    if user.is_superuser:
+                        return redirect("/client/admin/admin_landing")
+                    else:
+                        return redirect("/answerpage/0/")
+                else:
+                    return redirect(nextUrl)
 
-    #             t = ticket.objects.create(code=m.hexdigest(), data=email, type='change password', status='available')
-    #             t.save()
-    #             reset_password_url = '%s/resetpassword/%s' % (Site.objects.get_current().domain, t.code)
-
-    #             text_content = Template(EmailTemplate.objects.get(template_name='forgot_password').body_text)
-    #             html_content = Template(EmailTemplate.objects.get(template_name='forgot_password').body_html)
-    #             subject_content = Template(EmailTemplate.objects.get(template_name='forgot_password').subject)
-
-    #             c = Context({'company': Site.objects.get_current().name,
-    #                          'company_url': Site.objects.get_current().domain,
-    #                          'first_name': user.first_name,
-    #                          'reset_password_url': reset_password_url})
-
-    #             msg = EmailMultiAlternatives(subject_content.render(c),
-    #                                          text_content.render(c),
-    #                                          EmailTemplate.objects.get(template_name='forgot_password').from_email,
-    #                                          [email],
-    #                                          headers={'Reply-To': EmailTemplate.objects.get(template_name='forgot_password').reply_to_email})
-    #             msg.attach_alternative(html_content.render(c), "text/html")
-    #             msg.send()
-
-    #         except User.DoesNotExist:
-    #             message = "This email %s is not listed in our system" % email
-
-    #     return render(request, 'forgot_password.html', {'message': message}, RequestContext(request))
-
-
-    # def reset_password(request, code):
-    #     message = ""
-    #     showform = False
-    #     showLoginLink = False
-    #     try:
-    #         t = ticket.objects.get(code=code)
-    #         if t.type == 'change password' and t.status == 'available':
-    #             showform = True
-    #         else:
-    #             message = "link expired."
-
-    #     except ticket.DoesNotExist:
-    #         message = "invalid link."
-
-    #     if request.POST:
-    #         try:
-    #             t = ticket.objects.get(code=code)
-    #             if t.type == 'change password' and t.status == 'available':
-    #                 u = User.objects.get(email=t.data)
-    #                 u.set_password(request.POST['Password'])
-    #                 u.save()
-    #                 t.status = 'inavailable'
-    #                 t.save()
-    #                 message = "Your password has been successfully reset."
-    #                 showLoginLink = True
-    #                 showform = False
-    #             else:
-    #                 message = "link expired."
-
-    #         except ticket.DoesNotExist:
-    #             message = "invalid link."
-
-    #     ctx = {'message': message,
-    #            'showform': showform,
-    #            'showLoginLink': showLoginLink}
-    #     return render(request, 'reset_password.html', ctx)
-}
+            return render(request, 'iphone/login.html', {'form': form_user,
+                                                         "errors": form_user.errors.as_data()['__all__'][0],
+                                                         'next': request.POST['next']})
+        else:
+            form = UserLoginForm()
+            return render(request, 'iphone/login.html', {'next': request.GET.get('next'), "form": form})

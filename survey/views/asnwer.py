@@ -6,6 +6,8 @@ from ..models.option import Option
 from ..models.role import Role
 import json
 from ..models.questionAnswer import Indicator, Answer, Comment, AnswerRange, McqAnswer, Test
+from helper.decorator.superuser_required import superuser_required
+from ..models.macro import Macro
 from user_management.models.candidate import Candidate
 from ..models.graphics import Demographic, DemographicValue
 from ..models.users import UserDemographics, UserProfile
@@ -13,6 +15,8 @@ from ..models.message import Message
 from django.core import serializers
 from ..models.instanceSetting import InstanceSetting
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from ..views.addSurveyOptionIfNotExist import addSurveyOptionIfNotExist
+from ..views.isValidSurveyOption import isValidSurveyOption
 
 
 @login_required(login_url="/accounts/login?next=survey:opened")
@@ -146,7 +150,7 @@ def closed(request):
     return render(request, 'questions/closed.html')
 
 
-@login_required(login_url='/iphone/login/')
+@login_required(login_url='/accouts/login/iphone/?next=survey:iphone')
 def iphone(request):
     if request.user.profile.roles.count() == 0:
         return redirect('survey:select_role')
@@ -266,6 +270,7 @@ def thank_you(request):
 
 
 @login_required(login_url='/accounts/login?next=survey:demographic')
+@superuser_required
 def demographic(request):
     return render(request, 'survey/demographic.html', {})
 
@@ -352,6 +357,7 @@ def deletedemographic(request):
 
 
 @login_required(login_url='/accounts/login?next=survey:demographic_values')
+@superuser_required
 def demographic_values(request):
     demographic_list = Demographic.objects.all()
     print(demographic_list)
@@ -449,19 +455,3 @@ def addSurveyOptionIfNotExist(key, value):
         option.save()
     else:
         Option.objects.create(key=key, value=value)
-
-
-def isValidSurveyOption(key, value):
-
-    try:
-        option = Option.objects.get(key=key)
-
-    except Exception:
-        option = None
-
-    if option is not None:
-        # value = value.replace("survey_", "")
-        if(option.value == value):
-            return True
-
-    return False

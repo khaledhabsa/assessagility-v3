@@ -1,4 +1,5 @@
 {% load user_grouping %}
+{% load static %}
 <link type="text/css" rel="stylesheet" href="{% static 'styles/report.css' %}" />
 <script type="text/javascript" src="{% static 'scripts/jquery-1.6.2.js' %}"></script>
 <link media="screen" rel="stylesheet" href="{% static 'styles/colorbox.css' %}" />
@@ -49,7 +50,8 @@
 	float: left;
 	}
 </style>
-{%for sv , ps in supervisors%}
+
+
 <div class="page">
 	<div class="supervisor">
 		{{sv}}
@@ -80,7 +82,9 @@
 			
 			</td>
 		</tr>
-		{%for p in ps%}
+		{% comment %} {{supervisors|get_item:sv}}
+		{%for p in sv %} {% endcomment %}
+		{%for p in supervisors %}
 		<tr>
 			<td>
 				{{p.title}}</td>
@@ -89,4 +93,4 @@
 		{%endfor%}
 	</table>
 </div>
-{%endfor%} 
+{% comment %} {%endfor%}  {% endcomment %}

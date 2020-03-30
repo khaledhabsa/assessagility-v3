@@ -15,6 +15,7 @@ xlrd = "*"
 django-tables2 = "*"
 pillow = "*"
 reportlab = "*"
+whitenoise = "*"
 
 [requires]
 python_version = "3.8"
