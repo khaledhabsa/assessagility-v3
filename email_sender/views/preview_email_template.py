@@ -4,8 +4,6 @@ from django.shortcuts import render
 from helper.decorator.superuser_required import superuser_required
 
 
-@login_required
-@superuser_required
 def preview_email_template(request, template_name):
 
     try:

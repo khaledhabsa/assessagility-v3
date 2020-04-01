@@ -80,12 +80,12 @@ def view_roles(request):
                   {'roles': roles, })
 
 
-@login_required
+@login_required(login_url="/accounts/login/?next=client_admin:client_admin_preview_email_template")
 def client_admin_preview_email_template(request, template_name):
     return preview_email_template(request, template_name)
 
 
-@login_required
+@login_required(login_url="/accounts/login/?next=client_admin:client_admin_edit_email_template")
 def client_admin_edit_email_template(request, template_name):
     return edit_email_template(request, template_name)
 
