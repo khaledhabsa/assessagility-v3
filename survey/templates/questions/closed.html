@@ -24,7 +24,13 @@
 </head>
 
 <body>
+  {% comment %} {% if messages %} {% endcomment %}
+  {% if messages %}
 
+    {% for message in messages %}
+      {{message}}
+    {% endfor %} 
+  {% endif %}
 <!-- Form area -->
 <div class="error-page">
   <div class="container">

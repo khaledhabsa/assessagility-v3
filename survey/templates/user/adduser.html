@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
 
-    <title>Login - ReadyForAgile.com</title>
+    <title>Register - ReadyForAgile.com</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="keywords" content="">
@@ -47,11 +47,11 @@
               <div class="widget-content">
                 <div class="padd">
                   <!-- Login form -->
-                  <form class="form-horizontal" action='{% url "survey:user_login" %}' method="post">
+                  <form class="form-horizontal" action='{% url "survey:adduser" %}' method="post">
                     {% csrf_token %}
                     <input type="hidden" name="next" value="{{ next }}" />
                     <!-- Email -->
-                    <h2>{% trans "Sign In to your Account" %}</h2>
+                    <h2>{% trans "Sign Up" %}</h2>
                     {% if errors %}
                       <div class="form-group">
                         <div class="col-lg-1"></div>
@@ -62,43 +62,63 @@
                         </div>
                       </div>
                     {% endif %}
-                    {% if messages %}
-                      <div class="form-group">
-                        <div class="col-lg-1"></div>
-                        <div class="loginalert alert alert-success">
-                          {% for msg in messages %}
-                            {{msg}}
-                          {% endfor %}
-                        </div>
-                      </div>
-                    {% endif %}
                     <div class="form-group">
                       <div class="col-lg-1"></div>
                       <div class="col-md-10">
-                        <input type="text" class="form-control" id="inputEmail" placeholder="Email" name="username">
+						            {{form.first_name}}
                       </div>
                       <div class="col-lg-1"></div>
                     </div>
-                    <!-- Password -->
                     <div class="form-group">
                       <div class="col-lg-1"></div>
-                      <div class="col-lg-10">
-                        <input type="password" class="form-control" id="inputPassword" placeholder="Password" name="password">
+                      <div class="col-md-10">
+                        {% comment %} <input type="text" class="form-control" id="inputEmail" placeholder="Email" name="username"> {% endcomment %}
+                        {{form.last_name}}
                       </div>
                       <div class="col-lg-1"></div>
                     </div>
+                    <div class="form-group">
+                      <div class="col-lg-1"></div>
+                      <div class="col-md-10">
+                        {% comment %} <input type="text" class="form-control" id="inputEmail" placeholder="Email" name="username"> {% endcomment %}
+					              {{form.username}}
+                      </div>
+                      <div class="col-lg-1"></div>
+                    </div>
+                    <div class="form-group">
+                      <div class="col-lg-1"></div>
+                      <div class="col-md-10">
+                        {% comment %} <input type="text" class="form-control" id="inputEmail" placeholder="Email" name="username"> {% endcomment %}
+						            {{form.email}}
+                      </div>
+                      <div class="col-lg-1"></div>
+                    </div>
+                    <div class="form-group">
+                      <div class="col-lg-1"></div>
+                      <div class="col-md-10">
+                        {% comment %} <input type="text" class="form-control" id="inputEmail" placeholder="Email" name="username"> {% endcomment %}
+						            {{form.password}}
+                      </div>
+                      <div class="col-lg-1"></div>
+                    </div>
+                    <div class="form-group">
+                      <div class="col-lg-1"></div>
+                      <div class="col-md-10">
+                        {% comment %} <input type="text" class="form-control" id="inputEmail" placeholder="Email" name="username"> {% endcomment %}
+						            {{form.password1}}
+                      </div>
+                      <div class="col-lg-1"></div>
+                    </div>
+                
                     <!-- sign in button -->
-                    <button type="submit" class="btn btn-danger centered">{% trans "Login" %}</button>
+                    <button type="submit" class="btn btn-danger centered">{% trans "Register" %}</button>
                   </form>
 
                 </div>
               </div>
 
               <div class="widget-foot">
-                <a href="{% url 'survey:adduser' %}">{% trans "Register Now?" %}</a>
-              </div>
-              <div class="widget-foot">
-                <a href="{% url 'survey:forget_password' %}">{% trans "Forgot Password ?" %}</a>
+                <a href="{% url 'survey:user_login' %}">{% trans "Have account? Login Now" %}</a>
               </div>
             </div>
           </div>

@@ -136,7 +136,7 @@ CREATE TABLE `auth_user` (
   `is_staff` tinyint(1) NOT NULL,
   `is_active` tinyint(1) NOT NULL,
   `is_superuser` tinyint(1) NOT NULL,
-  `last_login` datetime NOT NULL,
+  `last_login` datetime NULL,
   `date_joined` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
@@ -992,7 +992,7 @@ DROP TABLE IF EXISTS `survey_ticket`;
 CREATE TABLE `survey_ticket` (
   `id` int NOT NULL AUTO_INCREMENT,
   `code` longtext NOT NULL,
-  `type` longtext NOT NULL,
+  `type_ticket` longtext NOT NULL,
   `data` longtext NOT NULL,
   `status` longtext NOT NULL,
   `date_created` datetime NOT NULL,

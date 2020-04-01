@@ -35,11 +35,11 @@ class UserProfile(models.Model):
     demographics = models.ManyToManyField(
         Demographic, through='UserDemographics')
 
-    hide_welcome_message = models.BooleanField(default=True)
+    hide_welcome_message = models.BooleanField(default=False)
 
-    did_fill_demographics = models.BooleanField(default=True)
+    did_fill_demographics = models.BooleanField(default=False)
 
-    survey_finished = models.BooleanField(default=True)
+    survey_finished = models.BooleanField(default=False)
 
     def __unicode__(self):
         return self.user.username
@@ -119,7 +119,7 @@ class ticket(models.Model):
     '''
     code = models.TextField()
 
-    type = models.TextField()
+    type_ticket = models.TextField()
 
     data = models.TextField()
 

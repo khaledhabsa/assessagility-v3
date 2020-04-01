@@ -9,6 +9,7 @@ def isValidSurveyOption(key, value):
     except Exception:
         option = None
 
+    print(option)
     if option is not None:
         # value = value.replace("survey_", "")
         if(option.value == value):

@@ -5,10 +5,9 @@ from survey.models.users import UserProfile, User, UsersWaitingList
 from survey.models.instanceSetting import InstanceSetting
 from survey.models.questionAnswer import Practice, Characteristic, AnswerRange, McqAnswer
 from survey.views.asnwer import isValidSurveyOption, Demographic, DemographicValue
-from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.decorators import login_required, user_passes_test, permission_required
 from email_sender.views.edit_email_template import edit_email_template
 from email_sender.views.preview_email_template import preview_email_template
-from ..forms.user import AddUserForm
 from ..forms.uploadFile import UploadFileForm
 from ..forms.roleForm import RoleForm
 from django.conf.urls.static import settings
@@ -16,9 +15,11 @@ from django.forms.models import inlineformset_factory
 import random
 import os
 import xlwt
+from helper.decorator.superuser_required import superuser_required
 
 
-@user_passes_test(lambda u: u.is_superuser or u.has_perm('survey.change_ticket'))
+@login_required(login_url="/accounts/login/?next=client_admin:home")
+@superuser_required
 def home(request):
     roles = Role.objects.all()
     roles_completed = {}
@@ -50,30 +51,6 @@ def home(request):
     return render(request, 'client_admin_home.html', ctx)
 
 
-@login_required(login_url="/accounts/login/?next=client_admin:adduser")
-def adduser(request):
-    message = None
-    if request.method == 'POST':
-        form = AddUserForm(request.POST)
-        if form.is_valid():
-            newUser = UsersWaitingList()
-            newUser.first_name = form.cleaned_data['first_name']
-            newUser.last_name = form.cleaned_data['last_name']
-            newUser.email = form.cleaned_data['email']
-            newUser.save()
-
-            message = '%s has been added successfully.' % form.cleaned_data['email']
-            form = AddUserForm()
-    else:
-        form = AddUserForm()
-
-    return render(request, 'adduser.html',
-                  {'form': form,
-                   'message': message},
-                  #   context_instance=RequestContext(request)
-                  )
-
-
 @login_required(login_url="/accounts/login/?next=client_admin:upload_logo")
 def upload_logo(request):
     message = None
@@ -96,7 +73,7 @@ def upload_logo(request):
 
 
 @login_required(login_url="/accounts/login/?next=client_admin:view_roles")
-@user_passes_test(lambda u: u.is_superuser)
+@superuser_required
 def view_roles(request):
     roles = Role.objects.all().order_by('rank')
     return render(request, 'view_roles.html',

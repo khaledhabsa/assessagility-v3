@@ -55,3 +55,66 @@ class ForgetPasswordForm(forms.ModelForm):
 
         self.cleaned_data['user'] = user[0]
         return self.cleaned_data
+
+
+class AddUserForm(forms.ModelForm):
+    first_name = forms.CharField(max_length=20, widget=forms.TextInput(attrs={
+        "class": "form-control",
+        "id": "inputFirstName",
+        "placeholder": "First Name"
+    }))
+    last_name = forms.CharField(max_length=20, widget=forms.TextInput(attrs={
+        "class": "form-control",
+        "id": "inputLastName",
+        "placeholder": "Last Name"
+    }))
+    username = forms.CharField(max_length=100, widget=forms.TextInput(attrs={
+        "class": "form-control",
+        "id": "inputUsername",
+        "placeholder": "Username"
+    }))
+    email = forms.EmailField(widget=forms.TextInput(attrs={
+        "class": "form-control",
+        "id": "inputEmail",
+        "placeholder": "Email"
+    }))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={
+        "class": "form-control",
+        "id": "inputPassword",
+        "placeholder": "Password"
+    }))
+    password1 = forms.CharField(widget=forms.PasswordInput(attrs={
+        "class": "form-control",
+        "id": "inputPassword",
+        "placeholder": "Confirm Password"
+    }))
+
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'username',
+                  'email', 'password', 'password1',)
+
+    def clean(self):
+        email = self.cleaned_data['email']
+        password = self.cleaned_data['password']
+        password1 = self.cleaned_data['password1']
+
+        user = User.objects.filter(email=email)
+        if not user.exists():
+            if password and password1 and password == password1:
+                return self.cleaned_data
+            else:
+                raise forms.ValidationError(u"password didn't match")
+
+        raise forms.ValidationError(u'%s already exists' % email)
+
+    def save(self):
+        user = User.objects.create(
+            first_name=self.cleaned_data.get("first_name"),
+            last_name=self.cleaned_data.get("last_name"),
+            username=self.cleaned_data.get("username"),
+            email=self.cleaned_data.get("email"),
+        )
+
+        user.set_password(self.cleaned_data.get("password"))
+        user.save()

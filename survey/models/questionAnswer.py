@@ -84,8 +84,8 @@ class Indicator(models.Model):
         # print("=====================self.question: ", self.question)
         return self.question
 
-    def __unicode__(self):
-        return '[ %s ] %s ' % (self.code, self.question)
+    def __str__(self):
+        return self.question
 
 
 class CharacteristicCategory(models.Model):
@@ -157,6 +157,9 @@ class Test(models.Model):
 
     value = models.IntegerField(default=1)
 
+    def __unicode__(self):
+        return '%s ' % (self.value)
+
 
 class Answer(models.Model):
     '''
@@ -170,6 +173,9 @@ class Answer(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     mcqanswer = models.ForeignKey(McqAnswer, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return '%s ' % (self.user)
 
 
 class Comment(models.Model):

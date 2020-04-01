@@ -34,6 +34,7 @@ def answerPage(request, *args, **kwargs):
         return redirect('survey:closed')
 
     if request.user.profile.survey_finished:
+        # print(request.user.profile.survey_finished)
         return redirect('survey:finished')
 
     my_roles = request.user.profile.roles.all()
@@ -147,6 +148,9 @@ def closed(request):
         value = request.POST.get('value', False)
         addSurveyOptionIfNotExist('closed', value)
         return HttpResponse()
+
+    # value = request.POST.get('value', False)
+    addSurveyOptionIfNotExist('closed', "closed")
     return render(request, 'questions/closed.html')
 
 
@@ -441,15 +445,3 @@ def deletedemographicvalue(request):
         pk__in=ids.split(','))
     deletedDemographics.delete()
     return HttpResponse(json.dumps('success.'))
-
-
-def addSurveyOptionIfNotExist(key, value):
-    try:
-        option = Option.objects.get(key=key)
-    except Exception:
-        option = None
-    if option is not None:
-        option.value = value
-        option.save()
-    else:
-        Option.objects.create(key=key, value=value)

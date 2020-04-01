@@ -13,6 +13,8 @@ from django.template import Context, Template
 from email_sender.models.emailTemplate import EmailTemplate
 from django.contrib.auth.decorators import login_required
 from ..models.message import Message
+from ..forms.user import AddUserForm
+from django.contrib.messages import success
 
 
 def user_login(request):
@@ -189,3 +191,27 @@ def login_iphone(request):
         else:
             form = UserLoginForm()
             return render(request, 'iphone/login.html', {'next': request.GET.get('next'), "form": form})
+
+
+def adduser(request):
+    message = None
+    errors = None
+    if request.method == 'POST':
+        form = AddUserForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            message = '%s has been added successfully.' % form.cleaned_data['email']
+            success(request, message)
+            return redirect("survey:user_login")
+
+        else:
+            errors = list(form.errors.as_data()['__all__'][0])[0],
+    else:
+        form = AddUserForm()
+
+    return render(request, 'user/adduser.html',
+                  {'form': form,
+                   "errors": errors,
+                   'message': message},
+                  )

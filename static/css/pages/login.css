@@ -26,9 +26,15 @@
     padding-left:30px;
 }
 
-.widget input#inputEmail{
+.widget input#inputEmail,
+.widget input#inputFirstName, 
+.widget input#inputLastName,
+.widget input#inputUsername{
     background:url('../../img/user-icon.png') 10px center no-repeat;
 }
+/* .widget input#inputEmail{
+    background:url('../../img/email.jpg') 10px center no-repeat;
+} */
 
 .widget input#inputPassword{
     background:url('../../img/lock-icon.png') 10px center no-repeat;

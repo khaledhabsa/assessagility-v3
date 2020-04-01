@@ -1,15 +1,18 @@
 from functools import wraps
 from django.shortcuts import redirect
+from django.contrib.auth.decorators import user_passes_test
+from django.core.exceptions import PermissionDenied
+from django.contrib import messages
 
 
 def superuser_required(func):
-    def decorator(func):
-        def inner_decorator(request, *args, **kwargs):
-            if request.user.is_superuser:
-                return func(request, *args, **kwargs)
-            else:
-                return redirect('answerpage', mode=0)
+    def decorator(request):
 
-        return wraps(func)(inner_decorator)
+        if request.user.is_superuser:
+            return func(request)
+        else:
+            return redirect("survey:closed")
+            # messages.error(request, "Unauthorized To access This link!")
+            # raise PermissionDenied('Unauthorized To access This link!')
 
     return decorator
