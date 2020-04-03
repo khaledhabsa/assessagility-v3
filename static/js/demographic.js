@@ -80,6 +80,7 @@ function renderpager(candidates) {
 
 
 function selectPage(pageNumber) {
+
 	currentPageNumber = parseInt(pageNumber);
 	renderPagesIndex(currentPageNumber - 1);
 }
@@ -274,11 +275,14 @@ $(document).ready(function () {
 	$('.delete').click(function () {
 		ids = [];
 		var todelete = $('.usercheckbox.checked');
+
 		for (i = 0; i < todelete.length; i++) {
 			id = $(todelete[i]).attr('id');
+
 			ids.push(id);
 		}
 		if (ids.length > 0) {
+			console.log(ids)
 			$.ajax({
 				url: '/survey/deletedemographic/',
 				cache: false,
@@ -306,8 +310,9 @@ $(document).ready(function () {
 	$(document).on('click', '.edit', function () {
 		var row = $(this).closest('tr');
 		var tdText = row.find('.title .editabletext').text();
+		tdText = ($.trim(tdText))
 		row.find('.title .editabletext').hide();
-		row.find('.title').append('<div class="editfiled"><input id="title" name="title" size="25" class="required" minlength="2" value="' + tdText + '" /></div>');
+		row.find('.title').append('<div class="editfiled"><input id="title" name="title" size="10" class="form-control required" minlength="2" value="' + tdText + '" /></div>');
 		var tdText = row.find('.chbxrequired .editabletext').text();
 		row.find('.chbxrequired .editabletext').hide();
 		row.find('.chbxrequired .truechbx').hide();

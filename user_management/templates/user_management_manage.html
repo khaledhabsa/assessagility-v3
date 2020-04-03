@@ -168,7 +168,7 @@
 
 	{#foreach $T as record}
         {#if $T.record.status==$P.filter }
-	<tr id='tr_{$T.record.id}'>
+	  <tr id='tr_{$T.record.id}'>
 	  <td><div class="usercheckbox" id='{$T.record.id}'></div></td>
 	  <td class="firstname"><div class="editabletext">{$T.record.first_name}</div></td>
 	  <td class="lastname"><div class="editabletext">{$T.record.last_name}</div></td>

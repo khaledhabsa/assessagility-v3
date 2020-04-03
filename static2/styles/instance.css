@@ -1,0 +1,76 @@
+
+    .layer1
+    {
+        margin: 0;
+        padding: 0;
+        width: 500px;
+        list-style: none;
+    }
+
+    .heading
+    {
+        margin: 1px;
+        color: #fff;
+        padding: 3px 10px;
+        cursor: pointer;
+        position: relative;
+    }
+
+    .content
+    {
+        padding: 5px 10px;
+        background-color: #fafafa;
+    }
+
+    div .heading
+    {
+       
+        background: url("/images/bg_gridhead.png") repeat-x scroll 0 0 transparent;
+    	border: 1px solid #A7A7A7;
+		height: 20px;
+		padding: 5px;
+		vertical-align: middle;
+		
+    }
+
+    .dashboardBoxLeft
+    {
+        margin-bottom: 10px;
+    }
+
+    .statusCompleted
+    {
+        float: left;
+        margin: 0px 5px;
+        width: 130px;
+        height: 25px;
+		background:transparent url(../images/completed.png) left top no-repeat;padding-left: 30px;
+    }
+     .statusInProgress
+    {
+        float: left;
+        margin: 0px 5px;
+        width: 130px;
+        height: 25px;
+		background:transparent url(../images/inprogress.png) left top no-repeat;padding-left: 30px;
+    }
+	.statusQuota{  float: left;
+        margin: 0px 5px;
+        width: 130px;
+        height: 25px;
+		background:transparent url(../images/quota.png) left top no-repeat;padding-left: 30px;}
+
+     .statusNotStarted
+    {
+        float: left;
+        margin: 0px 5px;
+        width: 130px;
+        height: 25px;
+		background:transparent url(../images/notstarted.png) left top no-repeat;padding-left: 30px;}
+.notifyinstanceadmin{background:transparent url(../images/notifyadmin.png) no-repeat center center;border: medium none;height: 30px;width: 101px;cursor:pointer;float:right}
+.range{width:230px!important}
+.floatLeft{float:left}
+.floatRight{float:right}
+.last_login{color:#6d6d6d}
+.deletelink{background: url(../images/ico_delete.png) no-repeat scroll left center transparent;color:#6d6d6d!important;float: right;width: 35px;padding-left: 20px;margin-left:5px;line-height:30px;font-weight:bold}
+.message label{width:auto!important;cursor:auto!important;line-height:20px}

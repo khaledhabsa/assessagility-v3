@@ -3,7 +3,7 @@ from .views.user import (
     home, upload_logo, view_roles, edit_role, view_ranges,
     edit_range, view_demographics, edit_demographic, contact, schedule_call,
     admin_landing, get_not_started, client_admin_edit_email_template,
-    client_admin_preview_email_template
+    client_admin_preview_email_template,
 
 )
 

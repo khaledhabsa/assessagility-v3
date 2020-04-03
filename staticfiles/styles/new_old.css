@@ -1,0 +1,605 @@
+/* new styles by mariam Sep.2012*/
+
+/* GRID */
+table, .users_table { width:100%;}
+table thead tr { 
+	background: transparent url(../images/bg_gridhead.png) repeat-x;
+	border-top: 1px solid #a7a7a7;
+	height:30px;
+	line-height:27px;
+	vertical-align:middle;
+}
+table thead tr th a { font: 12px #007ec2;}
+table thead tr, table tbody tr { line-height: 27px;}
+table thead tr th, table tbody tr td { padding: 2px 0px 2px 5px;}
+/* GRID END */
+
+/* GRID ALTERNATING ROWS */
+table tbody tr:nth-child(2n+1), .grid tbody tr:nth-child(2n+1) { /* background-color: #edf3fe; */}
+/* GRID ALTERNATING ROWS END */
+
+/* NAVIGATION MENU */
+#menu {
+	float:right;
+	margin-right: -11px;
+	margin-top:5px;
+	z-index:10000000
+}
+.menu_l {
+	background:transparent url(../images/bg_menu_left.png) no-repeat;
+	float:left;
+	height:31px;
+	width:10px;
+
+}
+.menu_m {
+	background:transparent url(../images/bg_menu.png) repeat-x top left;
+	float:left;
+	height:31px;
+	width:590px;
+}
+.menu_r {
+	background:transparent url(../images/bg_menu_right.png) no-repeat top right;
+	float:left;
+	height:34px;
+	width:11px;
+}
+.menucontainer li {
+	float:left;
+	padding-right: 5px;
+	list-style:none;
+	line-height:23px;
+}
+.menucontainer li:hover {
+	position:relative;
+}
+.menucontainer li a {
+	color: #005482;
+	font-weight:bold;
+}
+.menucontainer li a:hover {
+	color: #0075b5;
+	text-decoration:none;
+}
+.menucontainer li ul, .menucontainer li:hover ul li ul {
+	position:absolute; 
+	left:-9999px; 
+	top:-9999px; 
+	list-style-type:none;
+	background-color: #e7eef8;
+	-moz-box-shadow: 1px 2px 2px #acacac;
+	-webkit-box-shadow: 1px 2px 2px #acacac;
+	box-shadow: 1px 2px 2px #acacac;
+	/* For IE 8 */ -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=1, Direction=135, Color='#acacac')";
+}
+
+.menucontainer li:hover ul, .menucontainer li:hover ul li:hover ul, .menucontainer li:hover ul li a {
+	width:230px;
+}
+.menucontainer li:hover ul {
+	left:-25px; 
+	top:12px;  
+	padding:10px 3px;
+	margin-top: 12px;
+}
+.menucontainer li:hover ul li:hover ul{
+	left:135px; 
+	top:-15px;  
+	padding:3px; 
+	margin-top: 10px;
+}
+
+.menucontainer li:hover ul li , .menucontainer li:hover ul li:hover a {
+	float:left;	
+	height:22px;
+}
+.menucontainer li:hover ul li a {
+	height:18px; 
+	padding:0px; 
+	display:block; 
+	line-height:22px; 
+	text-indent:5px;
+}
+.menucontainer li:hover ul li a:hover {
+	height:18px;
+	float:left;
+}
+/* setup the right arrows first */
+.menucontainer li > a:after { 
+   background: url("../images/ico_menu_arrow_right.png") no-repeat left top;
+   left: 15px;
+   height: 9px;
+   position: relative;
+   width: 9px;
+   display: inline-block;
+}
+
+
+/*setup the downward arrow for top level items*/
+.menucontainer > li > a:after{
+   background:url(../../images/ico_left_menu_arrow_down.png) no-repeat left top;
+   display: inline-block;
+   width: 9px;
+   height: 31px;
+   position: relative;
+   }
+
+/*clear the content if a is only child*/
+.menucontainer li  a:only-child{content: ''; }
+
+
+
+#menu ul li {
+	line-height:25px;
+}
+
+/* NAVIGATION MENU END */
+
+/* BUTTONS */
+div.btnbig {
+    background: url("../images/btn_big.png") no-repeat;
+    display: inline-block;
+    height: 60px;
+    line-height: 55px;
+    text-align: center;
+    width: 260px;
+	color: #fff;
+	font-size: 20px;
+	font-weight:bold;
+}
+
+div.btnbig img {
+	height:30px;
+	padding-right: 5px;
+	padding-left:10px;
+}
+
+div.btnbig .qq-upload-button{
+	color: #fff;
+	font-size: 20px;
+	font-weight:bold;
+	text-decoration:none;
+	white-space:nowrap;
+	width:221px;
+	height:50px;
+	line-height:60px;
+	padding-left:40px;
+}
+
+
+
+div.btnbig .uploadfile{
+	background-image:url(../images/ico_upload_group.png);
+	background-position:35px 15px;
+	background-repeat:no-repeat;
+	height:60px;
+}
+
+.addonetext {
+	display:inline-block;
+	padding-top:2px;
+}
+.btnbig{
+	float:left;
+}
+
+.btnbig a:link{
+	font-size:12px;
+}
+.btnbig a:visited{
+	font-size:12px;
+	
+}
+
+.btnbig a:active{
+	font-size:12px;
+}
+
+
+.btnbig a:visited{
+	font-size:12px;
+}
+
+
+.mainactions{
+	text-align:center;
+	width:580px;
+	margin:20px auto;
+}
+
+.mainactions .or{
+	float:left;
+	color:#666;
+	padding:20px 10px;
+	font-weight:bold;
+	font-size:20px;
+}
+
+
+.expandText{
+	background-image:url("../images/btn_expand.png");
+	background-repeat:no-repeat;
+	width: 92px;
+	height:15px;
+	display:block;
+	padding-right:5px;
+	display:block;
+	cursor:pointer;
+	float:right;
+}
+.collapseText{
+	background-image:url("../images/btn_collapse.png");
+	background-repeat:no-repeat;
+	width: 92px;
+	height:15px;
+	display:block;
+	padding-right:5px;
+	display:block;
+	cursor:pointer;
+	float:right;
+}
+
+/* EXPANDABLE/SLIDING DOORS DEFAULT BUTTON */
+ a.graybutton {
+	background:url("../images/btn_left_smallgray.png") left top;
+	background-repeat:no-repeat;
+	color:#6d6d6d;
+	display:inline-block;
+	float:left;
+	font-size:12px;
+	font-weight:bold;
+	height:22px;
+	padding-left: 5px;
+	margin:
+	0px 2px;
+	text-align:center;
+	text-decoration:none;
+}
+a.graybutton img { padding-top: 3px;}
+a.graybutton span {
+	background:url("../images/btn_right_smallgray.png") right top;
+	background-repeat:no-repeat;
+	display:block;
+	float:left;
+	height:22px;
+	margin-right: -5px;
+	padding:3px 7px 3px 3px;
+}
+a.graybutton:hover {
+	color:#005482;
+	text-decoration:none;
+}
+.graybutton>img, .bluebutton>img {
+	float:left;
+	padding-top:2px;
+}
+
+a.bluebutton {
+	background:url("../images/btn_left_blue.png") left top no-repeat;
+	color:#fff;
+	display:inline-block;
+	float:left;
+	font-size:12px;
+	font-weight:bold;
+	height:30px;
+	padding-left: 2px;
+	text-align:center;
+	text-decoration:none;
+}
+a.bluebutton span {
+	background:url("../images/btn_right_blue.png") right 0 no-repeat;
+	display:block;
+	float:left;
+	height:30px;
+	line-height: 22px;
+	margin-right: -5px;
+	padding:3px 5px;
+}
+
+/*
+a.bluebutton:hover, a.invitebutton:hover , a.btnbig:hover {
+	text-decoration: none; color: #e4e4e4;
+}
+*/
+
+a.candidatecount {
+	background:url("../images/btn_left_candidatecount.png") left top no-repeat;
+	color:#fff;
+	display:inline-block;
+	float:left;
+	font-size:12px;
+	font-weight:bold;
+	height:20px;
+	padding-left: 5px;
+	text-align:center;
+	text-decoration:none;
+}
+a.candidatecount span {
+	background:url("../images/btn_right_candidatecount.png") right 0 no-repeat;
+	display:block;
+	float:left;
+	height:20px;
+	line-height: 15px;
+	margin-right: -7px;
+	padding: 3px 5px 3px 1px;
+}
+/* EXPANDABLE/SLIDING DOORS DEFAULT BUTTON END*/
+
+
+a.invite, .reinvite{	
+	padding:0px 7px 0px 30px;
+}
+ 
+a.invitebutton {
+	background:url("../images/btn_invite.png") 0 0 no-repeat;
+	color: #fff;
+	float:left;
+	font-size:12px;
+	font-weight:bold;
+	height:29px;
+	padding:7px 0px 0px 10px;
+	width: 100%;
+}
+/* BUTTONS END */
+
+/* LINKS */
+
+.addone, .qq-upload-button {
+	color: #0079BE;
+	text-decoration:underline;
+	font-size:12px;
+	font-weight:bold;
+	line-height: 20px;
+	cursor:pointer;
+}
+.editdiv{
+	float:left;
+}
+.reinvitediv{
+	float:left;
+}
+.excludediv{
+	float:left;
+}
+.includediv{
+	float:left;
+}
+.notifydiv{
+	float:left;
+}
+.edit{ 
+	background-image: url(../images/btn_action_edit.png); 
+	background-repeat:no-repeat;
+	width:56px;
+	height:20px;
+	cursor:pointer;
+	border:none;
+	margin-left:2px;
+	margin-right:2px;
+}
+
+.notify{ 
+	background-image: url(../images/ico_action_notify.png); 
+	background-repeat:no-repeat;
+	width:67px;
+	height:20px;
+	cursor:pointer;
+	border:none;
+	margin-left:2px;
+	margin-right:2px;
+}
+.update{ background-image: url(../images/ico_update.png); background-repeat:no-repeat;}
+.exclude{
+	background-image:url(../images/ico_action_exclude.png);
+	background-repeat:no-repeat;
+	width:74px;
+	height:20px;
+	cursor:pointer;
+	border:none;
+	margin-left:2px;
+	margin-right:2px;
+}
+.include{
+	background-image:url(../images/ico_action_include.png);
+	background-repeat:no-repeat;
+	width:74px;
+	height:20px;
+	cursor:pointer;
+	border:none;
+	margin-left:2px;
+	margin-right:2px;
+}
+
+.delete{
+	background-image:url(../images/btn_action_delete.png);
+	background-repeat:no-repeat;
+	width:62px;
+	height:20px;
+	cursor:pointer;
+	border:none;
+	margin-left:2px;
+	margin-right:2px;
+}
+
+.cancel { background-image: url(../images/ico_cancel.png); background-repeat:no-repeat;}
+.invite { background-image: url(../images/ico_invite.png); background-repeat:no-repeat;}
+.reinvite {
+	background-image: url(../images/btn_action_reinvite.png);
+	background-repeat:no-repeat;
+	width:88px;
+	height:20px;
+	cursor:pointer;
+	border:none;
+	margin-left:2px;
+	margin-right:2px;
+}
+
+
+
+.status{
+}
+a.edit, a.update, a.delete, a.exclude, a.cancel, a.invite, a.reinvite, a.notify {
+	color: #6d6d6d;
+	font-size:12px;
+	font-weight:bold;
+}
+
+a.edit, a.update, a.delete, a.exclude, a.cancel, .notify{
+	padding:0px 7px 0px 20px;
+}
+/* LINKS END */
+
+/* NOTIFICATION / WARNING */
+
+.quotastatistic{
+	background-color: #fffedb;
+	border-color: #ffc600;
+	border-width: 1px;
+	border-style: solid;
+	margin: 15px auto 10px;
+	padding: 10px 3px 0px 3px;
+	text-align: center;
+	color: #3aa1da;
+	font-weight: bold;
+	height:25px;
+	font-size: 14px;
+	width:97%  
+}
+
+.usedinvitations, .totalinvitations {
+	color: #005482;
+	display:inline;
+}
+
+.warningmessage {
+	color: #005482;
+	font-size:12px;
+	font-weight:bold;
+}
+
+.duplicated{ 
+	color:#ff0000;
+	display:inline;
+}
+
+/* NOTIFICATION / WARNING END */
+
+
+
+.topActionsBlock{
+	background-image:url(../images/ico_arrow_select.png);
+	background-repeat:no-repeat;
+	background-position:left 6px;
+	padding-left:20px;
+	padding-bottom:3px;
+	margin-left:8px;
+}
+
+
+.uploadfile .qq-upload-list{
+	list-style: none;
+	margin: 0px;
+	text-align: left;
+	padding-left: 3px;
+	font-weight: normal;
+	position:absolute;
+	top:41px;
+	left:94px;
+}
+
+.addCandidatesContainer{
+	margin:10px;
+}
+.downloadTemplateLink{
+	text-align:right;
+	margin-top:5px;
+	padding-right:10px;
+}
+
+
+.floatLeft{
+	float:left;
+}
+.floatRight{
+	float:right;
+}
+
+.notificationOfNumberOfAdded{
+	color:#005482;
+	margin-bottom:10px;
+}
+
+.cmxform em{
+	color:red;
+}
+.cmxform p{
+	margin:0px;
+}
+
+
+.leftpanel .qq-upload-drop-area{
+	background:none;
+}
+
+.leftpanel .qq-upload-drop-area span{
+	font-size:12px;
+}
+
+.mainactions .qq-upload-drop-area{ /*current*/
+    position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	min-height:60px;
+	z-index:2;
+    background:#b1daf1;
+	text-align:center;
+
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	-khtml-border-radius: 8px;
+	border-radius: 8px;
+	
+}
+
+
+.form_table th{
+	width:100px;
+}
+
+
+
+
+		div.practice_slider span {
+		  background: transparent   url(../images/bg_sliding_left.png) no-repeat 0 0;
+		  display: block;
+		  padding: 8px 0 9px 0px;
+		  color: #fff;
+		}
+		
+		div.practice_slider {
+		  background: transparent url(../images/bg_sliding_right.png)  no-repeat top right;
+		  display: block;
+		  float: left;
+		  height: 17px;
+		  margin-right: 0px;
+		  padding-right: 14px;
+		  text-decoration: none;
+		  width:100%;
+		}
+		
+.rounded a:link{
+	color:#FFF;
+}
+
+.rounded a:active{
+	color:#FFF;
+}
+.rounded a:visited{
+	color:#FFF;
+}
+
+.rounded a:hover{
+	color:#FFF;
+}

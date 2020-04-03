@@ -31,14 +31,14 @@ from helper.decorator.superuser_required import superuser_required
 @superuser_required
 def home(request):
     # ctx = RequestContext(request, {'csrf_token': get_token(request), })
-    return render(request, 'user_management_home.html')
+    return render(request, 'manage_participants.html')
 
 
 @login_required(login_url="/accounts/login?next=user_management:manage")
 @superuser_required
 def manage(request):
     # ctx = RequestContext(request, {'csrf_token': get_token(request), })
-    return render(request, 'user_management_manage.html')
+    return render(request, 'manage_participants_status.html')
 
 
 def flat_user_date(users_list):
@@ -332,7 +332,7 @@ def invite(request):
                 user.first_name = cand.first_name
                 user.last_name = cand.last_name
                 user.save()
-                profile = user.get_profile()
+                profile = user.profile
                 profile.first_name = cand.first_name
                 profile.last_name = cand.last_name
 

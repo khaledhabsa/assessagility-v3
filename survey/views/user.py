@@ -39,7 +39,7 @@ def user_login(request):
                 nextUrl = request.POST.get('next')
                 if nextUrl == "None":
                     if user.is_superuser:
-                        return redirect("/client/admin/admin_landing")
+                        return redirect("/client/admin/")
                     else:
                         return redirect("/answerpage/0/")
                 else:
@@ -179,7 +179,7 @@ def login_iphone(request):
                 nextUrl = request.POST.get('next')
                 if nextUrl == "None":
                     if user.is_superuser:
-                        return redirect("/client/admin/admin_landing")
+                        return redirect("/client/admin")
                     else:
                         return redirect("/answerpage/0/")
                 else:
@@ -215,3 +215,4 @@ def adduser(request):
                    "errors": errors,
                    'message': message},
                   )
+

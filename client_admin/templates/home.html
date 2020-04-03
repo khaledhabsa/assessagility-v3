@@ -1,0 +1,332 @@
+{% extends 'base_client_admin.html' %}
+{% load static %} 
+{% block title %} Assessment {% endblock %}
+{% block page %} Dashboard {% endblock %}
+{% block breadcrumb %} <a href="{% url 'client_admin:home' %}">Dashboard</a> {% endblock %}
+{% block subtitle %} Dashboard {% endblock %}
+
+{% block content %}
+
+
+    <div class="AssessmentContainer">
+                    <div class="row">
+                        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                            <p>
+                                In order to allow participants to answer questions, you have to start the assessment
+                                first.
+                            </p>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12" id="btnassess">
+                            <button type="button" id="startAsseement" class="btn btn-start" data-toggle="modal"
+                                data-target="#myModal">Start
+                                Assessment</button>
+
+                        </div>
+                    </div>
+
+                </div>
+                <br>
+                <div class="AssessmentContainer">
+                    <div class="row">
+                        <div class="col-lg-7 col-md-12 col-sm-12 col-xs-12">
+                            <div class="linkContainer">
+                                <input type="text" class="inputLink" disabled
+                                    value="https://readyforagile.inet.works/survey/0" id="myInput">
+
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                            <p id="linkedCopiedText" class="linkedCopied">
+
+                            </p>
+                        </div>
+
+                        <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
+                            <!-- <button id="btnCopyEnabled"  type="button" class="btn btn-primary d-none">Copy & Share Link</button> -->
+                            <button id="btnCopyDisabled" type="button" onclick="myFunction()"
+                                class="btn btn-primary d-block">Copy & Share Link</button>
+                        </div>
+                    </div>
+
+                </div>
+    <p class="subTitle">
+        Assessment Statistics            
+    </p>
+    <div class="d-flex justify-content-between  mb-5">
+        <div class=" containerLeft">
+            <div>
+                <p class="headerLeft left" >
+                    <span class="circleStyle">
+                    </span>&nbsp; In progress
+                </p>
+                <p class="headerLeft right" >{{users_started}}</p>
+                <br>
+                <hr class="hrHeader"> 
+            </div>
+            {% for t,v in roles_in_progress%} 
+                <div class="bodyContent">
+                    <p class="LeftContent left" >{{t}}</p>
+                    <p class="LeftContent right" >{{v}}</p>
+                    <br>
+                    {% if forloop.last %}
+                    {% else %}
+                        <hr class="hr"> 
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+        <div class=" containerLeft">
+            <div>
+                <p class="headerRight left" >
+                    <span class="circleStyle2"></span>&nbsp;Completed
+                </p>
+                <p class="headerRight right" >{{users_finished}}</p>
+                <br>
+                <hr class="hrHeader"> 
+            </div>
+            {%for t,v in roles_completed%}     
+                <div class="bodyContent">
+                    <p class="LeftContent left" >{{t}}</p>
+                    <p class="LeftContent right" >{{v}}</p>
+                    <br>
+                    {% if forloop.last %}
+                    {% else %}
+                        <hr class="hr"> 
+                    {% endif %}
+                </div>
+            {% endfor %}
+                 
+            </div>                  
+        </div>
+    </div>
+     
+{% endblock %}
+{% block modal %}
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <p class="modalHeader">Customize Demographics</p>
+                    <p class="subtitleModal">
+                        Demographics are particular groups or categories within your team or company. This will be very
+                        useful in viewing reports and grouping data.
+                    </p>
+                    <div class="d-flex justify-content-between mb-3">
+                        <div class="bg-info">
+                            <div class="headertitleContainer">
+                                <div class="custom-control custom-checkbox left" style="font-family: Poppins;font-size: 18px;font-weight: bold;font-stretch: normal;font-style: normal;">
+                                    Demographics
+                                </div>
+                                <a href="{% url 'survey:demographic' %}" ><img id="imgAdd" class="right" src="{% static 'images/add_circle-24px (1).svg'%}"></a>
+                               
+                            </div>
+                        </div>
+                        <div class="bg-warning">
+                            <div class="headertitleContainerRight">
+                                <div class="custom-control custom-checkbox left" style="font-family: Poppins;font-size: 18px;font-weight: bold;font-stretch: normal;font-style: normal;">
+                                    Menu options: <i style="font-style:normal" id="currentDemo"></i>
+                                </div>
+                                <p class="right">
+                                     <a href="{% url 'survey:demographic_values' %}" ><img id="imgAdd" class="right" src="{% static 'images/add_circle-24px (1).svg'%}"></a>
+                                </p>
+                            </div>
+                            <div id="values"></div>
+
+                        </div>
+                    </div>
+                    <div class="right btnsContainer">
+                        <button type="button" class="btn btn-Cancel" data-dismiss="modal">Cancel</button>
+
+                        <button type="button" id="closemodalandSave" onclick="close()"
+                            class="btn btn-Done">Done</button>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block js %}
+
+    <script src="{% static 'js/dashboard.js' %}"></script>
+    <script>
+        $("#startAsseement").click(function(){
+            var id = 0
+            $.ajax({
+            url: '/survey/getalldemgraphic/',
+                cache: false,
+                dataType: "json",
+                success: function (data) {
+                    data.forEach(function(e , i){
+                        var div = null
+                    
+                        if (i === 0){
+                            div = "<div class='centerDiv'>\
+                                    <div class='custom-control custom-checkbox left'>\
+                                        <input type='checkbox' class='custom-control-input' id='"+ e.id +"'\
+                                            name='example'>\
+                                        <label class='custom-control-label fontNormal' for='" + e.id + "'>&nbsp; &nbsp;&nbsp; &nbsp;\
+                                            "+ e.title +"</label>\
+                                    </div>\
+                                    <p class='right'>\
+                                        <img src=\"{% static 'images/keyboard_arrow_right-24px (1).svg'%}\">\
+                                    </p>\
+                                </div>"
+                            $("#currentDemo").empty()
+                            $("#currentDemo").append(e.title)
+                            $.ajax({
+                                url: '/survey/getalldemgraphicvalue/',
+                                data:{
+                                    "demographic": e.id,
+                                },
+                                success: function(dt){
+                                    var data = JSON.parse(dt)
+                                    data.forEach(function(e , i){
+                                    
+                                        var d = null
+                                        if (i+1 === data.length){
+
+                                            d = " <div class='lastDiv' style='border-bottom: none'>\
+                                                    <div class='custom-control custom-checkbox left'>\
+                                                        <input type='checkbox' class='custom-control-input' id='"+ e.id +"'\
+                                                            name='example5'>\
+                                                        <label class='custom-control-label fontNormal' for='"+ e.id +"'>&nbsp;\
+                                                            &nbsp;&nbsp; &nbsp;\
+                                                            "+ e.value + "</label>\
+                                                    </div>\
+                                                </div>\
+                                            "
+                                        }else{
+                                            d = " <div class='lastDiv'>\
+                                                    <div class='custom-control custom-checkbox left'>\
+                                                        <input type='checkbox' class='custom-control-input' id='"+ e.id +"'\
+                                                            name='example5'>\
+                                                        <label class='custom-control-label fontNormal' for='"+ e.id +"'>&nbsp;\
+                                                            &nbsp;&nbsp; &nbsp;\
+                                                            "+ e.value + "</label>\
+                                                    </div>\
+                                                </div>\
+                                            "
+                                        }
+                                        
+                                        $("#values").append(d);
+                                    })
+                                },
+                                error: function(data){
+                                    
+                                }
+
+                            })
+                        }else{
+                            div = "<div class='lastDiv'>\
+                                    <div class='custom-control custom-checkbox left'>\
+                                        <input type='checkbox' class='custom-control-input' id='"+ e.id +"'\
+                                            name='example'>\
+                                        <label class='custom-control-label fontNormal' for='" + e.id + "'>&nbsp; &nbsp;&nbsp; &nbsp;\
+                                            "+ e.title +"</label>\
+                                    </div>\
+                                    <p class='right'>\
+                                        <img src=\"{% static 'images/keyboard_arrow_right-24px (1).svg'%}\">\
+                                    </p>\
+                                </div>"
+                        }
+                        
+                        $(".bg-info").append(div)
+                    
+                    })
+                
+                },
+                error: function(error){
+
+                }
+            })
+        
+        })
+        $(".bg-info").on("click" , ".centerDiv" , function(e){
+            if (!$(this).find(".custom-control-input").prop("checked"))
+                $(this).find(".custom-control-input").prop("checked" , true)
+
+        })
+        $(".bg-warning").on("click" , ".centerDiv" , function(e){
+            if (!$(this).find(".custom-control-input").prop("checked"))
+                $(this).find(".custom-control-input").prop("checked" , true)
+
+        })
+
+        $(".bg-info").on("click" , ".lastDiv" , function(e){
+            $(".bg-info .centerDiv .custom-control-input").prop("checked" , false)
+            $(this).find(".custom-control-input").prop("checked" , true);
+            $(".bg-info .centerDiv").removeClass("centerDiv").addClass("lastDiv");
+            $(this).addClass("centerDiv");
+            $(this).removeClass("lastDiv");
+
+            var id = $(this).find("input[type=checkbox").attr("id")
+           
+            $.ajax({
+                url: '/survey/getalldemgraphicvalue/',
+                data:{
+                    "demographic": id,
+                },
+                success: function(dt){
+                    var data = JSON.parse(dt)
+                    $("#values").empty()
+                    data.forEach(function(e , i){
+                    
+                        var d = null
+                        if (i+1 === data.length){
+
+                            d = " <div class='lastDiv' style='border-bottom: none'>\
+                                    <div class='custom-control custom-checkbox left'>\
+                                        <input type='checkbox' class='custom-control-input' id='"+ e.id +"'\
+                                            name='example5'>\
+                                        <label class='custom-control-label fontNormal' for='"+ e.id +"'>&nbsp;\
+                                            &nbsp;&nbsp; &nbsp;\
+                                            "+ e.value + "</label>\
+                                    </div>\
+                                </div>\
+                            "
+                        }else{
+                            d = " <div class='lastDiv'>\
+                                    <div class='custom-control custom-checkbox left'>\
+                                        <input type='checkbox' class='custom-control-input' id='"+ e.id +"'\
+                                            name='example5'>\
+                                        <label class='custom-control-label fontNormal' for='"+ e.id +"'>&nbsp;\
+                                            &nbsp;&nbsp; &nbsp;\
+                                            "+ e.value + "</label>\
+                                    </div>\
+                                </div>\
+                            "
+                        }
+                        
+                        $("#values").append(d);
+                    })
+                },
+                error: function(data){
+                    
+                }
+
+            })
+
+        })
+        $(".bg-warning").on("click" , ".lastDiv" , function(e){
+            $(".bg-warning .centerDiv .custom-control-input").prop("checked" , false)
+            $(this).find(".custom-control-input").prop("checked" , true);
+            $(".bg-warning .centerDiv").removeClass("centerDiv").addClass("lastDiv");
+            $(this).addClass("centerDiv");
+            $(this).removeClass("lastDiv");
+
+        })
+        $("#closemodalandSave").click(function(e){
+            var demo_name = $.trim($(".bg-info .centerDiv").find(".custom-control-label").text() )
+            var demo_value_id = $(".bg-warning .centerDiv").find(".custom-control-input").attr("id")
+            $("#myInput").val("https://readyforagile.inet.works/survey/"+ demo_name + "/"+demo_value_id)
+        })
+
+    </script>
+{% endblock %}
