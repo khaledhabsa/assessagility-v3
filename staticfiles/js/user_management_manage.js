@@ -91,13 +91,13 @@ function refreshDisplay() {
     //$('.result').html($('.result').html());
     $("tr:visible:even").css("background-color", "#fff");
     $("tr:visible:odd").css("background-color", "#eee");
-    CandidateCount = $(".status:contains('Participant')").size();
+    CandidateCount = $(".status:contains('Participant')").length;
     $(".CandidateCount").text(CandidateCount);
-    InvitedCount = $(".status:contains('Invited')").size();
+    InvitedCount = $(".status:contains('Invited')").length;
     $(".InvitedCount").text(InvitedCount);
-    StartedCount = $(".status:contains('Started')").size();
+    StartedCount = $(".status:contains('Started')").length;
     $(".StartedCount").text(StartedCount);
-    FinishedCount = $(".status:contains('Finished')").size();
+    FinishedCount = $(".status:contains('Finished')").length;
     $(".FinishedCount").text(FinishedCount);
     UsedQuota = InvitedCount + StartedCount + FinishedCount;
     $(".UsedQuota").text(UsedQuota);

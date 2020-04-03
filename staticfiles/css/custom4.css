@@ -427,7 +427,7 @@
     padding:8px 12px;
 }
 
-.selectall, .usercheck{
+.selectall, .usercheckbox{
     background: url(../img/checkbox.png) no-repeat top left;
     height: 21px;
     width: 23px;
@@ -436,4 +436,30 @@
 }
 .checked {
     background-position:bottom left;
+}
+.editabletext{
+
+    text-align: center;
+}
+.editabletext > a{
+    font-size: 20px;
+   
+}
+.cancel, .update{
+    display:none;
+}
+.edit,.cancel, .update{
+    cursor: pointer;
+    
+}
+.pageIndex{
+    margin:0 5px 0 5px;
+}
+.currentPageIndex{
+    background-color:#007bff !important;
+    color: #ffff;
+    cursor:default!important;
+}
+.pagesIndex span{
+    margin-top: 3px;
 }

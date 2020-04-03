@@ -204,11 +204,12 @@ span {
     display: block;
 }
 
-#sidebar ul li a:hover {
-    color: #474f57;
-    background-color: #616b75;
-}
 
+  /* Style the active class, and buttons on mouse-over */
+  .active {
+    background-color: #616b75;
+    color: white;
+  }
 #sidebar ul li a i {
     margin-right: 10px;
 }
@@ -280,7 +281,53 @@ a.article:hover {
     background-color: #ffffff;
     margin-left: 10px;
 }
-
+.custom-checkbox .custom-control-label::before {
+    width: 16px !important;
+    height: 16px !important;
+    border-radius: 2px !important;
+    border: solid 1px #101010 !important;
+    background-color: #ffffff;
+  }
+  .custom-checkbox .custom-control-input:focus~.custom-control-label::before {
+    box-shadow: none;
+  }
+  
+  .custom-checkbox .custom-control-input:checked~.custom-control-label::before {
+    border-radius: 2px;
+    background-color:#ffffff;
+    box-shadow: none;
+    border: none;
+    color: #000000;
+    font-family: "helvetica";
+    font-size: 13px;
+    letter-spacing: 0.45px;
+    line-height: 15px;
+  }
+  .custom-checkbox .custom-control-input:checked~.custom-control-label::after{
+    background-image:url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='red' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3E%3C/svg%3E");
+}
+.custom-control {
+    position: relative;
+    display: block;
+    min-height: 1.5rem;
+    padding-left: 10px;
+}
+  .custom-control-label {
+    position: relative;
+    margin-bottom: 0;
+    vertical-align: middle;
+    font-family: Poppins;
+    font-size: 18px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #43425d;
+  }
+.fontNormal{
+    font-weight: normal
+}
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */
@@ -439,12 +486,23 @@ a.article:hover {
 }
 
 .linkContainer {
-    width: 90%;
+    width: 100%;
     height: 37px;
     border: solid 1px #caced5;
     background-color: #f2f2f2;
 }
-
+.AssessmentContainer .linkedCopied{
+    font-family: Poppins;
+    font-size: 18px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.39;
+    letter-spacing: normal;
+    text-align: left;
+    color: #3b86ff;
+    padding-top: 10px;
+}
 .linkContainer p {
     font-family: SourceSansPro;
     font-size: 18px;
@@ -525,9 +583,10 @@ a.article:hover {
     display: inline-block;
     border-bottom: 1px solid #fafafb;
     width: 100%;
-    padding-top: 17px;
+    padding-top: 14px;
     padding-left: 10px;
     padding-right: 10px;
+    padding-bottom: 10px;
 }
 
 .headertitleContainer p {
@@ -541,12 +600,14 @@ a.article:hover {
     text-align: left;
     color: #43425d;
 }
-
+.labelheaderRigth{
+    margin-top: 7px;
+}
 .headertitleContainerRight {
     display: inline-block;
     border-bottom: 1px solid #c2c2c2;
     width: 100%;
-    padding-top: 17px;
+    padding-top: 10px;
     padding-left: 10px;
     padding-right: 10px;
 }
@@ -591,6 +652,7 @@ a.article:hover {
     display: inline-block;
     width: 100%;
     padding-top: 17px;
+    padding-bottom: 17px;
     padding-left: 10px;
     padding-right: 25px;
     border-bottom: 1px solid #f1f1f3;
@@ -644,7 +706,20 @@ a.article:hover {
     text-align: center;
     color: #707070;
 }
-
+.inputLink{
+    border: none;
+    width: 100%;
+    background-color: transparent;
+    padding-top: 5px;
+    padding-left: 10px;
+}
+@media (max-width: 1250px) {
+    .body_content {
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-top: 28px;
+    }
+}
 @media (max-width: 768px) {
 
     .bg-info,
