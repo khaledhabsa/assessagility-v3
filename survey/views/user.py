@@ -71,7 +71,7 @@ def forget_password(request):
             message = "An email has been sent to the email provided. Thank you!"
             timestamp = str(int(time.time()))
             m = hashlib.sha1()
-            m.update(timestamp)
+            m.update(timestamp.encode("utf-8"))
 
             t = ticket.objects.create(
                 code=m.hexdigest(), data=email, type='change password', status='available')
@@ -215,4 +215,3 @@ def adduser(request):
                    "errors": errors,
                    'message': message},
                   )
-

@@ -98,22 +98,28 @@ class AddUserForm(forms.ModelForm):
         email = self.cleaned_data['email']
         password = self.cleaned_data['password']
         password1 = self.cleaned_data['password1']
+        username = self.cleaned_data['username']
+        check_username = User.objects.filter(username=username)
+        check_email = User.objects.filter(email=email)
 
-        user = User.objects.filter(email=email)
-        if not user.exists():
-            if password and password1 and password == password1:
-                return self.cleaned_data
-            else:
-                raise forms.ValidationError(u"password didn't match")
+        if check_email.exists():
+            raise forms.ValidationError(u'%s already exists' % email)
+        if check_username.exists():
+            raise forms.ValidationError(u'%s already exists' % username)
 
-        raise forms.ValidationError(u'%s already exists' % email)
+        if password and password1 and password == password1:
+            return self.cleaned_data
+        else:
+            raise forms.ValidationError(u"password didn't match")
 
     def save(self):
+        from django.utils.timezone import now
         user = User.objects.create(
             first_name=self.cleaned_data.get("first_name"),
             last_name=self.cleaned_data.get("last_name"),
             username=self.cleaned_data.get("username"),
             email=self.cleaned_data.get("email"),
+            last_login=now()
         )
 
         user.set_password(self.cleaned_data.get("password"))

@@ -868,3 +868,90 @@ a.article:hover {
         justify-content: center;
     }
 }
+
+.sidebar-submenu{
+    display: none;
+}
+.showed{
+    display: inline-flex;
+}
+.rotate {
+    transform: rotate(-90deg);
+
+}
+.fa-chevron-left{
+    transition-duration: 0.5s;
+    display: inline-block
+}
+
+.sidebar-submenu ul, .pull-right  {
+
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+.sidebar-submenu ul  {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    
+}
+
+.sidebar-submenu ul li :hover {
+    background-color:#616b75;
+
+}
+#reports .pull-right{
+    float: right;
+    margin-top: 9px;
+    color: #ffff;
+}
+
+
+.menu{
+    list-style: none;
+    display: none;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    /* display: flex; */
+    background-color: var(--color-menu);
+}
+
+.submenu a{
+
+    background-color: #fff;
+    color: black;
+    
+}
+.submenu{
+    /* display: none; */
+    position: absolute;
+    top: 107%;
+    right:1%;
+    background-color: #fff;
+}
+.submenu li :hover{
+    background-color: #616b75;
+    color:#fff
+}
+.submenu .submenu{
+    left: 100%;
+    top: 0;
+}
+.user-icon{
+    /* transform: rotate(180deg); */
+    transition-duration: 0.5s;
+    display: inline-block
+}
+.user-rotate{
+    transform: rotate(180deg);
+}
+.menu-link{
+    text-decoration: none;
+    color: #fff;
+    display: block;
+    padding: .5em 1em
+}

@@ -31,6 +31,7 @@ def answerPage(request, *args, **kwargs):
         return redirect('survey:select_role')
 
     if isValidSurveyOption('closed', 'closed'):
+        print("done")
         return redirect('survey:closed')
 
     if request.user.profile.survey_finished:
@@ -150,7 +151,7 @@ def closed(request):
         return HttpResponse()
 
     # value = request.POST.get('value', False)
-    addSurveyOptionIfNotExist('closed', "closed")
+    # addSurveyOptionIfNotExist('closed', "closed")
     return render(request, 'questions/closed.html')
 
 
