@@ -40,10 +40,22 @@ function toggle(source) {
 document.getElementById("btnCopyDisabled").disabled = true;
 var disabledButton = true;
 $('#closemodalandSave').click(function () {
-  $('#myModal').modal('hide');
-  document.getElementById("btnCopyDisabled").disabled = false;
-  $("#btnassess").empty();
-  $("#btnassess").append("<button type='button' id='endAssessment' class='btn btn-start' style='background-color: #bf0000;'>End Assessment</button>")
+
+  if ($(".bg-info .centerDiv").find(".custom-control-input").prop("checked") === false) {
+    $("#display").empty();
+    $("#display").append("<div class='alert alert-danger'>Please Select Demographic!</div>");
+    $('#myModal').scrollTop(0);
+  } else if ($(".bg-warning .centerDiv").find(".custom-control-input").attr("id") === undefined) {
+    $("#display").empty();
+    $("#display").append("<div class='alert alert-danger'>Please Select Demographic Value!</div>");
+    $('#myModal').scrollTop(0);
+  } else {
+
+    $('#myModal').modal('hide');
+    document.getElementById("btnCopyDisabled").disabled = false;
+    $("#btnassess").empty();
+    $("#btnassess").append("<button type='button' id='endAssessment' class='btn btn-start' style='background-color: #bf0000;'>End Assessment</button>")
+  }
 
 
 });
@@ -55,7 +67,7 @@ $("#btnassess").on("click", "#endAssessment", function (e) {
     data-target='#myModal'>Start Assessment</button>");
   document.getElementById("btnCopyDisabled").disabled = true;
   $("#linkedCopiedText").empty();
-
+  $("#myInput").val("https://readyforagile.inet.works/survey/0");
 
 })
 

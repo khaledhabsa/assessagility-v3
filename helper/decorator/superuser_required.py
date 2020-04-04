@@ -11,7 +11,7 @@ def superuser_required(func):
         if request.user.is_superuser:
             return func(request)
         else:
-            return redirect("survey:closed")
+            return PermissionDenied  # redirect("survey:closed")
             # messages.error(request, "Unauthorized To access This link!")
             # raise PermissionDenied('Unauthorized To access This link!')
 

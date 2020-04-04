@@ -918,7 +918,6 @@ def get_indicators(answers, mcqs):
 def category_radar(request):
     roles = Role.objects.all()
     demographics = GetViewableDemographics()
-    print(request.user.has_perm('survey.change_ticket'))
     if request.POST.get('image'):
         return organizational_characteristic_pdf(request)
 
