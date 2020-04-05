@@ -71,7 +71,8 @@ def flat_user_date(users_list):
 
 def get_all_candidate(request):
     # UserProfile.objects.all().exclude(user__is_superuser=True)
-    candidates_list = Candidate.objects.all()
+    status = request.GET.get("status", "participant")
+    candidates_list = Candidate.objects.filter(status__icontains=status)
     page = int(request.GET.get('page', 0))
     if page:
         paginator = Paginator(candidates_list, 20)
@@ -87,7 +88,8 @@ def get_all_candidate(request):
         paginatordata.append({'number': candidates.number,
                               'num_pages': candidates.paginator.num_pages})
 
-        data = json.dumps({'users': users, 'paginatordata': paginatordata})
+        data = json.dumps(
+            {'users': users, 'paginatordata': paginatordata, "count": len(candidates_list)})
         return HttpResponse(data, content_type='application/json')
     else:
         users = flat_user_date(candidates_list)

@@ -19,7 +19,17 @@
 
             <h1 class="title-404">Uh oh!</h1>
             <h2 class="subtitle">Whoops! The server couldn't handle your request.
-                Click to go back to the <a href="/">overview page</a>.</h2>
+                Click to go back to the 
+                {% if user.is_authenticated %}
+                    {% if user.is_superuser %}
+                        <a href="{% url 'client_admin:home'%}">Dashboard</a>.
+                    {% else %}
+                        <a href="{% url 'survey:answerpage' mode=0 %}">check your survey</a>.
+                    {% endif %}
+                {% else %}
+                    <a href="{% url 'survey:user_login'%}">login in the system</a>.
+                {% endif %}    
+            </h2>
         </div>
 
     </div>

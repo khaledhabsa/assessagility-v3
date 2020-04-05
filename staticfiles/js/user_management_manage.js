@@ -1,8 +1,9 @@
 var panal_expand_emode = 0;
 var usedinvitations = 0;
+var counter = 0;
 function test() {
     $('.pageHeader').each(function () {
-        $(this).text($(this).next().find('tbody > tr').size());
+        $(this).text($(this).next().find('tbody > tr').length);
     });
 }
 
@@ -45,6 +46,21 @@ jQuery(document).ajaxSend(function (event, xhr, settings) {
     }
 });
 
+$("#apply").click(function () {
+    // if ($("#selectOption").val() === 'participant')
+    //     GetAll(1, "participant")
+    // else if ($("#selectOption").val() === 'completed')
+    //     GetAll(1, "finished")
+    // else if ($("#selectOption").val() === 'progress')
+    //     GetAll(1, "started")
+    // else if ($("#selectOption").val() === 'include')
+    //     GetAll(1, "invited")
+    // else if ($("#selectOption").val() === 'exclude')
+    GetAll(1, $("#selectOption").val())
+
+})
+
+
 function pageInit(ps) {
     for (i in ps) {
         $(ps[i] + " > .result").setTemplateElement("table_template");
@@ -65,25 +81,70 @@ function pageSet(items, ps) {
     }
 }
 
-function renderUsers(items) {
-    $("#temp").setTemplateElement('rows_template');
-    $("#temp").setParam("filter", 'Participant');
-    $("#temp").processTemplate(items);
-    $('.candidateresult > .users_table tbody').append($("#temp").html());
-    $("#temp").html('');
-    //    $(".candidateresult > .users_table").tablesorter();
-    //    $(".candidateresult > .users_table").bind("sortEnd",function() { 
-    //        refreshDisplay();
-    //    }); 
+function renderUsers(items, status, count) {
+
+    if (status === 'Participant') {
+        $("#participant").css("display", "block")
+        $("#completed").css("display", "none")
+        $("#include").css("display", "none")
+        $("#progress").css("display", "none")
+        $("#exclude").css("display", "none")
+
+    } else if (status === 'Finished') {
+        $("#participant").css("display", "none")
+        $("#completed").css("display", "block")
+        $("#include").css("display", "none")
+        $("#progress").css("display", "none")
+        $("#exclude").css("display", "none")
+
+    } else if (status === 'Invited') {
+        $("#participant").css("display", "none")
+        $("#completed").css("display", "none")
+        $("#include").css("display", "block")
+        $("#progress").css("display", "none")
+        $("#exclude").css("display", "none")
+
+    } else if (status === 'Started') {
+        $("#participant").css("display", "none")
+        $("#completed").css("display", "none")
+        $("#include").css("display", "none")
+        $("#progress").css("display", "block")
+        $("#exclude").css("display", "none")
+
+    } else if (status === 'Deleted') {
+        $("#participant").css("display", "none")
+        $("#completed").css("display", "none")
+        $("#include").css("display", "none")
+        $("#progress").css("display", "none")
+        $("#exclude").css("display", "block")
+
+    }
+
+    if (count > 0) {
+        counter = count
+        $(".CandidateCount").empty()
+        $(".CandidateCount").html(count)
+        $("#temp").setTemplateElement('rows_template');
+        $("#temp").setParam("filter", status);
+        $("#temp").processTemplate(items);
+        $('.candidateresult > .users_table tbody').append($("#temp").html());
+        $("#temp").html('');
 
 
-    pageSet(items, [
-        { 'page': '.notstartedpage', 'filter': 'Invited' },
-        { 'page': '.inprogresspage', 'filter': 'Started' },
-        { 'page': '.finishedpage', 'filter': 'Finished' },
-        { 'page': '.excludedpage', 'filter': 'Deleted' },
-    ]);
-    refreshDisplay();
+        pageSet(items, [
+            // { 'page': '.participant', 'filter': 'Invited' },
+            { 'page': '.notstartedpage', 'filter': 'Invited' },
+            { 'page': '.inprogresspage', 'filter': 'Started' },
+            { 'page': '.finishedpage', 'filter': 'Finished' },
+            { 'page': '.excludedpage', 'filter': 'Deleted' },
+        ]);
+        refreshDisplay();
+    } else {
+        $("#temp").css("display", "block")
+        $("#temp").html("<div class='alert alert-warning text-center'>No data in this Section!</div>")
+        $(".portlets").css('display', "none")
+    }
+
 }
 
 
@@ -91,19 +152,11 @@ function refreshDisplay() {
     //$('.result').html($('.result').html());
     $("tr:visible:even").css("background-color", "#fff");
     $("tr:visible:odd").css("background-color", "#eee");
-    CandidateCount = $(".status:contains('Participant')").length;
-    $(".CandidateCount").text(CandidateCount);
-    InvitedCount = $(".status:contains('Invited')").length;
-    $(".InvitedCount").text(InvitedCount);
-    StartedCount = $(".status:contains('Started')").length;
-    $(".StartedCount").text(StartedCount);
-    FinishedCount = $(".status:contains('Finished')").length;
-    $(".FinishedCount").text(FinishedCount);
-    UsedQuota = InvitedCount + StartedCount + FinishedCount;
-    $(".UsedQuota").text(UsedQuota);
+    // CandidateCount = $(".status:contains('Participant')").length;
+    $(".CandidateCount").text(counter);
 
     $('.pageHeader').each(function () {
-        var ccount = $(this).next().find('tbody > tr').size();
+        var ccount = $(this).next().find('tbody > tr').length;
         $(this).find('.count').text(ccount);
         if ($(this).hasClass('page1')) { $("#ccount-1").text(ccount) };
         if ($(this).hasClass('page2')) { $("#ccount-2").text(ccount) };
@@ -122,32 +175,149 @@ function refreshDisplay() {
 }
 
 
-function render(items) {
+function render(items, status, count) {
     // attach the template
     jQuery.jTemplatesDebugMode(true);
-
     $(".candidateresult").setTemplateElement("table_template");
 
     $(".candidateresult").processTemplate();
 
-    pageInit(['.notstartedpage', '.inprogresspage', '.finishedpage', '.excludedpage']);
+    // pageInit(['.participant', '.notstartedpage', '.inprogresspage', '.finishedpage', '.excludedpage']);
 
-
-    renderUsers(items);
+    renderUsers(items, status, count);
 
 }
 
 
-function GetAll() {
+function renderpager(candidates) {
+
+    if (candidates[0]['num_pages'] >= 2) {
+        $(".footerpagination").show();
+    }
+    else {
+        $(".footerpagination").hide();
+    }
+
+    $("#current").text(candidates[0]['number']);
+    $("#num_pages").text(candidates[0]['num_pages']);
+
+    selectPage(candidates[0]['number']);
+}
+
+
+function selectPage(pageNumber) {
+
+    currentPageNumber = parseInt(pageNumber);
+    renderPagesIndex(currentPageNumber - 1);
+}
+
+
+
+function renderPagesIndex(currentPageNumber) {
+    var num_pages = parseInt($("#num_pages").text());
+    var output = "";
+    x = 0;
+    y = 10;
+
+    if (num_pages > 10) {
+        x = currentPageNumber - 5;
+        y = currentPageNumber + 5;
+
+        for (var i = 0; i < 6; i++) {
+            if (y > num_pages) {
+                y = y - 1;
+                x = x - 1;
+            }
+
+            if (x < 0) {
+                y = y + 1;
+                x = x + 1;
+            }
+        }
+
+    }
+    else {
+        y = num_pages;
+    }
+
+
+    for (var i = x; i < y; i++) {
+        output += '<span id="' + i + '" class="pageIndex btn btn-default btn-sm ';
+        if (i == currentPageNumber) {
+            output += 'currentPageIndex';
+        }
+        output += '">' + (i + 1) + '</span>'
+    }
+
+    $(".pagesIndex").html(output);
+
+    if (currentPageNumber + 1 == 1) {
+        $("#previous").addClass('disabled');
+    } else {
+        $("#previous").removeClass('disabled');
+    }
+    if (num_pages == currentPageNumber + 1) {
+        $("#next").addClass('disabled');
+
+    } else {
+        $("#next").removeClass('disabled');
+    }
+}
+
+
+function GetWithStatus(page, status) {
     $.ajax(
         {
             url: '/usermanagement/getallcandidate/',
             cache: false,
+            data: {
+                "status": status,
+                "page": page
+            },
             dataType: "json",
             success: function (data) {
                 //alert('hello from ajax render');
                 // console.log("DOne");
-                render(data);
+                if (status === 'participant') {
+                    render(data['users'], "Participant");
+                    renderpager(data['paginatordata']);
+                }
+                else if (status === 'finished') {
+                    render(data['users'], "Finished");
+                    renderpager(data['paginatordata']);
+                } else if (status === 'started') {
+                    render(data['users'], "Started");
+                    renderpager(data['paginatordata']);
+                } else if (status === 'invited') {
+                    render(data['users'], "Invited");
+                    renderpager(data['paginatordata']);
+                } else if (status === 'deleted') {
+                    render(data['users'], "Deleted");
+                    renderpager(data['paginatordata']);
+                }
+                // render(data);
+                //alert('hello after ajax render');
+            },
+            error: function (request, status, error) { alert(status + ", " + error); }
+        });
+
+}
+
+function GetAll(page, status) {
+    $.ajax(
+        {
+            url: '/usermanagement/getallcandidate/',
+            cache: false,
+            data: {
+                'page': page,
+                "status": status,
+            },
+            dataType: "json",
+            success: function (data) {
+                //alert('hello from ajax render');
+                console.log(status);
+                render(data['users'], status, data['count']);
+                renderpager(data['paginatordata']);
                 //alert('hello after ajax render');
             },
             error: function (request, status, error) { alert(status + ", " + error); }
@@ -229,8 +399,45 @@ $(document).ready(function () {
     jQuery.expr.filters.icontains = function (elem, i, m) {
         return (elem.innerText || elem.textContent || "").toLowerCase().indexOf(m[3].toLowerCase()) > -1;
     }
+    console.log($(""))
+    $('#next').click(function () {
+
+        var number = parseInt($("#current").text());
+        var num_pages = $("#num_pages").text();
+        if (num_pages > number) {
+            number = (number + 1);
+
+            $("#current").text(number);
+
+            GetAll(number, $("#selectOption").val());
+            selectPage(number);
+        }
+
+    });
+
+    $('#previous').click(function () {
+
+        var number = parseInt($("#current").text());
+        if (number > 1) {
+
+            number = (number - 1);
 
 
+            $("#current").text(number);
+
+            GetAll(number, $("#selectOption").val());
+            selectPage(number);
+        }
+
+    });
+
+
+    //$(".pageIndex").live('click', function (event)
+    $(document).on('click', '.pageIndex', function (event) {
+        var number = parseInt(event.target.id) + 1;
+        GetAll(number, $("#selectOption").val());
+        selectPage(number);
+    });
 
 
     $('#devinvite.yes').click(function () {
@@ -269,8 +476,6 @@ $(document).ready(function () {
                 }
             });
         }
-
-
     });
 
     $('.rightpanelexpand').click(function () {
@@ -308,7 +513,7 @@ $(document).ready(function () {
     //});
 
 
-    GetAll();
+    GetAll(1, "Participant");
 
     $('.closeaddform').click(function () {
         $('.addform').hide();
@@ -750,15 +955,15 @@ $(document).ready(function () {
 
         var tdText = row.find('.firstname .editabletext').text();
         row.find('.firstname .editabletext').hide();
-        row.find('.firstname').append('<div class="editfiled"><input id="firstname" name="firstname" size="25" class="required" minlength="2" value="' + tdText + '" /></div>');
+        row.find('.firstname').append('<div class="editfiled"><input id="firstname" name="firstname" class="form-control required" minlength="2" value="' + tdText + '" /></div>');
 
         var tdText = row.find('.lastname .editabletext').text();
         row.find('.lastname .editabletext').hide();
-        row.find('.lastname').append('<div class="editfiled"><input id="lastname" name="lastname" size="25" class="required" minlength="2" value="' + tdText + '" /></div>');
+        row.find('.lastname').append('<div class="editfiled"><input id="lastname" name="lastname" class="form-control required" minlength="2" value="' + tdText + '" /></div>');
 
         var tdText = row.find('.email .editabletext').text();
         row.find('.email .editabletext').hide();
-        row.find('.email').append('<div class="editfiled"><input id="email" name="email" size="25" class="required email" minlength="2" value="' + tdText + '" /></div>');
+        row.find('.email').append('<div class="editfiled"><input id="email" name="email" class="form-control required email" minlength="2" value="' + tdText + '" /></div>');
 
         $(this).siblings('.update').show();
         $(this).siblings('.cancel').show();

@@ -23,15 +23,22 @@
     <div class="link-section">
         <div class="left-link-items">
             <ul class="the-links">
+                {% if user.is_superuser %}
+                    <li class="link-item"><img class="right-arrow" src="{% static 'images/arrow-right-transparent-smaller.png' %}"><a href="{% url 'client_admin:home' %}">Go to Manage Assessment</a></li>
+                {% else %}
+                    <li class="link-item"><img class="right-arrow" src="{% static 'images/arrow-right-transparent-smaller.png' %}"><a href="{% url 'survey:answerpage' mode=0 %}">Go to Start Assement</a></li>
+                {% endif %}
                 <li class="link-item"><img class="right-arrow" src="{% static 'images/arrow-right-transparent-smaller.png' %}"><a href="https://console.bluemix.net/developer/appservice/dashboard?env_id=ibm%3Ayp%3Aus-south">Visit IBM Cloud App Service</a></li>
-                <li class="link-item"><img class="right-arrow" src="{% static 'images/arrow-right-transparent-smaller.png' %}"><a href="https://slack-invite-ibm-cloud-tech.mybluemix.net/">Ask questions on Slack</a></li>
-
+                <li class="link-item"><img class="right-arrow" src="{% static 'images/arrow-right-transparent-smaller.png' %}"><a href="https://slack-invite-ibm-cloud-tech.mybluemix.net/">Ask questions on Slack</a></li>           
             </ul>
         </div>
 
         <div class="right-link-items">
             <ul class="the-links">
                 <!-- Here we could have the language as a variable, and we'd provide the appropriate tag/links -->
+                {% if user.is_superuser %}
+                    <li class="link-item"><img class="right-arrow" src="{% static 'images/arrow-right-transparent-smaller.png' %}"><a href="{% url 'user_management:home' %}">Go to Manage Participant</a></li>
+                {% endif %}
 
                 <li class="link-item"><img class="right-arrow" src="{% static 'images/arrow-right-transparent-smaller.png' %}"><a href="https://www.ibm.com/cloud/cli">Install IBM Cloud Developer Tools</a></li>
                 <li class="link-item"><img class="right-arrow" src="{% static 'images/arrow-right-transparent-smaller.png' %}"><a href="https://datascience.ibm.com/">Learn about IBM’s Data Science Experience</a></li>

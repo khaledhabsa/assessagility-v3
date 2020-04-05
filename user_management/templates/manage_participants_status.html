@@ -18,17 +18,17 @@
             <div class="col-sm-5">
                 <div class="row">
                     <div class="col-lg-8">
-                        <select class="form-control">
-                            <option defaultcheck value="1">Participants</option>
-                            <option value="2">Include</option>
-                            <option value="3">In Progress</option>
-                            <option value="4">Completed</option>
-                            <option value="5">Exclude</option>
+                        <select class="form-control" id='selectOption'>
+                            <option defaultcheck value="Participant">Participants</option>
+                            <option value="Invited">Include</option>
+                            <option value="Started">In Progress</option>
+                            <option value="Finished">Completed</option>
+                            <option value="Deleted">Exclude</option>
                         </select>
                     </div>
                     <div class="col-lg-4">
 
-                        <button type="button" class="btn btn-secondary">Apply</button>
+                        <button id='apply' type="button" class="btn btn-secondary">Apply</button>
                     </div>
                 </div>
             </div>
@@ -45,13 +45,12 @@
       <div class="mt-3 col-md-12 col-sm-12 col-xs-12">
         <div id="temp" style="display: none"></div>
         <textarea id="table_template" style="display: none">
-          <table id="users_table" class="table table-bordered table-hover table-striped text-center">
+          <table class="users_table table table-striped table-bordered table-hover text-center" id="pplist">
               <thead>
                 <th scope="col"><div class="selectall" id="-1"></div></th>
                 <th scope="col">First Name</th>
                 <th scope="col">Last Name</th>
                 <th scope="col">Email</th>
-                <th scope="col">Status</th>
                 <th scope="col">Actions</th>
               </thead>
               <tbody>
@@ -61,42 +60,147 @@
         <textarea id="rows_template" style="display: none">
           {#foreach $T as record}
             {#if $T.record.status==$P.filter }
-                <tr id='tr_{$T.record.id}'>
+              <tr id='tr_{$T.record.id}'>
                 <td><div class="usercheckbox" id='{$T.record.id}'></div></td>
-                <td class="firstname form-elements"><div class="editabletext">{$T.record.first_name}</div></td>
-                <td class="lastname form-elements"><div class="editabletext">{$T.record.last_name}</div></td>
-                <td class="email form-elements"><div >{$T.record.email}</div></td>
-                <td class="status hide">{$T.record.status}</td>
-                <td class="actions hide">
-                    
-                    <a class="edit"><i class="fas fa-edit" style="color:#007bff;"></i></a>
-                    <a class="update" title="Update"><i class="fas fa-check" style="color:#82c91e;"></i></a>
-                    <a class="ml-2 cancel" title="Cancel"><i class="fas fa-times" style="color:#dc3545;"></i></a>
+                <td class="firstname"><div class="editabletext">{$T.record.first_name}</div></td>
+                <td class="lastname"><div class="editabletext">{$T.record.last_name}</div></td>
+                <td class="email"><div class="editabletext">{$T.record.email}</div></td>
+                <td>
+                  <a class="edit"><i class="fas fa-edit" style="color:#007bff;"></i></a>
+                  <a class="update" title="Update"><i class="fas fa-check" style="color:#82c91e;"></i></a>
+                  <a class="ml-2 cancel" title="Cancel"><i class="fas fa-times" style="color:#dc3545;"></i></a>
                 </td>
+              </tr>
             {#/if}
-          {#/for}
+          {#/for}	
         </textarea>
         <div class="col-md-12 portlets" style="display:none">
-            <!-- Output elements -->
-            <div class="middleactions">
-                <div class="middleactionsbuttons">
-                    <input type="button" class="findduplicate" value="find duplicate" />
-                    <input type="button" class="findallduplicate" value="find all duplicate" />
-                </div>
-            </div>
-        </div>
-        {% comment %} <div class="addCandidatesContainer">
-          <div class="middleactions" style="display:none;">
+          <!-- Output elements -->
+          <div class="middleactions">
             <div class="middleactionsbuttons">
               <input type="button" class="findduplicate" value="find duplicate" />
               <input type="button" class="findallduplicate" value="find all duplicate" />
             </div>
           </div>
-          <form class="cmxform" id="editform" method="get" action="">
-            <div class="result" style="clear: both"></div>          
-          </form>
-          <div class="clearfix"></div>
-        </div> {% endcomment %}
+        </div>
+        <form class="cmxform" id="editform" method="get" action="">
+            <div class="col-md-12 portlets" id="participant">
+              <div class="candidatelabel">Participant &nbsp;<span class="CandidateCount count badge"></span></div>
+                <div class="leftpanel section" id="puserlist">
+                  <div class="leftpanelexpand expand">
+                    <span class="expandText"></span>
+                  </div>
+                  <div class="tableactions">
+                    <div class="topActionsBlock">
+                      <div class="tableadd">
+                      </div>
+                      <div class="clear"></div>
+                    </div>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="candidateresult">
+                    <div class="widget-foot">
+                      <div class="clearfix"></div> 
+                    </div>
+                  
+                  </div>
+                </div>
+            </div>
+            <div class="col-md-12 portlets" id="include">
+              <div class="candidatelabel">Include &nbsp;<span class="CandidateCount count badge"></span></div>
+                <div class="leftpanel section" id="puserlist">
+                  <div class="leftpanelexpand expand">
+                    <span class="expandText"></span>
+                  </div>
+                  <div class="tableactions">
+                    <div class="topActionsBlock">
+                      <div class="tableadd">
+                      </div>
+                      <div class="clear"></div>
+                    </div>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="candidateresult">
+                    <div class="widget-foot">
+                      <div class="clearfix"></div> 
+                    </div>
+                  
+                  </div>
+                </div>
+            </div>
+            <div class="col-md-12 portlets" id="completed">
+              <div class="candidatelabel">Completed &nbsp;<span class="CandidateCount count badge"></span></div>
+                <div class="leftpanel section" id="puserlist">
+                  <div class="leftpanelexpand expand">
+                    <span class="expandText"></span>
+                  </div>
+                  <div class="tableactions">
+                    <div class="topActionsBlock">
+                      <div class="tableadd">
+                      </div>
+                      <div class="clear"></div>
+                    </div>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="candidateresult">
+                    <div class="widget-foot">
+                      <div class="clearfix"></div> 
+                    </div>
+                  
+                  </div>
+                </div>
+            </div>
+            <div class="col-md-12 portlets" id="progress">
+              <div class="candidatelabel">In Progress &nbsp;<span class="CandidateCount count badge"></span></div>
+                <div class="leftpanel section" id="puserlist">
+                  <div class="leftpanelexpand expand">
+                    <span class="expandText"></span>
+                  </div>
+                  <div class="tableactions">
+                    <div class="topActionsBlock">
+                      <div class="tableadd">
+                      </div>
+                      <div class="clear"></div>
+                    </div>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="candidateresult">
+                    <div class="widget-foot">
+                      <div class="clearfix"></div> 
+                    </div>
+                  
+                  </div>
+                </div>
+            </div>
+            <div class="col-md-12 portlets" id="exclude">
+              <div class="candidatelabel">Exclude &nbsp;<span class="CandidateCount count badge"></span></div>
+                <div class="leftpanel section" id="puserlist">
+                  <div class="leftpanelexpand expand">
+                    <span class="expandText"></span>
+                  </div>
+                  <div class="tableactions">
+                    <div class="topActionsBlock">
+                      <div class="tableadd">
+                      </div>
+                      <div class="clear"></div>
+                    </div>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="candidateresult">
+                    <div class="widget-foot">
+                      <div class="clearfix"></div> 
+                    </div>
+                  
+                  </div>
+                </div>
+            </div>
+
+        </form>
 
         <div class="footerpagination padd">
             <nav aria-label="Page navigation">
@@ -120,47 +224,47 @@
             </nav>
         </div> 
       </div>
-
     </div>
   </div>
 
 {% endblock%}
 
 {% block js %}
-    <script type="text/javascript" src="{% static "js/" %}jquery.validate.js"></script>
-    <script type="text/javascript" src="{% static "js/" %}jquery-jtemplates.js"></script>
-    <script type="text/javascript" src="{% static "js/" %}fileuploader.js" ></script>
-    <script type='text/javascript' src="{% static "js/" %}jquery.simplemodal.js"></script>
-    <script type="text/javascript" src="{% static "js/" %}jquery.tablesorter.min.js" ></script>
-    <script type="text/javascript" src="{% static "js/" %}user_management_manage.js" ></script>
-    <script type='text/javascript' src="{% static "js/" %}confirm.js"></script>
-    <script>
-        activeMenuItem = 2;
-        var uploader = new qq.FileUploader({
+  <script type="text/javascript" src="{% static "js/" %}jquery.validate.js"></script>
+  <script type="text/javascript" src="{% static "js/" %}jquery-jtemplates.js"></script>
+  <script type="text/javascript" src="{% static "js/" %}fileuploader.js" ></script>
+  <script type='text/javascript' src="{% static "js/" %}jquery.simplemodal.js"></script>
+  <script type="text/javascript" src="{% static "js/" %}jquery.tablesorter.min.js" ></script>
+  <script type="text/javascript" src="{% static "js/" %}user_management_manage.js" ></script>
+  <script type='text/javascript' src="{% static "js/" %}confirm.js"></script>
+  <script>
+    activeMenuItem = 2;
+    var uploader = new qq.FileUploader({
         action: "/usermanagement/ajax_upload/",
         element: $('#file-uploader')[0],
         multiple: true,
         onComplete: function (id, fileName, responseJSON) {
             alert("All complete!");
-                if (responseJSON['error'] == undefined) {
-                    renderUsers(responseJSON);
-                } else {
-                    alert(responseJSON['error']);
-                }
+            if (responseJSON['error'] == undefined) {
+                renderUsers(responseJSON);
+            } else {
+                alert(responseJSON['error']);
+            }
 
-            },
-            onAllComplete: function (uploads) {
-                // uploads is an array of maps
-                // the maps look like this: { file: FileObject, response: JSONServerResponse }
+        },
+        onAllComplete: function (uploads) {
+            // uploads is an array of maps
+            // the maps look like this: { file: FileObject, response: JSONServerResponse }
 
-                alert("All complete!");
-            },
-            params: {
-                'csrf_token': '{{ csrf_token }}',
-                'csrf_name': 'csrfmiddlewaretoken',
-                'csrf_xname': 'X-CSRFToken',
-            },
-        });
-    </script>
+            alert("All complete!");
+        },
+        params: {
+            'csrf_token': '{{ csrf_token }}',
+            'csrf_name': 'csrfmiddlewaretoken',
+            'csrf_xname': 'X-CSRFToken',
+        },
+    });
+
+  </script>
 
 {% endblock %}
