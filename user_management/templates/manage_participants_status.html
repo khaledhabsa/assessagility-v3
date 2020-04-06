@@ -232,39 +232,8 @@
 {% block js %}
   <script type="text/javascript" src="{% static "js/" %}jquery.validate.js"></script>
   <script type="text/javascript" src="{% static "js/" %}jquery-jtemplates.js"></script>
-  <script type="text/javascript" src="{% static "js/" %}fileuploader.js" ></script>
   <script type='text/javascript' src="{% static "js/" %}jquery.simplemodal.js"></script>
   <script type="text/javascript" src="{% static "js/" %}jquery.tablesorter.min.js" ></script>
   <script type="text/javascript" src="{% static "js/" %}user_management_manage.js" ></script>
-  <script type='text/javascript' src="{% static "js/" %}confirm.js"></script>
-  <script>
-    activeMenuItem = 2;
-    var uploader = new qq.FileUploader({
-        action: "/usermanagement/ajax_upload/",
-        element: $('#file-uploader')[0],
-        multiple: true,
-        onComplete: function (id, fileName, responseJSON) {
-            alert("All complete!");
-            if (responseJSON['error'] == undefined) {
-                renderUsers(responseJSON);
-            } else {
-                alert(responseJSON['error']);
-            }
-
-        },
-        onAllComplete: function (uploads) {
-            // uploads is an array of maps
-            // the maps look like this: { file: FileObject, response: JSONServerResponse }
-
-            alert("All complete!");
-        },
-        params: {
-            'csrf_token': '{{ csrf_token }}',
-            'csrf_name': 'csrfmiddlewaretoken',
-            'csrf_xname': 'X-CSRFToken',
-        },
-    });
-
-  </script>
-
+  
 {% endblock %}

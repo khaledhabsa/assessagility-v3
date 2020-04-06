@@ -384,6 +384,10 @@ $(document).ready(function () {
 		row.find('.lastname .editabletext').hide();
 		row.find('.lastname').append('<div class="editfiled"><input id="lastname" name="lastname" class="form-control required" minlength="2" value="' + tdText + '" /></div>');
 
+		var tdText = row.find('.email .editabletext').text();
+		row.find('.email .editabletext').hide();
+		row.find('.email').append('<div class="editfiled"><input id="email" name="email" class="form-control required" minlength="2" value="' + tdText + '" /></div>');
+
 
 		$(this).siblings('.update').show();
 		$(this).siblings('.cancel').show();
@@ -438,7 +442,7 @@ $(document).ready(function () {
 
 			row.find('.firstname>.editabletext').text(firstname);
 			row.find('.lastname>.editabletext').text(lastname);
-			//row.find('.email').text(email);
+			row.find('.email>.editabletext').text(email);
 
 			row.find('.editabletext').show();
 

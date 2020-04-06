@@ -629,6 +629,7 @@ a.article:hover {
     border-bottom: 1px solid #fafafb;
     width: 100%;
     padding-top: 17px;
+    padding-bottom: 17px;
     padding-left: 10px;
     padding-right: 25px;
     box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
@@ -656,6 +657,7 @@ a.article:hover {
     padding-left: 10px;
     padding-right: 25px;
     border-bottom: 1px solid #f1f1f3;
+    margin-top: -5px;
 }
 
 .lastDiv p {

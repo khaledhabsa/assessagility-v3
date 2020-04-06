@@ -13,7 +13,7 @@
 //   }
 // }
 
-
+$("#myInput").val(window.location.origin + "/answerpage/0");
 function toggle(source) {
   checkboxes = document.getElementsByName('example');
   var imgDelete = document.getElementById("imgDelete");
@@ -67,7 +67,7 @@ $("#btnassess").on("click", "#endAssessment", function (e) {
     data-target='#myModal'>Start Assessment</button>");
   document.getElementById("btnCopyDisabled").disabled = true;
   $("#linkedCopiedText").empty();
-  $("#myInput").val("https://readyforagile.inet.works/survey/");
+  $("#myInput").val(window.location.origin + "/answerpage/0");
 
 })
 

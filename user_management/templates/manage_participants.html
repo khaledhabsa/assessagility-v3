@@ -86,7 +86,7 @@
               <td><div class="usercheckbox" id='{$T.record.id}'></div></td>
               <td class="firstname form-elements"><div class="editabletext">{$T.record.first_name}</div></td>
               <td class="lastname form-elements"><div class="editabletext">{$T.record.last_name}</div></td>
-              <td class="email form-elements"><div >{$T.record.email}</div></td>
+              <td class="email form-elements"><div class="editabletext">{$T.record.email}</div></td>
               <td class="status">{$T.record.status}</td>
               <td>
                 <a class="edit"><i class="fas fa-edit" style="color:#007bff;"></i></a>
@@ -189,35 +189,8 @@
 {% block js %}
  <script src="{% static "js/" %}jquery.validate.js" type="text/javascript"></script>
   <script src="{% static "js/" %}jquery-jtemplates.js" type="text/javascript" ></script>
-  <script src="{% static "js/" %}fileuploader.js" type="text/javascript"></script>
   <script src="{% static "js/" %}jquery.tablesorter.min.js" type="text/javascript"></script>
   <script src="{% static "js/" %}user_management.js" type="text/javascript"></script>
-  <script>
-  activeMenuItem = 2;
-    var uploader = new qq.FileUploader({
-        action : "/usermanagement/ajax_upload/",
-        element : $('#file-uploader')[0],
-        multiple: false,
-        debug: true,
-        uploadButtonText: "Select Files",
-        onComplete: function (id, fileName, responseJSON){
-            if (responseJSON['error'] == undefined){
-                alert('Upload Complete');
-                renderUsers(responseJSON);
-                GetAll(parseInt($("#current").text()));
-            }
-            else{                  
-                alert(responseJSON['error']);
-            }
-        },
-        onAllComplete : function(uploads) {},
-        params : {
-            'csrf_token' : '{{ csrf_token }}',
-            'csrf_name' : 'csrfmiddlewaretoken',
-            'csrf_xname' : 'X-CSRFToken',
-        },
-    });
-</script>
 
   
 {% endblock %}

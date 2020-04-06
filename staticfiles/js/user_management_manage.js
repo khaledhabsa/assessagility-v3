@@ -315,7 +315,6 @@ function GetAll(page, status) {
             dataType: "json",
             success: function (data) {
                 //alert('hello from ajax render');
-                console.log(status);
                 render(data['users'], status, data['count']);
                 renderpager(data['paginatordata']);
                 //alert('hello after ajax render');
@@ -399,7 +398,6 @@ $(document).ready(function () {
     jQuery.expr.filters.icontains = function (elem, i, m) {
         return (elem.innerText || elem.textContent || "").toLowerCase().indexOf(m[3].toLowerCase()) > -1;
     }
-    console.log($(""))
     $('#next').click(function () {
 
         var number = parseInt($("#current").text());

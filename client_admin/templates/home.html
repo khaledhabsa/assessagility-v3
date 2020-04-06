@@ -30,8 +30,7 @@
                     <div class="row">
                         <div class="col-lg-7 col-md-12 col-sm-12 col-xs-12">
                             <div class="linkContainer">
-                                <input type="text" class="inputLink" disabled
-                                    value="https://readyforagile.inet.works/survey/" id="myInput">
+                                <input type="text" class="inputLink" disabled id="myInput">
 
                             </div>
                         </div>
@@ -330,7 +329,7 @@
         $("#closemodalandSave").click(function(e){
             var demo_name = $.trim($(".bg-info .centerDiv").find(".custom-control-label").text() )
             var demo_value_id = $(".bg-warning .centerDiv").find(".custom-control-input").attr("id")
-            $("#myInput").val("https://readyforagile.inet.works/accounts/adduser");
+            $("#myInput").val(window.location.origin+"/accounts/adduser");
         })
 
     </script>
