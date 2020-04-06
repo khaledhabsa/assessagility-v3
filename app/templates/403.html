@@ -23,7 +23,7 @@
                     {% if user.is_superuser %}
                         <a href="{% url 'client_admin:home'%}">Dashboard</a>.
                     {% else %}
-                        <a href="{% url 'survey:answerpage' mode=0 %}">check your survey</a>.
+                        <a href="{% url 'survey:answerpage' mode=0 %}">Go to your survey</a>.
                     {% endif %}
                 {% else %}
                     <a href="{% url 'survey:user_login'%}">login in the system</a>.

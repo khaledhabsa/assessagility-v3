@@ -1,15 +1,22 @@
-{% extends "base.html" %}
+{% extends "base_user.html" %}
 {% load i18n %}
 {% load static %}
 
 {% block title %}{% trans "Select Demographics" %}{% endblock %}
+{% block links %}
+  <link href="{% static 'css/pages/selectrole.css' %}" rel="stylesheet">
 
+{% endblock %}
 {% block content %}
   <form action="" class="form-horizontal" method="POST">
     {% csrf_token %}
     <div class="page-title">
       <h1>
-        <button id="next" class="pull-right btn btn-success">{% trans "Next" %}</button><div class="nfo" data-toggle="tooltip" data-placement="left" title="All answers are automatically saved. You can continue working on the survey as needed. The submit button will be active once you finish all the questions in the survey."><i class="fa fa-info-circle"></i></div>
+        <button id="next" class="pull-right btn btn-success">{% trans "Next" %}</button>
+        <div class="nfo" title="All answers are automatically saved. You can continue working on the survey as needed. The submit button will be active once you finish all the questions in the survey.">
+          <i class="fa fa-info-circle"></i>
+          
+        </div>
         <div>{% trans "Please select the role that best describes what you do" %}</div>
         <div>{% trans "Please fill your demographic data" %}</div>
       </h1>
@@ -45,9 +52,9 @@
   </form>
 {% endblock %}
 
-{% block page_extra %}
-  <link href="{% static 'css/pages/selectrole.css' %}" rel="stylesheet">
-  	<script type="text/javascript">	
+{% block js %}
+  
+  <script type="text/javascript">	
 		$(document).ready(function() {
 			$('[data-toggle="tooltip"]').tooltip({'placement': 'bottom'});
 			function NextStep(){
@@ -66,4 +73,5 @@
 			});
 		});
 	</script>
+
 {% endblock %}

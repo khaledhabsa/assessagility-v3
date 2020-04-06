@@ -56,21 +56,21 @@ def answerPage(request, *args, **kwargs):
 
 @login_required(login_url="/accounts/login?next=survey:select_role")
 def select_role(request):
-    if request.method == 'POST':
-        role = Role.objects.get(pk=request.POST['role'])
-        userprofile = request.user.profile
-        userprofile.roles.add(role)
+    # if request.method == 'POST':
+    #     role = Role.objects.get(pk=request.POST['role'])
+    #     userprofile = request.user.profile
+    #     userprofile.roles.add(role)
 
-        try:
-            candidate = Candidate.objects.get(email=request.user.email)
-            candidate.status = 'Started'
-            candidate.save()
-        except Candidate.DoesNotExist:
-            candidate = None
-        return redirect('survey:edit_user_demographic')
+    #     try:
+    #         candidate = Candidate.objects.get(email=request.user.email)
+    #         candidate.status = 'Started'
+    #         candidate.save()
+    #     except Candidate.DoesNotExist:
+    #         candidate = None
+    #     return redirect('survey:edit_user_demographic')
 
-    if request.user.profile.roles.count() > 0:
-        return redirect('survey:edit_user_demographic')
+    # if request.user.profile.roles.count() > 0:
+    #     return redirect('survey:edit_user_demographic')
 
     return render(request, 'questions/select_role.html',  {'roles': Role.objects.all().order_by('rank')})
 
@@ -109,10 +109,14 @@ def edit_user_demographics(request):
 @login_required(login_url="/accounts/login?next=survey:finished")
 def finished(request):
 
-    user_profile = request.user.profile
-    user_profile.survey_finished = True
-    user_profile.save()
+    status = request.GET.get('status', "save")
+    if status == 'submit':
+        user_profile = request.user.profile
+        user_profile.survey_finished = True
+        user_profile.save()
+    else:
 
+        status = request.user.profile.survey_finished
     try:
         # print("request.user.email: ", request.user.email)
         # # print("Candidate.objects.get all: ", Candidate.objects.all())
@@ -135,12 +139,12 @@ def finished(request):
         #           ['Kott_Alex_W@cat.com'], fail_silently=False)
 
         return render(request, 'questions/finished.html', {'hide_comment_box': True,
+                                                           'status': status,
                                                            'message': 'Your comment has been sent. Thank you!',
                                                            'welcomemessage': Message.objects.get(code="welcome").body,
                                                            'logomessage': Message.objects.get(code="logo").body
                                                            })
-
-    return render(request, 'questions/finished.html', {})
+    return render(request, 'questions/finished.html', {"status": status})
 
 
 @login_required(login_url="/accounts/login?next=survey:closed")

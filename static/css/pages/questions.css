@@ -2,7 +2,7 @@
     background:url('../../img/single-icon.png') 8px center no-repeat;
 }
 
-.questions-layout a.btn.multiple{
+.questions-layout a.btn.multiples{
     background:url('../../img/multiple-icon.png') 8px center no-repeat;
 }
 
@@ -61,7 +61,9 @@
     padding-right:0;
     text-align:right;
 }
-
+.page-title .questions-sort .active{
+    color: #fff;
+}
 .questions-items{
     height:500px;
     overflow:auto;
