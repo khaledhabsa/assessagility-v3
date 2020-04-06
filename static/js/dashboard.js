@@ -67,7 +67,7 @@ $("#btnassess").on("click", "#endAssessment", function (e) {
     data-target='#myModal'>Start Assessment</button>");
   document.getElementById("btnCopyDisabled").disabled = true;
   $("#linkedCopiedText").empty();
-  $("#myInput").val("https://readyforagile.inet.works/survey/0");
+  $("#myInput").val("https://readyforagile.inet.works/survey/");
 
 })
 
@@ -76,6 +76,7 @@ function myFunction() {
   var linkedCopy
   var linkContainer = document.getElementsByClassName("linkContainer")[0];
   var copyText = document.getElementById("myInput");
+
   copyText.select();
   copyText.setSelectionRange(0, 99999)
   document.execCommand("copy");

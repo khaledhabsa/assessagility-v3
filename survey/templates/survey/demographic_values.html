@@ -61,7 +61,7 @@
           {#foreach $T as record}
             <tr id='tr_{$T.record.id}'>
               <td><div class="usercheckbox" id='{$T.record.id}'></div></td>
-              <td class="title">
+              <td class="title" style="word-break: break-word;overflow-wrap: break-word;">
                 <div class="editabletext">
                   <a class="values"  href='{% url "survey:demographic_values" %}?demographic={$T.record.id}'>{$T.record.title}</a>
                 </div>
@@ -142,10 +142,10 @@
 
         </div>
         <div class="modal-footer popupAdd">
-            <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Close</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true" id="closeModal">Close</button>
             <input type="button" id="submitbtnId" value="Save and Add New" class="addcandidatebutton btn btn-primary" />
         
-        </div>>
+        </div>
       </div>
     </div>
   </div>

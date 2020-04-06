@@ -31,7 +31,7 @@
                         <div class="col-lg-7 col-md-12 col-sm-12 col-xs-12">
                             <div class="linkContainer">
                                 <input type="text" class="inputLink" disabled
-                                    value="https://readyforagile.inet.works/survey/0" id="myInput">
+                                    value="https://readyforagile.inet.works/survey/" id="myInput">
 
                             </div>
                         </div>
@@ -124,6 +124,7 @@
                                 <a href="{% url 'survey:demographic' %}" ><img id="imgAdd" class="right" src="{% static 'images/add_circle-24px (1).svg'%}"></a>
                                
                             </div>
+                            <div id="demoGraph"></div>
                         </div>
                         <div class="bg-warning">
                             <div class="headertitleContainerRight">
@@ -159,6 +160,8 @@
     <script>
         $("#startAsseement").click(function(){
             var id = 0
+            $("#demoGraph").empty();
+            $("#values").empty();
             $.ajax({
             url: '/survey/getalldemgraphic/',
                 cache: false,
@@ -172,7 +175,7 @@
                                     <div class='custom-control custom-checkbox left'>\
                                         <input type='checkbox' class='custom-control-input' id='"+ e.id +"'\
                                             name='example'>\
-                                        <label class='custom-control-label fontNormal' for='" + e.id + "'>&nbsp; &nbsp;&nbsp; &nbsp;\
+                                        <label class='custom-control-label fontNormal' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' for='" + e.id + "'>&nbsp; &nbsp;&nbsp; &nbsp;\
                                             "+ e.title +"</label>\
                                     </div>\
                                     <p class='right'>\
@@ -197,7 +200,7 @@
                                                     <div class='custom-control custom-checkbox left'>\
                                                         <input type='checkbox' class='custom-control-input' id='"+ e.id +"'\
                                                             name='example5'>\
-                                                        <label class='custom-control-label fontNormal' for='"+ e.id +"'>&nbsp;\
+                                                        <label class='custom-control-label fontNormal' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' for='"+ e.id +"'>&nbsp;\
                                                             &nbsp;&nbsp; &nbsp;\
                                                             "+ e.value + "</label>\
                                                     </div>\
@@ -208,7 +211,7 @@
                                                     <div class='custom-control custom-checkbox left'>\
                                                         <input type='checkbox' class='custom-control-input' id='"+ e.id +"'\
                                                             name='example5'>\
-                                                        <label class='custom-control-label fontNormal' for='"+ e.id +"'>&nbsp;\
+                                                        <label class='custom-control-label fontNormal' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' for='"+ e.id +"'>&nbsp;\
                                                             &nbsp;&nbsp; &nbsp;\
                                                             "+ e.value + "</label>\
                                                     </div>\
@@ -227,9 +230,9 @@
                         }else{
                             div = "<div class='lastDiv'>\
                                     <div class='custom-control custom-checkbox left'>\
-                                        <input type='checkbox' class='custom-control-input' id='"+ e.id +"'\
+                                        <input type='checkbox' class='custom-control-input' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' id='"+ e.id +"'\
                                             name='example'>\
-                                        <label class='custom-control-label fontNormal' for='" + e.id + "'>&nbsp; &nbsp;&nbsp; &nbsp;\
+                                        <label class='custom-control-label fontNormal' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' for='" + e.id + "'>&nbsp; &nbsp;&nbsp; &nbsp;\
                                             "+ e.title +"</label>\
                                     </div>\
                                     <p class='right'>\
@@ -238,7 +241,8 @@
                                 </div>"
                         }
                         
-                        $(".bg-info").append(div)
+                      
+                        $("#demoGraph").append(div)
                     
                     })
                 
@@ -326,7 +330,7 @@
         $("#closemodalandSave").click(function(e){
             var demo_name = $.trim($(".bg-info .centerDiv").find(".custom-control-label").text() )
             var demo_value_id = $(".bg-warning .centerDiv").find(".custom-control-input").attr("id")
-            $("#myInput").val("https://readyforagile.inet.works/survey/"+ demo_name + "/"+demo_value_id)
+            $("#myInput").val("https://readyforagile.inet.works/accounts/adduser");
         })
 
     </script>

@@ -280,6 +280,11 @@ $(document).ready(function () {
 			$(this).addClass('checked');
 		}
 	});
+	$("#closeModal").click(function () {
+		$('#value').val('');
+		$('.addform').hide();
+		$('#display').html('');
+	})
 	$('.addcandidatebutton').click(function () {
 
 
@@ -296,19 +301,18 @@ $(document).ready(function () {
 				},
 				dataType: 'json',
 				success: function (data) {
-
 					if (data['error'] != undefined) {
 
-						$('.pageWrapper #display').append('<div class="submit_form_message"><div class="confirmationerror2">Data is duplicated. Please check</div></div>');
+						$('#display').html('<div class="alert alert-danger">Data is duplicated. Please check</div>');
 					}
 					else {
 
 						GetAll(1);
 						$('#value').val('');
 						$('.addform').hide();
-						$('.pageWrapper #display').html('');
+						$('#display').html('');
 						GetAll(parseInt($("#current").text()));
-
+						$('#display').html('<div class="alert alert-success">Successfully added!</div>');
 
 
 					}

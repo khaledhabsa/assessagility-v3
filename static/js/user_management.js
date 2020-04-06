@@ -316,6 +316,7 @@ $(document).ready(function () {
 						$('.pageWrapper #display').html('');
 
 						GetAll(parseInt($("#current").text()));
+						$('#display').html('<div class="alert alert-success">Successfully added!</div>');
 					}
 				},
 				error: function () {
