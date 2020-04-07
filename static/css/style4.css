@@ -79,7 +79,7 @@ a:focus {
 }
 
 .navbar {
-    padding: 0px;
+    padding: 11px 0px 14px 0px;
     background: #fff;
     border: none;
     border-radius: 0;
@@ -287,12 +287,12 @@ a.article:hover {
     border-radius: 2px !important;
     border: solid 1px #101010 !important;
     background-color: #ffffff;
-  }
-  .custom-checkbox .custom-control-input:focus~.custom-control-label::before {
+}
+.custom-checkbox .custom-control-input:focus~.custom-control-label::before {
     box-shadow: none;
-  }
+}
   
-  .custom-checkbox .custom-control-input:checked~.custom-control-label::before {
+.custom-checkbox .custom-control-input:checked~.custom-control-label::before {
     border-radius: 2px;
     background-color:#ffffff;
     box-shadow: none;
@@ -302,10 +302,11 @@ a.article:hover {
     font-size: 13px;
     letter-spacing: 0.45px;
     line-height: 15px;
-  }
-  .custom-checkbox .custom-control-input:checked~.custom-control-label::after{
+}
+.custom-checkbox .custom-control-input:checked~.custom-control-label::after{
     background-image:url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='red' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3E%3C/svg%3E");
 }
+
 .custom-control {
     position: relative;
     display: block;
@@ -629,7 +630,8 @@ a.article:hover {
     border-bottom: 1px solid #fafafb;
     width: 100%;
     padding-top: 17px;
-    padding-bottom: 17px;
+    min-height: 61px;
+    /* padding-bottom: 8px; */
     padding-left: 10px;
     padding-right: 25px;
     box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
@@ -653,7 +655,8 @@ a.article:hover {
     display: inline-block;
     width: 100%;
     padding-top: 17px;
-    padding-bottom: 17px;
+    min-height: 61px;
+    /* padding-bottom: 8px; */
     padding-left: 10px;
     padding-right: 25px;
     border-bottom: 1px solid #f1f1f3;
@@ -922,28 +925,32 @@ a.article:hover {
     background-color: var(--color-menu);
 }
 
-.submenu a{
+.submenu a, .submenu-admin a{
 
     background-color: #fff;
     color: black;
     
 }
-.submenu{
+.submenu, .submenu-admin{
     /* display: none; */
     position: absolute;
     z-index: 99999;
-    top: 107%;
-    right:1%;
+    top: 144%;
+    
     background-color: #fff;
 }
-.submenu li :hover{
+.submenu{
+
+    right:4%;
+}
+.submenu-admin{
+    right:3%;
+}
+.submenu li :hover, .submenu-admin li :hover{
     background-color: #616b75;
     color:#fff
 }
-.submenu .submenu{
-    left: 100%;
-    top: 0;
-}
+
 .user-icon{
     /* transform: rotate(180deg); */
     transition-duration: 0.5s;
@@ -980,14 +987,18 @@ a.article:hover {
     border-radius: 50%;
     font-size: 18px;
 }
+#brand, .copy{
 
+    color: #43425d;
+    font-size: 20px;
+}
 .copy{
     position: relative;
-    left: 40%;
+    left: 35%;
 }
 @media(min-width:850px){
     .copy{
-        left: 40%;
+        left: 35%;
     }
 }
 @media(max-width:849px){

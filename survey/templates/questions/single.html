@@ -156,12 +156,12 @@
           </button>
         </div>
         <div class="modal-body">
-          <span class="mb-5 text-center" style="font-size:21px">Are you ready to submit your survey?</span>
+          <span class="mb-5 text-center" style="font-size:21px;color:#43425d;">Are you ready to submit your survey?</span>
 
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary"><a href="{% url 'survey:finished'%}?status=submit">Submit Survey</a></button>
+            <button type="button" class="btn btn-success"><a href="{% url 'survey:finished'%}?status=submit">Submit Survey</a></button>
         </div>
       </div>
     </div>
@@ -173,10 +173,6 @@
   <script src="{% static 'js/ezMark/js/jquery.ezmark.min.js' %}"></script> 
   <script src="{% static 'js/customscroll/jquery.custom-scrollbar.min.js' %}"></script>
   <script src="{% static 'js/pages/question.js' %}"></script>
-  <script type="text/javascript">	
-		{% comment %} $(document).ready(function() {
-			$('[data-toggle="tooltip"]').tooltip({'placement': 'bottom'});
-		}); {% endcomment %}
-	</script>
+
 
 {% endblock %}

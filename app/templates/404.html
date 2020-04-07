@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-
+{% load static %}
 <html>
 
 <head>
     <title>IBM Cloud Web Starter</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.3.2/css/bulma.min.css"></link>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/default.css' %}"></link>
+    <link rel="stylesheet" href="{% static 'css/default.css' %}"/>
+    <link rel="shortcut icon" type="image/x-icon" href="{% static "images/favico.png" %}" />
     <script src="{% static 'js/bundle.js' %}" charset="utf-8"></script>
 </head>
 

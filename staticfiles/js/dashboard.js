@@ -45,17 +45,30 @@ $('#closemodalandSave').click(function () {
     $("#display").empty();
     $("#display").append("<div class='alert alert-danger'>Please Select Demographic!</div>");
     $('#myModal').scrollTop(0);
-  } else if ($(".bg-warning .centerDiv").find(".custom-control-input").attr("id") === undefined) {
-    $("#display").empty();
-    $("#display").append("<div class='alert alert-danger'>Please Select Demographic Value!</div>");
-    $('#myModal').scrollTop(0);
   } else {
+    var arr = []
+    $(".bg-warning .lastDiv").each(function (i, e) {
+      if ($(e).find(".custom-control-input").prop("checked"))
+        arr.push($(e).find(".custom-control-input").attr("id"))
 
-    $('#myModal').modal('hide');
-    document.getElementById("btnCopyDisabled").disabled = false;
-    $("#btnassess").empty();
-    $("#btnassess").append("<button type='button' id='endAssessment' class='btn btn-start' style='background-color: #bf0000;'>End Assessment</button>")
+    })
+    if (arr.length == 0) {
+
+      $("#display").empty();
+      $("#display").append("<div class='alert alert-danger'>Please Select Demographic Value!</div>");
+      $('#myModal').scrollTop(0);
+
+    } else {
+      // console.log(arr)
+      $('#myModal').modal('hide');
+      document.getElementById("btnCopyDisabled").disabled = false;
+      $("#btnassess").empty();
+      $("#btnassess").append("<button type='button' id='endAssessment' class='btn btn-start' style='background-color: #bf0000;'>End Assessment</button>")
+    }
   }
+  // } else {
+  //   
+  // }
 
 
 });

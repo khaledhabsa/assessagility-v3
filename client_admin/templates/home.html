@@ -317,15 +317,8 @@
 
             })
 
-        })
-        $(".bg-warning").on("click" , ".lastDiv" , function(e){
-            $(".bg-warning .centerDiv .custom-control-input").prop("checked" , false)
-            $(this).find(".custom-control-input").prop("checked" , true);
-            $(".bg-warning .centerDiv").removeClass("centerDiv").addClass("lastDiv");
-            $(this).addClass("centerDiv");
-            $(this).removeClass("lastDiv");
+        })     
 
-        })
         $("#closemodalandSave").click(function(e){
             var demo_name = $.trim($(".bg-info .centerDiv").find(".custom-control-label").text() )
             var demo_value_id = $(".bg-warning .centerDiv").find(".custom-control-input").attr("id")

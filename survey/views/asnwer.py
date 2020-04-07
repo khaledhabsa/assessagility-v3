@@ -56,21 +56,21 @@ def answerPage(request, *args, **kwargs):
 
 @login_required(login_url="/accounts/login?next=survey:select_role")
 def select_role(request):
-    # if request.method == 'POST':
-    #     role = Role.objects.get(pk=request.POST['role'])
-    #     userprofile = request.user.profile
-    #     userprofile.roles.add(role)
+    if request.method == 'POST':
+        role = Role.objects.get(pk=request.POST['role'])
+        userprofile = request.user.profile
+        userprofile.roles.add(role)
 
-    #     try:
-    #         candidate = Candidate.objects.get(email=request.user.email)
-    #         candidate.status = 'Started'
-    #         candidate.save()
-    #     except Candidate.DoesNotExist:
-    #         candidate = None
-    #     return redirect('survey:edit_user_demographic')
+        try:
+            candidate = Candidate.objects.get(email=request.user.email)
+            candidate.status = 'Started'
+            candidate.save()
+        except Candidate.DoesNotExist:
+            candidate = None
+        return redirect('survey:edit_user_demographic')
 
-    # if request.user.profile.roles.count() > 0:
-    #     return redirect('survey:edit_user_demographic')
+    if request.user.profile.roles.count() > 0:
+        return redirect('survey:edit_user_demographic')
 
     return render(request, 'questions/select_role.html',  {'roles': Role.objects.all().order_by('rank')})
 
