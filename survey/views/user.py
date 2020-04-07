@@ -152,7 +152,7 @@ def change_password(request):
             request.user.save()
             return redirect('survey:answerpage', mode=0)
         else:
-            return render(request, 'user/change_password.html', {'error': 'the password you entered does not match what we have in the system.'}, RequestContext(request))
+            return render(request, 'user/change_password.html', {'error': 'the password you entered does not match what we have in the system.'})
 
     return render(request, 'user/change_password.html', {})
 
