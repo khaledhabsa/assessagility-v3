@@ -424,7 +424,7 @@ $(document).ready(function () {
 		$('tr').hide();
 		$('.header').show();
 		$('tr:icontains("' + keyword + '")').show();
-		refreshDisplay();
+		refreshDisplay($("#selectOption").val());
 
 	});
 	//$('.edit').live('click', function() {

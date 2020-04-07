@@ -74,6 +74,10 @@ function pageSet(items, ps) {
         $("#temp").processTemplate(items);
         $(ps[i].page + ' > .result > .users_table tbody').append($("#temp").html());
         $("#temp").html('');
+        // $(ps[i].page+' > .result > .users_table').tablesorter();
+        //$(ps[i].page+' > .result > .users_table').bind("sortEnd",function() { 
+        //   refreshDisplay(); 
+        //}); 
     }
 }
 
