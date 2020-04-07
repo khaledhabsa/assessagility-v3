@@ -12,33 +12,37 @@
 {% block content %}
   
   <div class="AssessmentContainer">
-        <div class="row">
-
-            <div class="col-lg-6 col-md-6 ml-auto col-sm-12 col-xs-12">
-                <a href="{% url 'survey:demographic' %}" class="btn btn-primary">Customize Demographic</a>
-
-            </div>
-        </div>
-
+    <div class="row">
+      <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+        <p>
+          Demographic are particular groups or categories within your team or company.<br/>
+          This will be very useful in viewing reports and grouping data.
+        </p>
+      </div>
+      <div class="col-lg-4 col-md-4 ml-auto col-sm-12 col-xs-12">
+        <a href="{% url 'survey:demographic' %}" class="btn btn-primary">Customize Demographic</a>
+      </div>
     </div>
+
+  </div>
    <br>
   <p class="subTitle">
     Demographic Values      
   </p>
   <div class="AssessmentContainer">
     <div class="row">
-      <div class="col-md-10 col-sm-12 col-xs-12">
+      <div class="col-md-12 col-sm-12 col-xs-12">
           <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-3 col-md-3">
               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add Demographic value</button>
             </div>
-            <div class="col-sm-2">
-              <div class="deletediv pull-left">
+            <div class="col-sm-2 col-md-2">
+              <div class="deletediv pull-right">
               <input type="button" class="delete btn btn-default" value="Delete" />
             </div>
             </div>
-            <div class="col-sm-6 col-md-6 col-lg-6 ml-auto">
-              <div class="searchdiv form-elements pull-right"><input type="text" placeholder="Search ..." class="searchbox" /></div>
+            <div class="col-sm-6 col-md-7 col-lg-7 ml-auto">
+              <div class="searchdiv form-elements pull-right" style="width:100%" ><input type="text" placeholder="Search ..." class="searchbox" /></div>
             </div>
           </div>
       </div>

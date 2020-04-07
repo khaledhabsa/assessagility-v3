@@ -1,3 +1,5 @@
+var counter = 0;
+
 jQuery(document).ajaxSend(function (event, xhr, settings) {
 	function getCookie(name) {
 		var cookieValue = null;
@@ -36,26 +38,79 @@ jQuery(document).ajaxSend(function (event, xhr, settings) {
 		xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
 	}
 });
-function renderUsers(items) {
+$("#apply").click(function () {
 
-	$("#temp").setTemplateElement('rows_template');
-	$("#temp").processTemplate(items);
-	$('#users_table tbody').append($("#temp").html());
-	$("#temp").html('');
-	//$("#users_table").tablesorter();
-	$("#users_table").bind("sortEnd", function () {
-		refreshDisplay();
-	});
+	GetAll(1, $("#selectOption").val())
 
-	refreshDisplay();
+})
+
+
+function renderUsers(items, status, count) {
+
+	if (status === 'Participant') {
+		$("#participant").css("display", "block")
+		$("#completed").css("display", "none")
+		$("#include").css("display", "none")
+		$("#progress").css("display", "none")
+		$("#exclude").css("display", "none")
+
+	} else if (status === 'Finished') {
+		$("#participant").css("display", "none")
+		$("#completed").css("display", "block")
+		$("#include").css("display", "none")
+		$("#progress").css("display", "none")
+		$("#exclude").css("display", "none")
+
+	} else if (status === 'Invited') {
+		$("#participant").css("display", "none")
+		$("#completed").css("display", "none")
+		$("#include").css("display", "block")
+		$("#progress").css("display", "none")
+		$("#exclude").css("display", "none")
+
+	} else if (status === 'Started') {
+		$("#participant").css("display", "none")
+		$("#completed").css("display", "none")
+		$("#include").css("display", "none")
+		$("#progress").css("display", "block")
+		$("#exclude").css("display", "none")
+
+	} else if (status === 'Deleted') {
+		$("#participant").css("display", "none")
+		$("#completed").css("display", "none")
+		$("#include").css("display", "none")
+		$("#progress").css("display", "none")
+		$("#exclude").css("display", "block")
+
+	}
+
+	if (count > 0) {
+		counter = count
+		$(".addCandidatesContainer").css('display', "block")
+		$("#temp").setTemplateElement('rows_template');
+		$("#temp").processTemplate(items);
+		$('#users_table tbody').append($("#temp").html());
+		$("#temp").html('');
+		//$("#users_table").tablesorter();
+		$("#users_table").bind("sortEnd", function () {
+			refreshDisplay(status);
+		});
+
+		refreshDisplay(status);
+	} else {
+		$("#temp").css("display", "block")
+		$("#temp").html("<div class='alert alert-warning text-center'>No data in this Section!</div>")
+		$(".addCandidatesContainer").css('display', "none")
+	}
 }
 
-function refreshDisplay() {
+function refreshDisplay(status) {
 	//$('.result').html($('.result').html());
 	$("tr:visible:even").css("background-color", "#fff");
 	$("tr:visible:odd").css("background-color", "#eee");
+
 	CandidateCount = $(".status:contains('Participant')").length;
-	$(".CandidateCount").text(CandidateCount);
+	$(".CandidateCount").text(status + " ( " + counter + " )");
 	InvitedCount = $(".status:contains('Invited')").length;
 	$(".InvitedCount").text(InvitedCount);
 	StartedCount = $(".status:contains('Started')").length;
@@ -68,7 +123,7 @@ function refreshDisplay() {
 
 }
 
-function render(items) {
+function render(items, status, count) {
 
 	// attach the template
 	jQuery.jTemplatesDebugMode(true);
@@ -76,7 +131,7 @@ function render(items) {
 	$(".result").setTemplateElement("table_template");
 
 	$(".result").processTemplate(items);
-	renderUsers(items);
+	renderUsers(items, status, count);
 
 }
 
@@ -157,24 +212,24 @@ function renderPagesIndex(currentPageNumber) {
 }
 
 
-function GetAll(page) {
-
-	$.ajax({
-		url: '/usermanagement/getallcandidate/',
-		cache: false,
-		data: {
-			'page': page,
-		},
-		dataType: "json",
-		success: function (data) {
-			//alert('hello from ajax render');
-
-			render(data['users']);
-			renderpager(data['paginatordata']);
-
-		},
-		error: function (request, status, error) { alert(status + ", " + error); }
-	});
+function GetAll(page, status) {
+	$.ajax(
+		{
+			url: '/usermanagement/getallcandidate/',
+			cache: false,
+			data: {
+				'page': page,
+				"status": status,
+			},
+			dataType: "json",
+			success: function (data) {
+				//alert('hello from ajax render');
+				render(data['users'], status, data['count']);
+				renderpager(data['paginatordata']);
+				//alert('hello after ajax render');
+			},
+			error: function (request, status, error) { alert(status + ", " + error); }
+		});
 
 }
 
@@ -229,7 +284,7 @@ $(document).ready(function () {
 
 
 
-	GetAll(1);
+	GetAll(1, $("#selectOption").val());
 
 	$('#next').click(function () {
 
@@ -240,7 +295,7 @@ $(document).ready(function () {
 
 			$("#current").text(number);
 
-			GetAll(number);
+			GetAll(number, $("#selectOption").val());
 			selectPage(number);
 		}
 
@@ -256,7 +311,7 @@ $(document).ready(function () {
 
 			$("#current").text(number);
 
-			GetAll(number);
+			GetAll(number, $("#selectOption").val());
 			selectPage(number);
 		}
 
@@ -266,7 +321,7 @@ $(document).ready(function () {
 	//$(".pageIndex").live('click', function (event)
 	$(document).on('click', '.pageIndex', function (event) {
 		var number = parseInt(event.target.id) + 1;
-		GetAll(number);
+		GetAll(number, $("#selectOption").val());
 		selectPage(number);
 	});
 
