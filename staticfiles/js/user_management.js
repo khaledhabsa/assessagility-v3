@@ -49,6 +49,10 @@ $("#apply").click(function () {
 		IncludeUser()
 	}
 })
+$(document).on("click", "#Participant", function () {
+	status = "Participant"
+	GetAll(1);
+})
 $(document).on("click", "#Include", function () {
 	status = "Invited"
 	GetAll(1);
@@ -320,6 +324,7 @@ function GetAll(page) {
 			$(".CompCount").html($.trim("(" + data['count_finish'] + ")"));
 			$(".ExCount").html($.trim("(" + data['count_deleted'] + ")"));
 			$(".InvCount").html($.trim("(" + data['count_inv'] + ")"));
+			$(".PartCount").html($.trim("(" + data['count_part'] + ")"));
 		},
 		error: function (request, status, error) { alert(status + ", " + error); }
 	});

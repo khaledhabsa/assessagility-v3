@@ -12,7 +12,7 @@ function check_value(id) {
 		imgAdd.style.display = "block";
 	}
 }
-
+let saveVal = {}
 
 function toggle(source) {
 	checkboxes = document.getElementsByName('example');
@@ -141,6 +141,8 @@ $(document).ready(function () {
 
 		}
 	})
+
+
 })
 $(".bg-info").on("click", ".centerDiv", function (e) {
 	if (!$(this).find(".custom-control-input").prop("checked")) {
@@ -196,6 +198,7 @@ $("#imgDeleteModal").on("click", function (e) {
 					$("#values").empty();
 					$("#imgDelete").css("display", "none");
 					$("#imgAdd").css("display", "block");
+					$(".bg-info #-1").prop('checked', false);
 					data.forEach(function (e, i) {
 						var div = null
 
@@ -425,7 +428,7 @@ $(".bg-info").on("click", ".lastDiv", function (e) {
 	$(".bg-info .centerDiv").removeClass("centerDiv").addClass("lastDiv");
 	$(this).addClass("centerDiv");
 	$(this).removeClass("lastDiv");
-
+	var idOb = $(this).find(".custom-control-input").attr("id")
 	var id = $(this).find("input[type=checkbox").attr("id")
 
 	$.ajax({
@@ -438,11 +441,10 @@ $(".bg-info").on("click", ".lastDiv", function (e) {
 			$("#values").empty()
 			$("#currentDemo").html($.trim($(".bg-info #demoGraph .centerDiv").find(".custom-control-label").text()))
 			data.forEach(function (e, i) {
-
 				var d = null
+				var itr = i + 1
 				if (i + 1 === data.length) {
-
-					d = " <div class='lastDiv' style='border-bottom: none'>\
+					d = " <div class='lastDiv' id='" + itr + "' style='border-bottom: none'>\
 							<div class='custom-control custom-checkbox left'>\
 								<input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
 									name='example5'>\
@@ -453,7 +455,8 @@ $(".bg-info").on("click", ".lastDiv", function (e) {
 						</div>\
 					"
 				} else {
-					d = " <div class='lastDiv'>\
+
+					d = " <div class='lastDiv' id='" + itr + "'>\
 							<div class='custom-control custom-checkbox left'>\
 								<input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
 									name='example5'>\
@@ -466,7 +469,13 @@ $(".bg-info").on("click", ".lastDiv", function (e) {
 				}
 
 				$("#values").append(d);
+				if (saveVal[idOb]) {
+					if (saveVal[idOb].includes($(".bg-warning").find("#" + itr).find(".custom-control-input").attr("id"))) {
+						$(".bg-warning #values").find("#" + itr).find(".custom-control-input").prop("checked", true)
+					}
+				}
 			})
+
 		},
 		error: function (data) {
 
@@ -481,6 +490,7 @@ $(".bg-warning").on("click", ".lastDiv", function (e) {
 	if ($(this).find(".custom-control-input").prop("checked")) {
 		$(".bg-warning #imgAddVal").css("display", "none");
 		$(".bg-warning #imgDeleteVal").css("display", "block");
+
 	} else {
 		var arr = []
 		$(".bg-warning").find(".lastDiv").each(function (i, ob) {
@@ -493,6 +503,15 @@ $(".bg-warning").on("click", ".lastDiv", function (e) {
 			$(".bg-warning #imgDeleteVal").css("display", "none");
 		}
 	}
+	var value = []
+	$(".bg-warning .lastDiv").each(function (i, ob) {
+
+		if ($(ob).find(".custom-control-input").prop("checked"))
+			value.push($(ob).find(".custom-control-input").attr("id"))
+	})
+
+	saveVal[$(".bg-info .centerDiv").find(".custom-control-input").attr("id")] = value
+
 })
 $("#imgDeleteValModal").on("click", function (e) {
 	$("#myModalVal").modal("hide");
@@ -511,6 +530,7 @@ $("#imgDeleteValModal").on("click", function (e) {
 		success: function (data) {
 			$(".bg-warning #imgAddVal").css("display", "block");
 			$(".bg-warning #imgDeleteVal").css("display", "none");
+			$(".bg-warning #0").prop('checked', false);
 			$.ajax({
 				url: '/survey/getalldemgraphicvalue/',
 				data: {

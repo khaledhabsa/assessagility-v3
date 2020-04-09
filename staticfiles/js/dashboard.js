@@ -12,7 +12,7 @@ function check_value(id) {
     imgAdd.style.display = "block";
   }
 }
-
+let saveVal = {}
 $("#myInput").val(window.location.origin + "/answerpage/0");
 function toggle(source) {
   checkboxes = document.getElementsByName('example');
@@ -560,7 +560,7 @@ $(".bg-info").on("click", ".lastDiv", function (e) {
   $(".bg-info .centerDiv").removeClass("centerDiv").addClass("lastDiv");
   $(this).addClass("centerDiv");
   $(this).removeClass("lastDiv");
-
+  var idOb = $(this).find(".custom-control-input").attr("id")
   var id = $(this).find("input[type=checkbox").attr("id")
 
   $.ajax({
@@ -573,35 +573,41 @@ $(".bg-info").on("click", ".lastDiv", function (e) {
       $("#values").empty()
       $("#currentDemo").html($.trim($(".bg-info #demoGraph .centerDiv").find(".custom-control-label").text()))
       data.forEach(function (e, i) {
-
         var d = null
+        var itr = i + 1
         if (i + 1 === data.length) {
-
-          d = " <div class='lastDiv' style='border-bottom: none'>\
-                          <div class='custom-control custom-checkbox left'>\
-                              <input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
-                                  name='example5'>\
-                              <label class='custom-control-label fontNormal' for='"+ e.id + "'>&nbsp;\
-                                  &nbsp;&nbsp; &nbsp;\
-                                  "+ e.value + "</label>\
-                          </div>\
-                      </div>\
-                  "
+          d = " <div class='lastDiv' id='" + itr + "' style='border-bottom: none'>\
+							<div class='custom-control custom-checkbox left'>\
+								<input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
+									name='example5'>\
+								<label class='custom-control-label fontNormal' for='"+ e.id + "'>&nbsp;\
+									&nbsp;&nbsp; &nbsp;\
+									"+ e.value + "</label>\
+							</div>\
+						</div>\
+					"
         } else {
-          d = " <div class='lastDiv'>\
-                          <div class='custom-control custom-checkbox left'>\
-                              <input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
-                                  name='example5'>\
-                              <label class='custom-control-label fontNormal' for='"+ e.id + "'>&nbsp;\
-                                  &nbsp;&nbsp; &nbsp;\
-                                  "+ e.value + "</label>\
-                          </div>\
-                      </div>\
-                  "
+
+          d = " <div class='lastDiv' id='" + itr + "'>\
+							<div class='custom-control custom-checkbox left'>\
+								<input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
+									name='example5'>\
+								<label class='custom-control-label fontNormal' for='"+ e.id + "'>&nbsp;\
+									&nbsp;&nbsp; &nbsp;\
+									"+ e.value + "</label>\
+							</div>\
+						</div>\
+					"
         }
 
         $("#values").append(d);
+        if (saveVal[idOb]) {
+          if (saveVal[idOb].includes($(".bg-warning").find("#" + itr).find(".custom-control-input").attr("id"))) {
+            $(".bg-warning #values").find("#" + itr).find(".custom-control-input").prop("checked", true)
+          }
+        }
       })
+
     },
     error: function (data) {
 
@@ -610,6 +616,7 @@ $(".bg-info").on("click", ".lastDiv", function (e) {
   })
 
 })
+
 
 //---------------//
 $(".bg-warning").on("click", ".lastDiv", function (e) {
@@ -628,6 +635,15 @@ $(".bg-warning").on("click", ".lastDiv", function (e) {
       $(".bg-warning #imgDeleteVal").css("display", "none");
     }
   }
+  var value = []
+  $(".bg-warning .lastDiv").each(function (i, ob) {
+
+    if ($(ob).find(".custom-control-input").prop("checked"))
+      value.push($(ob).find(".custom-control-input").attr("id"))
+  })
+
+  saveVal[$(".bg-info .centerDiv").find(".custom-control-input").attr("id")] = value
+
 })
 $(".bg-warning").on("click", "#imgDeleteVal", function (e) {
   var ids = []
