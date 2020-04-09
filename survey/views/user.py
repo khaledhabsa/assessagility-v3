@@ -25,7 +25,7 @@ def user_login(request):
     '''
     if request.user.is_authenticated:
         if (request.GET.get('next') != "None") and (request.GET.get('next') is not None):
-            print(request.GET.get('next'))
+
             return redirect(request.GET.get('next'))
         else:
             return redirect("survey:answerpage", mode=0)
@@ -35,7 +35,7 @@ def user_login(request):
             form_user = UserLoginForm(request.POST)
             if form_user.is_valid():
                 user = form_user.cleaned_data.get('user')
-                print(user)
+
                 login(request, user)
                 nextUrl = request.POST.get('next')
                 if nextUrl == "None":

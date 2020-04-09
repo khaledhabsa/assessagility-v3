@@ -169,6 +169,7 @@ $(document).ready(function () {
   $.ajax({
     url: '/survey/opened/',
     success: function (data) {
+      console.log("done")
       if (data === 'closed') {
         $("#btnassess").empty();
         $("#btnassess").append("<button type='button' id='startAsseement' class='btn btn-start' data-toggle='modal' data-target='#myModal'>Start Assessment</button>");
@@ -180,7 +181,7 @@ $(document).ready(function () {
       }
     },
     error: function (data) {
-
+      console.log("error")
     }
   })
 
