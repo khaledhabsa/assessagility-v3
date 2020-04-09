@@ -463,3 +463,42 @@
 .pagesIndex span{
     margin-top: 3px;
 }
+.status-dropdown{
+    display: none;
+    position: absolute;
+    list-style: none;
+    background: #fff;
+    padding: 0px;
+    text-align: center;
+    top: 50px;
+    right: 123px;
+    width: 159.3px;
+    color:#686868;
+    height: 171.2px;
+}
+
+.status-dropdown > li{
+    margin: 15px;
+    font-size: 14px;
+    
+
+}
+.status-dropdown li :hover{
+    cursor: pointer;
+}
+.avatar {
+    position: relative;
+    width: 21px;
+    height: 21px;
+    background-color: #0945A5;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.avatar img {
+    width: 14px;
+    height: 14px;
+    position: absolute;
+    bottom: 4px;
+}

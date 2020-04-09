@@ -21,7 +21,7 @@
             </div>
             <div class="nfo" title="All answers are automatically saved. You can continue working on the survey as needed. The submit button will be active once you finish all the questions in the survey."><i class="fa fa-info-circle"></i></div>
             <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-success submit-survey pull-right">{% trans "Submit" %}</button>
-            <button type="button" class="btn btn-light mr-2 pull-right"><a href="{% url 'survey:finished' %}?status=save">{% trans "Save for now" %}</a></button>
+            <button type="button" class="btn btn-light mr-2 pull-right"><a href="{% url 'survey:finished' %}">{% trans "Save for now" %}</a></button>
           </div>
           <div class="col-md-5">
             <div class="btn-group questions-layout">
@@ -100,7 +100,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-success"><a href="{% url 'survey:finished'%}?status=submit">Submit Survey</a></button>
+            <button type="button" class="btn btn-success"><a href="{% url 'survey:finished'%}">Submit Survey</a></button>
         </div>
       </div>
     </div>

@@ -1,5 +1,3 @@
-var counter = 0;
-
 jQuery(document).ajaxSend(function (event, xhr, settings) {
 	function getCookie(name) {
 		var cookieValue = null;
@@ -38,92 +36,177 @@ jQuery(document).ajaxSend(function (event, xhr, settings) {
 		xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
 	}
 });
-$("#apply").click(function () {
-
-	GetAll(1, $("#selectOption").val())
-
+let status = null
+$(document).on("click", "#statusClick", function () {
+	$(document).find("#status").slideToggle()
 })
+$("#apply").click(function () {
+	if ($("#selectOption").val() === "Delete") {
+		Delete()
+	} else if ($("#selectOption").val() === "Exclude") {
+		ExcludeUser()
+	} else if ($("#selectOption").val() === "Include") {
+		IncludeUser()
+	}
+})
+$(document).on("click", "#Include", function () {
+	status = "Invited"
+	GetAll(1);
+})
+$(document).on("click", "#Exclude", function () {
+	status = "Deleted"
+	GetAll(1);
+})
+$(document).on("click", "#Finished", function () {
+	status = "Finished"
+	GetAll(1);
+})
+$(document).on("click", "#Started", function () {
+	status = "Started"
+	GetAll(1);
+})
+function Delete() {
+	ids = [];
+	var todelete = $('.usercheckbox.checked');
+	//$('.checked').parent().parent().remove();
 
-
-function renderUsers(items, status, count) {
-
-	if (status === 'Participant') {
-		$("#participant").css("display", "block")
-		$("#completed").css("display", "none")
-		$("#include").css("display", "none")
-		$("#progress").css("display", "none")
-		$("#exclude").css("display", "none")
-
-	} else if (status === 'Finished') {
-		$("#participant").css("display", "none")
-		$("#completed").css("display", "block")
-		$("#include").css("display", "none")
-		$("#progress").css("display", "none")
-		$("#exclude").css("display", "none")
-
-	} else if (status === 'Invited') {
-		$("#participant").css("display", "none")
-		$("#completed").css("display", "none")
-		$("#include").css("display", "block")
-		$("#progress").css("display", "none")
-		$("#exclude").css("display", "none")
-
-	} else if (status === 'Started') {
-		$("#participant").css("display", "none")
-		$("#completed").css("display", "none")
-		$("#include").css("display", "none")
-		$("#progress").css("display", "block")
-		$("#exclude").css("display", "none")
-
-	} else if (status === 'Deleted') {
-		$("#participant").css("display", "none")
-		$("#completed").css("display", "none")
-		$("#include").css("display", "none")
-		$("#progress").css("display", "none")
-		$("#exclude").css("display", "block")
+	for (i = 0; i < todelete.length; i++) {
+		id = $(todelete[i]).attr('id');
+		ids.push(id);
 
 	}
+	if (ids.length > 0) {
 
-	if (count > 0) {
-		counter = count
-		$(".addCandidatesContainer").css('display', "block")
-		$("#temp").setTemplateElement('rows_template');
-		$("#temp").processTemplate(items);
-		$('#users_table tbody').append($("#temp").html());
-		$("#temp").html('');
-		//$("#users_table").tablesorter();
-		$("#users_table").bind("sortEnd", function () {
-			refreshDisplay(status);
+		$.ajax({
+			url: 'deletecandidate/',
+			cache: false,
+			type: 'POST',
+			data: {
+				'ids': ids.toString()
+			},
+			dataType: 'json',
+			success: function (data) {
+
+				UpdateSelectall();
+				todelete.parent().parent().remove();
+				GetAll(parseInt($("#current").text()));
+				//render(data);
+				//alert(data);
+			},
+			error: function () {
+				//alert('failure');
+			}
 		});
 
-		refreshDisplay(status);
-	} else {
-		$("#temp").css("display", "block")
-		$("#temp").html("<div class='alert alert-warning text-center'>No data in this Section!</div>")
-		$(".addCandidatesContainer").css('display', "none")
+		refreshDisplay();
+	}
+}
+function ExcludeUser() {
+	ids = [];
+	var toExclude = $('.usercheckbox.checked');
+	//$('.checked').parent().parent().remove();
+
+	for (i = 0; i < toExclude.length; i++) {
+		id = $(toExclude[i]).attr('id');
+		ids.push(id);
+
+	}
+	if (ids.length > 0) {
+
+		$.ajax({
+			url: 'exclude/',
+			cache: false,
+			type: 'POST',
+			data: {
+				'ids': ids.toString()
+			},
+			dataType: 'json',
+			success: function (data) {
+
+				UpdateSelectall();
+
+				GetAll(parseInt($("#current").text()));
+				//render(data);
+				//alert(data);
+			},
+			error: function () {
+				//alert('failure');
+			}
+		});
+
+		refreshDisplay();
+	}
+}
+function IncludeUser() {
+	ids = [];
+	var toInclude = $('.usercheckbox.checked');
+	//$('.checked').parent().parent().remove();
+
+	for (i = 0; i < toInclude.length; i++) {
+		id = $(toInclude[i]).attr('id');
+		ids.push(id);
+
+	}
+	if (ids.length > 0) {
+
+		$.ajax({
+			url: 'include/',
+			cache: false,
+			type: 'POST',
+			data: {
+				'ids': ids.toString()
+			},
+			dataType: 'json',
+			success: function (data) {
+
+				UpdateSelectall();
+
+				GetAll(parseInt($("#current").text()));
+				//render(data);
+				//alert(data);
+			},
+			error: function () {
+				//alert('failure');
+			}
+		});
+
+		refreshDisplay();
 	}
 }
 
-function refreshDisplay(status) {
+function renderUsers(items) {
+
+	$("#temp").setTemplateElement('rows_template');
+	$("#temp").processTemplate(items);
+	$('#users_table tbody').append($("#temp").html());
+	$("#temp").html('');
+	//$("#users_table").tablesorter();
+	$("#users_table").bind("sortEnd", function () {
+		refreshDisplay();
+	});
+
+	refreshDisplay();
+}
+
+function refreshDisplay() {
 	//$('.result').html($('.result').html());
 	$("tr:visible:even").css("background-color", "#fff");
 	$("tr:visible:odd").css("background-color", "#eee");
-
-	CandidateCount = $(".status:contains('Participant')").length;
-	$(".CandidateCount").text(status + " ( " + counter + " )");
-	InvitedCount = $(".status:contains('Invited')").length;
-	$(".InvitedCount").text(InvitedCount);
-	StartedCount = $(".status:contains('Started')").length;
-	$(".StartedCount").text(StartedCount);
-	FinishedCount = $(".status:contains('Finished')").length;
-	$(".FinishedCount").text(FinishedCount);
-	UsedQuota = InvitedCount + StartedCount + FinishedCount;
-	$(".UsedQuota").text(UsedQuota);
+	// CandidateCount = $(".status:contains('Participant')").length;
+	// $(".CandidateCount").text(CandidateCount);
+	// InvitedCount = $(".status:contains('Invited')").length;
+	// $(".InvitedCount").text(InvitedCount);
+	// StartedCount = $(".status:contains('Started')").length;
+	// $(".StartedCount").text(StartedCount);
+	// FinishedCount = $(".status:contains('Finished')").length;
+	// $(".FinishedCount").text(FinishedCount);
+	// UsedQuota = InvitedCount + StartedCount + FinishedCount;
+	// $(".UsedQuota").text(UsedQuota);
 
 
 }
 
-function render(items, status, count) {
+function render(items) {
 
 	// attach the template
 	jQuery.jTemplatesDebugMode(true);
@@ -131,10 +214,9 @@ function render(items, status, count) {
 	$(".result").setTemplateElement("table_template");
 
 	$(".result").processTemplate(items);
-	renderUsers(items, status, count);
+	renderUsers(items);
 
 }
-
 
 function renderpager(candidates) {
 
@@ -153,11 +235,9 @@ function renderpager(candidates) {
 
 
 function selectPage(pageNumber) {
-
 	currentPageNumber = parseInt(pageNumber);
 	renderPagesIndex(currentPageNumber - 1);
 }
-
 
 
 function renderPagesIndex(currentPageNumber) {
@@ -212,24 +292,37 @@ function renderPagesIndex(currentPageNumber) {
 }
 
 
-function GetAll(page, status) {
-	$.ajax(
-		{
-			url: '/usermanagement/getallcandidate/',
-			cache: false,
-			data: {
-				'page': page,
-				"status": status,
-			},
-			dataType: "json",
-			success: function (data) {
-				//alert('hello from ajax render');
-				render(data['users'], status, data['count']);
-				renderpager(data['paginatordata']);
-				//alert('hello after ajax render');
-			},
-			error: function (request, status, error) { alert(status + ", " + error); }
-		});
+function GetAll(page) {
+	var data = null
+	if (status !== null) {
+		data = {
+			'page': page,
+			'status': status,
+		}
+	} else {
+		data = {
+			'page': page,
+		}
+	}
+	$.ajax({
+		url: '/usermanagement/getallcandidate/',
+		cache: false,
+		data: data,
+		dataType: "json",
+		success: function (data) {
+			//alert('hello from ajax render');
+
+
+			render(data['users']);
+			renderpager(data['paginatordata']);
+			$(".CandidateCount").html($.trim("(" + data['count_part'] + ")"));
+			$(".ProgCount").html($.trim("(" + data['count_started'] + ")"));
+			$(".CompCount").html($.trim("(" + data['count_finish'] + ")"));
+			$(".ExCount").html($.trim("(" + data['count_deleted'] + ")"));
+			$(".InvCount").html($.trim("(" + data['count_inv'] + ")"));
+		},
+		error: function (request, status, error) { alert(status + ", " + error); }
+	});
 
 }
 
@@ -284,7 +377,7 @@ $(document).ready(function () {
 
 
 
-	GetAll(1, $("#selectOption").val());
+	GetAll(1);
 
 	$('#next').click(function () {
 
@@ -295,7 +388,7 @@ $(document).ready(function () {
 
 			$("#current").text(number);
 
-			GetAll(number, $("#selectOption").val());
+			GetAll(number);
 			selectPage(number);
 		}
 
@@ -311,7 +404,7 @@ $(document).ready(function () {
 
 			$("#current").text(number);
 
-			GetAll(number, $("#selectOption").val());
+			GetAll(number);
 			selectPage(number);
 		}
 
@@ -321,7 +414,7 @@ $(document).ready(function () {
 	//$(".pageIndex").live('click', function (event)
 	$(document).on('click', '.pageIndex', function (event) {
 		var number = parseInt(event.target.id) + 1;
-		GetAll(number, $("#selectOption").val());
+		GetAll(number);
 		selectPage(number);
 	});
 
@@ -357,11 +450,9 @@ $(document).ready(function () {
 				},
 				dataType: 'json',
 				success: function (data) {
-					$('#display').empty();
-
 					if (data['error'] != undefined) {
 						//   alert(data['error']);
-						$('#display').append('<div class="alert alert-danger">This Email is duplicated. Please check</div>');
+						$('.pageWrapper #display').append('<div class="submit_form_message"><div class="confirmationerror2">Data is duplicated. Please check</div></div>');
 					} else {
 						renderUsers(data);
 						$('#firstname').val('');
@@ -369,9 +460,7 @@ $(document).ready(function () {
 						$('#email').val('');
 						// $('.pageWrapper #display').css('display','none');
 						$('.pageWrapper #display').html('');
-
 						GetAll(parseInt($("#current").text()));
-						$('#display').html('<div class="alert alert-success">Successfully added!</div>');
 					}
 				},
 				error: function () {
@@ -424,7 +513,7 @@ $(document).ready(function () {
 		$('tr').hide();
 		$('.header').show();
 		$('tr:icontains("' + keyword + '")').show();
-		refreshDisplay($("#selectOption").val());
+		refreshDisplay();
 
 	});
 	//$('.edit').live('click', function() {

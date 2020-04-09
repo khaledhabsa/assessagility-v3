@@ -5,29 +5,36 @@ from django.contrib.auth.models import User
 
 
 class UserLoginForm(forms.ModelForm):
-    username = forms.CharField(widget=forms.TextInput(
+    email = forms.EmailField(widget=forms.EmailInput(
         {"placeholder": 'Username', 'class': 'form-control', "id": 'inputEmail'}))
     password = forms.CharField(widget=forms.PasswordInput(
         {"placeholder": 'Password', 'class': 'form-control', "id": 'inputPassword'}))
 
     class Meta:
         model = User
-        fields = ('username', 'password',)
+        fields = ('email', 'password',)
 
     error_msg = {
-        "user_not_found": "This user doesn't exist",
+        "user_not_found": "This Email doesn't exist",
         "password": "The password isn't correct"
     }
 
     def clean(self):
-        username = self.cleaned_data.get('username')
+        email = self.cleaned_data.get('email')
         password = self.cleaned_data.get('password')
-        user = User.objects.filter(username=username)
+        user = User.objects.filter(email=email)
         if not user.exists():
             raise forms.ValidationError(self.error_msg['user_not_found'])
 
         else:
-            auth_user = authenticate(username=username, password=password)
+            user = user[0]
+            if user.username != user.email:
+                if user.email != '':
+                    user.username = user.email
+                    user = user.save()
+
+            auth_user = authenticate(
+                username=email, password=password)
             if auth_user:
                 self.cleaned_data['user'] = auth_user
                 return self.cleaned_data
@@ -68,11 +75,6 @@ class AddUserForm(forms.ModelForm):
         "id": "inputLastName",
         "placeholder": "Last Name"
     }))
-    username = forms.CharField(max_length=100, widget=forms.TextInput(attrs={
-        "class": "form-control",
-        "id": "inputUsername",
-        "placeholder": "Username"
-    }))
     email = forms.EmailField(widget=forms.TextInput(attrs={
         "class": "form-control",
         "id": "inputEmail",
@@ -91,21 +93,17 @@ class AddUserForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'username',
+        fields = ('first_name', 'last_name',
                   'email', 'password', 'password1',)
 
     def clean(self):
         email = self.cleaned_data['email']
         password = self.cleaned_data['password']
         password1 = self.cleaned_data['password1']
-        username = self.cleaned_data['username']
-        check_username = User.objects.filter(username=username)
         check_email = User.objects.filter(email=email)
 
         if check_email.exists():
             raise forms.ValidationError(u'%s already exists' % email)
-        if check_username.exists():
-            raise forms.ValidationError(u'%s already exists' % username)
 
         if password and password1 and password == password1:
             return self.cleaned_data
@@ -117,7 +115,7 @@ class AddUserForm(forms.ModelForm):
         user = User.objects.create(
             first_name=self.cleaned_data.get("first_name"),
             last_name=self.cleaned_data.get("last_name"),
-            username=self.cleaned_data.get("username"),
+            username=self.cleaned_data.get("email"),
             email=self.cleaned_data.get("email"),
             last_login=now()
         )

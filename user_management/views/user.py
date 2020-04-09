@@ -71,8 +71,16 @@ def flat_user_date(users_list):
 
 def get_all_candidate(request):
     # UserProfile.objects.all().exclude(user__is_superuser=True)
-    status = request.GET.get("status", "participant")
-    candidates_list = Candidate.objects.filter(status__icontains=status)
+    status = request.GET.get("status", "all")
+    if status == "all":
+        candidates_list = Candidate.objects.all()
+    else:
+        candidates_list = Candidate.objects.filter(status__icontains=status)
+    count_part = len(Candidate.objects.filter(status__icontains="Participant"))
+    count_started = len(Candidate.objects.filter(status__icontains="Started"))
+    count_finish = len(Candidate.objects.filter(status__icontains="Finished"))
+    count_del = len(Candidate.objects.filter(status__icontains="Deleted"))
+    count_inv = len(Candidate.objects.filter(status__icontains="Invited"))
     page = int(request.GET.get('page', 0))
     if page:
         paginator = Paginator(candidates_list, 20)
@@ -89,7 +97,9 @@ def get_all_candidate(request):
                               'num_pages': candidates.paginator.num_pages})
 
         data = json.dumps(
-            {'users': users, 'paginatordata': paginatordata, "count": len(candidates_list)})
+            {'users': users, 'paginatordata': paginatordata,
+             "count": len(candidates_list), "count_part": count_part, "count_started": count_started,
+             "count_finish": count_finish, "count_deleted": count_del, "count_inv": count_inv})
         return HttpResponse(data, content_type='application/json')
     else:
         users = flat_user_date(candidates_list)

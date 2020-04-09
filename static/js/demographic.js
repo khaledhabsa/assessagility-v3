@@ -1,448 +1,637 @@
-jQuery(document).ajaxSend(function (event, xhr, settings) {
-	function getCookie(name) {
-		var cookieValue = null;
-		if (document.cookie && document.cookie != '') {
-			var cookies = document.cookie.split(';');
-			for (var i = 0; i < cookies.length; i++) {
-				var cookie = jQuery.trim(cookies[i]);
-				// Does this cookie string begin with the name we want?
-				if (cookie.substring(0, name.length + 1) == (name + '=')) {
-					cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-					break;
-				}
-			}
-		}
-		return cookieValue;
-	}
+function check_value(id) {
+	var checkBox = document.getElementById(id);
+	// var imgDelete = document.getElementById("imgDelete");
+	var imgAdd = document.getElementById("imgAdd");
 
-	function sameOrigin(url) {
-		// url could be relative or scheme relative or absolute
-		var host = document.location.host;
-		// host + port
-		var protocol = document.location.protocol;
-		var sr_origin = '//' + host;
-		var origin = protocol + sr_origin;
-		// Allow absolute or scheme relative URLs to same origin
-		return (url == origin || url.slice(0, origin.length + 1) == origin + '/') || (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
-			// or any other URL that isn't scheme relative or absolute i.e relative.
-			!(/^(\/\/|http:|https:).*/.test(url));
-	}
-
-	function safeMethod(method) {
-		return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-	}
-
-	if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
-		xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-	}
-});
-
-function renderUsers(items) {
-	$("#temp").setTemplateElement('rows_template');
-	$("#temp").processTemplate(items);
-	$('#users_table tbody').append($("#temp").html());
-	$("#temp").html('');
-	//$("#users_table").tablesorter();
-	$("#users_table").bind("sortEnd", function () {
-		refreshDisplay();
-	});
-
-	refreshDisplay();
-}
-
-function refreshDisplay() {
-	$("tr:visible:even").css("background-color", "#fff");
-	$("tr:visible:odd").css("background-color", "#eee");
-}
-
-function render(items) {
-	// attach the template
-	jQuery.jTemplatesDebugMode(true);
-	$(".result").setTemplateElement("table_template");
-	$(".result").processTemplate(items);
-	renderUsers(items);
-}
-
-function renderpager(candidates) {
-
-	if (candidates[0]['num_pages'] >= 2) {
-		$(".footerpagination").show();
-	}
-	else {
-		$(".footerpagination").hide();
-	}
-
-	$("#current").text(candidates[0]['number']);
-	$("#num_pages").text(candidates[0]['num_pages']);
-
-	selectPage(candidates[0]['number']);
-}
-
-
-function selectPage(pageNumber) {
-
-	currentPageNumber = parseInt(pageNumber);
-	renderPagesIndex(currentPageNumber - 1);
-}
-
-
-function renderPagesIndex(currentPageNumber) {
-	var num_pages = parseInt($("#num_pages").text());
-	var output = "";
-	x = 0;
-	y = 10;
-
-	if (num_pages > 10) {
-		x = currentPageNumber - 5;
-		y = currentPageNumber + 5;
-
-		for (var i = 0; i < 6; i++) {
-			if (y > num_pages) {
-				y = y - 1;
-				x = x - 1;
-			}
-
-			if (x < 0) {
-				y = y + 1;
-				x = x + 1;
-			}
-		}
-
-	}
-	else {
-		y = num_pages;
-	}
-
-
-	for (var i = x; i < y; i++) {
-		output += '<span id="' + i + '" class="pageIndex btn btn-default btn-sm ';
-		if (i == currentPageNumber) {
-			output += 'currentPageIndex';
-		}
-		output += '">' + (i + 1) + '</span>'
-	}
-
-	$(".pagesIndex").html(output);
-
-	if (currentPageNumber + 1 == 1) {
-		$("#previous").addClass('disabled');
-	} else {
-		$("#previous").removeClass('disabled');
-	}
-	if (num_pages == currentPageNumber + 1) {
-		$("#next").addClass('disabled');
+	if (checkBox.checked == true) {
+		// imgDelete.style.display = "block";
+		imgAdd.style.display = "none";
 
 	} else {
-		$("#next").removeClass('disabled');
+		// imgDelete.style.display = "none";
+		imgAdd.style.display = "block";
 	}
 }
 
 
+function toggle(source) {
+	checkboxes = document.getElementsByName('example');
+	var imgDelete = document.getElementById("imgDelete");
+	var imgAdd = document.getElementById("imgAdd");
+	for (var i = 0; i < checkboxes.length; i++) {
+		if (checkboxes[i] != source) {
+			checkboxes[i].checked = source.checked;
 
-function GetAll(page) {
+			if (checkboxes[i].checked) {
 
+				imgDelete.style.display = "block";
+				imgAdd.style.display = "none";
+
+			} else {
+				imgDelete.style.display = "none";
+				imgAdd.style.display = "block";
+			}
+
+
+		}
+	}
+}
+function toggle_val(source) {
+	$(source).prop("checked")
+	$(".bg-warning #values").find(".lastDiv").each(function (i, ob) {
+		if ($(source).prop("checked")) {
+			$(ob).find(".custom-control-input").prop("checked", true)
+			$("#imgDeleteVal").css("display", "block");
+			$("#imgAddVal").css("display", "none");
+		} else {
+			$(ob).find(".custom-control-input").prop("checked", false)
+			$("#imgDeleteVal").css("display", "none");
+			$("#imgAddVal").css("display", "block");
+		}
+
+	})
+}
+$(document).ready(function () {
+	var id = 0
+	$("#demoGraph").empty();
+	$("#values").empty();
 	$.ajax({
 		url: '/survey/getalldemgraphic/',
 		cache: false,
-		data: {
-			'page': page,
-		},
 		dataType: "json",
 		success: function (data) {
+			data.forEach(function (e, i) {
+				var div = null
 
-			render(data['users']);
-			renderpager(data['paginatordata']);
-		},
-		error: function (request, status, error) { alert(status + ", " + error); }
-	});
-}
+				if (i === 0) {
+					div = "<div class='centerDiv'>\
+                          <div class='custom-control custom-checkbox left'>\
+                              <input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
+                                  name='example'>\
+                              <label class='custom-control-label fontNormal' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' for='" + e.id + "'>&nbsp; &nbsp;&nbsp; &nbsp;\
+                                  "+ e.title + "</label>\
+                          </div>\
+                          <p class='right'>\
+                              <img src=\"/static/images/keyboard_arrow_right-24px (1).svg\">\
+                          </p>\
+                      </div>"
+					$("#currentDemo").empty()
+					$("#currentDemo").append(e.title)
+					$.ajax({
+						url: '/survey/getalldemgraphicvalue/',
+						data: {
+							"demographic": e.id,
+						},
+						success: function (dt) {
+							var data = JSON.parse(dt)
+							data.forEach(function (e, i) {
 
-function UpdateSelectall() {
-	if ($('.selectall').hasClass('checked')) {
-		$('.selectall').removeClass('checked');
-		$('.selectall').parents('table').find('.usercheckbox').removeClass('checked');
-	}
-}
+								var d = null
+								if (i + 1 === data.length) {
 
-function PrepareSelectall() {
-	$('.selectall').live('click', function () {
-		if ($(this).hasClass('checked')) {
-			$(this).removeClass('checked');
-			$(this).parents('table').find('.usercheckbox').removeClass('checked');
-		} else {
-			$(this).addClass('checked');
-			$(this).parents('table').find('.usercheckbox').addClass('checked');
-		}
-	});
-}
+									d = " <div class='lastDiv' style='border-bottom: none'>\
+                                          <div class='custom-control custom-checkbox left'>\
+                                              <input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
+                                                  name='example5'>\
+                                              <label class='custom-control-label fontNormal' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' for='"+ e.id + "'>&nbsp;\
+                                                  &nbsp;&nbsp; &nbsp;\
+                                                  "+ e.value + "</label>\
+                                          </div>\
+                                      </div>\
+                                  "
+								} else {
+									d = " <div class='lastDiv'>\
+                                          <div class='custom-control custom-checkbox left'>\
+                                              <input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
+                                                  name='example5'>\
+                                              <label class='custom-control-label fontNormal' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' for='"+ e.id + "'>&nbsp;\
+                                                  &nbsp;&nbsp; &nbsp;\
+                                                  "+ e.value + "</label>\
+                                          </div>\
+                                      </div>\
+                                  "
+								}
 
+								$("#values").append(d);
+							})
+						},
+						error: function (data) {
 
-$(document).ready(function () {
-	$(document).on('click', '.selectall', function () {
-		if ($(this).hasClass('checked')) {
-			$(this).removeClass('checked');
-			$('.usercheckbox').removeClass('checked');
-		} else {
-			$(this).addClass('checked');
-			$('.usercheckbox').addClass('checked');
-		}
-	});
+						}
 
-	jQuery.expr.filters.icontains = function (elem, i, m) {
-		return (elem.innerText || elem.textContent || "").toLowerCase().indexOf(m[3].toLowerCase()) > -1;
-	}
-
-	GetAll(1);
-
-	$('#next').click(function () {
-		var number = parseInt($("#current").text());
-		var num_pages = $("#num_pages").text();
-		if (num_pages > number) {
-			number = (number + 1);
-			$("#current").text(number);
-			GetAll(number);
-			selectPage(number);
-		}
-	});
-
-	$('#previous').click(function () {
-		var number = parseInt($("#current").text());
-		if (number > 1) {
-			number = (number - 1);
-			$("#current").text(number);
-			GetAll(number);
-			selectPage(number);
-		}
-	});
-
-	$(document).on('click', '.pageIndex', function (event) {
-		var number = parseInt(event.target.id) + 1;
-		GetAll(number);
-		selectPage(number);
-	});
-
-
-	$('.closeaddform').click(function () {
-		$('.addform').hide();
-	});
-
-	$('.addone').click(function () {
-		$('.addform').show();
-	});
-
-	//$('.usercheckbox').live('click', function() {
-	$(document).on('click', '.usercheckbox', function () {
-		if ($(this).hasClass('checked')) {
-			$(this).removeClass('checked');
-		} else {
-			$(this).addClass('checked');
-		}
-	});
-	$("#closeModal").click(function () {
-		$('#title').val('');
-		$('#required').prop('checked', false)
-		$('#viewable').prop('checked', false);
-		$('#display').html('');
-	})
-	$('.addcandidatebutton').click(function () {
-		if ($('#addnewcadidateform').valid()) {
-			var viewable = false;
-			var required = false;
-			if ($('#required').is(':checked')) { required = true; }
-			if ($('#viewable').is(':checked')) { viewable = true; }
-
-			$.ajax({
-				url: '/survey/adddemographic/',
-				type: 'POST',
-				data: {
-					'title': $('#title').val(),
-					'required': required ? 1 : 0,
-					'viewable': viewable ? 1 : 0,
-				},
-				dataType: 'json',
-				success: function (data) {
-					if (data['error'] != undefined) {
-						$('#display').html('<div class="alert alert-danger">Data is duplicated. Please check</div>');
-					}
-					else {
-						renderUsers(data);
-						$('#title').val('');
-						$('#required').prop('checked', false);
-						$('#viewable').prop('checked', false);
-						$('#display').html('');
-						GetAll(parseInt($("#current").text()));
-						$('#display').html('<div class="alert alert-success">Successfully added!</div>');
-					}
-				},
-				error: function () { }
-			});
-		}
-
-	});
-	$('.delete').click(function () {
-		ids = [];
-		var todelete = $('.usercheckbox.checked');
-
-		for (i = 0; i < todelete.length; i++) {
-			id = $(todelete[i]).attr('id');
-
-			ids.push(id);
-		}
-		if (ids.length > 0) {
-			console.log(ids)
-			$.ajax({
-				url: '/survey/deletedemographic/',
-				cache: false,
-				type: 'POST',
-				data: { 'ids': ids.toString() },
-				dataType: 'json',
-				success: function (data) {
-					UpdateSelectall();
-					todelete.parent().parent().remove();
-					GetAll(parseInt($("#current").text()));
-				},
-				error: function () { }
-			});
-			refreshDisplay();
-		}
-	});
-	$('.searchbox').keyup(function () {
-		var keyword = $('.searchbox').val().toLowerCase();
-		$('tr').hide();
-		$('.header').show();
-		$('tr:icontains("' + keyword + '")').show();
-		refreshDisplay();
-	});
-
-	$(document).on('click', '.edit', function () {
-		var row = $(this).closest('tr');
-		var tdText = row.find('.title .editabletext').text();
-		tdText = ($.trim(tdText))
-		row.find('.title .editabletext').hide();
-		row.find('.title').append('<div class="editfiled"><input id="title" name="title" size="10" class="form-control required" minlength="2" value="' + tdText + '" /></div>');
-		var tdText = row.find('.chbxrequired .editabletext').text();
-		row.find('.chbxrequired .editabletext').hide();
-		row.find('.chbxrequired .truechbx').hide();
-		row.find('.chbxrequired .falsechbx').hide();
-
-		if (tdText == 'false') {
-			row.find('.chbxrequired').append('<div class="editfiled"><input id="required" type="checkbox" name="required"  /></div>');
-		}
-		else {
-			row.find('.chbxrequired').append('<div class="editfiled"><input id="required" type="checkbox" name="required" checked="checked" /></div>');
-		}
-		var tdText = row.find('.chbxviewable .editabletext').text();
-		row.find('.chbxviewable .editabletext').hide();
-		row.find('.chbxviewable .truechbx').hide();
-		row.find('.chbxviewable .falsechbx').hide();
-
-		if (tdText == 'false') {
-			row.find('.chbxviewable').append('<div class="editfiled"><input id="viewable" type="checkbox" name="viewable"  /></div>');
-		}
-		else {
-			row.find('.chbxviewable').append('<div class="editfiled"><input id="viewable" type="checkbox" name="viewable" checked="checked" /></div>');
-		}
-
-		$(this).siblings('.update').show();
-		$(this).siblings('.cancel').show();
-		$(this).hide();
-		$('.edit').each(function () {
-			$(this).removeClass('edit');
-			$(this).addClass('editdisable');
-		});
-	});
-
-	$(document).on('click', '.cancel', function () {
-
-		$(this).closest('tr').find('.editabletext').show();
-		$(this).closest('tr').find('.truechbx').show();
-		$(this).closest('tr').find('.falsechbx').show();
-		$(this).closest('tr').find('.nonetxt').show();
-		$(this).closest('tr').find('.nonetxt').removeAttr('style');
-
-		$(this).closest('tr').find('.editfiled').remove();
-		$('.editdisable').each(function () {
-			$(this).removeClass('editdisable');
-			$(this).addClass('edit');
-		});
-		$(this).hide();
-		$(this).siblings('.update').hide();
-		$(this).siblings('.edit').show();
-	});
-	$(document).on('click', '.update', function () {
-		if ($('#editform').valid()) {
-			var row = $(this).closest('tr');
-			id = row.find('.usercheckbox').attr('id');
-			title = row.find('#title').val();
-
-			var required = false;
-			if (row.find('#required').is(':checked')) { required = true; }
-			var viewable = false;
-			if (row.find('#viewable').is(':checked')) { viewable = true; }
-
-			$.ajax({
-				url: '/survey/updatedemographic/',
-				type: 'POST',
-				data: {
-					'id': id,
-					'title': title,
-					'required': required ? 1 : 0,
-					'viewable': viewable ? 1 : 0,
-				},
-				dataType: 'json',
-				success: function (data) {
-					if (data.toString() != 'success') {
-						alert('communication failure with the server.');
-					}
-				},
-				error: function () {
-					alert('error : communication failure with the server.');
+					})
+				} else {
+					div = "<div class='lastDiv'>\
+                          <div class='custom-control custom-checkbox left'>\
+                              <input type='checkbox' class='custom-control-input' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' id='"+ e.id + "'\
+                                  name='example'>\
+                              <label class='custom-control-label fontNormal' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' for='" + e.id + "'>&nbsp; &nbsp;&nbsp; &nbsp;\
+                                  "+ e.title + "</label>\
+                          </div>\
+                          <p class='right'>\
+                              <img src=\"/static/images/keyboard_arrow_right-24px (1).svg\">\
+                          </p>\
+                      </div>"
 				}
-			});
+				$("#demoGraph").append(div)
+			})
 
-			row.find('.title>.editabletext').text("");
-			row.find('.title>.editabletext').append("<a class='values'  href='/survey/demographic/values/?demographic=" + id + "'>" + title + "</a>");
-			row.find('.editabletext').show();
+		},
+		error: function (error) {
 
-			row.find('.chbxviewable').text("");
-
-			if (viewable == true) {
-				row.find('.chbxviewable').append('<div class="truechbx"> <div class="editabletext nonetxt">true</div></div>');
-			}
-			else {
-				row.find('.chbxviewable').append('<div class="falsechbx"> <div class="editabletext nonetxt">false</div></div>');
-			}
-			row.find('.chbxrequired').text("");
-
-			if (required == true) {
-				row.find('.chbxrequired').append('<div class="truechbx"> <div class="editabletext nonetxt">true</div></div>');
-			}
-			else {
-				row.find('.chbxrequired').append('<div class="falsechbx"> <div class="editabletext nonetxt">false</div></div>');
-			}
-
-			$('.editdisable').each(function () {
-				$(this).removeClass('editdisable');
-				$(this).addClass('edit');
-			});
-			$(this).hide();
-			$(this).siblings('.cancel').hide();
-			$(this).siblings('.edit').show();
-			row.find('.editfiled').remove();
 		}
-	});
+	})
+})
+$(".bg-info").on("click", ".centerDiv", function (e) {
+	if (!$(this).find(".custom-control-input").prop("checked")) {
+		$("#imgDelete").css("display", "block");
+		$("#imgAdd").css("display", "none");
 
+		$(this).find(".custom-control-input").prop("checked", true)
+	}
+	else {
+		var arr = []
+		$(".bg-info .lastDiv").each(function (i, ob) {
+			if ($(ob).find(".custom-control-input").prop("checked")) {
+				arr.push(true)
+			}
+		})
+		if (arr.length == 0) {
+			$("#imgDelete").css("display", "none");
+			$("#imgAdd").css("display", "block");
+		}
+		$(this).find(".custom-control-input").prop("checked", false)
+	}
 
-	$(".Submit").click(function () {
-		document.location.href = "/survey/demographic/values/";
+})
+$(".bg-warning").on("click", ".centerDiv", function (e) {
+	if (!$(this).find(".custom-control-input").prop("checked"))
+		$(this).find(".custom-control-input").prop("checked", true)
+
+})
+
+$("#imgDeleteModal").on("click", function (e) {
+	$("#myModal").modal("hide");
+	var ids = []
+	if ($(".bg-info .centerDiv .custom-control-input").prop("checked"))
+		ids.push($(".bg-info .centerDiv .custom-control-input").attr("id"))
+
+	$(".bg-info .lastDiv").each(function (i, ob) {
+		if ($(ob).find(".custom-control-input").prop("checked"))
+			ids.push($(ob).find(".custom-control-input").attr("id"))
 	})
 
-	var validator = $("#addnewcadidateform").validate({
-		rules: {
-			title: "required",
+	$.ajax({
+		url: '/survey/deletedemographic/',
+		data: {
+			"ids": ids.join(","),
 		},
-		messages: {
-			title: "Please provide the title  of your Demographic",
+		success: function (data) {
+			$.ajax({
+				url: '/survey/getalldemgraphic/',
+				cache: false,
+				dataType: "json",
+				success: function (data) {
+					$("#demoGraph").empty();
+					$("#values").empty();
+					$("#imgDelete").css("display", "none");
+					$("#imgAdd").css("display", "block");
+					data.forEach(function (e, i) {
+						var div = null
+
+						if (i === 0) {
+							div = "<div class='centerDiv'>\
+								<div class='custom-control custom-checkbox left'>\
+									<input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
+										name='example'>\
+									<label class='custom-control-label fontNormal' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' for='" + e.id + "'>&nbsp; &nbsp;&nbsp; &nbsp;\
+										"+ e.title + "</label>\
+								</div>\
+								<p class='right'>\
+									<img src=\"/static/images/keyboard_arrow_right-24px (1).svg\">\
+								</p>\
+							</div>"
+							$("#currentDemo").empty()
+							$("#currentDemo").append(e.title)
+							$.ajax({
+								url: '/survey/getalldemgraphicvalue/',
+								data: {
+									"demographic": e.id,
+								},
+								success: function (dt) {
+									var data = JSON.parse(dt)
+									data.forEach(function (e, i) {
+
+										var d = null
+										if (i + 1 === data.length) {
+
+											d = " <div class='lastDiv' style='border-bottom: none'>\
+												<div class='custom-control custom-checkbox left'>\
+													<input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
+														name='example5'>\
+													<label class='custom-control-label fontNormal' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' for='"+ e.id + "'>&nbsp;\
+														&nbsp;&nbsp; &nbsp;\
+														"+ e.value + "</label>\
+												</div>\
+											</div>\
+										"
+										} else {
+											d = " <div class='lastDiv'>\
+												<div class='custom-control custom-checkbox left'>\
+													<input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
+														name='example5'>\
+													<label class='custom-control-label fontNormal' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' for='"+ e.id + "'>&nbsp;\
+														&nbsp;&nbsp; &nbsp;\
+														"+ e.value + "</label>\
+												</div>\
+											</div>\
+										"
+										}
+
+										$("#values").append(d);
+									})
+								},
+								error: function (data) {
+
+								}
+
+							})
+						} else {
+							div = "<div class='lastDiv'>\
+								<div class='custom-control custom-checkbox left'>\
+									<input type='checkbox' class='custom-control-input' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' id='"+ e.id + "'\
+										name='example'>\
+									<label class='custom-control-label fontNormal' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' for='" + e.id + "'>&nbsp; &nbsp;&nbsp; &nbsp;\
+										"+ e.title + "</label>\
+								</div>\
+								<p class='right'>\
+									<img src=\"/static/images/keyboard_arrow_right-24px (1).svg\">\
+								</p>\
+							</div>"
+						}
+						$("#demoGraph").append(div)
+					})
+
+				},
+				error: function (error) {
+
+				}
+			})
+		},
+		error: function (data) {
+
 		}
-	});
-});
+
+	})
+})
+$(".bg-info").on("click", "#imgAdd", function (e) {
+	var d = "<div class='lastDivs'>\
+				  <div class='row'> <div class='col-sm-9 col-md-9'>\
+				  <div class='custom-control custom-checkbox left'>\
+						  <input type='text' class='form-control' id='addDemoInp' placeholder='New Demographic' />\
+				  </div></div> \
+				  <div class='col-sm-2 col-md-2 mt-1'><p id='actions'>\
+					  <img src='/static/images/multiply.svg' id='closeDemo' style='cursor:pointer;'/>\
+				  </p>\
+				</div></div></div>"
+	$("#demoGraph").append(d)
+})
+$(".bg-info #demoGraph").on("keyup", "#addDemoInp", function () {
+	if ($(".bg-info #addDemoInp").val() === '') {
+		$(".bg-info #demoGraph").find("#actions").html("<img src='/static/images/multiply.svg' id='closeDemo' style='cursor:pointer;'/>")
+	} else {
+		$(".bg-info #demoGraph").find("#actions").html("<img src='/static/images/check.svg' id='addDemo' style='cursor:pointer;'/>")
+	}
+})
+$(".bg-info #demoGraph").on("click", "#closeDemo", function () {
+
+	$(this).parent().parent().parent().remove();
+
+})
+$(".bg-info").on("click", "#addDemo", function (e) {
+
+	if ($(".bg-info #addDemoInp").val() === '') {
+		console.log("done")
+	} else {
+		$.ajax({
+			url: '/survey/adddemographic/',
+			type: 'POST',
+			data: {
+				'csrfmiddlewaretoken': $("input[type=hidden]").val(),
+				'title': $(".bg-info #addDemoInp").val(),
+			},
+			success: function (data) {
+				$.ajax({
+					url: '/survey/getalldemgraphic/',
+					cache: false,
+					dataType: "json",
+					success: function (data) {
+						$("#demoGraph").empty();
+						$("#values").empty();
+						$("#imgDelete").css("display", "none");
+						$("#imgAdd").css("display", "block");
+						data.forEach(function (e, i) {
+							var div = null
+
+							if (i === 0) {
+								div = "<div class='centerDiv'>\
+								  <div class='custom-control custom-checkbox left'>\
+									  <input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
+										  name='example'>\
+									  <label class='custom-control-label fontNormal' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' for='" + e.id + "'>&nbsp; &nbsp;&nbsp; &nbsp;\
+										  "+ e.title + "</label>\
+								  </div>\
+								  <p class='right'>\
+									  <img src=\"/static/images/keyboard_arrow_right-24px (1).svg\">\
+								  </p>\
+							  </div>"
+								$("#currentDemo").empty()
+								$("#currentDemo").append(e.title)
+								$.ajax({
+									url: '/survey/getalldemgraphicvalue/',
+									data: {
+										"demographic": e.id,
+									},
+									success: function (dt) {
+										var data = JSON.parse(dt)
+										data.forEach(function (e, i) {
+
+											var d = null
+											if (i + 1 === data.length) {
+
+												d = " <div class='lastDiv' style='border-bottom: none'>\
+												  <div class='custom-control custom-checkbox left'>\
+													  <input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
+														  name='example5'>\
+													  <label class='custom-control-label fontNormal' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' for='"+ e.id + "'>&nbsp;\
+														  &nbsp;&nbsp; &nbsp;\
+														  "+ e.value + "</label>\
+												  </div>\
+											  </div>\
+										  "
+											} else {
+												d = " <div class='lastDiv'>\
+												  <div class='custom-control custom-checkbox left'>\
+													  <input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
+														  name='example5'>\
+													  <label class='custom-control-label fontNormal' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' for='"+ e.id + "'>&nbsp;\
+														  &nbsp;&nbsp; &nbsp;\
+														  "+ e.value + "</label>\
+												  </div>\
+											  </div>\
+										  "
+											}
+
+											$("#values").append(d);
+										})
+									},
+									error: function (data) {
+
+									}
+
+								})
+							} else {
+								div = "<div class='lastDiv'>\
+								  <div class='custom-control custom-checkbox left'>\
+									  <input type='checkbox' class='custom-control-input' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' id='"+ e.id + "'\
+										  name='example'>\
+									  <label class='custom-control-label fontNormal' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' for='" + e.id + "'>&nbsp; &nbsp;&nbsp; &nbsp;\
+										  "+ e.title + "</label>\
+								  </div>\
+								  <p class='right'>\
+									  <img src=\"/static/images/keyboard_arrow_right-24px (1).svg\">\
+								  </p>\
+							  </div>"
+							}
+							$("#demoGraph").append(div)
+						})
+
+					},
+					error: function (error) {
+
+					}
+				})
+			}
+		})
+	}
+
+
+})
+$(".bg-info").on("click", ".lastDiv", function (e) {
+	if (!$(this).find(".custom-control-input").prop("checked"))
+		$(this).find(".custom-control-input").prop("checked", true)
+	else
+		$(this).find(".custom-control-input").prop("checked", false)
+	$(".bg-info .centerDiv").removeClass("centerDiv").addClass("lastDiv");
+	$(this).addClass("centerDiv");
+	$(this).removeClass("lastDiv");
+
+	var id = $(this).find("input[type=checkbox").attr("id")
+
+	$.ajax({
+		url: '/survey/getalldemgraphicvalue/',
+		data: {
+			"demographic": id,
+		},
+		success: function (dt) {
+			var data = JSON.parse(dt)
+			$("#values").empty()
+			$("#currentDemo").html($.trim($(".bg-info #demoGraph .centerDiv").find(".custom-control-label").text()))
+			data.forEach(function (e, i) {
+
+				var d = null
+				if (i + 1 === data.length) {
+
+					d = " <div class='lastDiv' style='border-bottom: none'>\
+							<div class='custom-control custom-checkbox left'>\
+								<input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
+									name='example5'>\
+								<label class='custom-control-label fontNormal' for='"+ e.id + "'>&nbsp;\
+									&nbsp;&nbsp; &nbsp;\
+									"+ e.value + "</label>\
+							</div>\
+						</div>\
+					"
+				} else {
+					d = " <div class='lastDiv'>\
+							<div class='custom-control custom-checkbox left'>\
+								<input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
+									name='example5'>\
+								<label class='custom-control-label fontNormal' for='"+ e.id + "'>&nbsp;\
+									&nbsp;&nbsp; &nbsp;\
+									"+ e.value + "</label>\
+							</div>\
+						</div>\
+					"
+				}
+
+				$("#values").append(d);
+			})
+		},
+		error: function (data) {
+
+		}
+
+	})
+
+})
+
+//---------------//
+$(".bg-warning").on("click", ".lastDiv", function (e) {
+	if ($(this).find(".custom-control-input").prop("checked")) {
+		$(".bg-warning #imgAddVal").css("display", "none");
+		$(".bg-warning #imgDeleteVal").css("display", "block");
+	} else {
+		var arr = []
+		$(".bg-warning").find(".lastDiv").each(function (i, ob) {
+			if ($(ob).find(".custom-control-input").prop("checked"))
+				arr.push(true)
+
+		})
+		if (arr.length == 0) {
+			$(".bg-warning #imgAddVal").css("display", "block");
+			$(".bg-warning #imgDeleteVal").css("display", "none");
+		}
+	}
+})
+$("#imgDeleteValModal").on("click", function (e) {
+	$("#myModalVal").modal("hide");
+	var ids = []
+
+	$(".bg-warning .lastDiv").each(function (i, ob) {
+		if ($(ob).find(".custom-control-input").prop("checked"))
+			ids.push($(ob).find(".custom-control-input").attr("id"))
+	})
+	var demo = $(".bg-info #demoGraph .centerDiv").find(".custom-control-input").attr("id")
+	$.ajax({
+		url: '/survey/deletedemographicvalue/',
+		data: {
+			"ids": ids.join(","),
+		},
+		success: function (data) {
+			$(".bg-warning #imgAddVal").css("display", "block");
+			$(".bg-warning #imgDeleteVal").css("display", "none");
+			$.ajax({
+				url: '/survey/getalldemgraphicvalue/',
+				data: {
+					'demographic': demo,
+				},
+				success: function (dt) {
+					$("#values").empty();
+					var data = JSON.parse(dt)
+					data.forEach(function (e, i) {
+
+						var d = null
+						if (i + 1 === data.length) {
+
+							d = " <div class='lastDiv' style='border-bottom: none'>\
+										<div class='custom-control custom-checkbox left'>\
+											<input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
+												name='example5'>\
+											<label class='custom-control-label fontNormal' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' for='"+ e.id + "'>&nbsp;\
+												&nbsp;&nbsp; &nbsp;\
+												"+ e.value + "</label>\
+										</div>\
+									</div>\
+								"
+						} else {
+							d = " <div class='lastDiv'>\
+										<div class='custom-control custom-checkbox left'>\
+											<input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
+												name='example5'>\
+											<label class='custom-control-label fontNormal' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' for='"+ e.id + "'>&nbsp;\
+												&nbsp;&nbsp; &nbsp;\
+												"+ e.value + "</label>\
+										</div>\
+									</div>\
+								"
+						}
+
+						$("#values").append(d);
+					})
+				}
+			})
+		}
+	})
+
+})
+$(".bg-warning").on("click", "#imgAddVal", function (e) {
+	var d = "<div class='lastDivs'>\
+				  <div class='row'> <div class='col-sm-9 col-md-9'>\
+				  <div class='custom-control custom-checkbox left'>\
+						  <input type='text' class='form-control' id='addDemoValInp' placeholder='New Demographic Value' />\
+				  </div></div> \
+				  <div class='col-sm-2 col-md-2 mt-1'><p id='actions'>\
+					  <img src='/static/images/multiply.svg' id='closeDemoVal' style='cursor:pointer;'/>\
+				  </p>\
+				</div></div></div>"
+	$("#values").append(d)
+})
+$(".bg-warning #values").on("keyup", "#addDemoValInp", function () {
+	if ($(".bg-warning #addDemoValInp").val() === '') {
+		$(".bg-warning #values").find("#actions").html("<img src='/static/images/multiply.svg' id='closeDemoVal' style='cursor:pointer;'/>")
+	} else {
+		$(".bg-warning #values").find("#actions").html("<img src='/static/images/check.svg' id='addDemoVal' style='cursor:pointer;'/>")
+	}
+})
+$(".bg-warning #values").on("click", "#closeDemoVal", function () {
+
+	$(this).parent().parent().parent().remove();
+
+})
+$(".bg-warning").on("click", "#addDemoVal", function (e) {
+	var demo = $(".bg-info #demoGraph .centerDiv").find(".custom-control-input").attr("id")
+	$.ajax({
+		url: '/survey/adddemographicvalue/',
+		type: 'POST',
+		data: {
+			'csrfmiddlewaretoken': $("input[type=hidden]").val(),
+			'value': $(".bg-warning #addDemoValInp").val(),
+			'demographic_id': demo,
+		},
+		success: function (data) {
+			$.ajax({
+				url: '/survey/getalldemgraphicvalue/',
+				data: {
+					'demographic': demo,
+				},
+				success: function (dt) {
+					$("#values").empty();
+					var data = JSON.parse(dt)
+					data.forEach(function (e, i) {
+
+						var d = null
+						if (i + 1 === data.length) {
+
+							d = " <div class='lastDiv' style='border-bottom: none'>\
+										<div class='custom-control custom-checkbox left'>\
+											<input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
+												name='example5'>\
+											<label class='custom-control-label fontNormal' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' for='"+ e.id + "'>&nbsp;\
+												&nbsp;&nbsp; &nbsp;\
+												"+ e.value + "</label>\
+										</div>\
+									</div>\
+								"
+						} else {
+							d = " <div class='lastDiv'>\
+										<div class='custom-control custom-checkbox left'>\
+											<input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
+												name='example5'>\
+											<label class='custom-control-label fontNormal' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' for='"+ e.id + "'>&nbsp;\
+												&nbsp;&nbsp; &nbsp;\
+												"+ e.value + "</label>\
+										</div>\
+									</div>\
+								"
+						}
+
+						$("#values").append(d);
+					})
+				}
+			})
+		}
+	})
+
+
+})

@@ -606,11 +606,12 @@ a.article:hover {
 }
 .headertitleContainerRight {
     display: inline-block;
-    border-bottom: 1px solid #c2c2c2;
+    border-bottom: 1px solid #fafafb;
     width: 100%;
-    padding-top: 10px;
+    padding-top: 14px;
     padding-left: 10px;
     padding-right: 10px;
+    padding-bottom: 10px;
 }
 
 .headertitleContainerRight p {
@@ -936,7 +937,6 @@ a.article:hover {
     position: absolute;
     z-index: 99999;
     top: 144%;
-    
     background-color: #fff;
 }
 .submenu{

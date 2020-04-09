@@ -35,6 +35,7 @@ def user_login(request):
             form_user = UserLoginForm(request.POST)
             if form_user.is_valid():
                 user = form_user.cleaned_data.get('user')
+                print(user)
                 login(request, user)
                 nextUrl = request.POST.get('next')
                 if nextUrl == "None":
@@ -194,24 +195,31 @@ def login_iphone(request):
 
 
 def adduser(request):
-    message = None
-    errors = None
-    if request.method == 'POST':
-        form = AddUserForm(request.POST)
-
-        if form.is_valid():
-            form.save()
-            message = '%s has been added successfully.' % form.cleaned_data['email']
-            success(request, message)
-            return redirect("survey:user_login")
-
+    if request.user.is_authenticated:
+        if (request.GET.get('next') != "None") and (request.GET.get('next') is not None):
+            print(request.GET.get('next'))
+            return redirect(request.GET.get('next'))
         else:
-            errors = list(form.errors.as_data()['__all__'][0])[0],
+            return redirect("survey:answerpage", mode=0)
     else:
-        form = AddUserForm()
+        message = None
+        errors = None
+        if request.method == 'POST':
+            form = AddUserForm(request.POST)
 
-    return render(request, 'user/adduser.html',
-                  {'form': form,
-                   "errors": errors,
-                   'message': message},
-                  )
+            if form.is_valid():
+                form.save()
+                message = '%s has been added successfully.' % form.cleaned_data['email']
+                success(request, message)
+                return redirect("survey:user_login")
+
+            else:
+                errors = list(form.errors.as_data()['__all__'][0])[0],
+        else:
+            form = AddUserForm()
+
+        return render(request, 'user/adduser.html',
+                      {'form': form,
+                       "errors": errors,
+                       'message': message},
+                      )

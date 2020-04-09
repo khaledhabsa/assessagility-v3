@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="prefix__multiply" width="31" height="30.98" viewBox="0 0 31 30.98">
+    <defs>
+        <style>
+            .prefix__cls-2{fill:#fff}
+        </style>
+    </defs>
+    <ellipse id="prefix__Ellipse_37" cx="15.5" cy="15.49" data-name="Ellipse 37" rx="15.5" ry="15.49" style="fill:#e21b1b"/>
+    <g id="prefix__Group_2249" data-name="Group 2249" transform="translate(8.186 8.174)">
+        <path id="prefix__Rectangle_1486" d="M0 0H3.39V17.296H0z" class="prefix__cls-2" data-name="Rectangle 1486" transform="rotate(-45 2.895 1.198)"/>
+        <path id="prefix__Rectangle_1487" d="M0 0H17.296V3.39H0z" class="prefix__cls-2" data-name="Rectangle 1487" transform="rotate(-45 14.763 6.115)"/>
+    </g>
+</svg>
