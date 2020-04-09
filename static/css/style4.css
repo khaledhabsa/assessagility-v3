@@ -1063,7 +1063,7 @@ span {
     line-height: 1.53;
     letter-spacing: normal;
     text-align: left;
-    color: #ffffff;
+    /* color: #ffffff; */
 }
 .subHeader{
     font-family: 'Poppins';
