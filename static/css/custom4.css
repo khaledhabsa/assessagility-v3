@@ -456,7 +456,7 @@
     margin:0 5px 0 5px;
 }
 .currentPageIndex{
-    background-color:#007bff !important;
+    background-color:#535353 !important;
     color: #ffff;
     cursor:default!important;
 }
@@ -474,7 +474,7 @@
     right: 123px;
     width: 159.3px;
     color:#686868;
-    height: 171.2px;
+    height: 212.2px;
 }
 
 .status-dropdown > li{
