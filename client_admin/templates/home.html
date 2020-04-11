@@ -11,9 +11,8 @@
     <div class="AssessmentContainer">
                     <div class="row">
                         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
-                            <p>
-                                In order to allow participants to answer questions, you have to start the assessment
-                                first.
+                            <p id='body-assess'>
+                                In order to allow participants to answer questions, you have to start the assessment first.
                             </p>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12" id="btnassess">
@@ -104,7 +103,7 @@
 
     <!-- Modal -->
     <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-lg" style="max-width:1025px;">
             <div class="modal-content">
 
                 <div class="modal-body">
@@ -117,27 +116,38 @@
                     <div class="d-flex justify-content-between mb-3">
                         <div class="bg-info">
                             <div class="headertitleContainer">
-                                <div class="custom-control custom-checkbox left" style="font-family: Poppins;font-size: 18px;font-weight: bold;font-stretch: normal;font-style: normal;">
-                                   <input type="checkbox" onClick="toggle(this)" class="custom-control-input" id="-1">
-                                    <label class="custom-control-label" for="-1">&nbsp; &nbsp;&nbsp; &nbsp;
-                                        Demographics</label>
+                                <div class="row">
+                                    <div class="col-sm-10 col-md-10">
+                                        <div class="custom-control custom-checkbox left" >
+                                        <input type="checkbox" onClick="toggle(this)" class="custom-control-input" id="-1">
+                                            <label class="custom-control-label" for="-1">&nbsp; &nbsp;&nbsp; &nbsp;
+                                                Demographics</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2 col-md-2">
+                                        <a ><img id="imgAdd" style="cursor:pointer;" class="right" src="{% static 'images/add_circle-24px (1).svg'%}"></a>
+                                        <a ><img id="imgDelete" style="display: none;cursor:pointer;" class="right" src="{% static 'images/delete-24px (1).svg'%}"></a>
+                                    </div>
                                 </div>
-                                <a ><img id="imgAdd" style="cursor:pointer;" class="right" src="{% static 'images/add_circle-24px (1).svg'%}"></a>
-                                <a ><img id="imgDelete" style="display: none;cursor:pointer;" class="right" src="{% static 'images/delete-24px (1).svg'%}"></a>
-                               
                             </div>
                             <div id="demoGraph"></div>
                         </div>
                         <div class="bg-warning">
                             <div class="headertitleContainerRight">
-                                <div class="custom-control custom-checkbox left" style="font-family: Poppins;font-size: 18px;font-weight: bold;font-stretch: normal;font-style: normal;">
-                                    <input type="checkbox" onClick="toggle_val(this)" class="custom-control-input" id="0">
-                                    <label class="custom-control-label" for="0">&nbsp; &nbsp;&nbsp; &nbsp;
-                                        Menu options: <i style="font-style:normal" id="currentDemo"></i></label>
-                                   
+                                <div class="row">
+                                    <div class="col-sm-10 col-md-10">
+                                        <div class="custom-control custom-checkbox left" >
+                                            <input type="checkbox" onClick="toggle_val(this)" class="custom-control-input" id="0">
+                                            <label class="custom-control-label" for="0">&nbsp; &nbsp;&nbsp; &nbsp;
+                                                Menu options: <i style="font-style:normal" id="currentDemo"></i></label>
+                                        
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2 col-md-2">
+                                        <a ><img id="imgAddVal" style="cursor:pointer;" class="right" src="{% static 'images/add_circle-24px (1).svg'%}"></a>
+                                        <a ><img id="imgDeleteVal" style="display: none;cursor:pointer;" class="right" src="{% static 'images/delete-24px (1).svg'%}"></a>
+                                    </div>
                                 </div>
-                                <a ><img id="imgAddVal" style="cursor:pointer;" class="right" src="{% static 'images/add_circle-24px (1).svg'%}"></a>
-                                <a ><img id="imgDeleteVal" style="display: none;cursor:pointer;" class="right" src="{% static 'images/delete-24px (1).svg'%}"></a>
                             </div>
                             <div id="values"></div>
 

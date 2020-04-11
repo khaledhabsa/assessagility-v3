@@ -64,17 +64,24 @@ $(document).ready(function () {
 				var div = null
 
 				if (i === 0) {
-					div = "<div class='centerDiv'>\
-                          <div class='custom-control custom-checkbox left'>\
-                              <input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
-                                  name='example'>\
-                              <label class='custom-control-label fontNormal' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' for='" + e.id + "'>&nbsp; &nbsp;&nbsp; &nbsp;\
-                                  "+ e.title + "</label>\
-                          </div>\
-                          <p class='right'>\
-                              <img src=\"/static/images/keyboard_arrow_right-24px (1).svg\">\
-                          </p>\
-                      </div>"
+					div = "	<div class='centerDiv'>\
+								<div class='row'>\
+									<div class='col-sm-10 col-md-10 col-lg-11'>\
+										<div class='custom-control custom-checkbox left'>\
+											<input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
+												name='example'>\
+											<label class='custom-control-label fontNormal' for='" + e.id + "'>&nbsp; &nbsp;&nbsp; &nbsp;\
+												"+ e.title + "</label>\
+										</div>\
+									</div>\
+									<div class='col-sm-2 col-md-2 col-lg-1'>\
+										<p class='right'>\
+											<img src=\"/static/images/keyboard_arrow_right-24px (1).svg\">\
+										</p>\
+									</div>\
+								</div>\
+					  		</div>\
+					  	"
 					$("#currentDemo").empty()
 					$("#currentDemo").append(e.title)
 					$.ajax({
@@ -93,7 +100,7 @@ $(document).ready(function () {
                                           <div class='custom-control custom-checkbox left'>\
                                               <input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
                                                   name='example5'>\
-                                              <label class='custom-control-label fontNormal' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' for='"+ e.id + "'>&nbsp;\
+                                              <label class='custom-control-label fontNormal' for='"+ e.id + "'>&nbsp;\
                                                   &nbsp;&nbsp; &nbsp;\
                                                   "+ e.value + "</label>\
                                           </div>\
@@ -104,7 +111,7 @@ $(document).ready(function () {
                                           <div class='custom-control custom-checkbox left'>\
                                               <input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
                                                   name='example5'>\
-                                              <label class='custom-control-label fontNormal' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' for='"+ e.id + "'>&nbsp;\
+                                              <label class='custom-control-label fontNormal' for='"+ e.id + "'>&nbsp;\
                                                   &nbsp;&nbsp; &nbsp;\
                                                   "+ e.value + "</label>\
                                           </div>\
@@ -121,17 +128,24 @@ $(document).ready(function () {
 
 					})
 				} else {
-					div = "<div class='lastDiv'>\
-                          <div class='custom-control custom-checkbox left'>\
-                              <input type='checkbox' class='custom-control-input' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' id='"+ e.id + "'\
-                                  name='example'>\
-                              <label class='custom-control-label fontNormal' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' for='" + e.id + "'>&nbsp; &nbsp;&nbsp; &nbsp;\
-                                  "+ e.title + "</label>\
-                          </div>\
-                          <p class='right'>\
-                              <img src=\"/static/images/keyboard_arrow_right-24px (1).svg\">\
-                          </p>\
-                      </div>"
+					div = "	<div class='lastDiv'>\
+								<div class='row'>\
+									<div class='col-sm-10 col-md-10 col-lg-11'>\
+										<div class='custom-control custom-checkbox left'>\
+											<input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
+												name='example'>\
+											<label class='custom-control-label fontNormal' for='" + e.id + "'>&nbsp; &nbsp;&nbsp; &nbsp;\
+												"+ e.title + "</label>\
+										</div>\
+									</div>\
+									<div class='col-sm-2 col-md-2 col-lg-1'>\
+										<p class='right'>\
+											<img src=\"/static/images/keyboard_arrow_right-24px (1).svg\">\
+										</p>\
+					  				</div>\
+					  			</div>\
+					  		</div>\
+					  	"
 				}
 				$("#demoGraph").append(div)
 			})
@@ -203,17 +217,24 @@ $("#imgDeleteModal").on("click", function (e) {
 						var div = null
 
 						if (i === 0) {
-							div = "<div class='centerDiv'>\
-								<div class='custom-control custom-checkbox left'>\
-									<input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
-										name='example'>\
-									<label class='custom-control-label fontNormal' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' for='" + e.id + "'>&nbsp; &nbsp;&nbsp; &nbsp;\
-										"+ e.title + "</label>\
-								</div>\
-								<p class='right'>\
-									<img src=\"/static/images/keyboard_arrow_right-24px (1).svg\">\
-								</p>\
-							</div>"
+							div = "	<div class='centerDiv'>\
+										<div class='row'>\
+											<div class='col-sm-10 col-md-10 col-lg-11'>\
+												<div class='custom-control custom-checkbox left'>\
+													<input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
+														name='example'>\
+													<label class='custom-control-label fontNormal' for='" + e.id + "'>&nbsp; &nbsp;&nbsp; &nbsp;\
+														"+ e.title + "</label>\
+												</div>\
+											</div>\
+											<div class='col-sm-2 col-md-2 col-lg-1'>\
+												<p class='right'>\
+													<img src=\"/static/images/keyboard_arrow_right-24px (1).svg\">\
+												</p>\
+											</div>\
+										</div>\
+									</div>\
+								"
 							$("#currentDemo").empty()
 							$("#currentDemo").append(e.title)
 							$.ajax({
@@ -232,7 +253,7 @@ $("#imgDeleteModal").on("click", function (e) {
 												<div class='custom-control custom-checkbox left'>\
 													<input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
 														name='example5'>\
-													<label class='custom-control-label fontNormal' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' for='"+ e.id + "'>&nbsp;\
+													<label class='custom-control-label fontNormal' for='"+ e.id + "'>&nbsp;\
 														&nbsp;&nbsp; &nbsp;\
 														"+ e.value + "</label>\
 												</div>\
@@ -243,7 +264,7 @@ $("#imgDeleteModal").on("click", function (e) {
 												<div class='custom-control custom-checkbox left'>\
 													<input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
 														name='example5'>\
-													<label class='custom-control-label fontNormal' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' for='"+ e.id + "'>&nbsp;\
+													<label class='custom-control-label fontNormal' for='"+ e.id + "'>&nbsp;\
 														&nbsp;&nbsp; &nbsp;\
 														"+ e.value + "</label>\
 												</div>\
@@ -260,17 +281,24 @@ $("#imgDeleteModal").on("click", function (e) {
 
 							})
 						} else {
-							div = "<div class='lastDiv'>\
-								<div class='custom-control custom-checkbox left'>\
-									<input type='checkbox' class='custom-control-input' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' id='"+ e.id + "'\
-										name='example'>\
-									<label class='custom-control-label fontNormal' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' for='" + e.id + "'>&nbsp; &nbsp;&nbsp; &nbsp;\
-										"+ e.title + "</label>\
-								</div>\
-								<p class='right'>\
-									<img src=\"/static/images/keyboard_arrow_right-24px (1).svg\">\
-								</p>\
-							</div>"
+							div = "	<div class='lastDiv'>\
+										<div class='row'>\
+											<div class='col-sm-10 col-md-10 col-lg-11'>\
+												<div class='custom-control custom-checkbox left'>\
+													<input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
+														name='example'>\
+													<label class='custom-control-label fontNormal' for='" + e.id + "'>&nbsp; &nbsp;&nbsp; &nbsp;\
+														"+ e.title + "</label>\
+												</div>\
+											</div>\
+											<div class='col-sm-2 col-md-2 col-lg-1'>\
+												<p class='right'>\
+													<img src=\"/static/images/keyboard_arrow_right-24px (1).svg\">\
+												</p>\
+											</div>\
+										</div>\
+									</div>\
+								"
 						}
 						$("#demoGraph").append(div)
 					})
@@ -289,11 +317,11 @@ $("#imgDeleteModal").on("click", function (e) {
 })
 $(".bg-info").on("click", "#imgAdd", function (e) {
 	var d = "<div class='lastDivs'>\
-				  <div class='row'> <div class='col-sm-9 col-md-9'>\
+				  <div class='row'> <div class='col-sm-9 col-md-10 col-lg-10'>\
 				  <div class='custom-control custom-checkbox left'>\
 						  <input type='text' class='form-control' id='addDemoInp' placeholder='New Demographic' />\
 				  </div></div> \
-				  <div class='col-sm-2 col-md-2 mt-1'><p id='actions'>\
+				  <div class='col-sm-2 col-md-2 col-lg-2 mt-1'><p id='actions'>\
 					  <img src='/static/images/multiply.svg' id='closeDemo' style='cursor:pointer;'/>\
 				  </p>\
 				</div></div></div>"
@@ -308,7 +336,7 @@ $(".bg-info #demoGraph").on("keyup", "#addDemoInp", function () {
 })
 $(".bg-info #demoGraph").on("click", "#closeDemo", function () {
 
-	$(this).parent().parent().parent().remove();
+	$(this).parent().parent().parent().parent().remove();
 
 })
 $(".bg-info").on("click", "#addDemo", function (e) {
@@ -337,17 +365,24 @@ $(".bg-info").on("click", "#addDemo", function (e) {
 							var div = null
 
 							if (i === 0) {
-								div = "<div class='centerDiv'>\
-								  <div class='custom-control custom-checkbox left'>\
-									  <input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
-										  name='example'>\
-									  <label class='custom-control-label fontNormal' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' for='" + e.id + "'>&nbsp; &nbsp;&nbsp; &nbsp;\
-										  "+ e.title + "</label>\
-								  </div>\
-								  <p class='right'>\
-									  <img src=\"/static/images/keyboard_arrow_right-24px (1).svg\">\
-								  </p>\
-							  </div>"
+								div = "	<div class='centerDiv'>\
+											<div class='row'>\
+												<div class='col-sm-10 col-md-10 col-lg-11'>\
+													<div class='custom-control custom-checkbox left'>\
+														<input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
+															name='example'>\
+														<label class='custom-control-label fontNormal' for='" + e.id + "'>&nbsp; &nbsp;&nbsp; &nbsp;\
+															"+ e.title + "</label>\
+													</div>\
+												</div>\
+												<div class='col-sm-2 col-md-2 col-lg-1'>\
+													<p class='right'>\
+														<img src=\"/static/images/keyboard_arrow_right-24px (1).svg\">\
+													</p>\
+												</div>\
+											</div>\
+										</div>\
+									"
 								$("#currentDemo").empty()
 								$("#currentDemo").append(e.title)
 								$.ajax({
@@ -366,7 +401,7 @@ $(".bg-info").on("click", "#addDemo", function (e) {
 												  <div class='custom-control custom-checkbox left'>\
 													  <input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
 														  name='example5'>\
-													  <label class='custom-control-label fontNormal' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' for='"+ e.id + "'>&nbsp;\
+													  <label class='custom-control-label fontNormal' for='"+ e.id + "'>&nbsp;\
 														  &nbsp;&nbsp; &nbsp;\
 														  "+ e.value + "</label>\
 												  </div>\
@@ -377,7 +412,7 @@ $(".bg-info").on("click", "#addDemo", function (e) {
 												  <div class='custom-control custom-checkbox left'>\
 													  <input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
 														  name='example5'>\
-													  <label class='custom-control-label fontNormal' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' for='"+ e.id + "'>&nbsp;\
+													  <label class='custom-control-label fontNormal' for='"+ e.id + "'>&nbsp;\
 														  &nbsp;&nbsp; &nbsp;\
 														  "+ e.value + "</label>\
 												  </div>\
@@ -394,17 +429,24 @@ $(".bg-info").on("click", "#addDemo", function (e) {
 
 								})
 							} else {
-								div = "<div class='lastDiv'>\
-								  <div class='custom-control custom-checkbox left'>\
-									  <input type='checkbox' class='custom-control-input' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' id='"+ e.id + "'\
-										  name='example'>\
-									  <label class='custom-control-label fontNormal' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' for='" + e.id + "'>&nbsp; &nbsp;&nbsp; &nbsp;\
-										  "+ e.title + "</label>\
-								  </div>\
-								  <p class='right'>\
-									  <img src=\"/static/images/keyboard_arrow_right-24px (1).svg\">\
-								  </p>\
-							  </div>"
+								div = "	<div class='lastDiv'>\
+											<div class='row'>\
+												<div class='col-sm-10 col-md-10 col-lg-11'>\
+													<div class='custom-control custom-checkbox left'>\
+														<input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
+															name='example'>\
+														<label class='custom-control-label fontNormal' for='" + e.id + "'>&nbsp; &nbsp;&nbsp; &nbsp;\
+															"+ e.title + "</label>\
+													</div>\
+												</div>\
+												<div class='col-sm-2 col-md-2 col-lg-2'>\
+													<p class='right'>\
+														<img src=\"/static/images/keyboard_arrow_right-24px (1).svg\">\
+													</p>\
+												</div>\
+											</div>\
+										</div>\
+									"
 							}
 							$("#demoGraph").append(div)
 						})
@@ -548,7 +590,7 @@ $("#imgDeleteValModal").on("click", function (e) {
 										<div class='custom-control custom-checkbox left'>\
 											<input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
 												name='example5'>\
-											<label class='custom-control-label fontNormal' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' for='"+ e.id + "'>&nbsp;\
+											<label class='custom-control-label fontNormal' for='"+ e.id + "'>&nbsp;\
 												&nbsp;&nbsp; &nbsp;\
 												"+ e.value + "</label>\
 										</div>\
@@ -559,7 +601,7 @@ $("#imgDeleteValModal").on("click", function (e) {
 										<div class='custom-control custom-checkbox left'>\
 											<input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
 												name='example5'>\
-											<label class='custom-control-label fontNormal' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' for='"+ e.id + "'>&nbsp;\
+											<label class='custom-control-label fontNormal' for='"+ e.id + "'>&nbsp;\
 												&nbsp;&nbsp; &nbsp;\
 												"+ e.value + "</label>\
 										</div>\
@@ -577,11 +619,11 @@ $("#imgDeleteValModal").on("click", function (e) {
 })
 $(".bg-warning").on("click", "#imgAddVal", function (e) {
 	var d = "<div class='lastDivs'>\
-				  <div class='row'> <div class='col-sm-9 col-md-9'>\
+				  <div class='row'> <div class='col-sm-9 col-md-10 col-lg-10'>\
 				  <div class='custom-control custom-checkbox left'>\
 						  <input type='text' class='form-control' id='addDemoValInp' placeholder='New Demographic Value' />\
 				  </div></div> \
-				  <div class='col-sm-2 col-md-2 mt-1'><p id='actions'>\
+				  <div class='col-sm-2 col-md-2 col-lg-2 mt-1'><p id='actions'>\
 					  <img src='/static/images/multiply.svg' id='closeDemoVal' style='cursor:pointer;'/>\
 				  </p>\
 				</div></div></div>"
@@ -596,7 +638,7 @@ $(".bg-warning #values").on("keyup", "#addDemoValInp", function () {
 })
 $(".bg-warning #values").on("click", "#closeDemoVal", function () {
 
-	$(this).parent().parent().parent().remove();
+	$(this).parent().parent().parent().parent().remove();
 
 })
 $(".bg-warning").on("click", "#addDemoVal", function (e) {
@@ -627,7 +669,7 @@ $(".bg-warning").on("click", "#addDemoVal", function (e) {
 										<div class='custom-control custom-checkbox left'>\
 											<input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
 												name='example5'>\
-											<label class='custom-control-label fontNormal' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' for='"+ e.id + "'>&nbsp;\
+											<label class='custom-control-label fontNormal' for='"+ e.id + "'>&nbsp;\
 												&nbsp;&nbsp; &nbsp;\
 												"+ e.value + "</label>\
 										</div>\
@@ -638,7 +680,7 @@ $(".bg-warning").on("click", "#addDemoVal", function (e) {
 										<div class='custom-control custom-checkbox left'>\
 											<input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
 												name='example5'>\
-											<label class='custom-control-label fontNormal' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' for='"+ e.id + "'>&nbsp;\
+											<label class='custom-control-label fontNormal' for='"+ e.id + "'>&nbsp;\
 												&nbsp;&nbsp; &nbsp;\
 												"+ e.value + "</label>\
 										</div>\

@@ -1,15 +1,15 @@
-$(document).ready(function() {
+$(document).ready(function () {
 	var macros;
-	$('.code').live("mousemove mouseout", function(event) {
-		if(event.type == "mousemove") {
+	$('.code').live("mousemove mouseout", function (event) {
+		if (event.type == "mousemove") {
 			//$(event.target).children().css('top', event.pageY-$('.window').css('top')).css('left', event.pageX-$('.window').css('left'));
 			$(event.target).children().show();
 		} else {
 			$(event.target).children().hide();
 		}
 	});
-	$('.selector').click(function(event) {
-		$('.selector').each(function(index) {
+	$('.selector').click(function (event) {
+		$('.selector').each(function (index) {
 			$('.' + $(this).attr('id')).hide();
 		});
 		//alert(event.target.innerHTML.trim().replace(/ /g, '_').trim());
@@ -20,9 +20,9 @@ $(document).ready(function() {
 
 	});
 
-	$('.view').click(function(event) {
+	$('.view').click(function (event) {
 
-		$('.view').each(function(index) {
+		$('.view').each(function (index) {
 			$('.' + this.innerHTML.trim().replace(/ /g, '_')).hide();
 		});
 		$('.' + event.target.innerHTML.trim().replace(/ /g, '_')).show();
@@ -33,9 +33,9 @@ $(document).ready(function() {
 	});
 	function translate(input) {
 		var re;
-		if(input.indexOf("#") > -1) {
-			for(var i in macros) {
-				if(macros[i]['fields']['place_holder'].indexOf("#") > -1) {
+		if (input.indexOf("#") > -1) {
+			for (var i in macros) {
+				if (macros[i]['fields']['place_holder'].indexOf("#") > -1) {
 					var key = "\\$" + macros[i]['fields']['place_holder'] + "\\$";
 					re = new RegExp(key, "g");
 					input = input.replace(re, macros[i]['fields']['place_holder'].replace(/#/g, "$"));
@@ -45,7 +45,7 @@ $(document).ready(function() {
 			}
 
 		}
-		for(var i in macros) {
+		for (var i in macros) {
 			re = new RegExp(macros[i]['fields']['place_holder'].replace(/\$/g, "\\$"), "g");
 			input = input.replace(re, macros[i]['fields']['translation']);
 		}
@@ -55,14 +55,14 @@ $(document).ready(function() {
 
 	$('.selector').first().addClass('selected');
 	$('.view').first().addClass('selected');
-	$.getJSON('/macros/', function(data) {
+	$.getJSON('/macros/', function (data) {
 		macros = data;
-		$('.report_question').each(function(k, v) {
+		$('.report_question').each(function (k, v) {
 			v.innerHTML = translate(v.innerHTML);
 
 		});
 	});
-	$('.ranges_graph').each(function(index, object) {
+	$('.ranges_graph').each(function (index, object) {
 		graph = '';
 		legend = '';
 		background_ranges = '';
@@ -72,9 +72,9 @@ $(document).ready(function() {
 		labels = $(this).find('.labels').first().text().split('|');
 		answer_labels = $(this).find('.answer_labels').first().text().split('|');
 		legend += '<div class="legend">';
-		if(Number(answer_max[0]) == 100) {
+		if (Number(answer_max[0]) == 100) {
 			last_range_max = 0;
-			for( i = 0; i < answer_max.length; i++) {
+			for (i = 0; i < answer_max.length; i++) {
 				width = (answer_max[answer_max.length - i - 1] - last_range_max) * 6;
 				last_range_max = answer_max[answer_max.length - i - 1];
 				background_ranges += '<div class="range_' + (i + 1) + '" style="width:' + width + 'px"></div>';
@@ -82,16 +82,16 @@ $(document).ready(function() {
 			}
 		} else {
 			last_range_max = 0;
-			for( i = 0; i < answer_max.length; i++) {
+			for (i = 0; i < answer_max.length; i++) {
 				width = (answer_max[i] - last_range_max) * 6;
 				last_range_max = answer_max[i];
 				background_ranges += '<div class="range_' + (i + 1) + '" style="width:' + width + 'px"></div>';
 				legend += '<div class="label"><div class="label_' + (i + 1) + '" ></div><div class="label_title">' + answer_labels[i] + '</div></div>';
 			}
 		}
-		legend+='</div>';
+		legend += '</div>';
 		graph += '<table>';
-		for( i = 0; i < labels.length; i++) {
+		for (i = 0; i < labels.length; i++) {
 			graph += '<tr>';
 			graph += '<td class="graph_label full">';
 			graph += labels[i];
@@ -109,6 +109,6 @@ $(document).ready(function() {
 
 	});
 	$('.content').css({
-		'height' : 'auto'
+		'height': 'auto'
 	});
 });

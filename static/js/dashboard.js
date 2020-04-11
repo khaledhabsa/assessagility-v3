@@ -64,6 +64,7 @@ $('#closemodalandSave').click(function () {
       document.getElementById("btnCopyDisabled").disabled = false;
       $("#myInput").val(window.location.origin + "/accounts/register");
       $("#btnassess").empty();
+      $("#body-assess").html("In order to view the reports you have to close the survey first.");
       $("#btnassess").append("<button type='button' id='endAssessment' class='btn btn-start' style='background-color: #bf0000;'>End Assessment</button>")
     },
     error: function (data) {
@@ -71,32 +72,6 @@ $('#closemodalandSave').click(function () {
     }
   })
 
-
-  // if ($(".bg-info .centerDiv").find(".custom-control-input").prop("checked") === false) {
-  //   $("#display").empty();
-  //   $("#display").append("<div class='alert alert-danger'>Please Select Demographic!</div>");
-  //   $('#myModal').scrollTop(0);
-  // } else {
-  //   var arr = []
-  //   $(".bg-warning .lastDiv").each(function (i, e) {
-  //     if ($(e).find(".custom-control-input").prop("checked"))
-  //       arr.push($(e).find(".custom-control-input").attr("id"))
-
-  //   })
-  //   if (arr.length == 0) {
-
-  //     $("#display").empty();
-  //     $("#display").append("<div class='alert alert-danger'>Please Select Demographic Value!</div>");
-  //     $('#myModal').scrollTop(0);
-
-  //   } else {
-  //     // console.log(arr)
-
-  //   }
-  // }
-  // // } else {
-  // //   
-  // // }
 
 
 });
@@ -114,6 +89,7 @@ $("#btnassess").on("click", "#endAssessment", function (e) {
         data-target='#myModal'>Start Assessment</button>");
       document.getElementById("btnCopyDisabled").disabled = true;
       $("#linkedCopiedText").empty();
+      $("#body-assess").html("In order to allow participants to answer questions, you have to start the assessment first.");
       $("#myInput").val(window.location.origin + "/answerpage/0");
     }
   })
@@ -201,16 +177,22 @@ $("#btnassess").on("click", "#startAsseement", function () {
 
         if (i === 0) {
           div = "<div class='centerDiv'>\
-                          <div class='custom-control custom-checkbox left'>\
-                              <input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
-                                  name='example'>\
-                              <label class='custom-control-label fontNormal' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' for='" + e.id + "'>&nbsp; &nbsp;&nbsp; &nbsp;\
-                                  "+ e.title + "</label>\
-                          </div>\
-                          <p class='right'>\
-                              <img src=\"/static/images/keyboard_arrow_right-24px (1).svg\">\
-                          </p>\
-                      </div>"
+                  <div class='row'>\
+                    <div class='col-sm-10 col-md-10 col-lg-11'>\
+                      <div class='custom-control custom-checkbox left'>\
+                          <input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
+                              name='example'>\
+                          <label class='custom-control-label fontNormal' for='" + e.id + "'>&nbsp; &nbsp;&nbsp; &nbsp;\
+                              "+ e.title + "</label>\
+                      </div>\
+                    </div>\
+                    <div class='col-sm-2 col-md-2 col-lg-1'>\
+                      <p class='right'>\
+                          <img src=\"/static/images/keyboard_arrow_right-24px (1).svg\">\
+                      </p>\
+                    </div>\
+                  </div>\
+                </div>"
           $("#currentDemo").empty()
           $("#currentDemo").append(e.title)
           $.ajax({
@@ -226,26 +208,34 @@ $("#btnassess").on("click", "#startAsseement", function () {
                 if (i + 1 === data.length) {
 
                   d = " <div class='lastDiv' style='border-bottom: none'>\
-                                          <div class='custom-control custom-checkbox left'>\
-                                              <input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
-                                                  name='example5'>\
-                                              <label class='custom-control-label fontNormal' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' for='"+ e.id + "'>&nbsp;\
-                                                  &nbsp;&nbsp; &nbsp;\
-                                                  "+ e.value + "</label>\
-                                          </div>\
-                                      </div>\
-                                  "
+                          <div class='row'>\
+                            <div class='col-sm-12 col-md-12 col-lg-12'>\
+                              <div class='custom-control custom-checkbox left'>\
+                                  <input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
+                                      name='example5'>\
+                                  <label class='custom-control-label fontNormal' for='"+ e.id + "'>&nbsp;\
+                                      &nbsp;&nbsp; &nbsp;\
+                                      "+ e.value + "</label>\
+                              </div>\
+                            </div>\
+                          </div>\
+                        </div>\
+                      "
                 } else {
                   d = " <div class='lastDiv'>\
-                                          <div class='custom-control custom-checkbox left'>\
-                                              <input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
-                                                  name='example5'>\
-                                              <label class='custom-control-label fontNormal' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' for='"+ e.id + "'>&nbsp;\
-                                                  &nbsp;&nbsp; &nbsp;\
-                                                  "+ e.value + "</label>\
-                                          </div>\
-                                      </div>\
-                                  "
+                          <div class='row'>\
+                            <div class='col-sm-12 col-md-12 col-lg-12'>\
+                              <div class='custom-control custom-checkbox left'>\
+                                  <input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
+                                      name='example5'>\
+                                  <label class='custom-control-label fontNormal' for='"+ e.id + "'>&nbsp;\
+                                      &nbsp;&nbsp; &nbsp;\
+                                      "+ e.value + "</label>\
+                              </div>\
+                            </div>\
+                          </div>\
+                        </div>\
+                      "
                 }
 
                 $("#values").append(d);
@@ -258,16 +248,22 @@ $("#btnassess").on("click", "#startAsseement", function () {
           })
         } else {
           div = "<div class='lastDiv'>\
-                          <div class='custom-control custom-checkbox left'>\
-                              <input type='checkbox' class='custom-control-input' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' id='"+ e.id + "'\
-                                  name='example'>\
-                              <label class='custom-control-label fontNormal' style='max-width: 220px;overflow-wrap: break-word; word-wrap: break-word;' for='" + e.id + "'>&nbsp; &nbsp;&nbsp; &nbsp;\
-                                  "+ e.title + "</label>\
-                          </div>\
-                          <p class='right'>\
-                              <img src=\"/static/images/keyboard_arrow_right-24px (1).svg\">\
-                          </p>\
-                      </div>"
+                  <div class='row'>\
+                    <div class='col-sm-10 col-md-10 col-lg-11'>\
+                      <div class='custom-control custom-checkbox left'>\
+                          <input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
+                              name='example'>\
+                          <label class='custom-control-label fontNormal' for='" + e.id + "'>&nbsp; &nbsp;&nbsp; &nbsp;\
+                              "+ e.title + "</label>\
+                      </div>\
+                    </div>\
+                    <div class='col-sm-2 col-md-2 col-lg-1'>\
+                      <p class='right'>\
+                          <img src=\"/static/images/keyboard_arrow_right-24px (1).svg\">\
+                      </p>\
+                    </div>\
+                  </div>\
+                </div>"
         }
         $("#demoGraph").append(div)
       })
@@ -422,11 +418,11 @@ $(".bg-info").on("click", "#imgDelete", function (e) {
 })
 $(".bg-info").on("click", "#imgAdd", function (e) {
   var d = "<div class='lastDivs'>\
-                <div class='row'> <div class='col-sm-9 col-md-9'>\
+                <div class='row'><div class='col-sm-9 col-md-10 col-lg-10'>\
                 <div class='custom-control custom-checkbox left'>\
                         <input type='text' class='form-control' id='addDemoInp' placeholder='New Demographic' />\
                 </div></div> \
-                <div class='col-sm-2 col-md-2 mt-1'><p id='actions'>\
+                <div class='col-sm-2 col-md-2 col-lg-2 mt-1'><p id='actions'>\
                     <img src='/static/images/multiply.svg' id='closeDemo' style='cursor:pointer;'/>\
                 </p>\
               </div></div></div>"
@@ -708,11 +704,11 @@ $(".bg-warning").on("click", "#imgDeleteVal", function (e) {
 })
 $(".bg-warning").on("click", "#imgAddVal", function (e) {
   var d = "<div class='lastDivs'>\
-                <div class='row'> <div class='col-sm-9 col-md-9'>\
+                <div class='row'> <div class='col-sm-9 col-md-10 col-lg-10'>\
                 <div class='custom-control custom-checkbox left'>\
                         <input type='text' class='form-control' id='addDemoValInp' placeholder='New Demographic Value' />\
                 </div></div> \
-                <div class='col-sm-2 col-md-2 mt-1'><p id='actions'>\
+                <div class='col-sm-2 col-md-2 col-lg-2 mt-1'><p id='actions'>\
                     <img src='/static/images/multiply.svg' id='closeDemoVal' style='cursor:pointer;'/>\
                 </p>\
               </div></div></div>"

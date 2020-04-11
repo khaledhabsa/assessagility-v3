@@ -463,27 +463,55 @@
 .pagesIndex span{
     margin-top: 3px;
 }
-.status-dropdown{
-    display: none;
-    position: absolute;
+#users_table thead th{
+    width: 37px;
+    height: 18px;
+    font-family: SourceSansPro;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.38;
+    letter-spacing: normal;
+
+}
+#users_table thead th :hover  {
+    cursor: pointer;
+}
+.status-icon{
+    color: #a4afb7;
+    font-size: 13px;
+    margin-left: 6px;
+}
+/* .status-col i :hover{
+    cursor: pointer;
+} */
+.menu-status{
     list-style: none;
-    background: #fff;
-    padding: 0px;
-    text-align: center;
-    top: 50px;
-    right: 123px;
+    display: none;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    background-color: var(--color-menu);
+}
+.rotate-status{
+    transform: rotate(180deg);
+    transition: all 1s ease-in-out;
+}
+.submenu-status{
     width: 159.3px;
     color:#686868;
-    height: 212.2px;
+    position: absolute;
+    z-index: 99999;
+    top: 49px;
+    right: 147px;
+    background-color: #fff;
 }
-
-.status-dropdown > li{
-    margin: 15px;
-    font-size: 14px;
-    
-
+.submenu-status li > a > i{
+    float: right;
 }
-.status-dropdown li :hover{
+.submenu-status li > a:hover{
+    background-color: #616b75;
+    color:#fff !important;
     cursor: pointer;
 }
 .avatar {
