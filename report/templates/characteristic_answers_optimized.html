@@ -46,15 +46,15 @@
           <td>
             <div class="group padd">
               <div class="group_title full">
-	        Demographic :
+                Demographic :
               </div>
               <div class="selector" id="demographic_role">
-	        Role
+                Role
               </div>
               {% for demographic in demographics%}
-	      <div class="selector" id='demographic_{{demographic.id}}'>
-	        {{ demographic.title }}
-	      </div>
+                <div class="selector" id='demographic_{{demographic.id}}'>
+                  {{ demographic.title }}
+                </div>
               {% endfor %}
               <div style="clear:both;"></div>
             </div>

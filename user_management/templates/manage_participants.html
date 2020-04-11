@@ -72,18 +72,40 @@
                 <th scope="col"><div class="selectall" id="-1"></div></th>
                 <th scope="col">First Name</th>
                 <th scope="col">Last Name</th>
-                <th scope="col">Email</th>
-                <th>
-                  <a id="statusClick" style="cursor:pointer;" >Status
-                    <i class="fa fa-chevron-down" style="position: relative;left: 7px;top: 1px;font-size: 12px;"></i>
-                    <ul class="status-dropdown" id="status">
-                      <li class="status-menu" id="Participant"><a >Participants<span class="PartCount col-sm-3 col-md-3 col-lg-3 mb-2" style="font-weight:bold;color: #4d4f5c;"></span></a></li>
-                      <li class="status-menu" id="Started"><a >In progress<span class="ProgCount col-sm-3 col-md-3 col-lg-3 mb-2" style="font-weight:bold;color: #4d4f5c;"></span></a></li>
-                      <li class="status-menu" id="Finished"><a >Completed<span class="CompCount col-sm-3 col-md-3 col-lg-3 mb-2" style="font-weight:bold;color: #4d4f5c;"></span></a></li>
-                      <li class="status-menu" id="Exclude"><a >Exclude<span class="ExCount col-sm-3 col-md-3 col-lg-3 mb-2" style="font-weight:bold;color: #4d4f5c;"></span></a></li>
-                      <li class="status-menu" id="Include"><a >Include<span class="InvCount col-sm-3 col-md-3 col-lg-3 mb-2" style="font-weight:bold;color: #4d4f5c;"></span></a></li>
-                    </ul>
-                  </a>
+                <th scope="col">E-mail</th>
+                <th scope="col"><a class="status"> Status <i class="fa fa-chevron-down status-icon"></i> </a>             
+                  <ul class="menu-status submenu-status">
+                    <li id="Participant">
+                      <a class="menu-link">
+                        Participants
+                        <i class="PartCount" ></i>
+                      </a>
+                    </li>
+                    <li id="Started">
+                      <a class="menu-link">
+                        In Progress
+                        <i class="ProgCount" ></i>
+                      </a>
+                    </li>
+                    <li id="Finished">
+                      <a class="menu-link">
+                        Completed
+                        <i class="CompCount" ></i>
+                      </a>
+                    </li>
+                    <li id="Exclude">
+                      <a class="menu-link">
+                        Excluded
+                        <i class="ExCount" ></i>
+                      </a>
+                    </li>
+                    <li id="Include">
+                      <a class="menu-link">
+                        Included
+                        <i class="InvCount" ></i>
+                      </a>
+                    </li>
+                  </ul>
                 </th>
                 <th scope="col">Actions</th>
               </thead>
@@ -119,10 +141,7 @@
           </form>
           <div class="clearfix"></div>
         </div>
-
-        
       </div>
-
     </div>
   </div>
   <br />

@@ -37,8 +37,17 @@ jQuery(document).ajaxSend(function (event, xhr, settings) {
 	}
 });
 let status = null
-$(document).on("click", "#statusClick", function () {
-	$(document).find("#status").slideToggle()
+$(document).on("click", ".status", function () {
+	$(document).find(".submenu-status").slideToggle()
+	if ($(".status .status-icon").hasClass("rotate-status"))
+		$(".status .status-icon").removeClass("rotate-status")
+	else
+		$(".status .status-icon").addClass("rotate-status")
+})
+$(".result").scroll(function () {
+	$(document).find(".submenu-status").css("display", "none")
+	if ($(".status .status-icon").hasClass("rotate-status"))
+		$(".status .status-icon").removeClass("rotate-status")
 })
 $("#apply").click(function () {
 	if ($("#selectOption").val() === "Delete") {
@@ -49,6 +58,7 @@ $("#apply").click(function () {
 		IncludeUser()
 	}
 })
+
 $(document).on("click", "#Participant", function () {
 	status = "Participant"
 	GetAll(1);
@@ -360,7 +370,6 @@ function PrepareSelectall() {
 
 
 $(document).ready(function () {
-
 	//$('.selectall').live('click', function() {
 	$(document).on('click', '.selectall', function () {
 
