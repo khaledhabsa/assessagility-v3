@@ -782,9 +782,9 @@ def characteristic_answers_optimized(request, characteristic_id):
                 '</div><div class="labels">' + labels + '</div></div></div>'
 
         graphs.append(graph)
-
     ctx = {'graphs': graphs,
            'characteristic': characteristic,
+           #    'title': graphs['title'],
            'demographics': demographics,
            }
     #print("ctx: ", ctx)

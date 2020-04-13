@@ -5,6 +5,8 @@
   <head>
     <link rel="stylesheet" href="{% static "css/" %}characteristic_pdf.css" />
     <link rel="stylesheet" href="{% static "css/" %}colorbox.css" />
+    <title> Organizational Characteristic Assessment </title>
+    <link rel="shortcut icon" type="image/x-icon" href="/static/images/favico.png">
     <script src="{% static "js/" %}jquery-1.6.2.min.js"></script>
     <script src="{% static "js/" %}characteristic_answers.js"></script>
     <script src="{% static "js/" %}jquery.colorbox.js"></script>
@@ -22,25 +24,26 @@
       
       <table>
         {% for g in graphs %}
-        <tr>
-          <td>
-	    <div class="report_question header">
-	      {{ g.title }}
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td> {% for k,v in g.views.iteritems%}
-            <div 
-	       {% ifnotequal k  'role'%} style="display: none;" {% endifnotequal%}
-	       class='demographic_{{ k }}'>
-	      {% autoescape off %}
-	      <div class="Ranges">{{ v }}</div>
-	      {% endautoescape %}
-            </div> 
-            {% endfor %}
-          </td>
-        </tr>
+          <tr>
+            <td>
+              <div class="report_question header">
+                {{ g.title }}
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td> 
+              {% for k,v in g.views.items%}
+                <div 
+                  {% ifnotequal k  'role'%} style="display: none;" {% endifnotequal%}
+                  class='demographic_{{ k }}'>
+                {% autoescape off %}
+                  <div class="Ranges">{{ v }}</div>
+                {% endautoescape %}
+                </div> 
+              {% endfor %}
+            </td>
+          </tr>
         {% endfor %}
         <tr>
           <td>
@@ -62,3 +65,5 @@
         </tr>
       </table>
     </div>
+  </body>
+</html>
