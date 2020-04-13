@@ -54,6 +54,7 @@
               <div class="selector" id="demographic_role">
                 Role
               </div>
+              {{demographics}}
               {% for demographic in demographics%}
                 <div class="selector" id='demographic_{{demographic.id}}'>
                   {{ demographic.title }}
