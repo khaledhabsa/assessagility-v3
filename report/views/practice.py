@@ -782,11 +782,12 @@ def characteristic_answers_optimized(request, characteristic_id):
                 '</div><div class="labels">' + labels + '</div></div></div>'
 
         graphs.append(graph)
-    ctx = {'graphs': graphs,
-           'characteristic': characteristic,
-           'demographics': demographics,
-           }
-    return render(request, 'characteristic_answers_optimized.html', ctx)
+
+    return render(request, 'characteristic_answers_optimized.html', {
+        'graphs': graphs,
+        'characteristic': characteristic,
+        'demographics': demographics,
+    })
 
 
 @login_required
