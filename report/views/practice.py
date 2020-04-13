@@ -784,10 +784,8 @@ def characteristic_answers_optimized(request, characteristic_id):
         graphs.append(graph)
     ctx = {'graphs': graphs,
            'characteristic': characteristic,
-           #    'title': graphs['title'],
            'demographics': demographics,
            }
-    #print("ctx: ", ctx)
     return render(request, 'characteristic_answers_optimized.html', ctx)
 
 
