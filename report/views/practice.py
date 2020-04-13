@@ -691,10 +691,6 @@ def characteristic_answers_optimized(request, characteristic_id):
         uds[ud.userProfile_id][ud.demographic_id] = ud.demographic_value
     not_found_answer_count = 0
     for a in answers:
-        # print("a.indicator_id",a.indicator_id)
-        # #print("type(ups) :",type(ups))
-        # print("a.user_id",a.user_id)
-        # print("ups[a.user_id]",ups[str(a.user_id)])
 
         if a.user_id not in ups.keys():
             not_found_answer_count += 1
@@ -748,8 +744,6 @@ def characteristic_answers_optimized(request, characteristic_id):
                 t['min'] += mcqs[a.mcqanswer_id].minValue
             except:
                 pass
-
-    print("Num of not found answers: ", not_found_answer_count)
     graphs = []
 
     for i in ins.values():
@@ -786,8 +780,6 @@ def characteristic_answers_optimized(request, characteristic_id):
                 '</div><div class="answer_max">' + ar_max + '</div><div class="mins">' + mins + \
                 '</div><div class="maxs">' + maxs + \
                 '</div><div class="labels">' + labels + '</div></div></div>'
-            print("ar_labels: ", ar_labels)
-            print("labels: ", labels)
 
         graphs.append(graph)
 
