@@ -11,45 +11,47 @@
 {% block subtitle %} Demographic{% endblock %}
 {% block content %}
   
-  <div class="AssessmentContainer">
+  <div class="AssessmentContainer AssessmentCustom">
     <div class="row">
-      <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
-        <p>
-          Demographic are particular groups or categories within your team or company.<br/>
+      <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 centerVertical">
+        <p id='body-assess' class="assessmentBody">
+          Demographic are particular groups or categories within your team or company.
           This will be very useful in viewing reports and grouping data.
         </p>
       </div>
-      <div class="col-lg-4 col-md-4 ml-auto col-sm-12 col-xs-12">
+      <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 assessmentBtn" id="btnassess">
         <a href="{% url 'survey:demographic' %}" class="btn btn-primary">Customize Demographic</a>
+      </div>
       </div>
     </div>
 
-  </div>
-  <br>
-  <div class="mb-3">
-    <div class="row">
-      <div class="col-sm-5 col-md-5 mt-4" style="">
-      <p class="subTitle">
-        Participants<span class="CandidateCount col-sm-3 col-md-3 col-lg-3 mb-2" style="clear: both; font-size:20px;font-weight:bold;color: #4d4f5c;"></span>
+  <div class="">
+    <div class="row searchBarContainer">
+      <div class="col-sm-5 col-md-5" style="">
+      <p class="subTitle subTitlePaddingZero">
+        Participants<span class="CandidateCount col-sm-3 col-md-3 col-lg-3" style="clear: both;font-weight:bold;color: #4d4f5c;"></span>
       </p>
       </div>
-      <div class="col-sm-4 col-md-6 col-lg-6 ml-auto mt-4">
+      <div class="col-sm-7 col-md-7 col-lg-7">
         <div class="searchdiv form-elements" style="width:100%">
-          <i class="fa fa-search" style="position: relative;top: 34px;color: #CCCCCC;left: 21px;"></i>
-          <input type="text" placeholder="Search ..." class="searchbox" style="padding-left: 44px;height: 41px;"/>
+          <i class="fa fa-search" style="position: absolute;
+          color: #CCCCCC;
+          left: 32px;"></i>
+          <input type="text" placeholder="Search ..." class="searchbox" style=""/>
         </div>
       </div>
       
 
     </div>
   </div>
-  <div class="AssessmentContainer" style="padding: 11px 24px;">
+  <div class="AssessmentContainer" style="    padding: 0;
+  padding-bottom: 29px;">
     <div class="row">
-      <div class="col-lg-12 col-md-10 col-sm-12 col-xs-12">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 11px 24px;">
           <div class="row">
-            <div class="mt-3 col-sm-6 col-md-4 col-lg-4 col-xs-4">
+            <div class="col-sm-12 col-md-6 col-lg-3 col-xs-4">
                 <div class="row">
-                    <div class="col-lg-8">
+                    <div class="col-lg-6">
                         <select class="form-control" id='selectOption'>
                             <option disabled selected hidden value="0">Bulk Action</option>
                             <option value="Delete">Delete</option>
@@ -58,13 +60,13 @@
                         </select>
                     </div>
                     <div class="col-lg-4">
-                        <button id='apply' type="button" class="btn btn-secondary">Apply</button>
+                        <button id='apply' type="button" class="btn btn-secondary btn-apply">Apply</button>
                     </div>
                 </div>
             </div>
           </div>
       </div>
-      <div class="mt-3 col-md-12 col-sm-12 col-xs-12">
+      <div class="col-md-12 col-sm-12 col-xs-12">
         <div id="temp" style="display: none"></div>
         <textarea id="table_template" style="display: none">
           <table id="users_table" class="table table-borderless table-hover table-striped text-center">
@@ -137,14 +139,14 @@
           </div>
           <form class="cmxform" id="editform" method="get" action="">
                        
-            <div class="result" style="clear: both;height: 400px;width: 900px;overflow-y: auto;"></div>          
+            <div class="result" style=""></div>          
           </form>
           <div class="clearfix"></div>
         </div>
       </div>
     </div>
   </div>
-  <br />
+
   <div class="footerpagination padd pull-right">
             <nav aria-label="Page navigation">
                 <ul class="pagination">

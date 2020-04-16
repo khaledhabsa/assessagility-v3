@@ -10,7 +10,7 @@
 
     <div class="AssessmentContainer">
                     <div class="row">
-                        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 centerVertical">
                             <p id='body-assess'>
                                 In order to allow participants to answer questions, you have to start the assessment first.
                             </p>
@@ -33,7 +33,7 @@
 
                             </div>
                         </div>
-                        <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12 centerVertical">
                             <p id="linkedCopiedText" class="linkedCopied">
 
                             </p>
@@ -52,44 +52,39 @@
     </p>
     <div class="d-flex justify-content-between  mb-5">
         <div class=" containerLeft">
-            <div>
+            <div class="headerContent">
                 <p class="headerLeft left" >
                     <span class="circleStyle">
                     </span>&nbsp; In progress
                 </p>
                 <p class="headerLeft right" >{{users_started}}</p>
-                <br>
-                <hr class="hrHeader"> 
             </div>
             {% for t,v in roles_in_progress%} 
                 <div class="bodyContent">
                     <p class="LeftContent left" >{{t}}</p>
-                    <p class="LeftContent right" >{{v}}</p>
-                    <br>
+                    <p class="LeftContent rightInner" >{{v}}</p>
                     {% if forloop.last %}
                     {% else %}
-                        <hr class="hr"> 
                     {% endif %}
                 </div>
             {% endfor %}
         </div>
         <div class=" containerLeft">
-            <div>
+            <div class="headerContent">
                 <p class="headerRight left" >
                     <span class="circleStyle2"></span>&nbsp;Completed
                 </p>
                 <p class="headerRight right" >{{users_finished}}</p>
-                <br>
-                <hr class="hrHeader"> 
+
             </div>
             {%for t,v in roles_completed%}     
                 <div class="bodyContent">
                     <p class="LeftContent left" >{{t}}</p>
-                    <p class="LeftContent right" >{{v}}</p>
-                    <br>
+                    <p class="LeftContent rightInner" >{{v}}</p>
+
                     {% if forloop.last %}
                     {% else %}
-                        <hr class="hr"> 
+
                     {% endif %}
                 </div>
             {% endfor %}
