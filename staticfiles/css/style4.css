@@ -10,9 +10,16 @@ body {
 }
 
 .body_content {
-    padding-left: 75px;
-    padding-right: 75px;
+    padding-left: 40px;
+    padding-right: 40px;
     padding-top: 28px;
+}
+
+p {
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
 }
 
 p {
@@ -21,7 +28,14 @@ p {
     font-weight: 300;
     line-height: 1.7em;
     color: #999;
+
 }
+
+.centerVertical{
+    display: flex;
+    align-items: center;
+}
+
 ::-webkit-scrollbar {
     width: 10px;
     height:10px;
@@ -86,7 +100,7 @@ h2 {
     letter-spacing: normal;
     text-align: left;
     color: #4d4f5c;
-    padding-left: 37px;
+    padding-left: 24px;
     padding-top: 41px;
 }
 
@@ -415,36 +429,47 @@ a.article:hover {
 
 .containerLeft {
     display: inline-block;
-    padding-top: 31px;
-    padding-right: 34px;
-    padding-left: 37px;
+    padding-top: 0px;
+    padding-right: 26px;
+    padding-left: 24px;
     border-bottom: 1px solid #e8e9ec;
 }
 
 .containerLeft .headerLeft {
     font-family: Poppins;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
-    line-height: 0.72;
+    line-height: 0.81;
     letter-spacing: normal;
     text-align: left;
     color: #3b86ff;
+    width: 50%;
+    display: flex;
+    /* justify-content: flex-start; */
+    align-items: center;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
 }
 
 .containerLeft .headerRight {
 
-
     font-family: Poppins;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
-    line-height: 0.72;
+    line-height: 0.81;
     letter-spacing: normal;
     text-align: left;
     color: #01a300;
+    width: 50%;
+    display: flex;
+    /* justify-content: flex-start; */
+    align-items: center;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
 }
 
 .containerLeft .LeftContent {
@@ -457,14 +482,14 @@ a.article:hover {
     letter-spacing: normal;
     text-align: left;
     color: #43425d;
-}
+ }
 
 .AssessmentContainer {
     height: auto;
     background-color: #ffffff;
     width: 100%;
-    padding-left: 37px;
-    padding-right: 37px;
+    padding-left: 24px;
+    padding-right: 24px;
     padding-top: 43px;
     padding-bottom: 43px;
 
@@ -1063,8 +1088,8 @@ body {
 }
 
 .body_content {
-    padding-left: 75px;
-    padding-right: 75px;
+    padding-left: 40px;
+    padding-right: 40px;
     padding-top: 28px;
 }
 
@@ -1131,6 +1156,20 @@ h2 {
     color: #4d4f5c;
     padding-left: 37px;
     padding-top: 41px;
+    font-family: 'Poppins';
+    font-size: 18px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 0.65;
+    letter-spacing: normal;
+    text-align: left;
+    color: #4d4f5c;
+    padding-left: 24px;
+    padding-top: 41px;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    padding-bottom: 16px;
 }
 
 a,
@@ -1459,16 +1498,29 @@ a.article:hover {
 
 .bodyContent {
     padding-top: 0px;
+    border-bottom: 1px solid #e8e9ec;
+    height: 54px;
+    display: flex;
+    align-content: stretch;
+    align-items: center;
 }
 
 .containerLeft {
     display: inline-block;
-    padding-top: 22px;
-    padding-right: 34px;
-    padding-left: 37px;
+    padding-top: 0px;
+    padding-right: 26px;
+    padding-left: 24px;
     border-bottom: 1px solid #e8e9ec;
     height: 470px;
     overflow-y: scroll;
+}
+
+.headerContent{
+    border-bottom: 1px solid #e8e9ec;
+    height: 64px;
+    display: flex;
+    align-content: stretch;
+    align-items: center;
 }
 
 .containerLeft .headerLeft {
@@ -1477,24 +1529,34 @@ a.article:hover {
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
-    line-height: 0.72;
+    line-height: 0.81;
     letter-spacing: normal;
     text-align: left;
     color: #3b86ff;
+    width: 50%;
+    display: flex;
+    /* justify-content: flex-start; */
+    align-items: center;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
 }
 
 .containerLeft .headerRight {
-
-
     font-family: Poppins;
-    font-size: 17px;
+    font-size: 16px;
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
-    line-height: 0.72;
+    line-height: 0.81;
     letter-spacing: normal;
     text-align: left;
     color: #01a300;
+    width: 50%;
+    display: flex;
+    /* justify-content: flex-start; */
+    align-items: center;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
 }
 
 .containerLeft .LeftContent {
@@ -1507,14 +1569,20 @@ a.article:hover {
     letter-spacing: normal;
     text-align: left;
     color: #43425d;
+    width: 50%;
+    display: flex;
+    /* justify-content: flex-start; */
+    align-items: center;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
 }
 
 .AssessmentContainer {
     height: auto;
     background-color: #ffffff;
     width: 100%;
-    padding-left: 37px;
-    padding-right: 37px;
+    padding-left: 24px;
+    padding-right: 24px;
     padding-top: 43px;
     padding-bottom: 43px;
 
@@ -1534,11 +1602,17 @@ a.article:hover {
 }
 
 .left {
-    float: left;
+    justify-content: flex-start;
 }
 
 .right {
-    float: right;
+    justify-content: flex-end;
+    font-size: 15px;
+}
+
+.rightInner{
+    justify-content: flex-end;
+    font-size: 13px; 
 }
 
 .btn-start {
