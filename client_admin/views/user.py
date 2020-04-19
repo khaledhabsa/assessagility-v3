@@ -48,7 +48,7 @@ def home(request):
            'survey_closed': isValidSurveyOption('survey_closed', 'closed'),
            }
 
-    return render(request, 'client_admin_home.html', ctx)
+    return render(request, 'home.html', ctx)
 
 
 @login_required(login_url="/accounts/login/?next=client_admin:upload_logo")

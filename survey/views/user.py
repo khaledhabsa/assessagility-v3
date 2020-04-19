@@ -25,7 +25,7 @@ def user_login(request):
     '''
     if request.user.is_authenticated:
         if (request.GET.get('next') != "None") and (request.GET.get('next') is not None):
-            print(request.GET.get('next'))
+
             return redirect(request.GET.get('next'))
         else:
             return redirect("survey:answerpage", mode=0)
@@ -35,11 +35,12 @@ def user_login(request):
             form_user = UserLoginForm(request.POST)
             if form_user.is_valid():
                 user = form_user.cleaned_data.get('user')
+
                 login(request, user)
                 nextUrl = request.POST.get('next')
                 if nextUrl == "None":
                     if user.is_superuser:
-                        return redirect("/client/admin/admin_landing")
+                        return redirect("/client/admin/")
                     else:
                         return redirect("/answerpage/0/")
                 else:
@@ -71,7 +72,7 @@ def forget_password(request):
             message = "An email has been sent to the email provided. Thank you!"
             timestamp = str(int(time.time()))
             m = hashlib.sha1()
-            m.update(timestamp)
+            m.update(timestamp.encode("utf-8"))
 
             t = ticket.objects.create(
                 code=m.hexdigest(), data=email, type='change password', status='available')
@@ -152,7 +153,7 @@ def change_password(request):
             request.user.save()
             return redirect('survey:answerpage', mode=0)
         else:
-            return render(request, 'user/change_password.html', {'error': 'the password you entered does not match what we have in the system.'}, RequestContext(request))
+            return render(request, 'user/change_password.html', {'error': 'the password you entered does not match what we have in the system.'})
 
     return render(request, 'user/change_password.html', {})
 
@@ -179,7 +180,7 @@ def login_iphone(request):
                 nextUrl = request.POST.get('next')
                 if nextUrl == "None":
                     if user.is_superuser:
-                        return redirect("/client/admin/admin_landing")
+                        return redirect("/client/admin")
                     else:
                         return redirect("/answerpage/0/")
                 else:
@@ -194,24 +195,31 @@ def login_iphone(request):
 
 
 def adduser(request):
-    message = None
-    errors = None
-    if request.method == 'POST':
-        form = AddUserForm(request.POST)
-
-        if form.is_valid():
-            form.save()
-            message = '%s has been added successfully.' % form.cleaned_data['email']
-            success(request, message)
-            return redirect("survey:user_login")
-
+    if request.user.is_authenticated:
+        if (request.GET.get('next') != "None") and (request.GET.get('next') is not None):
+            print(request.GET.get('next'))
+            return redirect(request.GET.get('next'))
         else:
-            errors = list(form.errors.as_data()['__all__'][0])[0],
+            return redirect("survey:answerpage", mode=0)
     else:
-        form = AddUserForm()
+        message = None
+        errors = None
+        if request.method == 'POST':
+            form = AddUserForm(request.POST)
 
-    return render(request, 'user/adduser.html',
-                  {'form': form,
-                   "errors": errors,
-                   'message': message},
-                  )
+            if form.is_valid():
+                form.save()
+                message = '%s has been added successfully.' % form.cleaned_data['email']
+                success(request, message)
+                return redirect("survey:user_login")
+
+            else:
+                errors = list(form.errors.as_data()['__all__'][0])[0],
+        else:
+            form = AddUserForm()
+
+        return render(request, 'user/adduser.html',
+                      {'form': form,
+                       "errors": errors,
+                       'message': message},
+                      )

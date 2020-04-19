@@ -1,0 +1,20 @@
+.range_header {
+	float: left;
+	font-size: 10px;
+	height: 20px;
+	text-align: center;
+}
+.supervisor {
+	font-family: Calibri;
+	display: inline-block;
+	color: #00f;
+	font-size: 20px;
+	font-weight: bold;
+	margin: 5px;
+}
+.divider {
+	height: 2px;
+	width: auto;
+	background-color: #00f;
+	margin: 5px;
+}

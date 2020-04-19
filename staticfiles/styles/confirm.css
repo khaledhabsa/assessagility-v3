@@ -1,0 +1,157 @@
+/*
+ * SimpleModal Confirm Modal Dialog
+ * http://simplemodal.com
+ *
+ * Copyright (c) 2013 Eric Martin - http://ericmmartin.com
+ *
+ * Licensed under the MIT license:
+ *   http://www.opensource.org/licenses/mit-license.php
+ */
+
+#confirm {display:none;}
+
+/* Overlay */
+#confirm-overlay {background-color:#eee;}
+
+/* Container */
+#confirm-container {height:156px; width:420px; font: 14px Arial,; text-align:left; background:#fff; border:1px solid #999;-moz-box-shadow: 3px 3px 4px #444;
+	-webkit-box-shadow: 3px 3px 4px #444;
+	box-shadow: 0px 0px 6px #444;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#444444')";
+	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#444444');}
+#confirm-container .header {height:30px; line-height:30px; width:100%; background-image:url(../images/bg_gridhead.png);
+	background-position:bottom;	background-repeat:repeat-x; font-weight:bold;}
+#confirm-container .header span {padding-left:8px; font-size:12px;color:#005482;font-weight:bold}
+#confirm-container .message,#confirm-container .message provide {color:#4E4E4E; font-size:12px; margin:0; padding:12px 4px 5px 8px;font-weight:bold;}
+#confirm-container .buttons {line-height:15px; width:120px; float:right; padding:10px 8px 0;font-size:12px} 
+/*#confirm-container .buttons div {float:right; margin-left:4px; width:70px; height:26px; color:#666; font-weight:bold; text-align:center; background:url(../img/confirm/button.gif) repeat-x; border:1px solid #bbb; cursor:pointer;} */
+#confirm-container a.modal-close,
+#confirm-container a.modal-close:link,
+#confirm-container a.modal-close:active,
+#confirm-container a.modal-close:visited {text-decoration:none; font-weight:bold; position:absolute; right:10px; top:7px; color:#000;}
+#confirm-container a.modal-close:hover {color:#ccc;}
+
+
+#confirm1 {display:none;}
+
+/* Overlay */
+#confirm-overlay1 {background-color:#eee;}
+
+/* Container */
+.confirmwindow{
+	width:600;
+	height:auto;
+}
+/*
+#confirm-container1 {height:150px; width:420px; font: 12px Arial; text-align:left; background:#fff; border:1px solid #999;-moz-box-shadow: 3px 3px 4px #444;
+	-webkit-box-shadow: 3px 3px 4px #444;
+	box-shadow: 0px 0px 6px #444;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#444444')";
+	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#444444');}
+#confirm-container1 .header {height:30px; line-height:30px; width:100%; background-image:url(../images/bg_gridhead.png);
+	background-position:bottom;	background-repeat:repeat-x; font-weight:bold;}
+#confirm-container1 .header span {padding-left:8px;font-size:12px;color:#005482;font-weight:bold}
+#confirm-container1 .message,#confirm-container1 .message provide{color:#4E4E4E; font-size:12px; margin:0; padding:12px 4px 12px 8px;font-weight:bold;}
+#confirm-container1 .buttons {line-height:15px; width:120px; float:right; padding:10px 8px 0;font-size:12px} */
+/*#confirm-container .buttons div {float:right; margin-left:4px; width:70px; height:26px; color:#666; font-weight:bold; text-align:center; background:url(../img/confirm/button.gif) repeat-x; border:1px solid #bbb; cursor:pointer;} */
+#confirm-container1 a.modal-close,
+#confirm-container1 a.modal-close:link,
+#confirm-container1 a.modal-close:active,
+#confirm-container1 a.modal-close:visited {text-decoration:none; font-weight:bold; position:absolute; right:10px; top:7px; color:#000;}
+#confirm-container1 a.modal-close:hover {color:#ccc;}
+
+
+#confirm2 {display:none;}
+/* Overlay */
+#confirm-overlay2 {background-color:#eee;}
+
+/* Container */
+#confirm-container2 {height:150px; width:420px; font: 14px Arial,; text-align:left; background:#fff; border:1px solid #999;-moz-box-shadow: 3px 3px 4px #444;
+	-webkit-box-shadow: 3px 3px 4px #444;
+	box-shadow: 0px 0px 6px #444;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#444444')";
+	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#444444');}
+#confirm-container2 .header {height:30px; line-height:30px; width:100%; background-image:url(../images/bg_gridhead.png);
+	background-position:bottom;	background-repeat:repeat-x; font-weight:bold;}
+#confirm-container2 .header span {padding-left:8px;font-size:12px;color:#005482;font-weight:bold}
+#confirm-container2 .message,#confirm-container1 .message provide{color:#4E4E4E; font-size:12px; margin:0; padding:12px 4px 12px 8px;font-weight:bold;}
+#confirm-container2 .buttons {line-height:15px; width:120px; float:right; padding:10px 8px 0;font-size:12px} 
+/*#confirm-container .buttons div {float:right; margin-left:4px; width:70px; height:26px; color:#666; font-weight:bold; text-align:center; background:url(../img/confirm/button.gif) repeat-x; border:1px solid #bbb; cursor:pointer;} */
+#confirm-container2 a.modal-close,
+#confirm-container2 a.modal-close:link,
+#confirm-container2 a.modal-close:active,
+#confirm-container2 a.modal-close:visited {text-decoration:none; font-weight:bold; position:absolute; right:10px; top:7px; color:#000;}
+#confirm-container2 a.modal-close:hover {color:#ccc;}
+
+
+
+#confirm3 {display:none;}
+/* Overlay */
+#confirm-overlay3 {background-color:#eee;}
+
+/* Container */
+#confirm-container3 {height:150px; width:420px; font: 14px Arial,; text-align:left; background:#fff; border:1px solid #999;-moz-box-shadow: 3px 3px 4px #444;
+	-webkit-box-shadow: 3px 3px 4px #444;
+	box-shadow: 0px 0px 6px #444;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#444444')";
+	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#444444');}
+#confirm-container3 .header {height:30px; line-height:30px; width:100%; background-image:url(../images/bg_gridhead.png);
+	background-position:bottom;	background-repeat:repeat-x; font-weight:bold;}
+#confirm-container3 .header span {padding-left:8px;font-size:12px;color:#005482;font-weight:bold}
+#confirm-container3 .message,#confirm-container1 .message provide{color:#4E4E4E; font-size:12px; margin:0; padding:12px 4px 12px 8px;font-weight:bold;}
+#confirm-container3 .buttons {line-height:15px; width:120px; float:right; padding:10px 8px 0;font-size:12px} 
+/*#confirm-container .buttons div {float:right; margin-left:4px; width:70px; height:26px; color:#666; font-weight:bold; text-align:center; background:url(../img/confirm/button.gif) repeat-x; border:1px solid #bbb; cursor:pointer;} */
+#confirm-container3 a.modal-close,
+#confirm-container3 a.modal-close:link,
+#confirm-container3 a.modal-close:active,
+#confirm-container3 a.modal-close:visited {text-decoration:none; font-weight:bold; position:absolute; right:10px; top:7px; color:#000;}
+#confirm-container3 a.modal-close:hover {color:#ccc;}
+
+
+#confirm4 {display:none;}
+/* Overlay */
+#confirm-overlay4 {background-color:#eee;}
+
+/* Container */
+#confirm-container4 {height:150px; width:420px; font: 14px Arial,; text-align:left; background:#fff; border:1px solid #999;-moz-box-shadow: 3px 3px 4px #444;
+	-webkit-box-shadow: 3px 3px 4px #444;
+	box-shadow: 0px 0px 6px #444;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#444444')";
+	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#444444');}
+#confirm-container4 .header {height:30px; line-height:30px; width:100%; background-image:url(../images/bg_gridhead.png);
+	background-position:bottom;	background-repeat:repeat-x; font-weight:bold;}
+#confirm-container4 .header span {padding-left:8px;font-size:12px;color:#005482;font-weight:bold}
+#confirm-container4 .message,#confirm-container4 .message provide{color:#4E4E4E; font-size:12px; margin:0; padding:12px 4px 12px 8px;font-weight:bold;}
+#confirm-container4 .buttons {line-height:15px; width:120px; float:right; padding:10px 8px 0;font-size:12px} 
+/*#confirm-container .buttons div {float:right; margin-left:4px; width:70px; height:26px; color:#666; font-weight:bold; text-align:center; background:url(../img/confirm/button.gif) repeat-x; border:1px solid #bbb; cursor:pointer;} */
+#confirm-container4 a.modal-close,
+#confirm-container4 a.modal-close:link,
+#confirm-container4 a.modal-close:active,
+#confirm-container4 a.modal-close:visited {text-decoration:none; font-weight:bold; position:absolute; right:10px; top:7px; color:#000;}
+#confirm-container4 a.modal-close:hover {color:#ccc;}
+#confirm4-dialog{float:left}
+
+#confirm5 {display:none;}
+
+/* Overlay */
+#confirm-overlay5 {background-color:#eee;}
+
+/* Container */
+#confirm-container5 {height:250px; width:500px; font: 12px Arial; text-align:left; background:#fff; border:1px solid #999;-moz-box-shadow: 3px 3px 4px #444;
+	-webkit-box-shadow: 3px 3px 4px #444;
+	box-shadow: 0px 0px 6px #444;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#444444')";
+	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#444444');}
+#confirm-container5 label{margin-top:0px}
+#confirm-container5 .header {height:30px; line-height:30px; width:100%; background-image:url(../images/bg_gridhead.png);
+	background-position:bottom;	background-repeat:repeat-x; font-weight:bold;}
+#confirm-container5 .header span {padding-left:8px;font-size:12px;color:#005482;font-weight:bold}
+#confirm-container5 .message,#confirm-container5 .message provide{color:#4E4E4E; font-size:12px; margin:0; padding:12px 4px 12px 8px;font-weight:bold;}
+#confirm-container5 .buttons {line-height:15px;float:right; padding:10px 8px 0;font-size:12px} 
+/*#confirm-container .buttons div {float:right; margin-left:4px; width:70px; height:26px; color:#666; font-weight:bold; text-align:center; background:url(../img/confirm/button.gif) repeat-x; border:1px solid #bbb; cursor:pointer;} */
+#confirm-container5 a.modal-close,
+#confirm-container5 a.modal-close:link,
+#confirm-container5 a.modal-close:active,
+#confirm-container5 a.modal-close:visited {text-decoration:none; font-weight:bold; position:absolute; right:10px; top:7px; color:#000;}
+#confirm-container5 a.modal-close:hover {color:#ccc;}
+

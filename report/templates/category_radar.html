@@ -1,64 +1,191 @@
-{% extends "base_report.html" %}
+{% extends "base_client_admin.html" %} 
 {% load static %}
 
-{% block page_title %}Organizational Characteristic Assessment{% endblock %}
-{% block header_left %}Organizational Characteristic Assessment{% endblock %}
-
-{% block breadcrumb %}
-   <a href="{% url 'client_admin:home' %}"><i class="fa fa-home"></i> Home</a> 
-   <span class="divider">/</span> 
-   <a href="#" class="bread-current">Organizational Characteristic Assessment</a>
+{% block title %}Organizational Characteristic Assessment{% endblock %}
+{% block links %}
+  <link rel="stylesheet" href="{% static 'css/custom4.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/reports.css' %}"/>
 {% endblock %}
 
-{% block report %}
-<script src="{% static 'js/reports/reportradar.js' %}"></script>
-<script>
-activeMenuItem = 8;
-</script>
-{% endblock %}
-
-{% block chart %}
-<div class="col-md-9">
-    <div class="widget">
-      <div class="widget-head">
-        <div class="pull-left">Organizational Characteristic Assessment</div>
-        <div class="widget-icons pull-right">
-          <a class="wminimize" href="#"><i class="fa fa-chevron-up"></i></a>
-        </div>
-        <div class="clearfix"></div>
-      </div>
-      <div class="widget-content">
-        <div class="padd">
-                <div id="chart_div" class="preloader-bg" style="height: 100%;min-height: 300px" ></div>
-        </div>
-      </div>
-    </div>
-</div>
-
-<div class="col-md-9">
-    <div class="widget">
-        <div class="widget-head">
-            <div class="pull-left">Organizational Characteristic Assessment</div>
-            <div class="widget-icons pull-right">
-                <a class="wminimize" href="#"><i class="fa fa-chevron-up"></i></a>
+{% block page %}Organizational Characteristic Assessment{% endblock %}
+{% block breadcrumb %} <a href="{% url 'client_admin:home' %}">Dashboard</a> / <a href="#">Reports</a> /<a href="{% url 'report:category_radar' %}">Organizational Characteristic Assessment</a> {% endblock %}
+{% block subtitle %} Organizational Characteristic Assessment{% endblock %}
+{% block content %}
+  
+  <div class="AssessmentContainer">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="widget">
+                    <div class="widget-head">
+                        <div class="row">
+                             <div class="col-sm-10 pull-left">Filters</div>
+                            <div class="col-sm-2 pull-right widget-icons">
+                                <a class="wminimize" href="#"><i class="fa fa-chevron-up"></i></a>
+                            </div>
+                        </div>
+                    <div class="clearfix"></div>
+                    </div>
+                    <div class="widget-content">
+                    <div class="padd">
+                        {% if roles %}
+                        <div class="chartfiltertext">Roles</div>
+                        <select class="chartfilterdropdown" name="chartfilterdropdown" id="slctRolesid" >
+                        <option value="-1">All Roles</option>
+                        {% for r in roles %}
+                        {% if role == r.id%}
+                        <option value="{{r.id}}" selected='selected'>{{r.title}}</option>
+                        {% else %}
+                        <option value="{{r.id}}"  >{{r.title}}</option>
+                        {% endif %}
+                        {% endfor %}
+                        </select>
+                        <div class="chartseparator"></div>
+                        {% endif %}
+                        
+                        {% ifequal  show_demographic "show" %}
+                        {% for d in demographics %}
+                        <div class="chartfiltertext">{{d.title}} </div>
+                        <select name="demo{{d.id}}" id="demo{{d.id}}" class="chartfilterdropdown" >
+                        
+                        <option value="-1">All</option>
+                        {% for v in d.demographicvalue_set.all %}
+                        <option value="{{v.id}}"
+                                {% for value_id in values %}
+                                {% ifequal value_id  v.id %}
+                                selected='selected'
+                                {% endifequal %}
+                                
+                                {% endfor %}
+                                >{{v.value}}</option>
+                        {% endfor %}
+                        </select>
+                        {% endfor %}
+                        {% endifequal %}
+                        
+                    </div>
+                    {% comment %} <div class="btn btn-secondary mb-2 reportpdfbtn">Generate PDF</div> {% endcomment %}
+                    <div class="btn btn-primary reportupdatebtn">Update</div>
+                    </div>
+                </div>   
             </div>
-            <div class="clearfix"></div>
-        </div>
-        <div class="widget-content">
-            <div class="padd">
-                {% comment %}
-                <div class="chartalert padd"> {{reportquotastatistic}}</div>
-                {% endcomment %}
-                <div class="chartdescriptions">
-                    <div class="charttopbar2"></div>
-                    <div class="chartcontent"><p id="tabnfo">Select the column to view details</p></div>
+            <div class="col-md-8">
+                <div class="widget">
+                    <div class="widget-head">
+                        <div class="row">
+                             <div class="col-sm-11 pull-left">Organizational Characteristic Assessment</div>
+                            <div class="col-sm-1 pull-right widget-icons">
+                                <a class="wminimize" href="#"><i class="fa fa-chevron-up"></i></a>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="widget-content">
+                        <div class="padd">
+                                <div id="chart_div" class="preloader-bg" style="height: 100%;min-height: 300px" ></div>
+                        </div>
+                    </div>
                 </div>
+            </div>
+            <div class="col-md-12">
+                <div class="widget">
+                    <div class="widget-head">
+                        <div class="row">
+                             <div class="col-sm-11 pull-left">Organizational Characteristic Assessment</div>
+                            <div class="col-sm-1 pull-right widget-icons">
+                                <a class="wminimize" href="#"><i class="fa fa-chevron-up"></i></a>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="widget-content">
+                        <div class="padd">
+                            {% comment %}
+                            <div class="chartalert padd"> {{reportquotastatistic}}</div>
+                            {% endcomment %}
+                            <div class="chartdescriptions">
+                                <div class="charttopbar2"></div>
+                                <div class="chartcontent"><p id="tabnfo">Select the column to view details</p></div>
+                            </div>
 
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+
     </div>
-</div>
+   <br>
 
+{% endblock%}
 
-
+{% block js %}
+   <script src="{% static "js/" %}jquery-ui-1.9.2.custom.min.js"></script> <!-- jQuery UI -->
+    <script src="{% static "js/" %}fullcalendar.min.js"></script> <!-- Full Google Calendar - Calendar -->
+    <script src="{% static "js/" %}jquery.rateit.min.js"></script> <!-- RateIt - Star rating -->
+    <script src="{% static "js/" %}jquery.prettyPhoto.js"></script> <!-- prettyPhoto -->
+    
+    <!-- Morris JS -->
+    <script src="{% static "js/" %}raphael-min.js"></script>
+    <script src="{% static "js/" %}morris.min.js"></script>
+    
+    <!-- jQuery Flot -->
+    <script src="{% static "js/" %}excanvas.min.js"></script>
+    <script src="{% static "js/" %}jquery.flot.js"></script>
+    <script src="{% static "js/" %}jquery.flot.resize.js"></script>
+    <script src="{% static "js/" %}jquery.flot.pie.js"></script>
+    <script src="{% static "js/" %}jquery.flot.stack.js"></script>
+    
+    <!-- jQuery Notification - Noty -->
+    <script src="{% static "js/" %}jquery.noty.js"></script> <!-- jQuery Notify -->
+    <script src="{% static "js/" %}themes/default.js"></script> <!-- jQuery Notify -->
+    <script src="{% static "js/" %}layouts/bottom.js"></script> <!-- jQuery Notify -->
+    <script src="{% static "js/" %}layouts/topRight.js"></script> <!-- jQuery Notify -->
+    <script src="{% static "js/" %}layouts/top.js"></script> <!-- jQuery Notify -->
+    <!-- jQuery Notification ends -->
+    
+    <!-- Daterangepicker -->
+    <script src="{% static "js/" %}moment.min.js"></script>
+    <script src="{% static "js/" %}daterangepicker.js"></script>
+    
+    <script src="{% static "js/" %}sparklines.js"></script> <!-- Sparklines -->
+    <script src="{% static "js/" %}jquery.gritter.min.js"></script> <!-- jQuery Gritter -->
+    <script src="{% static "js/" %}jquery.cleditor.min.js"></script> <!-- CLEditor -->
+    <script src="{% static "js/" %}bootstrap-datetimepicker.min.js"></script> <!-- Date picker -->
+    <script src="{% static "js/" %}jquery.uniform.min.js"></script> <!-- jQuery Uniform -->
+    <script src="{% static "js/" %}jquery.slimscroll.min.js"></script> <!-- jQuery SlimScroll -->
+    <script src="{% static "js/" %}bootstrap-switch.min.js"></script> <!-- Bootstrap Toggle -->
+    <script src="{% static "js/" %}jquery.maskedinput.min.js"></script> <!-- jQuery Masked Input -->
+    <script src="{% static "js/" %}dropzone.js"></script> <!-- jQuery Dropzone -->
+    <script src="{% static "js/" %}filter.js"></script> <!-- Filter for support page -->
+    <script src="{% static "js/" %}custom.js"></script> <!-- Custom codes -->
+    <script src="{% static "js/" %}charts.js"></script> <!-- Charts & Graphs -->
+    <script>
+      _surveyClosed = "v{{ survey_closed|lower }}";
+      activeMenuItem = 0;
+    </script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script src="{% static 'js/reports/ColorBox.js' %}"></script>
+    <script src="{% static 'js/reports/reports.js' %}"></script>
+    <script src="{% static 'js/reports/charts.js' %}"></script>
+    <script>
+      $( document ).ready(function() {
+          if(activeMenuItem){
+              var activeElement = $('#menu-item-'+activeMenuItem);	
+              if (activeElement.parents('.has_sub').length) {
+		  $('#nav').find(activeElement).addClass('open');
+		  activeElement.closest('.has_sub').children('a').addClass('open subdrop');
+		  activeElement.find("a").addClass("active");
+		  activeElement.closest('ul').css("display","block");
+	      }else{
+		  activeElement.find("a").addClass("open");
+	      }	      
+	  }
+      });
+    </script>
+    {% csrf_token %}
+    <script src="{% static 'js/reports/reportradar.js' %}"></script>
+    <script>
+        activeMenuItem = 8;
+    </script>
 {% endblock %}

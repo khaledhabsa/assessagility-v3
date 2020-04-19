@@ -1,0 +1,35 @@
+body{
+    background-color: #efeef4;
+}
+
+.navbar-brand{
+    padding:5px 0;
+}
+
+body.userspace .mainbar{
+    margin-left:0;
+    margin: 0 auto;
+    max-width:1200px;
+    border:none;
+}
+
+body.userspace .mainbar .page-head{
+    border:none;
+    background:none;
+    box-shadow:none;
+    padding:0;
+}
+
+.mainbar .matter{
+    border:none;
+}
+
+.page-title{
+    background:#fff;
+    border:1px solid #cacacc;
+    border-radius:2px;
+    padding:12px 14px;
+}
+.inputBlock input[type='submit']{
+    padding: 9px 16px;
+}

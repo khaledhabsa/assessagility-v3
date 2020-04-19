@@ -212,18 +212,18 @@
             <textarea id="rows_template" style="display: none">
               
               {#foreach $T as record}
-              <tr id='tr_{$T.record.id}'>
-                <td><div class="usercheckbox" id='{$T.record.id}'></div></td>
-                <td class="firstname form-elements"><div class="editabletext">{$T.record.first_name}</div></td>
-                <td class="lastname form-elements"><div class="editabletext">{$T.record.last_name}</div></td>
-                <td class="email form-elements"><div >{$T.record.email}</div></td>
-                <td class="status">{$T.record.status}</td>
-                <td>
-                  <a class="edit btn btn-xs btn-primary"><i class="fa fa-pencil"></i>&nbsp; Edit</a>
-                  <a class="update btn btn-xs btn-success" title="Update"><i class="fa fa-check"></i>&nbsp; Update</a>
-                  <a class="cancel btn btn-xs btn-danger" title="Cancel"><i class="fa fa-times"></i>&nbsp; Cancel</a>
-                </td>
-              </tr>
+                <tr id='tr_{$T.record.id}'>
+                  <td><div class="usercheckbox" id='{$T.record.id}'></div></td>
+                  <td class="firstname form-elements"><div class="editabletext">{$T.record.first_name}</div></td>
+                  <td class="lastname form-elements"><div class="editabletext">{$T.record.last_name}</div></td>
+                  <td class="email form-elements"><div >{$T.record.email}</div></td>
+                  <td class="status">{$T.record.status}</td>
+                  <td>
+                    <a class="edit btn btn-xs btn-primary"><i class="fa fa-pencil"></i>&nbsp; Edit</a>
+                    <a class="update btn btn-xs btn-success" title="Update"><i class="fa fa-check"></i>&nbsp; Update</a>
+                    <a class="cancel btn btn-xs btn-danger" title="Cancel"><i class="fa fa-times"></i>&nbsp; Cancel</a>
+                  </td>
+                </tr>
               {#/for}   
             </textarea>
         

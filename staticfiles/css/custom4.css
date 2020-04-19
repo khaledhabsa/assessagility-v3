@@ -1,0 +1,532 @@
+.portlets{
+    min-height:50px;
+}
+
+.widget.ui-sortable-placeholder { border: 2px dotted #ccc; background:none; visibility: visible !important; min-height: 50px !important; }
+.widget.ui-sortable-placeholder * { visibility: hidden; }
+
+
+.widget {
+    border: 1px solid #c9c9c9;
+    position:relative;
+    border-radius: 3px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    min-height:50px;
+    box-shadow:0 1px 1px rgba(0, 0, 0, 0.05);
+    background: #fff; 
+    background: #fafafa url('../img/cream.png') repeat;
+}
+
+.widget p{
+    margin: 3px 0px 5px 0px !important;
+    line-height: 20px;
+}
+
+.widget hr{
+    margin: 8px 0px;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #fff;
+}
+
+.widget .table{
+    margin: 0px;
+    width: 100%;
+}
+
+.widget .table .btn{
+    font-size: 13px !important;
+}
+
+.widget .table-bordered{
+    border-radius: 0px;
+    border: 0px;
+}
+
+.widget .table-bordered th{
+    border-bottom: 1px solid #ddd !important;
+}
+
+.widget .table-bordered td{
+    border-top: 0px !important;
+    border-bottom: 1px solid #ddd !important;
+    border-radius: 0px !important;
+}
+
+.widget .table-bordered td:first-child, .widget .table-bordered th:first-child{
+	                                    border-left: 0px;
+                                        }
+
+.widget .table-bordered thead:first-child tr:first-child > th:first-child, 
+.widget .table-bordered tbody:first-child tr:first-child > td:first-child {
+    border-radius: 0px;
+}
+
+.widget.headless .widget-head{
+    background: transparent !important;
+    border-bottom:0px !important;
+}
+
+.widget.footless .widget-head{
+    background: transparent !important;
+    border-top:0px !important;
+}
+
+.widget.wblue{
+    background: #436B91 !important;
+    border:none;
+    color:#fff;
+}
+
+.widget.wblue2{
+    background: #C5CED6 !important;
+    border:none;
+    color:#fff;
+}
+
+.widget.worange{
+    background: #F07C6C !important;
+    border:none;
+    color:#fff;
+}
+
+.widget.worange2{
+    background: #F77A52 !important;
+    border:none;
+    color:#fff;
+}
+
+.widget.worange3{
+    background: #FF974F !important;
+    border:none;
+    color:#fff;
+}
+
+.widget.stone{
+    background: #A49A87 !important;
+    border:none;
+    color:#333;
+}
+
+.widget.wlime{
+    background: #C0CA55 !important;
+    border:none;
+    color:#fff;
+}
+
+.widget.wpurple{
+    background: #AD5472 !important;
+    border:none;
+    color:#fff;
+}
+
+.widget.wpurple2{
+    background: #513B5E !important;
+    border:none;
+    color:#fff;
+}
+
+.widget.wpurple3{
+    background: #644D52 !important;
+    border:none;
+    color:#fff;
+}
+
+.widget.wpink{
+    background: #EA2E49 !important;
+    border:none;
+    color:#fff;
+}
+
+.widget.wlightblue{
+    background: #77C4D3 !important;
+    border:none;
+    color:#fff;
+}
+
+.widget.wgrayish{
+    background: #43484D !important;
+}
+
+.widget.wgrey{
+    background: #888888 !important;
+}
+
+.widget.wyellow{
+    background: #F5E5C0 !important;
+}
+
+.widget.wgrayish .widget-head{
+    color:#fff;
+    text-shadow:none;
+}
+.widget.wblack{
+    background: #fafafa url('../img/black.png') repeat;
+    color: #ddd;
+    border: 1px solid #222;
+}
+
+.widget.wblack hr{
+    border-top: 1px solid #444;
+    border-bottom: 1px solid #222;
+}
+
+.widget.wblack a{
+    color: #aaa;
+}
+
+.widget.wblack a:hover{
+    color: #888;
+}
+
+.widget .padd, .modal-body{
+    padding: 13px 15px;
+}
+
+.widget .widget-head,.modal-header{
+    background-color: #f8f8f8;
+    background: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#f2f2f2));
+    background: -webkit-linear-gradient(top, #f8f8f8, #f2f2f2);
+    background: -moz-linear-gradient(top, #f8f8f8, #f2f2f2);
+    background: -ms-linear-gradient(top, #f8f8f8, #f2f2f2);
+    background: -o-linear-gradient(top, #f8f8f8, #f2f2f2);
+    background: linear-gradient(top, #f8f8f8, #f2f2f2);	
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+    text-shadow:0px 1px #fff;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #fff;
+    color: #666;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 8px 15px;
+}
+
+.widget.wblack .widget-head{
+    background-color: #333;
+    background: -webkit-gradient(linear, left top, left bottom, from(#333), to(#111));
+    background: -webkit-linear-gradient(top, #333, #111);
+    background: -moz-linear-gradient(top, #333, #111);
+    background: -ms-linear-gradient(top, #333, #111);
+    background: -o-linear-gradient(top, #333, #111);
+    background: linear-gradient(top, #333, #111);
+    text-shadow:0px 1px #000;
+    border-bottom: 1px solid #555;
+    border-top: 1px solid #666;
+    box-shadow: inset 0px 1px 1px #444;
+    color: #ccc;
+}
+
+.widget .widget-head .widget-icons i{
+    font-size: 14px;
+    margin: 0px 4px;
+}
+
+.widget .widget-head .widget-icons a{
+    color: #aaa;
+}
+
+.widget .widget-head .widget-icons a:hover{
+    color: #999;
+}
+
+.widget.wblack .widget-head .widget-icons i{
+    font-size: 14px;
+    margin: 0px 4px;
+}
+
+.widget .widget-foot, .modal-footer{
+    background-color: #f8f8f8;
+    background: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#f2f2f2));
+    background: -webkit-linear-gradient(top, #f8f8f8, #f2f2f2);
+    background: -moz-linear-gradient(top, #f8f8f8, #f2f2f2);
+    background: -ms-linear-gradient(top, #f8f8f8, #f2f2f2);
+    background: -o-linear-gradient(top, #f8f8f8, #f2f2f2);
+    background: linear-gradient(top, #f8f8f8, #f2f2f2);	
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    text-shadow:0px 1px #fff;
+    border-bottom: 1px solid #fff;
+    border-top: 1px solid #ccc;
+    padding: 8px 15px;
+    font-size: 12px;
+    color: #555;
+    box-shadow: inset 0px 1px 1px #fff;
+}
+
+.widget.wblack .widget-foot{
+    background-color: #111;
+    background: -webkit-gradient(linear, left top, left bottom, from(#222), to(#111));
+    background: -webkit-linear-gradient(top, #222, #111);
+    background: -moz-linear-gradient(top, #222, #111);
+    background: -ms-linear-gradient(top, #222, #111);
+    background: -o-linear-gradient(top, #222, #111);
+    background: linear-gradient(top, #222, #111);
+    text-shadow:0px 1px #000;
+    border-bottom: 1px solid #000;
+    border-top: 1px solid #222;
+    color: #aaa;
+    box-shadow: inset 0px 1px 1px #444;
+}
+
+/* Widget white extras */
+
+.widget .nav-tabs > li a {
+
+}
+
+.widget .nav-tabs {
+    margin-bottom: 5px;
+}
+
+.widget .tab-content{
+    margin-bottom: 10px;
+}
+
+/* Widget black extras */
+
+.widget.wblack .btn-inverse{
+    border: 1px solid #212121;
+}
+
+.widget.wblack a.btn-primary, .widget.wblack a.btn-primary:hover, 
+.widget.wblack a.btn-warning, .widget.wblack a.btn-warning:hover,
+.widget.wblack a.btn-danger,  .widget.wblack a.btn-danger:hover,
+.widget.wblack a.btn-success, .widget.wblack a.btn-success:hover,
+.widget.wblack a.btn-info,  .widget.wblack a.btn-info:hover,
+.widget.wblack a.btn-inverse, .widget.wblack a.btn-inverse:hover{
+                                  color: #fff;
+                              }
+
+.widget.wblack .form-actions{
+    border-radius: 5px;
+    background-color: #111;
+    background: -webkit-gradient(linear, left top, left bottom, from(#222), to(#111));
+    background: -webkit-linear-gradient(top, #222, #111);
+    background: -moz-linear-gradient(top, #222, #111);
+    background: -ms-linear-gradient(top, #222, #111);
+    background: -o-linear-gradient(top, #222, #111);
+    background: linear-gradient(top, #222, #111);
+    border: 1px solid #111;
+    box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.1);
+}
+
+.widget.wblack h2,
+.widget.wblack h3,
+.widget.wblack h4,
+.widget.wblack h5,
+.widget.wblack h6{
+    color: #ddd;
+}
+
+.widget.wblack blockquote{
+    border-left: 3px solid #555;
+}
+
+.widget.wblack .pagination ul > li > a, .widget.wblack .pagination ul > li > span {
+    background-color: #111;
+    background: -webkit-gradient(linear, left top, left bottom, from(#222), to(#111));
+    background: -webkit-linear-gradient(top, #222, #111);
+    background: -moz-linear-gradient(top, #222, #111);
+    background: -ms-linear-gradient(top, #222, #111);
+    background: -o-linear-gradient(top, #222, #111);
+    background: linear-gradient(top, #222, #111);
+    box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.1);
+    border: 1px solid #161616;
+}
+
+.widget.wblack .pagination ul > li > a:hover{
+    background: #222;
+}
+
+.widget.wblack .table td{
+    border-top: 1px solid #222;
+}
+
+.widget.wblack .table tr:hover{
+    background: rgba(255,255,255,0.1);
+}
+
+.widget.wblack .nav-tabs > .active > a, .widget.wblack .nav-tabs > .active > a:hover {
+	                                    background: #222;
+                                        }
+
+.widget.wblack .nav-tabs {
+    margin-bottom: 5px;
+    border-bottom: 1px solid #222;
+}
+
+.widget.wblack .nav-tabs > li a {
+    padding: 5px 10px;
+    background-color: #111;
+    background: -webkit-gradient(linear, left top, left bottom, from(#222), to(#111));
+    background: -webkit-linear-gradient(top, #222, #111);
+    background: -moz-linear-gradient(top, #222, #111);
+    background: -ms-linear-gradient(top, #222, #111);
+    background: -o-linear-gradient(top, #222, #111);
+    background: linear-gradient(top, #222, #111);
+    border: 1px solid #222;
+    border-bottom: 0px;
+    box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.1);
+    color: #ccc;
+    font-weight: bold;
+    margin-right: 5px; 
+}
+
+.widget.wblack .nav-tabs > li a:hover {
+    background: #222; 
+}
+
+.widget.wblack .nav-tabs > li.active {
+    border-bottom: 0px; 
+}
+
+.widget.wblack .nav-tabs > li.active a {
+    color: #fff;
+    background: #333 url('../img/back.png');
+    border-bottom: 0px;
+}
+
+.widget.wblack .nav-tabs > li.active a:hover {
+    background: #333 url('../img/back.png');            
+    border-bottom: 0px; 
+}
+
+.widget.wblack .tab-content{
+    margin-bottom: 10px;
+}
+
+.form-elements input, .form-elements input{
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+}
+.form-elements input, .form-elements textarea{
+    background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    color: #555555;
+    display: block;
+    font-size: 14px;
+    height: 34px;
+    line-height: 1.42857;
+    padding: 6px 12px;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    vertical-align: middle;
+    width: 100%;
+}
+.form-elements textarea{
+    height:auto!important;
+}
+.form-control.error, .form-elements input.error{
+    border:solid 1px #F00;	
+}
+
+.widget-content .error .form-inline button{
+    margin-left:-2px;
+    padding:8px 12px;
+}
+
+.selectall, .usercheckbox{
+    background: url(../img/checkbox.png) no-repeat top left;
+    height: 21px;
+    width: 23px;
+    cursor: pointer;
+    margin: auto;
+}
+.checked {
+    background-position:bottom left;
+}
+.editabletext{
+
+    text-align: center;
+}
+.editabletext > a{
+    font-size: 20px;
+   
+}
+.cancel, .update{
+    display:none;
+}
+.edit,.cancel, .update{
+    cursor: pointer;
+    
+}
+.pageIndex{
+    margin:0 5px 0 5px;
+}
+.currentPageIndex{
+    background-color:#535353 !important;
+    color: #ffff;
+    cursor:default!important;
+}
+.pagesIndex span{
+    margin-top: 3px;
+}
+#users_table thead th{
+    width: 37px;
+    height: 18px;
+    font-family: SourceSansPro;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.38;
+    letter-spacing: normal;
+
+}
+#users_table thead th :hover  {
+    cursor: pointer;
+}
+.status-icon{
+    color: #a4afb7;
+    font-size: 13px;
+    margin-left: 6px;
+}
+/* .status-col i :hover{
+    cursor: pointer;
+} */
+.menu-status{
+    list-style: none;
+    display: none;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    background-color: var(--color-menu);
+}
+.rotate-status{
+    transform: rotate(180deg);
+    transition: all 1s ease-in-out;
+}
+.submenu-status{
+    width: 159.3px;
+    color:#686868;
+    position: absolute;
+    z-index: 99999;
+    top: 49px;
+    right: 147px;
+    background-color: #fff;
+}
+.submenu-status li > a > i{
+    float: right;
+}
+.submenu-status li > a:hover{
+    background-color: #616b75;
+    color:#fff !important;
+    cursor: pointer;
+}
+.avatar {
+    position: relative;
+    width: 21px;
+    height: 21px;
+    background-color: #0945A5;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.avatar img {
+    width: 14px;
+    height: 14px;
+    position: absolute;
+    bottom: 4px;
+}

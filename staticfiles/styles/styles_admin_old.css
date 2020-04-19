@@ -1,0 +1,389 @@
+label{
+	width:100px;
+	display:table-cell;
+	vertical-align:middle;
+}
+.formsButtonsBlock{
+	margin-left:100px;
+	margin-top:10px;
+}
+
+/* custom classes*/
+.userUploadForm label{
+	float:left;
+}
+
+
+
+.currentLogoBlock{
+	float:left;
+}
+.selectLogoFormBlock{
+	float:left;
+	width:400px;
+}
+
+ul{
+	margin-left: 1.50em;
+	padding: 0;
+}
+
+
+
+
+
+
+/**/
+
+.pageWrapper h2{
+	font-weight:bold;
+	font-size:16px;
+}
+
+.pageWrapper .setup{
+	background-image:url(../images/ico_setup.png);
+	background-repeat:no-repeat;
+	background-position:5px 5px ;
+	line-height:32px;
+	padding-left:45px;
+}
+
+.pageWrapper .setupContentsBlock{
+	margin:15px;
+}
+
+.pageWrapper .setupContentsBlock ul{
+	list-style:none;
+	margin:0px;
+	padding:0px;
+}
+
+.pageWrapper .setupContentsBlock li{
+	float:left;
+	width:50%;
+}
+
+.icoUploadCompanyLogo{
+	background-image:url(../images/ico_upload_company_logo.png);
+	background-repeat:no-repeat;
+	background-position:left;
+	padding-left:25px;
+	display:block;
+		line-height:35px;
+}
+
+.icoSetCloseDate{
+	background-image:url(../images/ico_set_survey_close_date.png);
+	background-repeat:no-repeat;
+	background-position:left;
+	padding-left:25px;
+	display:block;
+		line-height:35px;
+}
+
+
+.icoCustomizeEmailSentOut{
+	background-image:url(../images/ico_customize_email.png);
+	background-repeat:no-repeat;
+	background-position:left;
+	padding-left:25px;
+	display:block;
+		line-height:35px;
+}
+
+.icoManageSurveyParticipants{
+	background-image:url(../images/ico_manage_survey_participants.png);
+	background-repeat:no-repeat;
+	background-position:left;
+	padding-left:25px;
+	display:block;
+		line-height:35px;
+}
+.pageWrapper .monitor{
+	background-image:url(../images/ico_monitor.png);
+	background-repeat:no-repeat;
+	background-position:5px 5px ;
+	line-height:32px;
+	padding-left:45px;
+}
+
+
+.pageWrapper .reports{
+	background-image:url(../images/ico_reports.png);
+	background-repeat:no-repeat;
+	background-position:5px 5px ;
+	line-height:32px;
+	padding-left:45px;
+}
+
+.pageWrapper .takeaction{
+	background-image:url(../images/ico_next_step.png);
+	background-repeat:no-repeat;
+	background-position:5px 5px ;
+	line-height:32px;
+	padding-left:45px;
+}
+
+
+
+.monitorContentsBlock{
+	margin:15px 10px;
+}
+
+.takeactionContentsBlock{
+	margin:15px 10px;
+}
+
+
+
+.icoSendReminder{
+	background-image:url(../images/ico_send_reminder.png);
+	background-repeat:no-repeat;
+	background-position:left;
+	padding-left:25px;
+	display:block;
+	line-height:35px;		
+}
+
+
+
+.pageWrapper .reportsContentsBlock{
+	margin:15px;
+}
+
+
+
+
+.reportSectionBlock{
+	margin:15px 0px;
+}
+
+
+.reportSectionBlock img{
+	margin-right:10px;
+}
+
+.reportSectionTitle{
+	font-weight:bold;
+	margin:5px 0;
+}
+
+.reportSectionBlock .readmore a:link{
+	color:#ff9000;
+	font-size:11px;
+}
+
+.reportSectionBlock .readmore a:visited{
+	color:#ff9000;
+	font-size:11px;
+}
+
+.reportSectionBlock .readmore a:active{
+	color:#ff9000;
+	font-size:11px;
+}
+
+.reportSectionBlock .readmore a:hover{
+	color:#ff5a00;
+	font-size:11px;
+}
+
+
+.btnScheduleACall{
+	text-align:center;
+	margin-top:10px;
+	margin-bottom:10px;
+}
+
+.dashboardBoxLeft {
+	background-color: #f6f6f6;
+	margin: 5px auto 15px auto;
+	padding: 0px;
+	border: 1px solid #d7d7d7;
+
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+
+	behavior: url(border-radius.htc);
+	background-image:url(../images/dashboard_bg_header_title.png);
+	background-position:top;
+	background-repeat:repeat-x;
+	
+	min-height:60px;
+	width: 655px;
+}
+.dashboardBoxRight {
+	background-color: #f6f6f6;
+	margin: 5px auto 15px auto;
+	padding: 0px;
+	border: 1px solid #d7d7d7;
+
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+
+	behavior: url(border-radius.htc);
+	background-image:url(../images/dashboard_bg_header_title.png);
+	background-position:top;
+	background-repeat:repeat-x;
+
+	min-height:50px;
+	width: 280px;
+}
+
+
+
+
+.smallBoxCloseSurvey {
+	background-color: #FFFFFF;
+	margin: 10px auto 15px auto;
+	padding: 5%;
+	border: 1px solid #FFFFFF;
+
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+
+	behavior: url(border-radius.htc);
+
+	min-height:50px;
+	width: 90%;
+}
+
+.smallBoxCloseSurvey .rounded{
+	margin:10px auto 5px 50px;
+	text-align:center;
+}
+
+.smallBoxCloseSurvey .rounded a:link{
+	color:#FFF;
+}
+
+.smallBoxCloseSurvey .rounded a:visited{
+	color:#FFF;
+}
+
+
+.smallBoxCloseSurvey .rounded a:active{
+	color:#FFF;
+}
+
+
+.smallBoxCloseSurvey .rounded a:hover{
+	color:#FFF;
+}
+
+.clear{
+	clear:both;
+}
+
+
+
+.ladingContainerBlock{
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	-khtml-border-radius: 8px;
+	border-radius: 8px;
+	width:100%;
+	border:1px solid #CCC;
+	background-image:url(../images/bg_grid_landing_block.png);
+	background-repeat:repeat-x;
+	background-position:bottom;
+	min-height:70px;
+
+}
+
+.ladingContainerBlock h2{
+	color:#005482;
+	line-height:70px;
+	display:inline-block;
+	margin-left:25px;
+	font-size:16px;
+}
+
+.ladingContainerBlock h2 a:link{
+	color:#005482;
+	font-size:16px;
+}
+.ladingContainerBlock h2 a:active{
+	color:#005482;
+	font-size:16px;
+}
+
+
+.ladingContainerBlock h2 a:visited{
+	color:#005482;
+	font-size:16px;
+}
+.ladingContainerBlock h2 a:hover{
+	color:#005482;
+	font-size:16px;
+}
+
+.ladingContainerBlock  .rounded{
+	float:right;
+	margin-top:28px;
+	margin-right:15px;
+	color:#FFFFFF;
+}
+
+.ladingContainerBlock  .rounded a:link{
+	color:#FFFFFF;
+}
+
+.ladingContainerBlock  .rounded a:visited{
+	color:#FFFFFF;
+}
+
+.ladingContainerBlock  .rounded a:active{
+	color:#FFFFFF;
+}
+
+.ladingContainerBlock  .rounded a:hover{
+	color:#FFFFFF;
+}
+
+.landingCol{
+	width:47%;
+}
+
+.landingCol1BG{
+	background-image:url(../images/ico_gears_landing.png);
+	background-repeat:no-repeat;
+	background-position:-5px -5px;
+}
+
+.landingCol2BG{
+	background-image:url(../images/ico_list_landing.png);
+	background-repeat:no-repeat;
+	background-position:10px 20px;
+}
+
+
+.OrSep{
+	width:55px;
+	text-align:center;
+	color:#999999;
+	margin-top:35px;
+}
+
+.landingHead{
+	color:#999;
+	font-size:16px;
+	text-align:center;
+	font-weight:bold;
+	margin-top:20px;
+	margin-bottom:20px;
+}
+
+.landingCol ul{
+	margin-top:20px;
+	margin-left:30px;
+	margin-bottom:20px;
+}
+
+.landingCol li{
+	list-style-image:url(../images/bul_landing.png);
+	line-height:30px;
+}

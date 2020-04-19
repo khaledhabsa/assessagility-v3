@@ -24,7 +24,7 @@ urlpatterns = [
     url(r'^accounts/resetpassword/(?P<code>.*)/$', reset_password,
         name='reset_password'),
     url(r'^accounts/change/password/$', change_password, name='change_password'),
-    url(r'^accounts/adduser/$', adduser, name='adduser'),
+    url(r'^accounts/register/$', adduser, name='adduser'),
     url(r'^answerpage/(?P<mode>.*)/$', answerPage, name='answerpage'),
     url(r'^select/role/$', select_role, name="select_role"),
     url(r'^user/demographic/$', edit_user_demographics,

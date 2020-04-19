@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{% static "images/favico.png" %}" />
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+        integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style4.css' %}">
+   
+
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
+        integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous">
+    </script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+        integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous">
+    </script>
+    {% block links %}{% endblock %}
+</head>
+
+<body onload="activeLink()">
+
+    <div class="wrapper">
+        <!-- Sidebar  -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3 class="headerTitle">AssessAgility.com</h3>
+                <strong>AA</strong>
+            </div>
+
+            <ul  id="mainMenu" class="list-unstyled components">
+
+
+                <li class="btnactive">
+                    <a href="{% url 'client_admin:home' %}" id="dashboard">
+                        <img src="{% static 'images/chart-bar-32.svg'%}">
+                        <span class="menuText">
+                            Dashboard
+                        </span>
+                    </a>
+                </li>
+                <li class="btnactive">
+                    <a href="{% url 'user_management:home' %}" id="participants">
+                        <img src="{% static 'images/single-02.svg'%}">
+                        <span class="menuText">
+
+                            Manage Participants
+                        </span>
+                    </a>
+                </li>
+                <li class="btnactive">
+                    <a href="#" id="reports" class="">
+                        <img src="{% static 'images/barcode.svg' %}">
+                        <span class="menuText">
+                            Reports
+                        </span>
+                        <span class="pull-right">
+                            <i class="fa fa-chevron-left"></i>
+                        </span>
+                    </a>
+                    <div class="sidebar-submenu">
+                        <ul>
+                            <li>
+                            <a href="{% url 'report:category_radar' %}" id="radar">Organizational Characteristic Assessment</a>
+                            </li>
+                            <li>
+                            <a target="_blank" href="{% url 'report:optimized_category_readiness_report_practice' %}" id= "practice">Detailed Practice Readings</a>
+                            </li>
+                            <li>
+                            <a target="_blank" href="{% url 'report:practice_pdf' %}" id="pdf">Practice Report</a>
+                            </li>
+                        </ul>
+                    </div>
+                           
+                </li>
+            </ul>
+
+
+        </nav>
+
+        <!-- Page Content  -->
+        <div id="content">
+            <div class=" navbar" id="navbarSupportedContent">
+                <div class="container-fluid">
+                    <div class="col-sm-12 col-md-12">
+                        <ul class="nav navbar-nav pull-right">
+                            <li>
+                                <a class="nav-link" href="#" id="user-header">  Welcome {{user.username}}&nbsp; 
+                                    {% comment %} <img src="{% static 'images/account_circle-24px.svg'%}">&nbsp; {% endcomment %}
+                                    <img class="user-icon" src="{% static 'images/arrow_drop_down-24px (1).svg'%}"> &nbsp;
+                                </a>
+                                <ul class="menu submenu-admin">
+                                    <li class="menu-item">
+                                        <a href="{% url 'survey:change_password' %}" class="menu-link"><i class="fas fa-cog"></i> Change Password</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'survey:user_logout' %}" class="menu-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                                    </li> 
+                                </ul>
+                                
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="body_content">
+                <h2 class="title">{% block page %}{% endblock %}
+                </h2>
+                <span>
+                    {% block breadcrumb %}{% endblock %}
+                </span>
+                <p class="subTitle">
+                    {% block subtitle %}{% endblock %}
+                </p>
+
+                {% block content %}{% endblock %}
+               
+
+            </div>
+
+        </div>
+    </div>
+    {% block modal %}{% endblock %}
+    <script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+        integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous">
+    </script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+        integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous">
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+            });
+        });
+    </script>
+    <script>
+        function activeLink() {
+            
+            var dashboard = document.getElementById('dashboard');
+            
+            var path = window.location.pathname
+            var link = path.split("/")[1];
+            if (path.search("client") > 0)
+                document.getElementById('dashboard').classList.add('active');
+            else if (path.search("usermanagement") > 0 || path.search("survey") > 0)
+                document.getElementById('participants').classList.add('active');
+            else if (path.search("report") > 0){
+                if (path.search("radar") > 0){
+                    $(".sidebar-submenu").slideDown();
+                    $(".sidebar-submenu").addClass("showed");
+                    document.getElementById('radar').classList.add('active');
+                }else if(path.search("practice") > 0){
+                    $(".sidebar-submenu").slideDown();
+                    $(".sidebar-submenu").addClass("showed");
+                    document.getElementById('pratice').classList.add('active');
+                
+                }else if(path.search("pdf") > 0){
+                    $(".sidebar-submenu").slideDown();
+                    $(".sidebar-submenu").addClass("showed");
+                    document.getElementById('pdf').classList.add('active');
+                }
+            }
+        }
+        $("#reports").click(function(e){
+            if ( $(".sidebar-submenu").hasClass("showed") ){
+                $(".sidebar-submenu").slideUp();
+                $(".sidebar-submenu").removeClass("showed")
+            }else{
+                 $(".sidebar-submenu").slideDown();
+                $(".sidebar-submenu").addClass("showed")
+            }
+            $(this).find(".fa-chevron-left").toggleClass("rotate")
+
+        })
+        $("#user-header").click(function(e){
+            if ( $(".submenu-admin").hasClass("showed") ){
+                $(".submenu-admin").slideUp();
+                $(".submenu-admin").removeClass("showed")
+            }else{
+                 $(".submenu-admin").slideDown();
+                $(".submenu-admin").addClass("showed")
+            }
+            $(this).find(".user-icon").toggleClass("user-rotate")
+
+        })
+    </script>
+    
+    {% block js %}{% endblock %}
+</body>
+
+</html>

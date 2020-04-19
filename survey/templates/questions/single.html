@@ -1,31 +1,97 @@
-{% extends "base.html" %}
+{% extends "base_user.html" %}
 {% load i18n %}
 {% load static %}
 
 {% block title %}{% trans "Survey" %}{% endblock %}
+{% block links %}
+  <link href="{% static 'js/ezMark/css/ezmark.css' %}" rel="stylesheet">
+  <link href="{% static 'js/customscroll/jquery.custom-scrollbar.css' %}" rel="stylesheet" type="text/css" />
+   <link href="{% static 'css/pages/questions.css' %}" rel="stylesheet" />
+{% endblock %}
 
 {% block content %}
-  <div class="page-title">
-    <div class="col-md-5 pull-right">
-      <div class="btn-group questions-sort">
-        <a class="btn btn-default notcompleted" href="#">{% trans "Show only not completed" %}</a>
-        <a class="btn btn-default active all" href="#">{% trans "Show all" %}</a>
+  <div class="AssessmentContainer questions single">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 ml-auto col-sm-12 col-xs-12">
+        <div class="page-title">
+          <div class="col-md-7 pull-right">
+            <div class="btn-group questions-sort">
+              <a class="btn btn-default notcompleted" href="#">{% trans "Show only not completed" %}</a>
+              <a class="btn btn-default active all" href="#">{% trans "Show all" %}</a>
+            </div>
+            <div class="nfo" title="All answers are automatically saved. You can continue working on the survey as needed. The submit button will be active once you finish all the questions in the survey."><i class="fa fa-info-circle"></i></div>
+            <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-success submit-survey pull-right">{% trans "Submit" %}</button>
+            <button type="button" class="btn btn-light mr-2 pull-right"><a href="{% url 'survey:finished' %}">{% trans "Save for now" %}</a></button>
+          </div>
+          <div class="col-md-5">
+            <div class="btn-group questions-layout">
+              <a class="btn btn-light single" href="{% url 'survey:answerpage' mode=1 %}">{% trans "One question" %}</a>
+              <a class="btn btn-light multiples" href="{% url 'survey:answerpage' mode=0 %}">{% trans "Multiple question" %}</a>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+        </div><!-- page-title -->
       </div>
-      
-      <button type="button" class="btn btn-default submit-survey pull-right">{% trans "Submit" %}</button>
-      <div class="nfo" data-toggle="tooltip" data-placement="left" title="All answers are automatically saved. You can continue working on the survey as needed. The submit button will be active once you finish all the questions in the survey."><i class="fa fa-info-circle"></i></div>
     </div>
-    
-    <div class="col-md-5">
-      <div class="btn-group questions-layout">
-        <a class="btn btn-default single active" href="{% url 'survey:answerpage' mode=1 %}">{% trans "One question" %}</a>
-        <a class="btn btn-default multiple" href="{% url 'survey:answerpage' mode=0 %}">{% trans "Multiple questions" %}</a>
+  </div>
+  <br />
+
+  <div class="AssessmentContainer">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 ml-auto col-sm-12 col-xs-12">
+          <div class="row">
+            <div class="ml-auto col-md-10 progress-wrapper">
+              <div class="progress progress-striped">
+                <div class="progress-bar progress-bar-success"  role="progressbar" aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ progress }}%">{{ progress }} %</div>
+              </div>
+            </div>
+            <div class="col-md-2 counter" style="margin-top:5px">
+              <span class="current">{{ answers.count }} /</span> <span class="total">{{ questions.count }} </span> <span style="font-size:16px">{% trans "Questions" %}</span> 
+            </div>
+            <br/>         
+            <div class="mt-3 col-md-12" style="padding: 18px 0px 0px 13px;">
+              <div class="row">
+                <div class="col-md-5 indicators-wrapper">
+                  <ul class="indicators">
+                    {% for q in questions %}
+                      <li id="indicator-{{ q.pk }}" class="{% cycle 'even' 'odd' %}">
+                        {{ q.question|safe }}
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+                
+                <div class="col-md-7 answers-wrapper">
+                  <div class="answers">
+                    {% for q in questions %}
+                      <div class="answer-item" id="answer-{{ q.pk }}">
+                        <h2>Question {{ forloop.counter }}</h2>
+                        <p class="question-text">{{ q.question|safe }}</p>
+                        <ul>
+                          {% for item in q.answer_range.mcqanswer_set.all %}
+                            <li class="answer-option {% if item.title == 'Not Applicable' %}noapplicable{% endif %}">
+                              <input type="radio" id="a-{{q.pk}}-{{ forloop.counter }}" name="anwer-{{ q.pk }}" value="{{ item.pk }}" data-mcq-id="{{ item.pk }}">
+                              <label for="a-{{q.pk}}-{{ forloop.counter }}">{{ item.title }}</lable>
+                            </li>
+                          {% endfor %}
+                        </ul>
+                        <div class="clearfix"></div>
+                      </div>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
       </div>
     </div>
-    <div class="clearfix"></div>
-  </div><!-- page-title -->
-  
-  <div class="questions single">
+  </div>
+  <br />
+
+
+  {% comment %} <div class="questions single">
     <div class="questions-header row">
       <div class="col-md-4 progress-wrapper">
         <div class="progress progress-striped">
@@ -72,42 +138,41 @@
     </div>
 
   </div><!--questions-->
-  
+   {% endcomment %}
   
 
 
 {% endblock %}
+{% block modal %}
 
-{% block page_extra %}
-  <link href="{% static 'js/ezMark/css/ezmark.css' %}" rel="stylesheet">
-  <script src="{% static 'js/ezMark/js/jquery.ezmark.min.js' %}"></script>
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Confirm Survey</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <span class="mb-5 text-center" style="font-size:21px;color:#43425d;">Are you ready to submit your survey?</span>
 
-  <link href="{% static 'js/customscroll/jquery.custom-scrollbar.css' %}" rel="stylesheet" type="text/css" />
-  <script src="{% static 'js/customscroll/jquery.custom-scrollbar.min.js' %}"></script>
-
-  <script src="{% static 'js/pages/question.js' %}"></script>
-  <link href="{% static 'css/pages/questions.css' %}" rel="stylesheet" />
-    	<script type="text/javascript">	
-		$(document).ready(function() {
-			$('[data-toggle="tooltip"]').tooltip({'placement': 'bottom'});
-		});
-	</script>
-<!-- Modal -->
-<div class="modal fade" id="survey-modal" tabindex="-1" role="dialog" aria-labelledby="survey-modalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Confirm</h4>
-      </div>
-      <div class="modal-body">
-      <p>Are you ready to submit your survey?</br> Once submitted you can not change any of your answers</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel, don't submit the survey yet</button>
-        <button type="button" class="btn btn-primary" id="accept-survey">Submit Survey Now</button>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-success"><a href="{% url 'survey:finished'%}">Submit Survey</a></button>
+        </div>
       </div>
     </div>
   </div>
-</div>
+{% endblock %}
+
+{% block js %}
+  
+  <script src="{% static 'js/ezMark/js/jquery.ezmark.min.js' %}"></script> 
+  <script src="{% static 'js/customscroll/jquery.custom-scrollbar.min.js' %}"></script>
+  <script src="{% static 'js/pages/question.js' %}"></script>
+
+
 {% endblock %}

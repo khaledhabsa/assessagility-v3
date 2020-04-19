@@ -1,0 +1,239 @@
+{% extends "base_client_admin.html" %} 
+{% load static %}
+
+{% block title %}Manage Participants{% endblock %}
+{% block links %}
+  <link rel="stylesheet" href="{% static 'css/custom4.css' %}" />
+{% endblock %}
+
+{% block page %}Manage Participants Status{% endblock %}
+{% block breadcrumb %} <a href="{% url 'client_admin:home' %}">Dashboard</a> / <a href="{% url 'user_management:home' %}">Manage Participants</a> / <a href="{% url 'user_management:manage' %}">Manage Participants Status</a>{% endblock %}
+{% block subtitle %} Manage Participants Status{% endblock %}
+{% block content %}
+  
+  <div class="AssessmentContainer">
+    <div class="row">
+      <div class="col-md-10 col-sm-12 col-xs-12">
+          <div class="row">
+            <div class="col-sm-5">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <select class="form-control" id='selectOption'>
+                            <option defaultcheck value="Participant">Participants</option>
+                            <option value="Invited">Include</option>
+                            <option value="Started">In Progress</option>
+                            <option value="Finished">Completed</option>
+                            <option value="Deleted">Exclude</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-4">
+
+                        <button id='apply' type="button" class="btn btn-secondary">Apply</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+              <div class="deletediv pull-left">
+              <input type="button" class="delete btn btn-default" value="Delete" />
+            </div>
+            </div>
+            <div class="col-sm-5 col-md-5 col-lg-5 ml-auto">
+              <div class="searchdiv form-elements pull-right"><input type="text" placeholder="Search ..." class="searchbox" /></div>
+            </div>
+          </div>
+      </div>
+      <div class="mt-3 col-md-12 col-sm-12 col-xs-12">
+        <div id="temp" style="display: none"></div>
+        <textarea id="table_template" style="display: none">
+          <table class="users_table table table-striped table-bordered table-hover text-center" id="pplist">
+              <thead>
+                <th scope="col"><div class="selectall" id="-1"></div></th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Actions</th>
+              </thead>
+              <tbody>
+              </tbody>
+          </table>
+        </textarea>
+        <textarea id="rows_template" style="display: none">
+          {#foreach $T as record}
+            {#if $T.record.status==$P.filter }
+              <tr id='tr_{$T.record.id}'>
+                <td><div class="usercheckbox" id='{$T.record.id}'></div></td>
+                <td class="firstname"><div class="editabletext">{$T.record.first_name}</div></td>
+                <td class="lastname"><div class="editabletext">{$T.record.last_name}</div></td>
+                <td class="email"><div class="editabletext">{$T.record.email}</div></td>
+                <td>
+                  <a class="edit"><i class="fas fa-edit" style="color:#007bff;"></i></a>
+                  <a class="update" title="Update"><i class="fas fa-check" style="color:#82c91e;"></i></a>
+                  <a class="ml-2 cancel" title="Cancel"><i class="fas fa-times" style="color:#dc3545;"></i></a>
+                </td>
+              </tr>
+            {#/if}
+          {#/for}	
+        </textarea>
+        <div class="col-md-12 portlets" style="display:none">
+          <!-- Output elements -->
+          <div class="middleactions">
+            <div class="middleactionsbuttons">
+              <input type="button" class="findduplicate" value="find duplicate" />
+              <input type="button" class="findallduplicate" value="find all duplicate" />
+            </div>
+          </div>
+        </div>
+        <form class="cmxform" id="editform" method="get" action="">
+            <div class="col-md-12 portlets" id="participant">
+              <div class="candidatelabel">Participant &nbsp;<span class="CandidateCount count badge"></span></div>
+                <div class="leftpanel section" id="puserlist">
+                  <div class="leftpanelexpand expand">
+                    <span class="expandText"></span>
+                  </div>
+                  <div class="tableactions">
+                    <div class="topActionsBlock">
+                      <div class="tableadd">
+                      </div>
+                      <div class="clear"></div>
+                    </div>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="candidateresult">
+                    <div class="widget-foot">
+                      <div class="clearfix"></div> 
+                    </div>
+                  
+                  </div>
+                </div>
+            </div>
+            <div class="col-md-12 portlets" id="include">
+              <div class="candidatelabel">Include &nbsp;<span class="CandidateCount count badge"></span></div>
+                <div class="leftpanel section" id="puserlist">
+                  <div class="leftpanelexpand expand">
+                    <span class="expandText"></span>
+                  </div>
+                  <div class="tableactions">
+                    <div class="topActionsBlock">
+                      <div class="tableadd">
+                      </div>
+                      <div class="clear"></div>
+                    </div>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="candidateresult">
+                    <div class="widget-foot">
+                      <div class="clearfix"></div> 
+                    </div>
+                  
+                  </div>
+                </div>
+            </div>
+            <div class="col-md-12 portlets" id="completed">
+              <div class="candidatelabel">Completed &nbsp;<span class="CandidateCount count badge"></span></div>
+                <div class="leftpanel section" id="puserlist">
+                  <div class="leftpanelexpand expand">
+                    <span class="expandText"></span>
+                  </div>
+                  <div class="tableactions">
+                    <div class="topActionsBlock">
+                      <div class="tableadd">
+                      </div>
+                      <div class="clear"></div>
+                    </div>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="candidateresult">
+                    <div class="widget-foot">
+                      <div class="clearfix"></div> 
+                    </div>
+                  
+                  </div>
+                </div>
+            </div>
+            <div class="col-md-12 portlets" id="progress">
+              <div class="candidatelabel">In Progress &nbsp;<span class="CandidateCount count badge"></span></div>
+                <div class="leftpanel section" id="puserlist">
+                  <div class="leftpanelexpand expand">
+                    <span class="expandText"></span>
+                  </div>
+                  <div class="tableactions">
+                    <div class="topActionsBlock">
+                      <div class="tableadd">
+                      </div>
+                      <div class="clear"></div>
+                    </div>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="candidateresult">
+                    <div class="widget-foot">
+                      <div class="clearfix"></div> 
+                    </div>
+                  
+                  </div>
+                </div>
+            </div>
+            <div class="col-md-12 portlets" id="exclude">
+              <div class="candidatelabel">Exclude &nbsp;<span class="CandidateCount count badge"></span></div>
+                <div class="leftpanel section" id="puserlist">
+                  <div class="leftpanelexpand expand">
+                    <span class="expandText"></span>
+                  </div>
+                  <div class="tableactions">
+                    <div class="topActionsBlock">
+                      <div class="tableadd">
+                      </div>
+                      <div class="clear"></div>
+                    </div>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="candidateresult">
+                    <div class="widget-foot">
+                      <div class="clearfix"></div> 
+                    </div>
+                  
+                  </div>
+                </div>
+            </div>
+
+        </form>
+
+        <div class="footerpagination padd">
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a  id="previous" class="page-link btn btn-default pull-right prevbtn" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a id="current" class="current page-link active" style="display: none">1</a></li>
+                    <li class="page-item"><span id="num_pages" class="num_pages" style="display: none"></span></li>
+                    <li class="page-item"><a class="pagesIndex"></a></li>
+                    <li class="page-item">
+                    <a  id="next" class="page-link btn btn-default pull-left" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                    </li>
+                </ul>
+            </nav>
+        </div> 
+      </div>
+    </div>
+  </div>
+
+{% endblock%}
+
+{% block js %}
+  <script type="text/javascript" src="{% static "js/" %}jquery.validate.js"></script>
+  <script type="text/javascript" src="{% static "js/" %}jquery-jtemplates.js"></script>
+  <script type='text/javascript' src="{% static "js/" %}jquery.simplemodal.js"></script>
+  <script type="text/javascript" src="{% static "js/" %}jquery.tablesorter.min.js" ></script>
+  <script type="text/javascript" src="{% static "js/" %}user_management_manage.js" ></script>
+  
+{% endblock %}

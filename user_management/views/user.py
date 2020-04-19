@@ -31,14 +31,14 @@ from helper.decorator.superuser_required import superuser_required
 @superuser_required
 def home(request):
     # ctx = RequestContext(request, {'csrf_token': get_token(request), })
-    return render(request, 'user_management_home.html')
+    return render(request, 'manage_participants.html')
 
 
 @login_required(login_url="/accounts/login?next=user_management:manage")
 @superuser_required
 def manage(request):
     # ctx = RequestContext(request, {'csrf_token': get_token(request), })
-    return render(request, 'user_management_manage.html')
+    return render(request, 'manage_participants_status.html')
 
 
 def flat_user_date(users_list):
@@ -71,7 +71,16 @@ def flat_user_date(users_list):
 
 def get_all_candidate(request):
     # UserProfile.objects.all().exclude(user__is_superuser=True)
-    candidates_list = Candidate.objects.all()
+    status = request.GET.get("status", "all")
+    if status == "all":
+        candidates_list = Candidate.objects.all()
+    else:
+        candidates_list = Candidate.objects.filter(status__icontains=status)
+    count_part = len(Candidate.objects.filter(status__icontains="Participant"))
+    count_started = len(Candidate.objects.filter(status__icontains="Started"))
+    count_finish = len(Candidate.objects.filter(status__icontains="Finished"))
+    count_del = len(Candidate.objects.filter(status__icontains="Deleted"))
+    count_inv = len(Candidate.objects.filter(status__icontains="Invited"))
     page = int(request.GET.get('page', 0))
     if page:
         paginator = Paginator(candidates_list, 20)
@@ -87,7 +96,10 @@ def get_all_candidate(request):
         paginatordata.append({'number': candidates.number,
                               'num_pages': candidates.paginator.num_pages})
 
-        data = json.dumps({'users': users, 'paginatordata': paginatordata})
+        data = json.dumps(
+            {'users': users, 'paginatordata': paginatordata,
+             "count": len(candidates_list), "count_part": count_part, "count_started": count_started,
+             "count_finish": count_finish, "count_deleted": count_del, "count_inv": count_inv})
         return HttpResponse(data, content_type='application/json')
     else:
         users = flat_user_date(candidates_list)
@@ -332,7 +344,7 @@ def invite(request):
                 user.first_name = cand.first_name
                 user.last_name = cand.last_name
                 user.save()
-                profile = user.get_profile()
+                profile = user.profile
                 profile.first_name = cand.first_name
                 profile.last_name = cand.last_name
 

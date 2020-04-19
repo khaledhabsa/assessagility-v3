@@ -1,0 +1,227 @@
+{% extends "base_client_admin.html" %} 
+{% load static %}
+
+{% block title %}Manage Participants{% endblock %}
+{% block links %}
+  <link rel="stylesheet" href="{% static 'css/custom4.css' %}" />
+{% endblock %}
+
+{% block page %}Manage Participants{% endblock %}
+{% block breadcrumb %} <a href="{% url 'client_admin:home' %}">Dashboard</a> / <a href="{% url 'user_management:home' %}">Manage Participants</a>{% endblock %}
+{% block subtitle %} Demographic{% endblock %}
+{% block content %}
+  
+  <div class="AssessmentContainer">
+    <div class="row">
+      <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+        <p>
+          Demographic are particular groups or categories within your team or company.<br/>
+          This will be very useful in viewing reports and grouping data.
+        </p>
+      </div>
+      <div class="col-lg-4 col-md-4 ml-auto col-sm-12 col-xs-12">
+        <a href="{% url 'survey:demographic' %}" class="btn btn-primary">Customize Demographic</a>
+      </div>
+    </div>
+
+  </div>
+  <br>
+  <div class="mb-3">
+    <div class="row">
+      <div class="col-sm-5 col-md-5 mt-4" style="">
+      <p class="subTitle">
+        Participants<span class="CandidateCount col-sm-3 col-md-3 col-lg-3 mb-2" style="clear: both; font-size:20px;font-weight:bold;color: #4d4f5c;"></span>
+      </p>
+      </div>
+      <div class="col-sm-4 col-md-6 col-lg-6 ml-auto mt-4">
+        <div class="searchdiv form-elements" style="width:100%">
+          <i class="fa fa-search" style="position: relative;top: 34px;color: #CCCCCC;left: 21px;"></i>
+          <input type="text" placeholder="Search ..." class="searchbox" style="padding-left: 44px;height: 41px;"/>
+        </div>
+      </div>
+      
+
+    </div>
+  </div>
+  <div class="AssessmentContainer" style="padding: 11px 24px;">
+    <div class="row">
+      <div class="col-lg-12 col-md-10 col-sm-12 col-xs-12">
+          <div class="row">
+            <div class="mt-3 col-sm-6 col-md-4 col-lg-4 col-xs-4">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <select class="form-control" id='selectOption'>
+                            <option disabled selected hidden value="0">Bulk Action</option>
+                            <option value="Delete">Delete</option>
+                            <option value="Exclude">Exclude</option>
+                            <option value="Include">Include</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-4">
+                        <button id='apply' type="button" class="btn btn-secondary">Apply</button>
+                    </div>
+                </div>
+            </div>
+          </div>
+      </div>
+      <div class="mt-3 col-md-12 col-sm-12 col-xs-12">
+        <div id="temp" style="display: none"></div>
+        <textarea id="table_template" style="display: none">
+          <table id="users_table" class="table table-borderless table-hover table-striped text-center">
+              <thead >
+                <th scope="col"><div class="selectall" id="-1"></div></th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">E-mail</th>
+                <th scope="col"><a class="status"> Status <i class="fa fa-chevron-down status-icon"></i> </a>             
+                  <ul class="menu-status submenu-status">
+                    <li id="Participant">
+                      <a class="menu-link">
+                        Participants
+                        <i class="PartCount" ></i>
+                      </a>
+                    </li>
+                    <li id="Started">
+                      <a class="menu-link">
+                        In Progress
+                        <i class="ProgCount" ></i>
+                      </a>
+                    </li>
+                    <li id="Finished">
+                      <a class="menu-link">
+                        Completed
+                        <i class="CompCount" ></i>
+                      </a>
+                    </li>
+                    <li id="Exclude">
+                      <a class="menu-link">
+                        Excluded
+                        <i class="ExCount" ></i>
+                      </a>
+                    </li>
+                    <li id="Include">
+                      <a class="menu-link">
+                        Included
+                        <i class="InvCount" ></i>
+                      </a>
+                    </li>
+                  </ul>
+                </th>
+                <th scope="col">Actions</th>
+              </thead>
+              <tbody>
+              </tbody>
+          </table>
+        </textarea>
+        <textarea id="rows_template" style="display: none">
+          {#foreach $T as record}
+            <tr id='tr_{$T.record.id}'>
+              <td><div class="usercheckbox" id='{$T.record.id}'></div></td>
+              <td class="firstname form-elements"><div class="editabletext">{$T.record.first_name}</div></td>
+              <td class="lastname form-elements"><div class="editabletext">{$T.record.last_name}</div></td>
+              <td class="email form-elements"><div class="editabletext">{$T.record.email}</div></td>
+              <td class="status">{$T.record.status}</td>
+              <td>
+                <a class="edit"><div class="avatar" style="margin: auto;"><img src="{% static 'images/edit.svg' %}"/></div></a>
+                <a class="update" title="Update"><img style="width:23px;" src="{% static 'images/check.svg'%}"/></a>
+                <a class="ml-2 cancel" title="Cancel"><img style="width:23px;" src="{% static  'images/multiply.svg'%}"/></a>
+              </td>
+          {#/for}
+        </textarea>
+        <div class="addCandidatesContainer">
+          <div class="middleactions" style="display:none;">
+            <div class="middleactionsbuttons">
+              <input type="button" class="findduplicate" value="find duplicate" />
+              <input type="button" class="findallduplicate" value="find all duplicate" />
+            </div>
+          </div>
+          <form class="cmxform" id="editform" method="get" action="">
+                       
+            <div class="result" style="clear: both;height: 400px;width:100%;overflow-y: auto;"></div>          
+          </form>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <div class="footerpagination padd pull-right">
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a  id="previous" class="page-link btn btn-default pull-right prevbtn" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a id="current" class="current page-link active" style="display: none">1</a></li>
+                    <li class="page-item"><span id="num_pages" class="num_pages" style="display: none"></span></li>
+                    <li class="page-item"><a class="pagesIndex"></a></li>
+                    <li class="page-item">
+                    <a  id="next" class="page-link btn btn-default pull-left" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                    </li>
+                </ul>
+            </nav>
+        </div> 
+{% endblock%}
+
+{% block modal %}
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Participant</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+        <form role="form" class="form-horizontal cmxform" id="addnewcadidateform" method="get" action="">
+            <fieldset>
+              <div id="display"></div>
+              <div class="form-group">
+                <div class="col-lg-12">
+                <label class="control-label" for="firstname">First Name<em>*</em></label>
+                  <input id="firstname" name="firstname" size="25" class="form-control required" minlength="2" />
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <div class="col-lg-12">
+                  <label class="control-label" for="lastname">Last Name<em>*</em></label>
+                  <input id="lastname" name="lastname" size="25" class="required form-control" minlength="2" />
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <div class="col-lg-12">
+                  <label class="control-label" for="email">E-Mail<em>*</em></label>
+                  <input id="email" name="email" size="25" class="required email form-control" />
+                </div>
+              </div>
+            </fieldset>
+          </form>  
+          
+        
+        </div>
+        <div class="modal-footer popupAdd">
+          <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Close</button>
+          <input type="button" id="submitbtnId" value="Add Participant" class="addcandidatebutton btn btn-primary" />        
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+{% block js %}
+ <script src="{% static "js/" %}jquery.validate.js" type="text/javascript"></script>
+  <script src="{% static "js/" %}jquery-jtemplates.js" type="text/javascript" ></script>
+  <script src="{% static "js/" %}jquery.tablesorter.min.js" type="text/javascript"></script>
+  <script src="{% static "js/" %}user_management.js" type="text/javascript"></script>
+  
+{% endblock %}

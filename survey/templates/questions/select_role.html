@@ -1,7 +1,10 @@
-{% extends "base.html" %}
+{% extends "base_user.html" %}
 {% load i18n %}
 {% load static %}
-
+{% block links %}
+  <link href="{% static 'js/ezMark/css/ezmark.css' %}" rel="stylesheet">
+  <link href="{% static 'css/pages/selectrole.css' %}" rel="stylesheet">
+{% endblock %}
 {% block title %}{% trans "Select Role" %}{% endblock %}
 
 {% block content %}
@@ -9,8 +12,11 @@
     {% csrf_token %}
     <div class="page-title">
       <h1>
-        <button id="next" class="pull-right btn btn-success">{% trans "Next" %}</button><div class="nfo" data-toggle="tooltip" data-placement="left" title="All answers are automatically saved. You can continue working on the survey as needed. The submit button will be active once you finish all the questions in the survey."><i class="fa fa-info-circle"></i></div>
-        <div>{% trans "Please select the role that best describes what you do" %}</div>
+        <button id="next" class="pull-right btn btn-success mr-5">{% trans "Next" %}</button>
+        <div class="nfo" title="All answers are automatically saved. You can continue working on the survey as needed. The submit button will be active once you finish all the questions in the survey.">
+          <i class="fa fa-info-circle"></i>
+        </div>
+        <div class="ml-2">{% trans "Please select the role that best describes what you do" %}</div>
       </h1>
       <div class="clearfix"></div>
     </div>
@@ -31,9 +37,8 @@
 {% endblock %}
 
 
-{% block page_extra %}
-  <link href="{% static 'js/ezMark/css/ezmark.css' %}" rel="stylesheet">
-  <link href="{% static 'css/pages/selectrole.css' %}" rel="stylesheet">
+{% block js %}
+  
   <script src="{% static 'js/ezMark/js/jquery.ezmark.min.js' %}"></script>
 
   <script>

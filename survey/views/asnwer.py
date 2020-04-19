@@ -21,17 +21,26 @@ from ..views.isValidSurveyOption import isValidSurveyOption
 
 @login_required(login_url="/accounts/login?next=survey:opened")
 def survey_opened(request):
-    return render(request, 'survey/opened.html')
+
+    opened = request.GET.get("survey", False)
+    if opened == False:
+        if isValidSurveyOption('survey_closed', "show"):
+            return HttpResponse("opened")
+        else:
+            return HttpResponse("closed")
+    else:
+        addSurveyOptionIfNotExist('survey_closed', "show")
+        return HttpResponse("started")
 
 
 @login_required(login_url="/accounts/login?next=survey:answerpage")
 def answerPage(request, *args, **kwargs):
 
+    if isValidSurveyOption('survey_closed', 'closed'):
+        return redirect('survey:closed')
+
     if not request.user.profile.roles.count():
         return redirect('survey:select_role')
-
-    if isValidSurveyOption('closed', 'closed'):
-        return redirect('survey:closed')
 
     if request.user.profile.survey_finished:
         # print(request.user.profile.survey_finished)
@@ -55,6 +64,7 @@ def answerPage(request, *args, **kwargs):
 
 @login_required(login_url="/accounts/login?next=survey:select_role")
 def select_role(request):
+
     if request.method == 'POST':
         role = Role.objects.get(pk=request.POST['role'])
         userprofile = request.user.profile
@@ -108,50 +118,54 @@ def edit_user_demographics(request):
 @login_required(login_url="/accounts/login?next=survey:finished")
 def finished(request):
 
-    user_profile = request.user.profile
-    user_profile.survey_finished = True
-    user_profile.save()
+    if isValidSurveyOption("survey_closed", "closed"):
+        user_profile = request.user.profile
+        user_profile.survey_finished = True
+        user_profile.save()
+        try:
+            candidate = Candidate.objects.get(email=request.user.email)
+            candidate.status = 'Finished'
+            candidate.save()
+        except Candidate.DoesNotExist:
+            candidate = None
 
-    try:
-        # print("request.user.email: ", request.user.email)
-        # # print("Candidate.objects.get all: ", Candidate.objects.all())
-        candidate = Candidate.objects.get(email=request.user.email)
-        # print("candidate: ", candidate)
-        candidate.status = 'Finished'
-        candidate.save()
-    except Candidate.DoesNotExist:
-        candidate = None
-
-    # print("request.method: ", request.method)
-    if request.method == 'POST':
-        comment = Comment.objects.create(
-            user=request.user, text=request.POST['comment'])
-        comment.save()
-        # send_mail('Agile Readiness Survey ( Comment )',
-        #           'user :' + request.user.username +
-        #           '\n"' + request.POST['comment'] + '"',
-        #           'noreply@dragile.com',
-        #           ['Kott_Alex_W@cat.com'], fail_silently=False)
-
-        return render(request, 'questions/finished.html', {'hide_comment_box': True,
-                                                           'message': 'Your comment has been sent. Thank you!',
-                                                           'welcomemessage': Message.objects.get(code="welcome").body,
-                                                           'logomessage': Message.objects.get(code="logo").body
-                                                           })
-
-    return render(request, 'questions/finished.html', {})
+        return render(request, 'questions/finished.html', {"closed": True})
+    else:
+        user_profile = request.user.profile
+        if user_profile.survey_finished == True:
+            user_profile.survey_finished = False
+            user_profile.save()
+        return render(request, 'questions/finished.html', {"closed": False})
 
 
 @login_required(login_url="/accounts/login?next=survey:closed")
 def closed(request):
-    if request.method == 'POST':
-        value = request.POST.get('value', False)
-        addSurveyOptionIfNotExist('closed', value)
-        return HttpResponse()
 
-    # value = request.POST.get('value', False)
-    addSurveyOptionIfNotExist('closed', "closed")
-    return render(request, 'questions/closed.html')
+    closed = request.GET.get("closed", False)
+
+    if request.user.is_superuser:
+        if closed:
+            addSurveyOptionIfNotExist("survey_closed", "closed")
+            return HttpResponse()
+        else:
+            if isValidSurveyOption("survey_closed", "closed"):
+                return render(request, 'questions/closed.html')
+            else:
+                return redirect("survey:finished")
+    else:
+        if isValidSurveyOption("survey_closed", "closed"):
+
+            return render(request, 'questions/closed.html')
+        else:
+            return redirect("survey:finished")
+    # if request.method == 'POST':
+    #     value = request.POST.get('value', False)
+    #     addSurveyOptionIfNotExist('closed', value)
+    #     return HttpResponse()
+
+    # # value = request.POST.get('value', False)
+    # # addSurveyOptionIfNotExist('closed', "closed")
+    # return render(request, 'questions/closed.html')
 
 
 @login_required(login_url='/accouts/login/iphone/?next=survey:iphone')
@@ -353,7 +367,8 @@ def updatedemographic(request):
 
 
 def deletedemographic(request):
-    ids = request.POST.get('ids', False)
+
+    ids = request.GET.get('ids', False)
     deletedDemographics = Demographic.objects.filter(pk__in=ids.split(','))
     deletedDemographics.delete()
     return HttpResponse(json.dumps('success.'))
@@ -440,7 +455,7 @@ def updatedemographicvalue(request):
 
 
 def deletedemographicvalue(request):
-    ids = request.POST.get('ids', False)
+    ids = request.GET.get('ids', False)
     deletedDemographics = DemographicValue.objects.filter(
         pk__in=ids.split(','))
     deletedDemographics.delete()

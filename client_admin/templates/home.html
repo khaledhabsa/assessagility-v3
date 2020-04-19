@@ -1,0 +1,184 @@
+{% extends 'base_client_admin.html' %}
+{% load static %} 
+{% block title %} Assessment {% endblock %}
+{% block page %} Dashboard {% endblock %}
+{% block breadcrumb %} <a href="{% url 'client_admin:home' %}">Dashboard</a> {% endblock %}
+{% block subtitle %} Assessment {% endblock %}
+
+{% block content %}
+
+
+    <div class="AssessmentContainer">
+                    <div class="row">
+                        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                            <p id='body-assess'>
+                                In order to allow participants to answer questions, you have to start the assessment first.
+                            </p>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12" id="btnassess">
+                            {% comment %} <button type="button" id="startAsseement" class="btn btn-start" data-toggle="modal"
+                                data-target="#myModal">Start
+                                Assessment</button> {% endcomment %}
+
+                        </div>
+                    </div>
+
+                </div>
+                <br>
+                <div class="AssessmentContainer">
+                    <div class="row">
+                        <div class="col-lg-7 col-md-12 col-sm-12 col-xs-12">
+                            <div class="linkContainer">
+                                <input type="text" class="inputLink" disabled id="myInput">
+
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                            <p id="linkedCopiedText" class="linkedCopied">
+
+                            </p>
+                        </div>
+
+                        <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
+                            <!-- <button id="btnCopyEnabled"  type="button" class="btn btn-primary d-none">Copy & Share Link</button> -->
+                            <button id="btnCopyDisabled" type="button" onclick="myFunction()"
+                                class="btn btn-primary d-block" style="width:100%">Copy Link</button>
+                        </div>
+                    </div>
+
+                </div>
+    <p class="subTitle">
+        Assessment Statistics            
+    </p>
+    <div class="d-flex justify-content-between  mb-5">
+        <div class=" containerLeft">
+            <div>
+                <p class="headerLeft left" >
+                    <span class="circleStyle">
+                    </span>&nbsp; In progress
+                </p>
+                <p class="headerLeft right" >{{users_started}}</p>
+                <br>
+                <hr class="hrHeader"> 
+            </div>
+            {% for t,v in roles_in_progress%} 
+                <div class="bodyContent">
+                    <p class="LeftContent left" >{{t}}</p>
+                    <p class="LeftContent right" >{{v}}</p>
+                    <br>
+                    {% if forloop.last %}
+                    {% else %}
+                        <hr class="hr"> 
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+        <div class=" containerLeft">
+            <div>
+                <p class="headerRight left" >
+                    <span class="circleStyle2"></span>&nbsp;Completed
+                </p>
+                <p class="headerRight right" >{{users_finished}}</p>
+                <br>
+                <hr class="hrHeader"> 
+            </div>
+            {%for t,v in roles_completed%}     
+                <div class="bodyContent">
+                    <p class="LeftContent left" >{{t}}</p>
+                    <p class="LeftContent right" >{{v}}</p>
+                    <br>
+                    {% if forloop.last %}
+                    {% else %}
+                        <hr class="hr"> 
+                    {% endif %}
+                </div>
+            {% endfor %}
+                 
+            </div>                  
+        </div>
+    </div>
+     
+{% endblock %}
+{% block modal %}
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog modal-lg" style="max-width:1025px;">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <p class="modalHeader">Customize Demographics</p>
+                    <p class="subtitleModal">
+                        Demographics are particular groups or categories within your team or company. This will be very
+                        useful in viewing reports and grouping data.
+                    </p>
+                    <div id="display"></div>
+                    <div class="d-flex justify-content-between mb-3">
+                        <div class="bg-info">
+                            <div class="headertitleContainer">
+                                <div class="row">
+                                    <div class="col-sm-10 col-md-10">
+                                        <div class="custom-control custom-checkbox left" >
+                                        <input type="checkbox" onClick="toggle(this)" class="custom-control-input" id="-1">
+                                            <label class="custom-control-label" for="-1">&nbsp; &nbsp;&nbsp; &nbsp;
+                                                Demographics</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2 col-md-2">
+                                        <a ><img id="imgAdd" style="cursor:pointer;" class="right" src="{% static 'images/add_circle-24px (1).svg'%}"></a>
+                                        <a ><img id="imgDelete" style="display: none;cursor:pointer;" class="right" src="{% static 'images/delete-24px (1).svg'%}"></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="demoGraph"></div>
+                        </div>
+                        <div class="bg-warning">
+                            <div class="headertitleContainerRight">
+                                <div class="row">
+                                    <div class="col-sm-10 col-md-10">
+                                        <div class="custom-control custom-checkbox left" >
+                                            <input type="checkbox" onClick="toggle_val(this)" class="custom-control-input" id="0">
+                                            <label class="custom-control-label" for="0">&nbsp; &nbsp;&nbsp; &nbsp;
+                                                Menu options: <i style="font-style:normal" id="currentDemo"></i></label>
+                                        
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2 col-md-2">
+                                        <a ><img id="imgAddVal" style="cursor:pointer;" class="right" src="{% static 'images/add_circle-24px (1).svg'%}"></a>
+                                        <a ><img id="imgDeleteVal" style="display: none;cursor:pointer;" class="right" src="{% static 'images/delete-24px (1).svg'%}"></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="values"></div>
+
+                        </div>
+                    </div>
+                    <div class="right btnsContainer">
+                        <button type="button" class="btn btn-Cancel" data-dismiss="modal">Cancel</button>
+
+                        <button type="button" id="closemodalandSave" onclick="close()"
+                            class="btn btn-Done">Continue</button>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    {% csrf_token %}
+{% endblock %}
+{% block js %}
+
+    <script src="{% static 'js/dashboard.js' %}"></script>
+    <script>
+   
+
+        {% comment %} $("#closemodalandSave").click(function(e){
+            var demo_name = $.trim($(".bg-info .centerDiv").find(".custom-control-label").text() )
+            var demo_value_id = $(".bg-warning .centerDiv").find(".custom-control-input").attr("id")
+            $("#myInput").val(window.location.origin+"/accounts/register");
+        }) {% endcomment %}
+
+    </script>
+{% endblock %}

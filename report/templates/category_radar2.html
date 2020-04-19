@@ -1,0 +1,64 @@
+{% extends "base_report.html" %}
+{% load static %}
+
+{% block page_title %}Organizational Characteristic Assessment{% endblock %}
+{% block header_left %}Organizational Characteristic Assessment{% endblock %}
+
+{% block breadcrumb %}
+   <a href="{% url 'client_admin:home' %}"><i class="fa fa-home"></i> Home</a> 
+   <span class="divider">/</span> 
+   <a href="#" class="bread-current">Organizational Characteristic Assessment</a>
+{% endblock %}
+
+{% block report %}
+<script src="{% static 'js/reports/reportradar.js' %}"></script>
+<script>
+activeMenuItem = 8;
+</script>
+{% endblock %}
+
+{% block chart %}
+<div class="col-md-9">
+    <div class="widget">
+      <div class="widget-head">
+        <div class="pull-left">Organizational Characteristic Assessment</div>
+        <div class="widget-icons pull-right">
+          <a class="wminimize" href="#"><i class="fa fa-chevron-up"></i></a>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      <div class="widget-content">
+        <div class="padd">
+                <div id="chart_div" class="preloader-bg" style="height: 100%;min-height: 300px" ></div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="col-md-9">
+    <div class="widget">
+        <div class="widget-head">
+            <div class="pull-left">Organizational Characteristic Assessment</div>
+            <div class="widget-icons pull-right">
+                <a class="wminimize" href="#"><i class="fa fa-chevron-up"></i></a>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="widget-content">
+            <div class="padd">
+                {% comment %}
+                <div class="chartalert padd"> {{reportquotastatistic}}</div>
+                {% endcomment %}
+                <div class="chartdescriptions">
+                    <div class="charttopbar2"></div>
+                    <div class="chartcontent"><p id="tabnfo">Select the column to view details</p></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
