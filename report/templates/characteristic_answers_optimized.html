@@ -30,7 +30,7 @@
           </td>
         </tr>
         <tr>
-          <td> {% for k,v in g.views.iteritems%}
+          <td> {% for k,v in g.views.items%}
             <div 
 	       {% ifnotequal k  'role'%} style="display: none;" {% endifnotequal%}
 	       class='demographic_{{ k }}'>
