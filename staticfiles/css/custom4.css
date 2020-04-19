@@ -928,3 +928,13 @@ tr{
     padding-right: 0;
     padding-left: 0;
 }
+
+/*.headertitleContainer .row , .centerDiv .row, .lastDiv .row , .headertitleContainerRight .row{
+    margin-right: -15px !important;
+    margin-left: -15px !important;
+}
+
+.headertitleContainer [class*=col] , .centerDiv [class*=col], .lastDiv [class*=col] , .headertitleContainerRight [class*=col]{
+    padding-right: 15px;
+    padding-left: 15px;
+}*/
