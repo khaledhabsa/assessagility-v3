@@ -20,7 +20,7 @@ reports.GetSpectrumData = function () {
 		url: '/report/practice/spectrum/json/',
 		cache: false,
 		data: {
-			'csrfmiddlewaretoken': $("input[type=hidden]").val(),
+			"csrfmiddlewaretoken": $("input[type=hidden]").val(),
 			'demographics_values': SetDemographicsValues(),
 			'role': $('#slctRolesid :selected').val()
 		},
@@ -31,7 +31,6 @@ reports.GetSpectrumData = function () {
 			reports.drawSpectrumChart();
 		},
 		error: function (data) {
-
 			console.log('server error:', data, reports.chart);
 			reports.flags.chartdata = 1;
 			reports.drawComplete(1);

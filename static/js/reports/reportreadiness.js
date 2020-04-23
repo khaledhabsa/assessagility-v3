@@ -23,7 +23,7 @@ reports.GetReadingsData = function () {
         url: '',
         cache: false,
         data: {
-            'csrfmiddlewaretoken': $("input[type=hidden]").val(),
+            "csrfmiddlewaretoken": $("input[type=hidden]").val(),
             'demographics_values': SetDemographicsValues(),
             'role': $('#slctRolesid :selected').val()
         },
