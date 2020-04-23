@@ -5,7 +5,8 @@ from .views.practice import (
     characteristic_answers, characteristic, characteristic_top_5_and_bottom_5,
     delete_cache, category_readiness_report, optimized_category_readiness_report,
     charactristic_pdf, practice_pdf, groupe_assessment, characteristic_answers_optimized,
-    practice_spectrum, optimized_category_readiness_report_json, category_radar, comments
+    practice_spectrum, optimized_category_readiness_report_json, category_radar, comments,
+    detailed_practice_readings
 
 
 )
@@ -40,8 +41,10 @@ urlpatterns = [
         name='category_readiness_report'),
 
 
-    url(r'^optimized/practice/$', optimized_category_readiness_report,
+    url(r'^optimized/practice/$', detailed_practice_readings,
         name='optimized_category_readiness_report_practice'),
+    # url(r'^optimized/practice/$', optimized_category_readiness_report,
+    #     name='optimized_category_readiness_report_practice'),
     url(r'^optimized/category/$', optimized_category_readiness_report,
         name='optimized_category_readiness_report_category'),
 

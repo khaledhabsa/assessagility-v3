@@ -42,28 +42,26 @@
                         <div class="chartseparator"></div>
                         {% endif %}
                         
-                        {% ifequal  show_demographic "show" %}
-                        {% for d in demographics %}
-                        <div class="chartfiltertext">{{d.title}} </div>
-                        <select name="demo{{d.id}}" id="demo{{d.id}}" class="chartfilterdropdown" >
-                        
-                        <option value="-1">All</option>
-                        {% for v in d.demographicvalue_set.all %}
-                        <option value="{{v.id}}"
-                                {% for value_id in values %}
-                                {% ifequal value_id  v.id %}
-                                selected='selected'
-                                {% endifequal %}
-                                
-                                {% endfor %}
-                                >{{v.value}}</option>
-                        {% endfor %}
-                        </select>
-                        {% endfor %}
-                        {% endifequal %}
+                            {% for d in demographics %}
+                            <div class="chartfiltertext">{{d.title}} </div>
+                            <select name="demo{{d.id}}" id="demo{{d.id}}" class="chartfilterdropdown" >
+                            
+                            <option value="-1">All</option>
+                            {% for v in d.demographicvalue_set.all %}
+                            <option value="{{v.id}}"
+                                    {% for value_id in values %}
+                                    {% ifequal value_id  v.id %}
+                                    selected='selected'
+                                    {% endifequal %}
+                                    
+                                    {% endfor %}
+                                    >{{v.value}}</option>
+                            {% endfor %}
+                            </select>
+                            {% endfor %}
                         
                     </div>
-                    {% comment %} <div class="btn btn-secondary mb-2 reportpdfbtn">Generate PDF</div> {% endcomment %}
+                    <div class="btn btn-secondary mb-2 reportpdfbtn">Generate PDF</div>
                     <div class="btn btn-primary reportupdatebtn">Update</div>
                     </div>
                 </div>   
@@ -119,7 +117,7 @@
 {% endblock%}
 
 {% block js %}
-   <script src="{% static "js/" %}jquery-ui-1.9.2.custom.min.js"></script> <!-- jQuery UI -->
+    <script src="{% static "js/" %}jquery-ui-1.9.2.custom.min.js"></script> <!-- jQuery UI -->
     <script src="{% static "js/" %}fullcalendar.min.js"></script> <!-- Full Google Calendar - Calendar -->
     <script src="{% static "js/" %}jquery.rateit.min.js"></script> <!-- RateIt - Star rating -->
     <script src="{% static "js/" %}jquery.prettyPhoto.js"></script> <!-- prettyPhoto -->
