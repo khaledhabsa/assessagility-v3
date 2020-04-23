@@ -103,7 +103,7 @@
 
                 <div class="modal-body">
                     <p class="modalHeader">Customize Demographics</p>
-                    <p class="subtitleModal">
+                    <p class="subtitleModal subTitlePadding">
                         Demographics are particular groups or categories within your team or company. This will be very
                         useful in viewing reports and grouping data.
                     </p>
@@ -111,7 +111,7 @@
                     <div class="d-flex justify-content-between mb-3">
                         <div class="bg-info">
                             <div class="headertitleContainer">
-                                <div class="row">
+                                <div class="row headerContainerRow">
                                     <div class="col-sm-10 col-md-10">
                                         <div class="custom-control custom-checkbox left" >
                                         <input type="checkbox" onClick="toggle(this)" class="custom-control-input" id="-1">
@@ -119,9 +119,9 @@
                                                 Demographics</label>
                                         </div>
                                     </div>
-                                    <div class="col-sm-2 col-md-2">
-                                        <a ><img id="imgAdd" style="cursor:pointer;" class="right" src="{% static 'images/add_circle-24px (1).svg'%}"></a>
-                                        <a ><img id="imgDelete" style="display: none;cursor:pointer;" class="right" src="{% static 'images/delete-24px (1).svg'%}"></a>
+                                    <div class="col-sm-2 col-md-2 headertitleContainerCol">
+                                        <a class="headerContainerlink"><img id="imgAdd" style="cursor:pointer;" class="right" src="{% static 'images/add_circle-24px (1).svg'%}"></a>
+                                        <a class="headerContainerlink"><img id="imgDelete" style="display: none;cursor:pointer;" class="right" src="{% static 'images/delete-24px (1).svg'%}"></a>
                                     </div>
                                 </div>
                             </div>
@@ -131,7 +131,7 @@
                             <div class="headertitleContainerRight">
                                 <div class="row">
                                     <div class="col-sm-10 col-md-10">
-                                        <div class="custom-control custom-checkbox left" >
+                                        <div class="custom-control custom-checkbox left custom-class" >
                                             <input type="checkbox" onClick="toggle_val(this)" class="custom-control-input" id="0">
                                             <label class="custom-control-label" for="0">&nbsp; &nbsp;&nbsp; &nbsp;
                                                 Menu options: <i style="font-style:normal" id="currentDemo"></i></label>
@@ -152,7 +152,7 @@
                         <button type="button" class="btn btn-Cancel" data-dismiss="modal">Cancel</button>
 
                         <button type="button" id="closemodalandSave" onclick="close()"
-                            class="btn btn-Done">Continue</button>
+                            class="btn btn-Done">Done</button>
                     </div>
 
 

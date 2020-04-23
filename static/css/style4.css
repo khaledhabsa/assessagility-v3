@@ -339,7 +339,7 @@ a.article:hover {
     margin-bottom: 0;
     vertical-align: middle;
     font-family: Poppins;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
     font-stretch: normal;
     font-style: normal;
@@ -570,15 +570,15 @@ a.article:hover {
     position: relative;
     -ms-flex: 1 1 auto;
     flex: 1 1 auto;
-    padding: 1rem;
-    padding-left: 47px;
-    padding-right: 47px;
-    padding-top: 67px;
+    /*padding: 1rem;*/
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 40px;
 }
 
 .modalHeader {
     font-family: Poppins;
-    font-size: 30px;
+    font-size: 22px;
     font-weight: bold;
     font-stretch: normal;
     font-style: normal;
@@ -656,7 +656,7 @@ a.article:hover {
     /* padding-bottom: 8px; */
     padding-left: 10px;
     padding-right: 25px;
-    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+    box-shadow: none;
     background-color: #f1f1f1;
     margin-top: -5px;
 }
@@ -674,24 +674,41 @@ a.article:hover {
 }
 
 .lastDiv, .lastDivs {
-    display: inline-block;
+    display: flex;
     width: 100%;
-    padding-top: 17px;
-    min-height: 61px;
+    /* padding-top: 17px; */
+    /* min-height: 61px; */
     /* padding-bottom: 8px; */
-    padding-left: 10px;
-    padding-right: 25px;
+    /* padding-left: 10px; */
+    /* padding-right: 25px; */
     border-bottom: 1px solid #f1f1f3;
-    margin-top: -5px;
+    /* margin-top: -5px; */
+    padding: 14px 10px;
+    height: 54px;
+    padding-right: 27px;
+}
+
+.lastDivs{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding-right: 10px;
+}
+
+.custom-class{
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 100%;
 }
 
 .lastDiv p {
     font-family: Poppins;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
-    line-height: 1.39;
+    line-height: 1.06;
     letter-spacing: normal;
     text-align: left;
     color: #43425d;
@@ -885,7 +902,7 @@ a.article:hover {
       
         padding-left: 10px;
         padding-right: 10px;
-        padding-top: 47px;
+        padding-top: 40px;
     }
  
     .btnsContainer {
@@ -1916,18 +1933,18 @@ a.article:hover {
     -ms-flex: 1 1 auto;
     flex: 1 1 auto;
     padding: 1rem;
-    padding-left: 47px;
-    padding-right: 47px;
-    padding-top: 47px;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 40px;
 }
 
 .modalHeader {
     font-family: Poppins;
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 22px;
+    font-weight: 600;
     font-stretch: normal;
     font-style: normal;
-    line-height: 1.33;
+    line-height: 1.27;
     letter-spacing: normal;
     text-align: left;
     color: #43425d;
@@ -1946,13 +1963,25 @@ a.article:hover {
     color: #575757;
 }
 
+.headerContainerRow{
+    align-items: center;
+    width: 100%;
+}
 .headertitleContainer {
     display: inline-block;
-    border-bottom: 1px solid #fafafb;
     width: 100%;
     padding: 14px 10px;
+    border-bottom: 1px solid rgba(158,158,158,.5);
 }
-
+.headertitleContainerCol{
+    padding-right: 0px !important;
+}
+.headerContainerlink{
+    display: flex;
+    align-items: center;
+    height: 100%;
+    justify-content: flex-end;
+}
 .headertitleContainer p {
     font-family: Poppins;
     font-size: 18px;
@@ -2221,7 +2250,7 @@ a.article:hover {
       
         padding-left: 10px;
         padding-right: 10px;
-        padding-top: 47px;
+        padding-top: 40px;
     }
  
     .btnsContainer {
