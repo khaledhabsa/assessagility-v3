@@ -24,6 +24,7 @@ import json
 import operator
 from ..pdf import organizational_characteristic_pdf, detailed_practice_readings_pdf, agile_maturity_pdf
 from django.db import models
+from functools import reduce
 
 
 def get_practice(request):
@@ -114,12 +115,13 @@ def get_practice(request):
         except ZeroDivisionError:
             practices_data['bar_displacement'] = 0
 
-        practices_optimized.append({'average': int(practices_data['average']*100)/100.0,
-                                    'title': practices_data['title'],
-                                    'characteristics': characteristics_optimized,
-                                    })
+        practices_optimized.append({
+            'title': practices_data['title'],
+            'characteristics': characteristics_optimized,
+            'average': int(practices_data['average']*100)/100.0,
+        })
 
-    return (sorted(practices_optimized, key=itemgetter('average'), reverse=True), numberofparticipants)
+    return practices_optimized
 
 
 def get_practice_json(request):
@@ -815,6 +817,7 @@ def practice_spectrum(request):
 
 
 def optimized_category_readiness_report_json(request):
+
     return HttpResponse(json.dumps(getcategory_radar(request)[0]), content_type='application/json')
 
 
@@ -1060,7 +1063,7 @@ def detailed_practice_readings(request):
 
     if request.is_ajax():
         data = json.dumps({'practices': result})
-        return HttpResponse(data, mimetype='application/json')
+        return HttpResponse(data, content_type='application/json')
 
     pdf_report = request.POST.get('Report2PDFhidden')
     if pdf_report == 'PDF':

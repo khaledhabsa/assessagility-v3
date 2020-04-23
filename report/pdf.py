@@ -10,6 +10,7 @@ from django.http import HttpResponse
 from reportlab.pdfgen import canvas
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import A4
+import base64
 
 
 def underline(c, y):
@@ -21,8 +22,8 @@ def underline(c, y):
 
 
 def draw_report_header(c, request, report_name):
-    logopath = os.path.join(settings.BASE_DIR, 'templates',
-                            'static', 'img', 'logo.png')
+    logopath = os.path.join(settings.BASE_DIR,
+                            'static', 'images', 'logo.png')
     x = 15
     y = 15
 
@@ -80,10 +81,11 @@ def draw_segmentation(c, request):
 
 def draw_base64_image(c, request, w=None, h=None, y=None):
     tmpfile = os.path.join(settings.BASE_DIR, 'upload', 'tmp_img.png')
-    data = urllib.parse.unquote(request.POST['image'].decode("utf8"))
+    data = urllib.parse.unquote(request.POST['image'], encoding="utf-8")
     raw_data = data.split(',')[1]
     fh = open(tmpfile, "wb")
-    fh.write(raw_data.decode('base64'))
+
+    fh.write(base64.b64decode(raw_data))
     fh.close()
 
     x = 15
@@ -144,7 +146,7 @@ def organizational_characteristic_pdf(request):
     c.drawString(x, y, 'Legend')
     y += 20
 
-    report_data = urllib.parse.unquote(request.POST['data'].decode("utf8"))
+    report_data = urllib.parse.unquote(request.POST['data'], encoding="utf8")
     report_data = json.loads(report_data)
 
     for item in report_data:
@@ -208,7 +210,7 @@ def detailed_practice_readings_pdf(request):
     c.drawString(x, y, 'Legend')
     y += 20
 
-    report_data = urllib.parse.unquote(request.POST['data'].decode("utf8"))
+    report_data = urllib.parse.unquote(request.POST['data'], encoding="utf8")
     report_data = json.loads(report_data)
 
     for item in report_data:
@@ -288,7 +290,7 @@ def agile_maturity_pdf(request):
     c.drawString(x, y, 'Legend')
     y += 20
 
-    report_data = urllib.parse.unquote(request.POST['data'].decode("utf8"))
+    report_data = urllib.parse.unquote(request.POST['data'], encoding="utf8")
     report_data = json.loads(report_data)
 
     for item in report_data:
