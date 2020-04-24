@@ -750,8 +750,6 @@ def characteristic_answers_optimized(request, characteristic_id):
                 t['min'] += mcqs[a.mcqanswer_id].minValue
             except:
                 pass
-
-    print("Num of not found answers: ", not_found_answer_count)
     graphs = []
 
     for i in ins.values():
@@ -788,9 +786,6 @@ def characteristic_answers_optimized(request, characteristic_id):
                 '</div><div class="answer_max">' + ar_max + '</div><div class="mins">' + mins + \
                 '</div><div class="maxs">' + maxs + \
                 '</div><div class="labels">' + labels + '</div></div></div>'
-            print("ar_labels: ", ar_labels)
-            print("labels: ", labels)
-
         graphs.append(graph)
 
     ctx = {'graphs': graphs,
