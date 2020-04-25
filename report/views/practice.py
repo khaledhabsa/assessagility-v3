@@ -701,12 +701,14 @@ def characteristic_answers_optimized(request, characteristic_id):
         if a.user_id not in ups.keys():
             not_found_answer_count += 1
             continue
-
-        t = ins[a.indicator_id]['graph_data']['role'][ups[a.user_id].roles.all()[
-            0].id]
-        t['count'] += 1
-        t['max'] += mcqs[a.mcqanswer_id].maxValue
-        t['min'] += mcqs[a.mcqanswer_id].minValue
+        try:
+            t = ins[a.indicator_id]['graph_data']['role'][ups[a.user_id].roles.all()[
+                0].id]
+            t['count'] += 1
+            t['max'] += mcqs[a.mcqanswer_id].maxValue
+            t['min'] += mcqs[a.mcqanswer_id].minValue
+        except IndexError:
+            continue
 
         supervisor_key = ups[a.user_id].supervisor.strip()
         if supervisor_key not in ins[a.indicator_id]['graph_data']['supervisor'].keys():
