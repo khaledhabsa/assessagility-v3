@@ -37,7 +37,7 @@ p {
 }
 
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 5.8px;
     height:10px;
   }
 
@@ -49,7 +49,7 @@ border-radius: 10px;
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-background: #535353; 
+background: #E8CF29; 
 border-radius: 10px;
 }
 
@@ -352,7 +352,7 @@ a.article:hover {
     margin-bottom: 0;
     vertical-align: middle;
     font-family: Poppins;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
     font-stretch: normal;
     font-style: normal;
@@ -580,6 +580,10 @@ a.article:hover {
     background-color: #ffffff !important;
     height: auto;
     width: 59%;
+    max-height: 470px;
+    overflow-y: scroll;
+    /*height: auto;*/
+    scroll-behavior: auto;
 }
 
 .bg-info {
@@ -588,6 +592,10 @@ a.article:hover {
     background-color: #ffffff !important;
     height: fit-content;
     width: 39%;
+    max-height: 470px;
+    overflow-y: scroll;
+    /*height: auto;*/
+    scroll-behavior: auto;
 }
 
 .modal-body {
@@ -672,17 +680,18 @@ a.article:hover {
 }
 
 .centerDiv {
-    display: inline-block;
+    display: flex;
     border-bottom: 1px solid #fafafb;
     width: 100%;
-    padding-top: 17px;
-    min-height: 61px;
-    /* padding-bottom: 8px; */
-    padding-left: 10px;
-    padding-right: 25px;
+    /* padding-top: 17px; */
+   /* padding-bottom: 8px; */
+    padding: 14px 10px;
+    padding-right: 15px;
     box-shadow: none;
     background-color: #f1f1f1;
-    margin-top: -5px;
+    /* margin-top: -5px; */
+    align-items: center;
+    height: 54px;
 }
 
 .centerDiv p {
@@ -709,7 +718,7 @@ a.article:hover {
     /* margin-top: -5px; */
     padding: 14px 10px;
     height: 54px;
-    padding-right: 27px;
+    padding-right: 17px;
 }
 
 .lastDivs{
@@ -1309,6 +1318,11 @@ span {
 #sidebar .sidebar-header {
     padding: 20px;
     background: #474f57;
+    position: sticky;
+    /* height: 54px; */
+    top: 0px;
+    bottom: 67px;
+    z-index: 1000;
 }
 
 #sidebar .sidebar-header strong {
@@ -1319,6 +1333,11 @@ span {
 #sidebar ul.components {
     padding: 0px 0;
     border-bottom: 1px solid #474f57;
+    position: sticky;
+    /* height: 54px; */
+    top: 67px;
+    /* bottom: 54px; */
+    z-index: 1000;
 }
 
 #sidebar ul li a {
@@ -1459,7 +1478,7 @@ a.article:hover {
 
 
 .headerTitle {
-    font-family: SourceSansPro;
+    font-family: Poppins;
     font-size: 14px;
     font-weight: bold;
     font-stretch: normal;
@@ -1538,6 +1557,12 @@ a.article:hover {
     display: flex;
     align-content: stretch;
     align-items: center;
+    position: sticky;
+    height: 54px;
+    top: 0px;
+    bottom: 54px;
+    z-index: 1000;
+    background-color: white;
 }
 
 .containerLeft .headerLeft {
@@ -1693,6 +1718,11 @@ a.article:hover {
     background-color: #ffffff !important;
     height: fit-content;
     width: 49%;
+    border: 1px solid rgba(158,158,158,.5) !important;
+    max-height: 470px;
+    overflow-y: scroll;
+    /*height: auto;*/
+    scroll-behavior: auto;
 }
 
 .bg-info {
@@ -1701,6 +1731,11 @@ a.article:hover {
     background-color: #ffffff !important;
     height: fit-content;
     width: 49%;
+    border: 1px solid rgba(158,158,158,.5) !important;
+    max-height: 470px;
+    overflow-y: scroll;
+    /*height: auto;*/
+    scroll-behavior: auto;
 }
 
 .modal-body {
@@ -1743,10 +1778,17 @@ a.article:hover {
     width: 100%;
 }
 .headertitleContainer {
-    display: inline-block;
+    display: flex;
     width: 100%;
     padding: 14px 10px;
     border-bottom: 1px solid rgba(158,158,158,.5);
+    align-items: center;
+    position: sticky;
+    height: 54px;
+    top: 0px;
+    bottom: 54px;
+    z-index: 1000;
+    background-color: white;
 }
 .headertitleContainerCol{
     padding-right: 0px !important;
@@ -1772,10 +1814,17 @@ a.article:hover {
     margin-top: 7px;
 }
 .headertitleContainerRight {
-    display: inline-block;
-    border-bottom: 1px solid #c2c2c2;
+    display: flex;
     width: 100%;
     padding: 14px 10px;
+    border-bottom: 1px solid rgba(158,158,158,.5);
+    align-items: center;
+    position: sticky;
+    height: 54px;
+    top: 0px;
+    bottom: 54px;
+    z-index: 1000;
+    background-color: white;
 }
 
 .headertitleContainerRight p {
@@ -1791,6 +1840,19 @@ a.article:hover {
     margin-bottom: 5px;
 }
 
+#imgAdd, #imgDelete, #imgAddVal, #imgDeleteVal{
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    display: flex;
+}
+
+#closeDemo, #addDemo, #closeDemoVal, #addDemoVal{
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+    display: flex;
+}
 /* .centerDiv {
     display: inline-block;
     border-bottom: 1px solid #fafafb;
@@ -1843,8 +1905,8 @@ a.article:hover {
 }
 
 .btn-Done {
-    width: 120px;
-    height: 40px;
+    width: 110px;
+    height: 30px;
     background-color: #3b86ff;
     font-family: Poppins;
     font-size: 14px;
@@ -1856,11 +1918,12 @@ a.article:hover {
     text-align: center;
     color: #ffffff;
     margin-left: 20px;
+    padding: 0;
 }
 
 .btn-Cancel {
-    width: 120px;
-    height: 40px;
+    width: 110px;
+    height: 30px;
     border: solid 1px #43425d;
     background-color: #ffffff;
     font-family: Poppins;
@@ -1872,6 +1935,9 @@ a.article:hover {
     letter-spacing: normal;
     text-align: center;
     color: #707070;
+    text-align: center;
+    padding: 0;
+
 }
 .inputLink{
     border: none;
@@ -2034,4 +2100,23 @@ a.article:hover {
         display: flex;
         justify-content: center;
     }
+}
+.subTitlePadding{
+    padding-top: 24px; 
+    padding-bottom: 16px;
+}
+
+.subTitlePaddingZero{
+    padding-top: 0px; 
+    padding-bottom: 0px;
+}
+
+#addDemoInp, #addDemoValInp{
+    font-family: Poppins;
+    font-size: 14px;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #43425d;
 }
