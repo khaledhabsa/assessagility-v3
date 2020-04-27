@@ -4,6 +4,7 @@
 {% block title %}Manage Participants{% endblock %}
 {% block links %}
   <link rel="stylesheet" href="{% static 'css/custom4.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/customStyle.css' %}" />
 {% endblock %}
 
 {% block page %}Manage Participants{% endblock %}
@@ -109,7 +110,7 @@
                     </li>
                   </ul>
                 </th>
-                <th scope="col">Actions</th>
+                <th scope="col" style="text-align: center;">Actions</th>
               </thead>
               <tbody>
               </tbody>
@@ -123,7 +124,7 @@
               <td class="lastname form-elements"><div class="editabletext">{$T.record.last_name}</div></td>
               <td class="email form-elements"><div class="editabletext">{$T.record.email}</div></td>
               <td class="status">{$T.record.status}</td>
-              <td>
+              <td style="text-align: center;">
                 <a class="edit"><div class="avatar" style="margin: auto;"><img src="{% static 'images/edit.svg' %}"/></div></a>
                 <a class="update" title="Update"><img style="width:23px;" src="{% static 'images/check.svg'%}"/></a>
                 <a class="ml-2 cancel" title="Cancel"><img style="width:23px;" src="{% static  'images/multiply.svg'%}"/></a>
