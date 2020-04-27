@@ -701,12 +701,14 @@ def characteristic_answers_optimized(request, characteristic_id):
         if a.user_id not in ups.keys():
             not_found_answer_count += 1
             continue
-
-        t = ins[a.indicator_id]['graph_data']['role'][ups[a.user_id].roles.all()[
-            0].id]
-        t['count'] += 1
-        t['max'] += mcqs[a.mcqanswer_id].maxValue
-        t['min'] += mcqs[a.mcqanswer_id].minValue
+        try:
+            t = ins[a.indicator_id]['graph_data']['role'][ups[a.user_id].roles.all()[
+                0].id]
+            t['count'] += 1
+            t['max'] += mcqs[a.mcqanswer_id].maxValue
+            t['min'] += mcqs[a.mcqanswer_id].minValue
+        except IndexError:
+            continue
 
         supervisor_key = ups[a.user_id].supervisor.strip()
         if supervisor_key not in ins[a.indicator_id]['graph_data']['supervisor'].keys():
@@ -750,8 +752,6 @@ def characteristic_answers_optimized(request, characteristic_id):
                 t['min'] += mcqs[a.mcqanswer_id].minValue
             except:
                 pass
-
-    print("Num of not found answers: ", not_found_answer_count)
     graphs = []
 
     for i in ins.values():
@@ -788,9 +788,6 @@ def characteristic_answers_optimized(request, characteristic_id):
                 '</div><div class="answer_max">' + ar_max + '</div><div class="mins">' + mins + \
                 '</div><div class="maxs">' + maxs + \
                 '</div><div class="labels">' + labels + '</div></div></div>'
-            print("ar_labels: ", ar_labels)
-            print("labels: ", labels)
-
         graphs.append(graph)
 
     ctx = {'graphs': graphs,
