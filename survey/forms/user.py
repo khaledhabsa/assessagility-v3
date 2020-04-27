@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
+import re
 
 
 class UserLoginForm(forms.ModelForm):
@@ -16,7 +17,7 @@ class UserLoginForm(forms.ModelForm):
 
     error_msg = {
         "user_not_found": "This Email doesn't exist",
-        "password": "The password isn't correct"
+        "password": "The password isn't correct",
     }
 
     def clean(self):
@@ -27,6 +28,7 @@ class UserLoginForm(forms.ModelForm):
             raise forms.ValidationError(self.error_msg['user_not_found'])
 
         else:
+
             user = user[0]
             if user.username != user.email:
                 if user.email != '':
@@ -75,7 +77,7 @@ class AddUserForm(forms.ModelForm):
         "id": "inputLastName",
         "placeholder": "Last Name"
     }))
-    email = forms.EmailField(widget=forms.TextInput(attrs={
+    email = forms.EmailField(widget=forms.EmailInput(attrs={
         "class": "form-control",
         "id": "inputEmail",
         "placeholder": "Email"
@@ -97,11 +99,30 @@ class AddUserForm(forms.ModelForm):
                   'email', 'password', 'password1',)
 
     def clean(self):
+
+        if 'email' not in self.cleaned_data:
+            raise forms.ValidationError("Enter Correct Email")
+
         email = self.cleaned_data['email']
         password = self.cleaned_data['password']
         password1 = self.cleaned_data['password1']
-        check_email = User.objects.filter(email=email)
+        fname = self.cleaned_data['first_name']
+        lname = self.cleaned_data['last_name']
+        pat_name = r'^[a-zA-z]+$'
+        if not re.match(pat_name, fname):
+            raise forms.ValidationError(
+                "First Name should be contain character only")
+        if not re.match(pat_name, lname):
+            raise forms.ValidationError(
+                "Last Name should be contain character only")
 
+        if len(password) < 8:
+            raise forms.ValidationError(
+                "Password should be contain at least 8 character,number,_,$,@ and - only")
+        if not re.match(r'^[a-zA-Z0-9_$@-]+$', password):
+            raise forms.ValidationError(
+                "Password should be contain character,number,_,$,@ and - only")
+        check_email = User.objects.filter(email=email)
         if check_email.exists():
             raise forms.ValidationError(u'%s already exists' % email)
 
