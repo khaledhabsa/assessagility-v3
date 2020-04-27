@@ -72,10 +72,10 @@
                             <a href="{% url 'report:category_radar' %}" id="radar">Organizational Characteristic Assessment</a>
                             </li>
                             <li>
-                            <a target="_blank" href="{% url 'report:optimized_category_readiness_report_practice' %}" id= "practice">Detailed Practice Readings</a>
+                            <a href="{% url 'report:optimized_category_readiness_report_practice' %}" id="practice">Detailed Practice Readings</a>
                             </li>
                             <li>
-                            <a target="_blank" href="{% url 'report:practice_pdf' %}" id="pdf">Practice Report</a>
+                            <a href="{% url 'report:practice_spectrum' %}" id="pdf">Agile Maturity By Practice</a>
                             </li>
                         </ul>
                     </div>
@@ -166,12 +166,13 @@
                     $(".sidebar-submenu").slideDown();
                     $(".sidebar-submenu").addClass("showed");
                     document.getElementById('radar').classList.add('active');
-                }else if(path.search("practice") > 0){
+                }else if(path.search("optimized") > 0){
                     $(".sidebar-submenu").slideDown();
                     $(".sidebar-submenu").addClass("showed");
-                    document.getElementById('pratice').classList.add('active');
+                    document.getElementById('practice').classList.add('active');
                 
-                }else if(path.search("pdf") > 0){
+                }else if(path.search("spectrum") > 0){
+                    
                     $(".sidebar-submenu").slideDown();
                     $(".sidebar-submenu").addClass("showed");
                     document.getElementById('pdf').classList.add('active');

@@ -24,6 +24,7 @@ import json
 import operator
 from ..pdf import organizational_characteristic_pdf, detailed_practice_readings_pdf, agile_maturity_pdf
 from django.db import models
+from functools import reduce
 
 
 def get_practice(request):
@@ -114,12 +115,13 @@ def get_practice(request):
         except ZeroDivisionError:
             practices_data['bar_displacement'] = 0
 
-        practices_optimized.append({'average': int(practices_data['average']*100)/100.0,
-                                    'title': practices_data['title'],
-                                    'characteristics': characteristics_optimized,
-                                    })
+        practices_optimized.append({
+            'title': practices_data['title'],
+            'characteristics': characteristics_optimized,
+            'average': int(practices_data['average']*100)/100.0,
+        })
 
-    return (sorted(practices_optimized, key=itemgetter('average'), reverse=True), numberofparticipants)
+    return practices_optimized
 
 
 def get_practice_json(request):
@@ -695,12 +697,14 @@ def characteristic_answers_optimized(request, characteristic_id):
         if a.user_id not in ups.keys():
             not_found_answer_count += 1
             continue
-
-        t = ins[a.indicator_id]['graph_data']['role'][ups[a.user_id].roles.all()[
-            0].id]
-        t['count'] += 1
-        t['max'] += mcqs[a.mcqanswer_id].maxValue
-        t['min'] += mcqs[a.mcqanswer_id].minValue
+        try:
+            t = ins[a.indicator_id]['graph_data']['role'][ups[a.user_id].roles.all()[
+                0].id]
+            t['count'] += 1
+            t['max'] += mcqs[a.mcqanswer_id].maxValue
+            t['min'] += mcqs[a.mcqanswer_id].minValue
+        except IndexError:
+            continue
 
         supervisor_key = ups[a.user_id].supervisor.strip()
         if supervisor_key not in ins[a.indicator_id]['graph_data']['supervisor'].keys():
@@ -780,7 +784,6 @@ def characteristic_answers_optimized(request, characteristic_id):
                 '</div><div class="answer_max">' + ar_max + '</div><div class="mins">' + mins + \
                 '</div><div class="maxs">' + maxs + \
                 '</div><div class="labels">' + labels + '</div></div></div>'
-
         graphs.append(graph)
 
     return render(request, 'characteristic_answers_optimized.html', {
@@ -806,6 +809,7 @@ def practice_spectrum(request):
 
 
 def optimized_category_readiness_report_json(request):
+
     return HttpResponse(json.dumps(getcategory_radar(request)[0]), content_type='application/json')
 
 
@@ -1051,7 +1055,7 @@ def detailed_practice_readings(request):
 
     if request.is_ajax():
         data = json.dumps({'practices': result})
-        return HttpResponse(data, mimetype='application/json')
+        return HttpResponse(data, content_type='application/json')
 
     pdf_report = request.POST.get('Report2PDFhidden')
     if pdf_report == 'PDF':

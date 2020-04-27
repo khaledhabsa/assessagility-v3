@@ -65,8 +65,8 @@ $(document).ready(function () {
 
 				if (i === 0) {
 					div = "	<div class='centerDiv'>\
-								<div class='row'>\
-									<div class='col-sm-10 col-md-10 col-lg-11'>\
+								<div class='row headerContainerRow'>\
+									<div class='col-sm-10 col-md-10 col-lg-10'>\
 										<div class='custom-control custom-checkbox left'>\
 											<input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
 												name='example'>\
@@ -74,7 +74,7 @@ $(document).ready(function () {
 												"+ e.title + "</label>\
 										</div>\
 									</div>\
-									<div class='col-sm-2 col-md-2 col-lg-1'>\
+									<div class='col-sm-2 col-md-2 col-lg-2 headertitleContainerCol'>\
 										<p class='right'>\
 											<img src=\"/static/images/keyboard_arrow_right-24px (1).svg\">\
 										</p>\
@@ -129,8 +129,8 @@ $(document).ready(function () {
 					})
 				} else {
 					div = "	<div class='lastDiv'>\
-								<div class='row'>\
-									<div class='col-sm-10 col-md-10 col-lg-11'>\
+								<div class='row headerContainerRow'>\
+									<div class='col-sm-10 col-md-10 col-lg-10'>\
 										<div class='custom-control custom-checkbox left'>\
 											<input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
 												name='example'>\
@@ -138,7 +138,7 @@ $(document).ready(function () {
 												"+ e.title + "</label>\
 										</div>\
 									</div>\
-									<div class='col-sm-2 col-md-2 col-lg-1'>\
+									<div class='col-sm-2 col-md-2 col-lg-2 headertitleContainerCol'>\
 										<p class='right'>\
 											<img src=\"/static/images/keyboard_arrow_right-24px (1).svg\">\
 										</p>\
@@ -218,8 +218,8 @@ $("#imgDeleteModal").on("click", function (e) {
 
 						if (i === 0) {
 							div = "	<div class='centerDiv'>\
-										<div class='row'>\
-											<div class='col-sm-10 col-md-10 col-lg-11'>\
+										<div class='row headerContainerRow'>\
+											<div class='col-sm-10 col-md-10 col-lg-10'>\
 												<div class='custom-control custom-checkbox left'>\
 													<input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
 														name='example'>\
@@ -227,7 +227,7 @@ $("#imgDeleteModal").on("click", function (e) {
 														"+ e.title + "</label>\
 												</div>\
 											</div>\
-											<div class='col-sm-2 col-md-2 col-lg-1'>\
+											<div class='col-sm-2 col-md-2 col-lg-2 headertitleContainerCol'>\
 												<p class='right'>\
 													<img src=\"/static/images/keyboard_arrow_right-24px (1).svg\">\
 												</p>\
@@ -282,8 +282,8 @@ $("#imgDeleteModal").on("click", function (e) {
 							})
 						} else {
 							div = "	<div class='lastDiv'>\
-										<div class='row'>\
-											<div class='col-sm-10 col-md-10 col-lg-11'>\
+										<div class='row headerContainerRow'>\
+											<div class='col-sm-10 col-md-10 col-lg-10'>\
 												<div class='custom-control custom-checkbox left'>\
 													<input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
 														name='example'>\
@@ -291,7 +291,7 @@ $("#imgDeleteModal").on("click", function (e) {
 														"+ e.title + "</label>\
 												</div>\
 											</div>\
-											<div class='col-sm-2 col-md-2 col-lg-1'>\
+											<div class='col-sm-2 col-md-2 col-lg-2 headertitleContainerCol'>\
 												<p class='right'>\
 													<img src=\"/static/images/keyboard_arrow_right-24px (1).svg\">\
 												</p>\
@@ -317,11 +317,11 @@ $("#imgDeleteModal").on("click", function (e) {
 })
 $(".bg-info").on("click", "#imgAdd", function (e) {
 	var d = "<div class='lastDivs'>\
-				  <div class='row'> <div class='col-sm-9 col-md-10 col-lg-10'>\
+				  <div class='row headerContainerRow'> <div class='col-sm-9 col-md-10 col-lg-10'>\
 				  <div class='custom-control custom-checkbox left'>\
 						  <input type='text' class='form-control' id='addDemoInp' placeholder='New Demographic' />\
 				  </div></div> \
-				  <div class='col-sm-2 col-md-2 col-lg-2 mt-1'><p id='actions'>\
+				  <div class='col-sm-2 col-md-2 col-lg-2 headertitleContainerCol'><p id='actions' class='right'>\
 					  <img src='/static/images/multiply.svg' id='closeDemo' style='cursor:pointer;'/>\
 				  </p>\
 				</div></div></div>"
@@ -366,8 +366,8 @@ $(".bg-info").on("click", "#addDemo", function (e) {
 
 							if (i === 0) {
 								div = "	<div class='centerDiv'>\
-											<div class='row'>\
-												<div class='col-sm-10 col-md-10 col-lg-11'>\
+											<div class='row headerContainerRow'>\
+												<div class='col-sm-10 col-md-10 col-lg-10'>\
 													<div class='custom-control custom-checkbox left'>\
 														<input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
 															name='example'>\
@@ -375,7 +375,7 @@ $(".bg-info").on("click", "#addDemo", function (e) {
 															"+ e.title + "</label>\
 													</div>\
 												</div>\
-												<div class='col-sm-2 col-md-2 col-lg-1'>\
+												<div class='col-sm-2 col-md-2 col-lg-2 headertitleContainerCol'>\
 													<p class='right'>\
 														<img src=\"/static/images/keyboard_arrow_right-24px (1).svg\">\
 													</p>\
@@ -430,8 +430,8 @@ $(".bg-info").on("click", "#addDemo", function (e) {
 								})
 							} else {
 								div = "	<div class='lastDiv'>\
-											<div class='row'>\
-												<div class='col-sm-10 col-md-10 col-lg-11'>\
+											<div class='row headerContainerRow'>\
+												<div class='col-sm-10 col-md-10 col-lg-10'>\
 													<div class='custom-control custom-checkbox left'>\
 														<input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
 															name='example'>\
@@ -439,7 +439,7 @@ $(".bg-info").on("click", "#addDemo", function (e) {
 															"+ e.title + "</label>\
 													</div>\
 												</div>\
-												<div class='col-sm-2 col-md-2 col-lg-2'>\
+												<div class='col-sm-2 col-md-2 col-lg-2 headertitleContainerCol'>\
 													<p class='right'>\
 														<img src=\"/static/images/keyboard_arrow_right-24px (1).svg\">\
 													</p>\
@@ -619,11 +619,11 @@ $("#imgDeleteValModal").on("click", function (e) {
 })
 $(".bg-warning").on("click", "#imgAddVal", function (e) {
 	var d = "<div class='lastDivs'>\
-				  <div class='row'> <div class='col-sm-9 col-md-10 col-lg-10'>\
+				  <div class='row headerContainerRow'> <div class='col-sm-9 col-md-10 col-lg-10'>\
 				  <div class='custom-control custom-checkbox left'>\
 						  <input type='text' class='form-control' id='addDemoValInp' placeholder='New Demographic Value' />\
 				  </div></div> \
-				  <div class='col-sm-2 col-md-2 col-lg-2 mt-1'><p id='actions'>\
+				  <div class='col-sm-2 col-md-2 col-lg-2 headertitleContainerCol'><p id='actions' class='right'>\
 					  <img src='/static/images/multiply.svg' id='closeDemoVal' style='cursor:pointer;'/>\
 				  </p>\
 				</div></div></div>"
