@@ -78,8 +78,8 @@ def select_role(request):
             candidate = None
         return redirect('survey:edit_user_demographic')
 
-    # if request.user.profile.roles.count() > 0:
-    #     return redirect('survey:edit_user_demographic')
+    if request.user.profile.roles.count() > 0:
+        return redirect('survey:edit_user_demographic')
 
     return render(request, 'questions/select_role.html',  {'roles': Role.objects.all().order_by('rank')})
 
