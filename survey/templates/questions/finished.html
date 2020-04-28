@@ -18,7 +18,12 @@
           </div>
         {% else %}
           <div class="alert alert-success" style="padding: 25px">
-            Well done! Your survey has been submitted successfully.
+            Well done! Your survey has been 
+            {% ifequal survey 'save' %}
+              saved successfully.
+            {% else %}
+              submitted successfully.
+            {% endifequal %}
             <div class="pull-right">
               
               <button type="button" class="btn btn-success" style="margin-top: -6px"><a href="{% url 'survey:answerpage' mode=0 %}">{% trans "Update Survey" %}</a></button>

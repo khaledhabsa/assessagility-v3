@@ -78,8 +78,8 @@ def select_role(request):
             candidate = None
         return redirect('survey:edit_user_demographic')
 
-    if request.user.profile.roles.count() > 0:
-        return redirect('survey:edit_user_demographic')
+    # if request.user.profile.roles.count() > 0:
+    #     return redirect('survey:edit_user_demographic')
 
     return render(request, 'questions/select_role.html',  {'roles': Role.objects.all().order_by('rank')})
 
@@ -135,7 +135,8 @@ def finished(request):
         if user_profile.survey_finished == True:
             user_profile.survey_finished = False
             user_profile.save()
-        return render(request, 'questions/finished.html', {"closed": False})
+
+        return render(request, 'questions/finished.html', {"closed": False, "survey": request.GET.get('survey', False)})
 
 
 @login_required(login_url="/accounts/login?next=survey:closed")

@@ -11,7 +11,6 @@ google.setOnLoadCallback(function () {
 
 
 
-
 function SetDemographicsValues() {
 	var demographics_values = "";
 	$("select").each(function () {

@@ -5,6 +5,8 @@
   <head>
     <link rel="stylesheet" href="{% static "css/" %}characteristic_pdf.css" />
     <link rel="stylesheet" href="{% static "css/" %}colorbox.css" />
+    <title> Organizational Characteristic Assessment </title>
+    <link rel="shortcut icon" type="image/x-icon" href="/static/images/favico.png">
     <script src="{% static "js/" %}jquery-1.6.2.min.js"></script>
     <script src="{% static "js/" %}characteristic_answers.js"></script>
     <script src="{% static "js/" %}jquery.colorbox.js"></script>
@@ -51,6 +53,7 @@
               <div class="selector" id="demographic_role">
                 Role
               </div>
+              
               {% for demographic in demographics%}
                 <div class="selector" id='demographic_{{demographic.id}}'>
                   {{ demographic.title }}
@@ -62,3 +65,5 @@
         </tr>
       </table>
     </div>
+  </body>
+</html>

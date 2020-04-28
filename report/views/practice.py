@@ -693,10 +693,6 @@ def characteristic_answers_optimized(request, characteristic_id):
         uds[ud.userProfile_id][ud.demographic_id] = ud.demographic_value
     not_found_answer_count = 0
     for a in answers:
-        # print("a.indicator_id",a.indicator_id)
-        # #print("type(ups) :",type(ups))
-        # print("a.user_id",a.user_id)
-        # print("ups[a.user_id]",ups[str(a.user_id)])
 
         if a.user_id not in ups.keys():
             not_found_answer_count += 1
@@ -790,12 +786,11 @@ def characteristic_answers_optimized(request, characteristic_id):
                 '</div><div class="labels">' + labels + '</div></div></div>'
         graphs.append(graph)
 
-    ctx = {'graphs': graphs,
-           'characteristic': characteristic,
-           'demographics': demographics,
-           }
-    #print("ctx: ", ctx)
-    return render(request, 'characteristic_answers_optimized.html', ctx)
+    return render(request, 'characteristic_answers_optimized.html', {
+        'graphs': graphs,
+        'characteristic': characteristic,
+        'demographics': demographics,
+    })
 
 
 @login_required
