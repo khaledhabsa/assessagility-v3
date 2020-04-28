@@ -1016,9 +1016,10 @@ a.article:hover {
 }
 .submenu-admin{
     right:3%;
+    padding: 10px;
 }
 .submenu li :hover, .submenu-admin li :hover{
-    background-color: #616b75;
+    background-color: transparent;
     color:#fff
 }
 
