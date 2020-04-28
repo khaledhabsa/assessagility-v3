@@ -323,6 +323,7 @@ $(".bg-info").on("click", "#imgDelete", function (e) {
         url: '/survey/getalldemgraphic/',
         cache: false,
         dataType: "json",
+        cache: true,
         success: function (data) {
           $("#demoGraph").empty();
           $("#values").empty();
@@ -350,6 +351,7 @@ $(".bg-info").on("click", "#imgDelete", function (e) {
                 data: {
                   "demographic": e.id,
                 },
+                cache: true,
                 success: function (dt) {
                   var data = JSON.parse(dt)
                   data.forEach(function (e, i) {
@@ -455,7 +457,7 @@ $(".bg-info").on("click", "#addDemo", function (e) {
       success: function (data) {
         $.ajax({
           url: '/survey/getalldemgraphic/',
-          cache: false,
+          cache: true,
           dataType: "json",
           success: function (data) {
             $("#demoGraph").empty();
@@ -484,6 +486,7 @@ $(".bg-info").on("click", "#addDemo", function (e) {
                   data: {
                     "demographic": e.id,
                   },
+                  cache: true,
                   success: function (dt) {
                     var data = JSON.parse(dt)
                     data.forEach(function (e, i) {
@@ -565,6 +568,7 @@ $(".bg-info").on("click", ".lastDiv", function (e) {
     data: {
       "demographic": id,
     },
+    cache: true,
     success: function (dt) {
       var data = JSON.parse(dt)
       $("#values").empty()
@@ -663,6 +667,7 @@ $(".bg-warning").on("click", "#imgDeleteVal", function (e) {
         data: {
           'demographic': demo,
         },
+        cache: true,
         success: function (dt) {
           $("#values").empty();
           var data = JSON.parse(dt)
@@ -742,6 +747,7 @@ $(".bg-warning").on("click", "#addDemoVal", function (e) {
         data: {
           'demographic': demo,
         },
+        cache: true,
         success: function (dt) {
           $("#values").empty();
           var data = JSON.parse(dt)
