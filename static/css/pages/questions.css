@@ -241,3 +241,7 @@ div.answer-option{
   top: -7px;
   width: 25px;
 }
+.odd{
+    background-color: #EFEFEF;
+    padding: 5px;
+}
