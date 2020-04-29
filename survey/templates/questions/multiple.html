@@ -69,7 +69,7 @@
                 align-items: center;">
                   <ul class="options lvalue" style="    margin-right: 0 !important;
                   width: 100%;
-                  padding: 15px">
+                  padding: 7px">
                     {% for item in questions.0.answer_range.mcqanswer_set.all %}
                       <li class="mr-2 pull-right">{{ item.title }}</li>
                     {% endfor %}
@@ -86,9 +86,9 @@
                   {% for q in questions %}
                     <div class="row {% cycle 'even' 'odd' %} indicator mb-3" id="indicator-{{ q.pk }}">
                       <div class="col-md-7 question"><!--span>{{forloop.counter}} -</span--> {{ q.question|safe }}</div>
-                      <div class="col-md-5 answers">
+                      <div class="col-md-5 answers ">
                         {% for item in q.answer_range.mcqanswer_set.all %}
-                          <div class="answer-option">
+                          <div class="answer-option mr-2 pull-right">
                             <input type="radio" name="anwer-{{ q.pk }}" value="{{ item.pk }}" data-mcq-id="{{ item.pk }}">
                           </div>
                         {% endfor %}
