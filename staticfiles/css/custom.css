@@ -33,3 +33,8 @@ body.userspace .mainbar .page-head{
 .inputBlock input[type='submit']{
     padding: 9px 16px;
 }
+
+.page-title-container{
+    display: flex;
+    justify-content: center;
+}

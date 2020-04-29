@@ -555,7 +555,7 @@
 .btn-primary:hover{
     background-color: #01a300 !important;
     border-color: #01a300 !important;
-    color: inherit;
+    color: #ffffff;
     text-decoration: none;
     transition: all 0.3s;
 }
