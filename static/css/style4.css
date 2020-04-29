@@ -1350,7 +1350,7 @@ span {
 
   /* Style the active class, and buttons on mouse-over */
   .active {
-    background-color: lightgray !important;
+    background-color: #616b75;
     color: white;
   }
 #sidebar ul li a i {
