@@ -1,10 +1,16 @@
 from django.http import JsonResponse
 from django.http import Http404
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 
 def index(request):
-    return render(request, 'index.html')
+    if not request.user.is_authenticated:
+        return redirect("survey:user_login")
+    else:
+        if request.user.is_superuser:
+            return redirect("client_admin:home")
+        else:
+            return redirect("survey:answerpage", mode="0")
 
 
 def health(request):

@@ -4,9 +4,8 @@
 #### For running the application:
 1. Open your terminal in the root directory.
 2. Run shell environment by copy and paste this command `pipenv shell`
-3. Copy and paste this command to install couple packages before started `pipenv install gchartwrapper xlwt xlrd pillow reportlab whitenoise django-tables2`
-4. Run `pipenv install` to install packages in requirements.txt file.
-5. Run `./manage.py runserver` or `python manage.py runserver` to run the server.
+3. Run `pipenv install -r requirements.txt` to install packages in requirements.txt file.
+4. Run `./manage.py runserver` or `python manage.py runserver` to run the server.
 
 
 #### For working on urls into the application:

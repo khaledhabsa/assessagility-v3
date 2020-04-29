@@ -59,6 +59,7 @@ $(document).ready(function () {
 		url: '/survey/getalldemgraphic/',
 		cache: false,
 		dataType: "json",
+		cache: true,
 		success: function (data) {
 			data.forEach(function (e, i) {
 				var div = null
@@ -89,6 +90,7 @@ $(document).ready(function () {
 						data: {
 							"demographic": e.id,
 						},
+						cache: true,
 						success: function (dt) {
 							var data = JSON.parse(dt)
 							data.forEach(function (e, i) {
@@ -207,6 +209,7 @@ $("#imgDeleteModal").on("click", function (e) {
 				url: '/survey/getalldemgraphic/',
 				cache: false,
 				dataType: "json",
+				cache: true,
 				success: function (data) {
 					$("#demoGraph").empty();
 					$("#values").empty();
@@ -242,6 +245,7 @@ $("#imgDeleteModal").on("click", function (e) {
 								data: {
 									"demographic": e.id,
 								},
+								cache: true,
 								success: function (dt) {
 									var data = JSON.parse(dt)
 									data.forEach(function (e, i) {
@@ -356,6 +360,7 @@ $(".bg-info").on("click", "#addDemo", function (e) {
 					url: '/survey/getalldemgraphic/',
 					cache: false,
 					dataType: "json",
+					cache: true,
 					success: function (data) {
 						$("#demoGraph").empty();
 						$("#values").empty();
@@ -390,6 +395,7 @@ $(".bg-info").on("click", "#addDemo", function (e) {
 									data: {
 										"demographic": e.id,
 									},
+									cache: true,
 									success: function (dt) {
 										var data = JSON.parse(dt)
 										data.forEach(function (e, i) {
@@ -478,6 +484,7 @@ $(".bg-info").on("click", ".lastDiv", function (e) {
 		data: {
 			"demographic": id,
 		},
+		cache: true,
 		success: function (dt) {
 			var data = JSON.parse(dt)
 			$("#values").empty()
@@ -578,6 +585,7 @@ $("#imgDeleteValModal").on("click", function (e) {
 				data: {
 					'demographic': demo,
 				},
+				cache: true,
 				success: function (dt) {
 					$("#values").empty();
 					var data = JSON.parse(dt)
@@ -657,6 +665,7 @@ $(".bg-warning").on("click", "#addDemoVal", function (e) {
 				data: {
 					'demographic': demo,
 				},
+				cache: true,
 				success: function (dt) {
 					$("#values").empty();
 					var data = JSON.parse(dt)
