@@ -24,31 +24,35 @@
     </div>
     <br />
 
-    <div class="page-title">
+  <div class="page-title">
     
     
-      {% for d in demographics %}
-        <div class="form-group">
-          <label class="col-lg-2 control-label" for="dmgr-{{ d.pk }}">{{ d.title }}</label>
-          	<div class="col-lg-4">
-            <select id="dmgr-{{ d.pk }}" name="{{ d.pk }}" class="form-control">
-              <option>{% trans "Select" %}</option>
-              {% for v in d.demographicvalue_set.all %}
-                <option value="{{ v.pk }}"
-                        {% for cd in currentDemographics%}
-                          {% if cd.demographic_value_id == v.id %}
-                            selected='selected'
-                          {% endif %}
-                        {% endfor %}
-                        >
-                  {{ v.value }}
-                </option>
-              {% endfor %}
-            </select>
-          	</div>
-        </div>
-      {% endfor %}
+    {% for d in demographics %}
+    <div class="page-title-container">
+      <div class="form-group" style="width: 40%;">
+        <label class="control-label" for="dmgr-{{ d.pk }}" style="display:flex;justify-content: center;">{{ d.title }}</label>
+          <div class="">
+          <select id="dmgr-{{ d.pk }}" name="{{ d.pk }}" class="form-control">
+            <option>{% trans "Select" %}</option>
+            {% for v in d.demographicvalue_set.all %}
+              <option value="{{ v.pk }}"
+                      {% for cd in currentDemographics%}
+                        {% if cd.demographic_value_id == v.id %}
+                          selected='selected'
+                        {% endif %}
+                      {% endfor %}
+                      >
+                {{ v.value }}
+              </option>
+            {% endfor %}
+          </select>
+          </div>
+      </div>
     </div>
+    {% endfor %}
+  </div>
+
+
   </form>
 {% endblock %}
 

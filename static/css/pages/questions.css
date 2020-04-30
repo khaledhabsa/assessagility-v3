@@ -95,9 +95,10 @@
 }
 
 .options{
-    margin:0;
-    padding:0;
-    text-align:right;
+    margin: 0;
+    padding: 0;
+    text-align: right;
+    margin-right: 36px !important;
 }
 
 .options li{
@@ -217,8 +218,10 @@ div.answer-option{
     overflow:visible;
 }
 .scrollable.default-skin .scroll-bar.vertical {
-  box-shadow: 0 0 5px #CCCCCC inset;
-  width: 10px;
+    box-shadow: 0 0 5px #CCCCCC inset;
+    width: 10px;
+    z-index: 100;
+    background-color: white;
 }
 .scrollable.default-skin .scroll-bar .thumb {
   width: 7px;
@@ -241,7 +244,45 @@ div.answer-option{
   top: -7px;
   width: 25px;
 }
-.odd{
-    background-color: #EFEFEF;
-    padding: 5px;
+
+
+.even{
+    background-color: #eeeeee57;
+  }
+
+.question{
+    font-size:13px;
+    font-family: Poppins;
+    padding-left: 39px;
+    color: #43425d;
+
+}
+
+.indicator{
+    margin-bottom: 0 !important;
+    align-items: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 1px solid #c9c9c9;
+}
+
+.answers{
+    align-items: center;
+    height: 100%;
+}
+
+.scrollable.default-skin .scroll-bar.vertical {
+    box-shadow: 0 0 5px #CCCCCC inset;
+    width: 10px;
+    z-index: 100;
+    background-color: white;
+}
+
+.btn-style{
+    font-family: Poppins;
+    font-size: 14px;
+    /* padding-left: 10px; */
+    /* padding-right: 10px; */
+    width: 120px;
+    height: 40px;
 }
