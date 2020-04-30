@@ -49,7 +49,7 @@
 }
 
 .role .description{
-    padding:13px 39px;
+    padding:13px 50px;
     font-size:12px;
     font-family: 'Open Sans', sans-serif;
     display:none;
@@ -59,8 +59,8 @@
 } 
 .role .description p > span{
     color: #43425d;
-    font-size: 19px;
-    line-height: 1.5em;
+    font-size: 15px;
+    line-height: 1.39;
 }
 .ez-radio{
     height:16px;
@@ -72,4 +72,9 @@
 
 .ez-radio.ez-selected{
     background-position:0 -17px;
+}
+
+.page-title-container{
+    display: flex;
+    justify-content: center;
 }
