@@ -344,11 +344,15 @@ function GetAll(page) {
 
 
 function UpdateSelectall() {
-	if ($('.selectall').hasClass('checked')) {
-
+	if ($('.selectall').is(':checked')) {
+		console.log($('.selectall').is(':checked'));
 		$('.selectall').removeClass('checked');
-		$('.selectall').parents('table').find('.usercheckbox').removeClass('checked');
+		//$('.selectall').parents('table').find('.usercheckbox').removeClass('checked');
+		$('.selectall').parents('table').find('.usercheckbox').prop('checked', true);
 
+	}
+	else{
+		$('.selectall').parents('table').find('.usercheckbox').prop('checked', false);
 	}
 }
 

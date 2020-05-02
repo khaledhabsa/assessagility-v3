@@ -73,7 +73,14 @@
         <textarea id="table_template" style="display: none">
           <table id="users_table" class="table table-borderless table-hover table-striped text-center">
               <thead >
-                <th scope="col"><div class="selectall" id="-1"></div></th>
+                <th scope="col" ><!--div class="selectall" id="-1"></div-->
+                  <div class="custom-control custom-checkbox left table-control ">
+                    <input type="checkbox" id="-1" class="custom-control-input  selectall"  onClick="UpdateSelectall()" >
+                    <label class="custom-control-label fontNormal" for="-1" ></label>
+                  </div>
+
+                </th>
+                
                 <th scope="col">First Name</th>
                 <th scope="col">Last Name</th>
                 <th scope="col">E-mail</th>
@@ -120,7 +127,12 @@
         <textarea id="rows_template" style="display: none">
           {#foreach $T as record}
             <tr id='tr_{$T.record.id}'>
-              <td><div class="usercheckbox" id='{$T.record.id}'></div></td>
+              <td><!--div class="" id='{$T.record.id}'></div-->
+              <div class="custom-control custom-checkbox left table-control ">
+                <input type="checkbox" id='{$T.record.id}' class="custom-control-input usercheckbox " >
+                <label class="custom-control-label fontNormal " for='{$T.record.id}'></label>
+              </div>
+              </td>
               <td class="firstname form-elements"><div class="editabletext">{$T.record.first_name}</div></td>
               <td class="lastname form-elements"><div class="editabletext">{$T.record.last_name}</div></td>
               <td class="email form-elements"><div class="editabletext">{$T.record.email}</div></td>
