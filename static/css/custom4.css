@@ -552,13 +552,13 @@
     border-color: #01a300;
     border-radius: 4px;
 }
-.btn-primary:hover{
-    background-color: #01a300 !important;
-    border-color: #01a300 !important;
+/*.btn-primary:hover{
+    background-color: inherit !important;
+    border-color: inherit !important;
     color: #ffffff;
     text-decoration: none;
     transition: all 0.3s;
-}
+}*/
 body {
     font-family: 'Poppins', sans-serif;
     background: #f0f4f7;
@@ -662,10 +662,11 @@ h2 {
 
 .subTitle span{
     clear: both;
-    font-size: 16px;
+    font-size: 13px;
     font-weight: bold;
     color: #4d4f5c;
     padding-left: 4px;
+
 }
 .subTitlePadding{
     padding-top: 24px; 
@@ -940,3 +941,27 @@ tr{
     padding-right: 15px;
     padding-left: 15px;
 }*/
+
+.firstname, .lastname, .email, .editfiled{
+    padding-right: 25px !important;
+}
+
+#email, #firstname, #lastname{
+    font-family: Poppins;
+
+font-size: 12px;
+
+font-weight: normal;
+
+font-stretch: normal;
+
+font-style: normal;
+
+line-height: 1.25;
+
+letter-spacing: normal;
+
+text-align: left;
+
+color: #4d4f5c;
+}
