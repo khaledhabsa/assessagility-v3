@@ -428,11 +428,11 @@
 }
 
 .selectall, .usercheckbox{
-    background: url(../img/checkbox.png) no-repeat top left;
+    /*background: url(../img/checkbox.png) no-repeat top left;
     height: 21px;
     width: 23px;
     cursor: pointer;
-    margin: auto;
+    margin: auto;*/
 }
 .checked {
     background-position:bottom left !important ;
@@ -831,15 +831,15 @@ tr{
 }
 
 .usercheckbox {
-     background: url(../img/checkbox.png) no-repeat top left;
+    /* background: url(../img/checkbox.png) no-repeat top left;
      height: 21px;
      width: 23px; 
     cursor: pointer;
     margin: auto;
     /*width: 12px;
     height: 12px;*/
-    object-fit: contain;
-    border: solid 1px #a3a6b4;
+   /* object-fit: contain;
+    border: solid 1px #a3a6b4;*/
 }
 
 .editabletext {
@@ -964,4 +964,80 @@ letter-spacing: normal;
 text-align: left;
 
 color: #4d4f5c;
+}
+
+.checkbox {
+    width: 13px;
+    height: 13px;
+    border: solid 1px #101010;
+    background-color: #ffffff;
+    margin-left: 10px;
+}
+.custom-checkbox .custom-control-label::before {
+    width: 16px !important;
+    height: 16px !important;
+    border-radius: 2px !important;
+    border: solid 1px #101010 !important;
+    background-color: #ffffff;
+  }
+  .custom-checkbox .custom-control-input:focus~.custom-control-label::before {
+    box-shadow: none;
+  }
+  
+  .custom-checkbox .custom-control-input:checked~.custom-control-label::before {
+    border-radius: 2px;
+    background-color:#ffffff;
+    box-shadow: none;
+    border: none;
+    color: #000000;
+    font-family: "helvetica";
+    font-size: 13px;
+    letter-spacing: 0.45px;
+    line-height: 15px;
+  }
+  .custom-checkbox .custom-control-input:checked~.custom-control-label::after{
+    background-image:url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='red' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3E%3C/svg%3E");
+}
+.custom-control {
+    position: relative;
+    display: block;
+    min-height: 1.5rem;
+    padding-left: 10px;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+  .custom-control-label {
+    position: relative;
+    margin-bottom: 0;
+    vertical-align: middle;
+    font-family: Poppins;
+    font-size: 16px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #43425d;
+    padding-left: 23px;
+  }
+
+  .fontNormal{
+    font-weight: normal
+}
+
+.table-control{
+    display: flex;
+    /*align-items: center;*/
+    justify-content: center;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+   /* height: 100%;*/
+}
+
+.table-control label{
+   /* height: 100%;*/
+    padding-left: 15px;
+    /* padding-top: 25px; */
+   
 }
