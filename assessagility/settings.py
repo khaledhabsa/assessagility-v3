@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'c3oq*c(p6n)cv))(8u_d$)%!pueceq&bi*uc2pfulmz)j&pkuv'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -87,7 +87,7 @@ WSGI_APPLICATION = 'assessagility.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'assessagility',
+        'NAME': 'assessagility2',
         'USER': 'root',
         'PASSWORD': '',
         'HOST': 'localhost',

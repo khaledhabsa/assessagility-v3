@@ -43,14 +43,13 @@ def answerPage(request, *args, **kwargs):
         return redirect('survey:select_role')
 
     if request.user.profile.survey_finished:
-        # print(request.user.profile.survey_finished)
         return redirect('survey:finished')
-
+    
     my_roles = request.user.profile.roles.all()
     questions = Indicator.objects.filter(roles__in=my_roles)
     questions = questions.distinct().order_by('answer_range__order')
+    
     answers = Answer.objects.filter(user=request.user)
-
     if kwargs.get('mode') == '0':
         template_name = 'questions/multiple.html'
     else:
@@ -217,6 +216,7 @@ def set_my_answer(request, question_id, mcqanswer_id):
         a = Answer.objects.create(
             indicator=i, user=request.user, mcqanswer=mcqa)
     a.save()
+
     return HttpResponse(serializers.serialize('json', [a, ]))
 
 

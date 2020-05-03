@@ -134,6 +134,10 @@ def create_profile(sender, **kwargs):
     """When creating a new user, make a profile for him or her."""
     if kwargs['created']:
         user_profile = UserProfile.objects.create(user=kwargs['instance'])
+        from user_management.models.candidate import Candidate
+        Candidate.objects.create(first_name=kwargs['instance'].first_name,
+        last_name=kwargs['instance'].last_name,email=kwargs['instance'].email)
+       
     # u = kwargs["instance"]
     # if not UserProfile.objects.filter(user=u):
     #     UserProfile(user=u).save()
