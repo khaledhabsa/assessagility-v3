@@ -71,7 +71,7 @@ $(document).ready(function () {
 										<div class='custom-control custom-checkbox left'>\
 											<input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
 												name='example'>\
-											<label class='custom-control-label fontNormal' for='" + e.id + "'>&nbsp; &nbsp;&nbsp; &nbsp;\
+											<label class='custom-control-label fontNormal' for='" + e.id + "'>  \
 												"+ e.title + "</label>\
 										</div>\
 									</div>\
@@ -102,8 +102,8 @@ $(document).ready(function () {
                                           <div class='custom-control custom-checkbox left'>\
                                               <input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
                                                   name='example5'>\
-                                              <label class='custom-control-label fontNormal' for='"+ e.id + "'>&nbsp;\
-                                                  &nbsp;&nbsp; &nbsp;\
+                                              <label class='custom-control-label fontNormal' for='"+ e.id + "'>\
+                                                   \
                                                   "+ e.value + "</label>\
                                           </div>\
                                       </div>\
@@ -113,8 +113,8 @@ $(document).ready(function () {
                                           <div class='custom-control custom-checkbox left'>\
                                               <input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
                                                   name='example5'>\
-                                              <label class='custom-control-label fontNormal' for='"+ e.id + "'>&nbsp;\
-                                                  &nbsp;&nbsp; &nbsp;\
+                                              <label class='custom-control-label fontNormal' for='"+ e.id + "'>\
+                                                   \
                                                   "+ e.value + "</label>\
                                           </div>\
                                       </div>\
@@ -136,7 +136,7 @@ $(document).ready(function () {
 										<div class='custom-control custom-checkbox left'>\
 											<input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
 												name='example'>\
-											<label class='custom-control-label fontNormal' for='" + e.id + "'>&nbsp; &nbsp;&nbsp; &nbsp;\
+											<label class='custom-control-label fontNormal' for='" + e.id + "'>  \
 												"+ e.title + "</label>\
 										</div>\
 									</div>\
@@ -226,7 +226,7 @@ $("#imgDeleteModal").on("click", function (e) {
 												<div class='custom-control custom-checkbox left'>\
 													<input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
 														name='example'>\
-													<label class='custom-control-label fontNormal' for='" + e.id + "'>&nbsp; &nbsp;&nbsp; &nbsp;\
+													<label class='custom-control-label fontNormal' for='" + e.id + "'>  \
 														"+ e.title + "</label>\
 												</div>\
 											</div>\
@@ -257,8 +257,8 @@ $("#imgDeleteModal").on("click", function (e) {
 												<div class='custom-control custom-checkbox left'>\
 													<input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
 														name='example5'>\
-													<label class='custom-control-label fontNormal' for='"+ e.id + "'>&nbsp;\
-														&nbsp;&nbsp; &nbsp;\
+													<label class='custom-control-label fontNormal' for='"+ e.id + "'>\
+														 \
 														"+ e.value + "</label>\
 												</div>\
 											</div>\
@@ -268,8 +268,8 @@ $("#imgDeleteModal").on("click", function (e) {
 												<div class='custom-control custom-checkbox left'>\
 													<input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
 														name='example5'>\
-													<label class='custom-control-label fontNormal' for='"+ e.id + "'>&nbsp;\
-														&nbsp;&nbsp; &nbsp;\
+													<label class='custom-control-label fontNormal' for='"+ e.id + "'>\
+														 \
 														"+ e.value + "</label>\
 												</div>\
 											</div>\
@@ -291,7 +291,7 @@ $("#imgDeleteModal").on("click", function (e) {
 												<div class='custom-control custom-checkbox left'>\
 													<input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
 														name='example'>\
-													<label class='custom-control-label fontNormal' for='" + e.id + "'>&nbsp; &nbsp;&nbsp; &nbsp;\
+													<label class='custom-control-label fontNormal' for='" + e.id + "'>  \
 														"+ e.title + "</label>\
 												</div>\
 											</div>\
@@ -376,7 +376,7 @@ $(".bg-info").on("click", "#addDemo", function (e) {
 													<div class='custom-control custom-checkbox left'>\
 														<input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
 															name='example'>\
-														<label class='custom-control-label fontNormal' for='" + e.id + "'>&nbsp; &nbsp;&nbsp; &nbsp;\
+														<label class='custom-control-label fontNormal' for='" + e.id + "'>  \
 															"+ e.title + "</label>\
 													</div>\
 												</div>\
@@ -407,8 +407,8 @@ $(".bg-info").on("click", "#addDemo", function (e) {
 												  <div class='custom-control custom-checkbox left'>\
 													  <input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
 														  name='example5'>\
-													  <label class='custom-control-label fontNormal' for='"+ e.id + "'>&nbsp;\
-														  &nbsp;&nbsp; &nbsp;\
+													  <label class='custom-control-label fontNormal' for='"+ e.id + "'>\
+														   \
 														  "+ e.value + "</label>\
 												  </div>\
 											  </div>\
@@ -418,8 +418,8 @@ $(".bg-info").on("click", "#addDemo", function (e) {
 												  <div class='custom-control custom-checkbox left'>\
 													  <input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
 														  name='example5'>\
-													  <label class='custom-control-label fontNormal' for='"+ e.id + "'>&nbsp;\
-														  &nbsp;&nbsp; &nbsp;\
+													  <label class='custom-control-label fontNormal' for='"+ e.id + "'>\
+														   \
 														  "+ e.value + "</label>\
 												  </div>\
 											  </div>\
@@ -441,7 +441,7 @@ $(".bg-info").on("click", "#addDemo", function (e) {
 													<div class='custom-control custom-checkbox left'>\
 														<input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
 															name='example'>\
-														<label class='custom-control-label fontNormal' for='" + e.id + "'>&nbsp; &nbsp;&nbsp; &nbsp;\
+														<label class='custom-control-label fontNormal' for='" + e.id + "'>  \
 															"+ e.title + "</label>\
 													</div>\
 												</div>\
@@ -497,8 +497,8 @@ $(".bg-info").on("click", ".lastDiv", function (e) {
 							<div class='custom-control custom-checkbox left'>\
 								<input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
 									name='example5'>\
-								<label class='custom-control-label fontNormal' for='"+ e.id + "'>&nbsp;\
-									&nbsp;&nbsp; &nbsp;\
+								<label class='custom-control-label fontNormal' for='"+ e.id + "'>\
+									 \
 									"+ e.value + "</label>\
 							</div>\
 						</div>\
@@ -509,8 +509,8 @@ $(".bg-info").on("click", ".lastDiv", function (e) {
 							<div class='custom-control custom-checkbox left'>\
 								<input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
 									name='example5'>\
-								<label class='custom-control-label fontNormal' for='"+ e.id + "'>&nbsp;\
-									&nbsp;&nbsp; &nbsp;\
+								<label class='custom-control-label fontNormal' for='"+ e.id + "'>\
+									 \
 									"+ e.value + "</label>\
 							</div>\
 						</div>\
@@ -598,8 +598,8 @@ $("#imgDeleteValModal").on("click", function (e) {
 										<div class='custom-control custom-checkbox left'>\
 											<input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
 												name='example5'>\
-											<label class='custom-control-label fontNormal' for='"+ e.id + "'>&nbsp;\
-												&nbsp;&nbsp; &nbsp;\
+											<label class='custom-control-label fontNormal' for='"+ e.id + "'>\
+												 \
 												"+ e.value + "</label>\
 										</div>\
 									</div>\
@@ -609,8 +609,8 @@ $("#imgDeleteValModal").on("click", function (e) {
 										<div class='custom-control custom-checkbox left'>\
 											<input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
 												name='example5'>\
-											<label class='custom-control-label fontNormal' for='"+ e.id + "'>&nbsp;\
-												&nbsp;&nbsp; &nbsp;\
+											<label class='custom-control-label fontNormal' for='"+ e.id + "'>\
+												 \
 												"+ e.value + "</label>\
 										</div>\
 									</div>\
@@ -678,8 +678,8 @@ $(".bg-warning").on("click", "#addDemoVal", function (e) {
 										<div class='custom-control custom-checkbox left'>\
 											<input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
 												name='example5'>\
-											<label class='custom-control-label fontNormal' for='"+ e.id + "'>&nbsp;\
-												&nbsp;&nbsp; &nbsp;\
+											<label class='custom-control-label fontNormal' for='"+ e.id + "'>\
+												 \
 												"+ e.value + "</label>\
 										</div>\
 									</div>\
@@ -689,8 +689,8 @@ $(".bg-warning").on("click", "#addDemoVal", function (e) {
 										<div class='custom-control custom-checkbox left'>\
 											<input type='checkbox' class='custom-control-input' id='"+ e.id + "'\
 												name='example5'>\
-											<label class='custom-control-label fontNormal' for='"+ e.id + "'>&nbsp;\
-												&nbsp;&nbsp; &nbsp;\
+											<label class='custom-control-label fontNormal' for='"+ e.id + "'>\
+												 \
 												"+ e.value + "</label>\
 										</div>\
 									</div>\
