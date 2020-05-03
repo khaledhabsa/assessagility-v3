@@ -65,7 +65,7 @@
     color: #fff;
 }
 .questions-items{
-    max-height:500px;
+    height:500px;
     overflow:auto;
 }
 .lvalue {
