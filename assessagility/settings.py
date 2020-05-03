@@ -87,7 +87,7 @@ WSGI_APPLICATION = 'assessagility.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'assessagility2',
+        'NAME': 'assessagility',
         'USER': 'root',
         'PASSWORD': '',
         'HOST': 'localhost',
