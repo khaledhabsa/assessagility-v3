@@ -691,7 +691,7 @@ a.article:hover {
     background-color: #f1f1f1;
     /* margin-top: -5px; */
     align-items: center;
-    height: 54px;
+    min-height: 54px;
 }
 
 .centerDiv p {
@@ -717,7 +717,7 @@ a.article:hover {
     border-bottom: 1px solid #f1f1f3;
     /* margin-top: -5px; */
     padding: 14px 10px;
-    height: 54px;
+    min-height: 54px;
     padding-right: 17px;
 }
 
@@ -1469,6 +1469,7 @@ a.article:hover {
     letter-spacing: normal;
     text-align: left;
     color: #43425d;
+    padding-left: 23px;
   }
 .fontNormal{
     font-weight: normal
@@ -1785,7 +1786,7 @@ a.article:hover {
     border-bottom: 1px solid rgba(158,158,158,.5);
     align-items: center;
     position: sticky;
-    height: 54px;
+    min-height: 54px;
     top: 0px;
     bottom: 54px;
     z-index: 1000;
@@ -1821,7 +1822,7 @@ a.article:hover {
     border-bottom: 1px solid rgba(158,158,158,.5);
     align-items: center;
     position: sticky;
-    height: 54px;
+    min-height: 54px;
     top: 0px;
     bottom: 54px;
     z-index: 1000;
@@ -2190,7 +2191,7 @@ a.article:hover {
     color: #fff;
 }
 .questions-items{
-    height:500px;
+    max-height:500px;
     overflow:auto;
 }
 .lvalue {
