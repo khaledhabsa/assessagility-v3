@@ -1,3 +1,15 @@
+var myVar;
+    
+function startLoading() {
+	console.log('startLoading')
+    myVar = setTimeout(showPage, 6000);
+}
+
+function showPage() {
+
+  document.getElementById("cover-spin").style.display = "none";
+  console.log(document.getElementById("cover-spin"));
+}
 function apply_macros(input, macros) {
     var re;
     if (input.indexOf("#") > -1) {
@@ -56,6 +68,7 @@ var update_progress_single = function () {
 }
 
 $(document).ready(function () {
+    startLoading()
 
     $('.submit-survey').click(function () {
         $('#survey-modal').modal();

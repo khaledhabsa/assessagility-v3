@@ -10,6 +10,7 @@
 {% endblock %}
 
 {% block content %}
+<div id="cover-spin"></div>
   <div class="AssessmentContainer questions single">
     <div class="row">
       <div class="col-lg-12 col-md-12 ml-auto col-sm-12 col-xs-12">
@@ -19,7 +20,7 @@
             <div class="btn-group questions-sort" style="border: 1px solid #cacacc;
             border-radius: 2px;">
               <a class="btn btn-default notcompleted" href="#">{% trans "Show only not completed" %}</a>
-              <a class="btn btn-default active all" href="#">{% trans "Show all" %}</a>
+              <a class="btn btn-default active all" style="background-color: lightgray !important;" href="#">{% trans "Show all" %}</a>
             </div>
             <div class="nfo" title="All answers are automatically saved. You can continue working on the survey as needed. The submit button will be active once you finish all the questions in the survey."><i class="fa fa-info-circle"></i></div>
             
@@ -27,7 +28,7 @@
           <div class="col-md-5">
             <div class="btn-group questions-layout" style="border: 1px solid #cacacc;
             border-radius: 2px;">
-              <a class="btn btn-light single"  href="{% url 'survey:answerpage' mode=1 %}">{% trans "One question" %}</a>
+              <a class="btn btn-light single"  style="background-color: lightgray !important;" href="{% url 'survey:answerpage' mode=1 %}">{% trans "One question" %}</a>
               <a class="btn btn-light multiples" style="border-right:1px solid #cacacc;" href="{% url 'survey:answerpage' mode=0 %}">{% trans "Multiple question" %}</a>
             </div>
           </div>

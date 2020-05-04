@@ -1,3 +1,16 @@
+
+//var myVar;
+    
+function startLoading() {
+	console.log('startLoading')
+  //myVar = setTimeout(showPage, 100000);
+}
+
+function showPage() {
+
+  document.getElementById("cover-spin").style.display = "none";
+  console.log(document.getElementById("cover-spin"));
+}
 var reports = reports || {};
 
 $(document).ready(function () {
@@ -14,7 +27,7 @@ reports.GetSpectrumData = function () {
 	if (reports.flags.isredraw == 1) {
 		$('.chartbarstable').html('');
 	}
-
+	startLoading()
 	$.ajax({
 		type: "POST",
 		url: '/report/practice/spectrum/json/',
@@ -34,7 +47,8 @@ reports.GetSpectrumData = function () {
 			console.log('server error:', data, reports.chart);
 			reports.flags.chartdata = 1;
 			reports.drawComplete(1);
-		}
+		},
+		complete:showPage()
 	})
 }
 

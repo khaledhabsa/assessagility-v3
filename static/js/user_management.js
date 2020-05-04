@@ -1,3 +1,13 @@
+function startLoading() {
+	console.log('startLoading')
+  //myVar = setTimeout(showPage, 100000);
+}
+
+function showPage() {
+
+  document.getElementById("cover-spin").style.display = "none";
+  console.log(document.getElementById("cover-spin"));
+}
 jQuery(document).ajaxSend(function (event, xhr, settings) {
 	function getCookie(name) {
 		var cookieValue = null;
@@ -90,7 +100,7 @@ function Delete() {
 
 	}
 	if (ids.length > 0) {
-
+		startLoading();
 		$.ajax({
 			url: 'deletecandidate/',
 			cache: false,
@@ -109,7 +119,8 @@ function Delete() {
 			},
 			error: function () {
 				//alert('failure');
-			}
+			},
+			complete:showPage()
 		});
 
 		refreshDisplay();
@@ -126,7 +137,7 @@ function ExcludeUser() {
 
 	}
 	if (ids.length > 0) {
-
+		startLoading();
 		$.ajax({
 			url: 'exclude/',
 			cache: false,
@@ -145,7 +156,8 @@ function ExcludeUser() {
 			},
 			error: function () {
 				//alert('failure');
-			}
+			},
+			complete:showPage()
 		});
 
 		refreshDisplay();
@@ -162,7 +174,7 @@ function IncludeUser() {
 
 	}
 	if (ids.length > 0) {
-
+		startLoading();
 		$.ajax({
 			url: 'include/',
 			cache: false,
@@ -181,7 +193,8 @@ function IncludeUser() {
 			},
 			error: function () {
 				//alert('failure');
-			}
+			},
+			complete:showPage()
 		});
 
 		refreshDisplay();
@@ -318,6 +331,7 @@ function GetAll(page) {
 			'page': page,
 		}
 	}
+	startLoading();
 	$.ajax({
 		url: '/usermanagement/getallcandidate/',
 		cache: false,
@@ -336,7 +350,8 @@ function GetAll(page) {
 			$(".InvCount").html($.trim("(" + data['count_inv'] + ")"));
 			$(".PartCount").html($.trim("(" + data['count_part'] + ")"));
 		},
-		error: function (request, status, error) { alert(status + ", " + error); }
+		error: function (request, status, error) { alert(status + ", " + error); },
+		complete:showPage()
 	});
 
 }
@@ -374,6 +389,7 @@ function PrepareSelectall() {
 
 
 $(document).ready(function () {
+
 	//$('.selectall').live('click', function() {
 	$(document).on('click', '.selectall', function () {
 
@@ -454,10 +470,10 @@ $(document).ready(function () {
 		}
 	});
 	$('.addcandidatebutton').click(function () {
-
+		startLoading()
 
 		if ($('#addnewcadidateform').valid()) {
-
+			startLoading();
 			$.ajax({
 				url: 'addcandidate/',
 				type: 'POST',
@@ -483,7 +499,8 @@ $(document).ready(function () {
 				},
 				error: function () {
 					//alert('failure');
-				}
+				},
+				complete:showPage()
 			});
 		}
 
@@ -501,7 +518,7 @@ $(document).ready(function () {
 
 		}
 		if (ids.length > 0) {
-
+			startLoading();
 			$.ajax({
 				url: 'deletecandidate/',
 				cache: false,
@@ -520,7 +537,8 @@ $(document).ready(function () {
 				},
 				error: function () {
 					//alert('failure');
-				}
+				},
+				complete:showPage()
 			});
 
 			refreshDisplay();
@@ -580,7 +598,7 @@ $(document).ready(function () {
 			firstname = row.find('#firstname').val();
 			lastname = row.find('#lastname').val();
 			email = row.find('#email').val();
-
+			startLoading()
 			$.ajax({
 				url: 'updateuser/',
 				type: 'POST',
@@ -599,7 +617,8 @@ $(document).ready(function () {
 				},
 				error: function () {
 					alert('error : communication failure with the server.');
-				}
+				},
+				complete:showPage()
 			});
 
 			row.find('.firstname>.editabletext').text(firstname);
