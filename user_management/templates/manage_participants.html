@@ -74,7 +74,7 @@
           <table id="users_table" class="table table-borderless table-hover table-striped text-center">
               <thead >
                 <th scope="col" ><!--div class="selectall" id="-1"></div-->
-                  <div class="custom-control custom-checkbox left table-control ">
+                  <div class="custom-control custom-checkbox left table-control " style='margin-top: 0px !important;'>
                     <input type="checkbox" id="-1" class="custom-control-input  selectall"  onClick="UpdateSelectall()" >
                     <label class="custom-control-label fontNormal" for="-1" ></label>
                   </div>
@@ -128,7 +128,7 @@
           {#foreach $T as record}
             <tr id='tr_{$T.record.id}'>
               <td><!--div class="" id='{$T.record.id}'></div-->
-              <div class="custom-control custom-checkbox left table-control ">
+              <div class="custom-control custom-checkbox left table-control " style='margin-top: 0px !important;'>
                 <input type="checkbox" id='{$T.record.id}' class="custom-control-input usercheckbox " >
                 <label class="custom-control-label fontNormal " for='{$T.record.id}'></label>
               </div>
