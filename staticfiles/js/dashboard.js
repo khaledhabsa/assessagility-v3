@@ -1,3 +1,15 @@
+//var myVar;
+    
+function startLoading() {
+	console.log('startLoading')
+  //myVar = setTimeout(showPage, 100000);
+}
+
+function showPage() {
+
+  document.getElementById("cover-spin").style.display = "none";
+  console.log(document.getElementById("cover-spin"));
+}
 function check_value(id) {
   var checkBox = document.getElementById(id);
   // var imgDelete = document.getElementById("imgDelete");
@@ -167,6 +179,7 @@ $("#btnassess").on("click", "#startAsseement", function () {
   var id = 0
   $("#demoGraph").empty();
   $("#values").empty();
+  startLoading()
   $.ajax({
     url: '/survey/getalldemgraphic/',
     cache: false,
@@ -195,6 +208,7 @@ $("#btnassess").on("click", "#startAsseement", function () {
                 </div>"
           $("#currentDemo").empty()
           $("#currentDemo").append(e.title)
+          
           $.ajax({
             url: '/survey/getalldemgraphicvalue/',
             data: {
@@ -271,7 +285,8 @@ $("#btnassess").on("click", "#startAsseement", function () {
     },
     error: function (error) {
 
-    }
+    },
+    complete:showPage()
   })
 
 })
@@ -481,6 +496,7 @@ $(".bg-info").on("click", "#addDemo", function (e) {
   if ($(".bg-info #addDemoInp").val() === '') {
     console.log("done")
   } else {
+    startLoading()
     $.ajax({
       url: '/survey/adddemographic/',
       type: 'POST',
@@ -614,7 +630,8 @@ $(".bg-info").on("click", "#addDemo", function (e) {
 
           }
         })
-      }
+      },
+       complete:showPage()
     })
   }
 
@@ -630,7 +647,7 @@ $(".bg-info").on("click", ".lastDiv", function (e) {
   $(this).removeClass("lastDiv");
   var idOb = $(this).find(".custom-control-input").attr("id")
   var id = $(this).find("input[type=checkbox").attr("id")
-
+  startLoading()
   $.ajax({
     url: '/survey/getalldemgraphicvalue/',
     data: {
@@ -680,7 +697,8 @@ $(".bg-info").on("click", ".lastDiv", function (e) {
     },
     error: function (data) {
 
-    }
+    },
+    complete:showPage()
 
   })
 
@@ -722,6 +740,7 @@ $(".bg-warning").on("click", "#imgDeleteVal", function (e) {
       ids.push($(ob).find(".custom-control-input").attr("id"))
   })
   var demo = $(".bg-info #demoGraph .centerDiv").find(".custom-control-input").attr("id")
+  startLoading()
   $.ajax({
     url: '/survey/deletedemographicvalue/',
     data: {
@@ -771,7 +790,8 @@ $(".bg-warning").on("click", "#imgDeleteVal", function (e) {
           })
         }
       })
-    }
+    },
+    complete:showPage()
   })
 
 })
@@ -801,6 +821,7 @@ $(".bg-warning #values").on("click", "#closeDemoVal", function () {
 })
 $(".bg-warning").on("click", "#addDemoVal", function (e) {
   var demo = $(".bg-info #demoGraph .centerDiv").find(".custom-control-input").attr("id")
+  startLoading()
   $.ajax({
     url: '/survey/adddemographicvalue/',
     type: 'POST',
@@ -851,7 +872,8 @@ $(".bg-warning").on("click", "#addDemoVal", function (e) {
           })
         }
       })
-    }
+    },
+    complete:showPage()
   })
 
 
