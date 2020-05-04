@@ -336,6 +336,7 @@ a.article:hover {
     font-size: 13px;
     letter-spacing: 0.45px;
     line-height: 15px;
+    cursor: pointer;
 }
 .custom-checkbox .custom-control-input:checked~.custom-control-label::after{
     background-image:url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='red' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3E%3C/svg%3E");
@@ -510,6 +511,7 @@ a.article:hover {
 
 .left {
     float: left;
+    
 }
 
 .right {
@@ -1457,6 +1459,7 @@ a.article:hover {
     padding-left: 10px;
     overflow-wrap: break-word;
     word-break: break-word;
+    margin-top: -25px !important;
 }
   .custom-control-label {
     position: relative;
@@ -1471,6 +1474,7 @@ a.article:hover {
     text-align: left;
     color: #43425d;
     padding-left: 23px;
+    cursor: pointer;
   }
 .fontNormal{
     font-weight: normal
@@ -2521,4 +2525,21 @@ div.answer-option{
     border-radius:50%;
     -webkit-animation: spin .8s linear infinite;
     animation: spin .8s linear infinite;
+}
+.demo{
+    position: relative;
+    margin-bottom: 0;
+    vertical-align: middle;
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #43425d;
+}
+.demo-title{
+    cursor: default;
+    
 }
