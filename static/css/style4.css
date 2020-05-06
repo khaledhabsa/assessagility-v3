@@ -2522,3 +2522,11 @@ div.answer-option{
     -webkit-animation: spin .8s linear infinite;
     animation: spin .8s linear infinite;
 }
+
+
+.preloader-bg{
+    background:url(../img/preloader.GIF) no-repeat center center;
+    width:100%;
+    min-height:100px;
+    display:block;
+}
