@@ -219,3 +219,14 @@
 .reportpdfbtn {
     width: 100%;
 }
+
+.preloader-bg{
+    background:url(../img/preloader.GIF) no-repeat center center;
+    width:100%;
+    min-height:100px;
+    display:block;
+}
+
+.chartcontent a{
+    color: #026b9c;
+}
