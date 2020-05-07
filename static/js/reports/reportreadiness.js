@@ -1,3 +1,15 @@
+//var myVar;
+    
+function startLoading() {
+	console.log('startLoading')
+  //myVar = setTimeout(showPage, 100000);
+}
+
+function showPage() {
+
+  document.getElementById("cover-spin").style.display = "none";
+  console.log(document.getElementById("cover-spin"));
+}
 //reports.drawComplete();
 
 var reports = reports || {};
@@ -17,7 +29,7 @@ reports.GetReadingsData = function () {
         $('.chartbarstable').html('');
     }
 
-
+    startLoading()
     $.ajax({
         type: "POST",
         url: '',
@@ -37,7 +49,8 @@ reports.GetReadingsData = function () {
             console.log('server error:', data, reports.chart);
             reports.flags.chartdata = 1;
             reports.drawComplete(1);
-        }
+        },
+        complete:showPage()
     })
 }
 

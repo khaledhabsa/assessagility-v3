@@ -11,7 +11,7 @@
 {% block breadcrumb %} <a href="{% url 'client_admin:home' %}">Dashboard</a> / <a href="{% url 'user_management:home' %}">Manage Participants</a>{% endblock %}
 {% block subtitle %} Demographic{% endblock %}
 {% block content %}
-  
+<div id="cover-spin"></div>
   <div class="AssessmentContainer AssessmentCustom">
     <div class="row">
       <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 centerVertical">
@@ -74,7 +74,7 @@
           <table id="users_table" class="table table-borderless table-hover table-striped text-center">
               <thead >
                 <th scope="col" ><!--div class="selectall" id="-1"></div-->
-                  <div class="custom-control custom-checkbox left table-control ">
+                  <div class="custom-control custom-checkbox left table-control " style='margin-top: 0px !important;'>
                     <input type="checkbox" id="-1" class="custom-control-input  selectall"  onClick="UpdateSelectall()" >
                     <label class="custom-control-label fontNormal" for="-1" ></label>
                   </div>
@@ -128,7 +128,7 @@
           {#foreach $T as record}
             <tr id='tr_{$T.record.id}'>
               <td><!--div class="" id='{$T.record.id}'></div-->
-              <div class="custom-control custom-checkbox left table-control ">
+              <div class="custom-control custom-checkbox left table-control " style='margin-top: 0px !important;'>
                 <input type="checkbox" id='{$T.record.id}' class="custom-control-input usercheckbox " >
                 <label class="custom-control-label fontNormal " for='{$T.record.id}'></label>
               </div>

@@ -1,4 +1,18 @@
+
+var myVar;
+    
+function startLoading() {
+	console.log('startLoading')
+    myVar = setTimeout(showPage, 5000);
+}
+
+function showPage() {
+
+  document.getElementById("cover-spin").style.display = "none";
+  console.log(document.getElementById("cover-spin"));
+}
 $(document).ready(function () {
+	startLoading();
 	var macros;
 	$('.code').live("mousemove mouseout", function (event) {
 		if (event.type == "mousemove") {

@@ -1,3 +1,15 @@
+//var myVar;
+    
+function startLoading() {
+	console.log('startLoading')
+  //myVar = setTimeout(showPage, 100000);
+}
+
+function showPage() {
+
+  document.getElementById("cover-spin").style.display = "none";
+  console.log(document.getElementById("cover-spin"));
+}
 var reports = reports || {};
 $(document).ready(function () {
 	reports.GetRadarData();
@@ -14,6 +26,7 @@ reports.GetRadarData = function () {
 		q.eq(0).text('');
 		q.eq(1).html('');
 	}
+	startLoading();
 	$.ajax({
 		type: "POST",
 		url: '/report/category/radar/json/?v=3',
@@ -32,7 +45,9 @@ reports.GetRadarData = function () {
 		error: function (data) {
 			reports.flags.chartdata = 1;
 			reports.drawComplete(1);
-		}
+		},
+		complete:showPage()
+
 	})
 }
 
