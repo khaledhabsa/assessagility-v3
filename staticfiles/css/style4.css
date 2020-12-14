@@ -2543,3 +2543,10 @@ div.answer-option{
     cursor: default;
     
 }
+
+.preloader-bg{
+    background:url(../img/preloader.GIF) no-repeat center center;
+    width:100%;
+    min-height:100px;
+    display:block;
+}

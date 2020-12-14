@@ -27,7 +27,7 @@ reports.GetSpectrumData = function () {
 	if (reports.flags.isredraw == 1) {
 		$('.chartbarstable').html('');
 	}
-	startLoading()
+
 	$.ajax({
 		type: "POST",
 		url: '/report/practice/spectrum/json/',
@@ -48,7 +48,6 @@ reports.GetSpectrumData = function () {
 			reports.flags.chartdata = 1;
 			reports.drawComplete(1);
 		},
-		complete:showPage()
 	})
 }
 
