@@ -356,11 +356,11 @@ def import_db(request):
             McqAnswer.objects.all().delete()
             AnswerRange.objects.all().delete()
             ws = wb.sheet_by_name('answer-set')
-            for row in xrange(1, ws.nrows):
+            for row in range(1, ws.nrows):
                 current_answer_range = AnswerRange.objects.create(
                     title=ws.cell(row, 0).value)
                 current_answer_range.save()
-                for index, number in enumerate(xrange((ws.ncols-1)/3)):
+                for index, number in enumerate(range(int((ws.ncols-1)/3))):
                     current_mcq = McqAnswer.objects.create(answerrange=current_answer_range,
                                                            title=ws.cell(
                                                                row, 1+index*3).value,
