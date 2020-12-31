@@ -14,7 +14,7 @@
         integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <!-- Our Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/style4.css' %}">
-   
+
 
     <!-- Font Awesome JS -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
@@ -32,7 +32,8 @@
         <!-- Sidebar  -->
         <nav id="sidebar">
             <div class="sidebar-header">
-                <h3 class="headerTitle">assessagility.com</h3>
+                <!-- <h3 class="headerTitle">assessagility.com</h3> -->
+               <img src="{% static 'images/sidebar-header.png'%}" style="width:100%">
                 <strong>AA</strong>
             </div>
 
@@ -79,7 +80,7 @@
                             </li>
                         </ul>
                     </div>
-                           
+
                 </li>
             </ul>
 
@@ -93,7 +94,7 @@
                     <div class="col-sm-12 col-md-12">
                         <ul class="nav navbar-nav pull-right">
                             <li>
-                                <a class="nav-link" href="#" id="user-header">  Welcome {{user.username}}&nbsp; 
+                                <a class="nav-link" href="#" id="user-header">  Welcome {{user.username}}&nbsp;
                                     {% comment %} <img src="{% static 'images/account_circle-24px.svg'%}">&nbsp; {% endcomment %}
                                     <img class="user-icon" src="{% static 'images/arrow_drop_down-24px (1).svg'%}"> &nbsp;
                                 </a>
@@ -103,9 +104,9 @@
                                     </li>
                                     <li>
                                         <a href="{% url 'survey:user_logout' %}" class="menu-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
-                                    </li> 
+                                    </li>
                                 </ul>
-                                
+
                             </li>
 
                         </ul>
@@ -123,7 +124,7 @@
                 </p>
 
                 {% block content %}{% endblock %}
-               
+
 
             </div>
 
@@ -152,9 +153,9 @@
     </script>
     <script>
         function activeLink() {
-            
+
             var dashboard = document.getElementById('dashboard');
-            
+
             var path = window.location.pathname
             var link = path.split("/")[1];
             if (path.search("client") > 0)
@@ -170,9 +171,9 @@
                     $(".sidebar-submenu").slideDown();
                     $(".sidebar-submenu").addClass("showed");
                     document.getElementById('practice').classList.add('active');
-                
+
                 }else if(path.search("spectrum") > 0){
-                    
+
                     $(".sidebar-submenu").slideDown();
                     $(".sidebar-submenu").addClass("showed");
                     document.getElementById('pdf').classList.add('active');
@@ -202,7 +203,7 @@
 
         })
     </script>
-    
+
     {% block js %}{% endblock %}
 </body>
 

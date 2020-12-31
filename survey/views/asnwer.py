@@ -44,11 +44,11 @@ def answerPage(request, *args, **kwargs):
 
     if request.user.profile.survey_finished:
         return redirect('survey:finished')
-    
+
     my_roles = request.user.profile.roles.all()
     questions = Indicator.objects.filter(roles__in=my_roles)
     questions = questions.distinct().order_by('answer_range__order')
-    
+
     answers = Answer.objects.filter(user=request.user)
     if kwargs.get('mode') == '0':
         template_name = 'questions/multiple.html'
@@ -116,8 +116,7 @@ def edit_user_demographics(request):
 
 @login_required(login_url="/accounts/login?next=survey:finished")
 def finished(request):
-
-    if isValidSurveyOption("survey_closed", "closed"):
+    if isValidSurveyOption("survey_closed", "show"):
         user_profile = request.user.profile
         user_profile.survey_finished = True
         user_profile.save()

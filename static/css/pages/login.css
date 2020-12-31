@@ -1,6 +1,9 @@
 .col-md-12.logo{
     text-align:center;
 }
+.col-md-12.logo img{
+    width: 100%;
+}
 
 .widget .widget-head{
     height:5px;
@@ -27,7 +30,7 @@
 }
 
 .widget input#inputEmail,
-.widget input#inputFirstName, 
+.widget input#inputFirstName,
 .widget input#inputLastName,
 .widget input#inputUsername{
     background:url('../../img/user-icon.png') 10px center no-repeat;

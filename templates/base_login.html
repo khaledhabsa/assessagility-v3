@@ -12,11 +12,11 @@
     <script type="text/JavaScript" src="{% static 'scripts/jquery-1.4.2.min.js' %}"></script>
     <script type="text/JavaScript" src="{% static 'scripts/jquery.curvycorners.source.js' %}"></script>
     <script type="text/JavaScript" src="{% static 'scripts/jquery.cookie.js' %}"></script>
-    
+
     <script type="text/JavaScript">
-      
-      $(function(){ 
-      
+
+      $(function(){
+
       settings = {
       tl: { radius: 8 },
       tr: { radius: 8 },
@@ -26,11 +26,11 @@
       autoPad: true,
       validTags: ["div"]
       }
-      
+
       $('.curvyTabLogin').corner(settings);
-      
+
       });;
-      
+
     </script>
     <script src="{% static 'scripts/jquery.corners.min.js' %}"></script>
 
@@ -40,11 +40,11 @@
     <script type="text/javascript">
       $(document).ready(function(){
       $('.rounded').corners();
-      
-      
-      /* cookie checker for add logo once*/ 
+
+
+      /* cookie checker for add logo once*/
       var showOnce = $.cookie('showOnce')
-      
+
 
       if(showOnce == null){
       $(".showOnce").show();
@@ -52,7 +52,7 @@
       $(".showOnce").hide();
       }
       $.cookie('showOnce', 'showOnceValue');
-      
+
       });
     </script>
   </head>
@@ -64,7 +64,7 @@
 	    <!--<div class="showOnce"></div> -->
             <div class="logoBlock">
               <a href="#">
-                
+
               </a>
             </div>
             <div class="curvyTabLogin">SIGN IN</div>
