@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
+from user_management.models.candidate import Candidate
 import re
 
 
@@ -140,6 +141,11 @@ class AddUserForm(forms.ModelForm):
             username=self.cleaned_data.get("email"),
             email=self.cleaned_data.get("email"),
             last_login=now()
+        )
+        c = Candidate.objects.create(
+            first_name = self.cleaned_data.get("first_name"),
+            last_name = self.cleaned_data.get("last_name"),
+            email = self.cleaned_data.get("email")
         )
 
         user.set_password(self.cleaned_data.get("password"))
