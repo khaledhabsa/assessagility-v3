@@ -51,9 +51,10 @@ def answerPage(request, *args, **kwargs):
 
     answers = Answer.objects.filter(user=request.user)
     if kwargs.get('mode') == '0':
-        template_name = 'questions/multiple.html'
-    else:
         template_name = 'questions/single.html'
+    else:
+        template_name = 'questions/multiple.html'
+
 
     return render(request, template_name, {'questions': questions,
                                            'answers': answers,
